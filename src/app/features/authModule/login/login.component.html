@@ -1,0 +1,41 @@
+<div class="login-container">
+    <div class="left-block">
+      <h1>CVTHEQUE</h1>
+    </div>
+    <div class="right-block">
+      <h2>LOGIN</h2>
+      <p>Login and get access to everything</p>
+  
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required>
+          <mat-error *ngIf="formControls['email'].invalid && formControls['email'].touched">
+            <span *ngIf="formControls['email'].errors?.['required']">Email is required.</span>
+            <span *ngIf="formControls['email'].errors?.['email']">Invalid email format.</span>
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required>
+          <mat-error *ngIf="formControls['password'].invalid && formControls['password'].touched">
+            <span *ngIf="formControls['password'].errors?.['required']">Password is required.</span>
+            <span *ngIf="formControls['password'].errors?.['minlength']">Password must be at least 6 characters long.</span>
+          </mat-error>
+        </mat-form-field>
+  
+        <div class="login-button-container">
+          <button mat-raised-button color="primary" [disabled]="loading">Login</button>
+        </div>
+  
+        <div *ngIf="error" class="error-message">{{ error }}</div>
+  
+        <div class="links">
+          <a href="#">Forgot Password?</a>
+          <p>Don't you have an account? <a href="#">Register</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+  
