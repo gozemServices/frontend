@@ -1,0 +1,48 @@
+<div class="mt-4 my-10 bg-white w-90 rounded-xl px-4 flex justify-center items-center flex-col mx-auto  p-8">
+        <h2 class="text-2xl font-bold mb-4 ">Contact Us</h2>
+        <p>Un soucis, une suggestion, envoyez nous un message et nous vous répondront dans de brefs délais</p>
+        <form 
+            [formGroup]="contactForm" 
+            (ngSubmit)="onSubmit()"
+            class="p-8 shadow-xl"
+        >
+            <mat-form-field appearance="fill" class="w-full mb-4">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-error *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+                    Name is required.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full mb-4">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" required>
+                <mat-error *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+                    Valid email is required.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full mb-4">
+                <mat-label>Phone</mat-label>
+                <input matInput type="tel" formControlName="phone">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full mb-4">
+                <mat-label>Message</mat-label>
+                <textarea matInput formControlName="content" rows="4" required></textarea>
+                <mat-error *ngIf="contactForm.get('content')?.invalid && contactForm.get('content')?.touched">
+                    Message is required.
+                </mat-error>
+            </mat-form-field>
+
+            <button 
+                type="submit" 
+                [disabled]="contactForm.invalid" 
+                class="w-fit px-4 cursor-pointer bg-white border-[#AF4E64] border-2 text-[#AF4E64] font-bold py-2 rounded-sm hover:bg-[#AF4E64] hover:text-white transition duration-800"
+            >
+                Send Message
+            </button>
+
+            
+        </form>
+</div>

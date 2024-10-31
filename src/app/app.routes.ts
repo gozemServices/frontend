@@ -6,7 +6,9 @@ import { AuthComponent } from './features/authModule/auth/auth.component';
 
 export const routes: Routes = [
     {
-        path: '', component: AppComponent
+        path: '',  
+        loadComponent: () =>
+            import('./features/landing/landing.component').then((c) => c.LandingComponent),
     },
     {
         path: 'auth',

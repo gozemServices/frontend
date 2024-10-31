@@ -1,0 +1,78 @@
+/*
+--------------------------------------------------
+HAMBURGER MENU STYLES
+--------------------------------------------------
+*/
+@media screen and (min-width : 838px) {
+.hamburger {
+display: none;
+}
+}
+
+.hamburger{
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    transition: all 0.25s;
+    position: relative;
+    border: none;
+    z-index: 999999999;
+    background: none;
+}
+
+.hamburger-top,
+.hamburger-middle,
+.hamburger-bottom{
+    position:absolute;
+    top : 0;
+    left: -5px;
+    width: 24px;
+    height: 4px;
+    background: white;
+    transform: rotate(0);
+    transition: all 0.5s;
+    border-radius: 3px;
+}
+
+.hamburger-middle{
+transform: translateY(7px);
+}
+.hamburger-bottom{
+transform: translateY(14px);
+}
+
+.open{
+transform: rotate(90deg);
+transform: translateY(0px);
+}
+
+.open .hamburger-top{
+transform: rotate(45deg) translateY(6px) translate(7px);
+}
+
+.open .hamburger-bottom{
+transform: rotate(-45deg) translateY(6px) translate(-7px);
+}
+
+.open .hamburger-middle{
+display: none;
+}
+/* 
+.section-content{
+width: calc(100% - 45px);
+background: url("../../public/images/app/phone_logo.png");
+} */
+
+
+.menu-btn-side .hamburger-top,
+.menu-btn-side .hamburger-middle,
+.menu-btn-side .hamburger-bottom{
+background: white;
+}
+
+
+/* html.dark #menu-btn-side .hamburger-top,
+html.dark #menu-btn-side .hamburger-middle,
+html.dark #menu-btn-side .hamburger-bottom{
+background: white;
+} */

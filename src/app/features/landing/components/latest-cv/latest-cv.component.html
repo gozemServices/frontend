@@ -1,0 +1,24 @@
+<div class="relative overflow-hidden w-full h-screen">
+  <div class="absolute inset-0 transition-transform duration-700">
+    <ng-container>
+      <img src="images/people_in_meeting_from_top.jpg" class="w-full h-full object-cover" alt="Slider Image" />
+    </ng-container>
+  </div>
+
+  <!-- Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-black opacity-80"></div>
+  <div class="absolute top-0 left-0 h-full w-full inset-0 flex flex-col items-center justify-center gap-10">
+    <h1 class="website_title text-white text-4xl font-bold">{{ "CHECK_LATEST_CV_INTRO" | translate }}</h1>
+    <p class="text-white text-2xl text-center">{{ "CHECK_LATEST_CV_DESC" | translate }}</p>
+    <div class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+      <div class="latest-cv flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll" #cvContainer>
+        <div *ngFor="let cv of cvs" class="jobseeker-card inline-block mx-2 flex flex-col items-center w-[329px] h-[329px]"[ngStyle]="{ 'background-color': cv.color }">
+          <img src="{{ cv.image }}" alt="" class="w-[45px] h-[45px] rounded-full">
+          <p>{{ cv.title }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <button class="px-6 py-2 bg-[#AF4E64] text-white transition duration-800 hover:bg-[#701C2F]">{{ "SEE_MORE" | translate }}</button>
+  </div>
+</div>

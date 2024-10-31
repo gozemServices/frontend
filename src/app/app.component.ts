@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import { TranslationService } from './core/services/translation.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 export class AppComponent {
   title = 'frontend';
   constructor(
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private translationService: TranslationService
   ) {
     this.translateService.addLangs(['fr', 'en']);
     this.translateService.setDefaultLang('en');

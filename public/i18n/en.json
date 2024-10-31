@@ -1,3 +1,11 @@
 {
-    "HELLO": "Hi everyone"
+    "HELLO": "Hi everyone",
+    "SIGNUP": "signup",
+    "LOGIN": "login",
+    "HOME": "home",
+    "SERVICES": "services",
+    "CONTACTS-US": "contact-us",
+    "FIND_TALENTS": "Trouvez les talents dont vous avez besoin, plus rapidement",
+    "FIND_JOBS": "Soyez trouvés par les entreprises ideales pour les postes de vos rêves",
+    "START_NOW": "Commencez dès maintenant"
 }
