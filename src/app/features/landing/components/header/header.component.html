@@ -5,8 +5,8 @@
       </div>
       <div class="flex flex-col items-end justify-center gap-2 capitalize">
         <div class="sign-block ml-2">
-          <a href="#" class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"SIGNUP" | translate}}</a>
-          <a href="#" class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"LOGIN" | translate}}</a>
+          <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"SIGNUP" | translate}}</a>
+          <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"LOGIN" | translate}}</a>
         </div>
         <nav class="flex justify-center items-center px-6 py-2 border-y-2 border-white capitalize">
           <a href="" class="mx-4 px-2 py-2 text-white hover:text-[#AF4E64]">{{"HOME" | translate}}</a>
@@ -42,8 +42,8 @@
       </div>
       <div class="flex flex-col items-end justify-center gap-2 text-xl mt-4">
         <div class="sign-block w-full">
-          <a href="#" class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"SIGNUP" | translate}}</a>
-          <a href="#" class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"LOGIN" | translate}}</a>
+          <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active"  class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"SIGNUP" | translate}}</a>
+          <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active"  class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"LOGIN" | translate}}</a>
         </div>
         <nav class="flex flex-col w-full justify-center items-center">
           <a href="#" class="mx-4 px-2 py-2 text-white hover:text-[#AF4E64]">{{"HOME" | translate}}</a>
