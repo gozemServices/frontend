@@ -1,1 +1,50 @@
-<p>user-dashboard works!</p>
+<main class="w-full min-h-screen bg-gray-200 flex flex-row-reverse z-0 relative shadow-xl">
+    <div class="w-full h-full bg-black z-30 absolute top-0 left-0 bg-opacity-70 hidden" id="dark_overlay"></div>
+    <app-sidebar (tabSelected)="onTabSelected($event)"></app-sidebar>
+    <section class="p-4 md:mr-64 flex flex-col w-full">
+        <header class="section-header flex w-full justify-around items-center px-4 py-8 bg-white rounded-xl shadow-lg shadow-gray-400">
+            <button  id="menu-btn-side" class="absolute block z-40 bg-transparent border-none hamburger md:hidden focus:outline-none">
+                <span class="hamburger-top"></span>
+                <span class="hamburger-middle"></span>
+                <span class="hamburger-bottom"></span>
+            </button>
+            <h2 class="flex items-center dark:text-white"><span class=" hidden mr-2 sm:block">Bienvenue </span><span class="font-bold text-xl capitalize"><span>$user->username</span></span></h2>
+            <div class="links flex justify-center items-center space-x-2">
+                <button id="theme-toggle-btn" class="theme-toggle-btn text-slate-600 rounded-full w-full py-2 px-2 cursor-pointer flex justify-center items-center transition hover:text-white  hover:bg-blue-500  dark:text-white">
+                    <i class="fa-regular fa-moon w-4 h-full hidden" id="theme-toggle-dark-icon"></i>
+                    <i class="fa-regular fa-sun w-4 h-full hidden" id="theme-toggle-light-icon"></i>
+                </button>
+                <a class="text-slate-600 rounded-full w-full py-2 px-2 cursor-pointer flex justify-center items-center transition hover:text-white hover:bg-blue-500  dark:text-white relative" href="">
+                    <i class="fa-regular fa-user"></i>
+                    <span class="bg-red px-2 py-2 text-white font-semibold absolute top-0 right-0">1</span>
+                </a>
+                <a class="text-slate-600 rounded-full w-full py-2 px-2 cursor-pointer flex justify-center items-center transition hover:text-white hover:bg-blue-500  dark:text-white" href=""><i class="fa-regular fa-envelope"></i></a>
+                <a class="text-slate-600 rounded-full w-full py-2 px-2 cursor-pointer flex justify-center items-center transition hover:text-white hover:bg-blue-500  dark:text-white" href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </div>    
+        </header>
+       
+        <section id="dashboard-content mt-40">
+            <div class="main-content flex flex-col items-center">
+                <div class="font-semibold mt-10 text-3xl text-slate-600">Bienvenu dans la Cvthèque <span class="text-pink-600">de GozemServices</span></div>
+                <ng-container *ngIf="selectedTab === 'dashboard'">
+                    <app-dashboard></app-dashboard>
+                </ng-container>
+                <ng-container *ngIf="selectedTab === 'stats'">
+                    stats
+                </ng-container>
+                <ng-container *ngIf="selectedTab === 'cvs'">
+                    CVS
+                </ng-container>
+                <ng-container *ngIf="selectedTab === 'paying_tools'">
+                    usermanagement
+                </ng-container>
+                <ng-container *ngIf="selectedTab === 'point_management'">
+                    settings
+                </ng-container>
+            </div>
+        </section>
+
+    </section>
+
+</main>
+

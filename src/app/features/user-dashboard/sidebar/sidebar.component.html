@@ -1,1 +1,44 @@
-<p>sidebar works!</p>
+<aside class="sidebar1 fixed bg-white shadow-lg shadow-gray-500 top-0 right-0 z-50 w-64 h-screen transition-transform -translate-x-full md:translate-x-0 border-slate-900">
+    <section class="user-infos flex justify-center items-center flex flex-col">
+        <img src="images/people_in_meeting.jpg" alt="User logo" class="w-1/2 w-[100px] object-cover h-[100px] mt-2 rounded-full h-13 mb-4">
+        <h4 class="username">John snow</h4>
+        <p>Web developper</p>
+    </section>
+
+    <div class="menu-items flex flex-col justify-start items-center mt-7 w-full px-2 gap-2">
+        <button 
+            (click)="selectTab('dashboard')" 
+            class="bg-[#AF4E64] text-white w-full py-4 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" title="dashboard"
+        >
+            <i class="text-center fa-solid fa-grip"></i>
+            <span class="menu-item">dashboard</span>
+        </button>
+        <button 
+            (click)="selectTab('cvs')" 
+            class="bg-[#AF4E64] text-white w-full py-4 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" title="dashboard"
+        >
+            <i class="text-center fa-solid fa-grip"></i>
+            <span class="menu-item">Gestion des cvs</span>
+        </button>
+        <button 
+            (click)="selectTab('stats')" 
+            class="bg-[#AF4E64] text-white w-full py-4 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" title="dashboard"
+        >
+            <i class="text-center fa-solid fa-grip"></i>
+            <span class="menu-item">Suivis et stats</span>
+        </button>
+        <button (click)="selectTab('paying_tools')"  class="bg-[#AF4E64] text-white w-full py-4 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" title="dashboard">
+            <i class="text-center fa-solid fa-grip"></i>
+            <span class="menu-item">Outils payants</span>
+        </button>
+        <button (click)="selectTab('point_management')" class="bg-[#AF4E64] text-white w-full py-4 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" title="dashboard">
+            <i class="text-center fa-solid fa-grip"></i>
+            <span class="menu-item">Gestion des points</span>
+        </button>
+        <a href="" id="deconnecter" class="bg-transparent text-[#AF4E64] border-[#AF4E64] border-2 w-full py-4 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" title="deconnexion">
+            <i class="text-center fa-solid fa-arrow-right-from-bracket"></i>
+            <span class="menu-item">Deconnexion</span>
+        </a>
+    </div>
+</aside>
+

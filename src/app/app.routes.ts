@@ -3,6 +3,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './features/authModule/login/login.component';
 import { SignupComponent } from './features/authModule/signup/signup.component';
 import { AuthComponent } from './features/authModule/auth/auth.component';
+import { UserDashboardComponent } from './features/user-dashboard/user-dashboard.component';
 
 export const routes: Routes = [
     {
@@ -17,5 +18,9 @@ export const routes: Routes = [
             {path: 'login', component: LoginComponent},
             {path: 'signup', component: SignupComponent}
         ]
+    },
+    {
+        path: 'user',
+        component: UserDashboardComponent,
     }
 ];
