@@ -12,9 +12,16 @@ import { MatTabsModule } from '@angular/material/tabs';
 export class SidebarComponent {
 
   @Output() tabSelected = new EventEmitter<string>();
+  selectedTab: string = 'dashboard';
+  isSidebarOpened = false;
 
   selectTab(tab: string) {
+    this.selectedTab =  tab;
     this.tabSelected.emit(tab);
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpened = !this.isSidebarOpened;
   }
 
 }

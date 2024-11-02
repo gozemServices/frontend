@@ -23,24 +23,24 @@
             </div>    
         </header>
        
-        <section id="dashboard-content mt-40">
-            <div class="main-content flex flex-col items-center">
-                <div class="font-semibold mt-10 text-3xl text-slate-600">Bienvenu dans la Cvthèque <span class="text-pink-600">de GozemServices</span></div>
-                <ng-container *ngIf="selectedTab === 'dashboard'">
+        <section id="dashboard-content mt-40 w-full">
+            <div class="main-content flex flex-col items-center w-full">
+                <div class="font-semibold mt-10 text-3xl text-slate-600 text-center">Bienvenu dans la Cvthèque <span class="text-pink-600">de GozemServices</span></div>
+                <div *ngIf="selectedTab === 'dashboard'">
                     <app-dashboard></app-dashboard>
-                </ng-container>
-                <ng-container *ngIf="selectedTab === 'stats'">
-                    stats
-                </ng-container>
-                <ng-container *ngIf="selectedTab === 'cvs'">
-                    CVS
-                </ng-container>
-                <ng-container *ngIf="selectedTab === 'paying_tools'">
-                    usermanagement
-                </ng-container>
-                <ng-container *ngIf="selectedTab === 'point_management'">
+                </div>
+                <div *ngIf="selectedTab === 'stats'">
+                    <app-statistics></app-statistics>
+                </div>
+                <div class="w-full" *ngIf="selectedTab === 'cvs'">
+                    <app-cv-builder></app-cv-builder>
+                </div>
+                <div class="w-full" *ngIf="selectedTab === 'paying_tools'">
+                    <app-paying-tools></app-paying-tools>
+                </div> 
+                <div *ngIf="selectedTab === 'point_management'">
                     settings
-                </ng-container>
+                </div>
             </div>
         </section>
 

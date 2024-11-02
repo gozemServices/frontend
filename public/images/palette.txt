@@ -1,0 +1,69 @@
+Palette 1 : Douceur et Professionnalisme
+
+    Rose pastel : #F1A7B8
+    Bleu marine : #002D72
+    Gris clair : #F7F7F7
+    Blanc : #FFFFFF
+
+Palette 2 : Énergie et Élégance
+
+    Fuchsia : #D5006D
+    Bleu clair : #A4C8E1
+    Gris foncé : #4A4A4A
+    Beige clair : #EDE3D2
+
+Palette 3 : Modernité et Sérénité
+
+    Rose poudré : #EAB8D1
+    Bleu gris : #A7B2C1
+    Blanc cassé : #F0F0F0
+    Noir : #333333
+
+Palette 4 : Fraîcheur et Vitalité
+
+    Corail : #FF6F61
+    Bleu turquoise : #00BFFF
+    Gris doux : #DCDCDC
+    Blanc : #FFFFFF
+
+
+
+
+
+Typographie
+
+Pour la typographie, je te conseille d'utiliser des polices comme :
+
+    Montserrat : Moderne et lisible, parfaite pour les titres et le corps du texte.
+    Raleway : Élégante et contemporaine, elle fonctionne bien pour des mises en page épurées.
+    Lato : Une autre option moderne et facile à lire, idéale pour un usage professionnel.
+
+
+
+d'écran standard. Voici quelques dimensions à considérer :
+1. Ordinateur de bureau (Desktop)
+
+    Largeur : 1440 px (taille commune pour les écrans modernes)
+    Hauteur : 1024 px (pour une vue complète sans défilement)
+
+2. Ordinateur portable (Laptop)
+
+    Largeur : 1366 px
+    Hauteur : 768 px (taille fréquente pour les ordinateurs portables)
+
+3. Responsive Design
+
+    Pour le design responsive, il peut être utile de concevoir pour plusieurs tailles d'écran. Par exemple :
+        Mobile : 375 px (largeur) x 667 px (hauteur)
+        Tablette : 768 px (largeur) x 1024 px (hauteur)
+
+4. Utilisation de Grilles
+
+    Utiliser des grilles et des colonnes peut aider à organiser le contenu de manière cohérente et à s’assurer que le design est adaptable à différentes tailles d’écran.
+
+Conseils
+
+    Vérifie les espacements : Assure-toi que les marges et les espacements sont suffisants pour une bonne lisibilité.
+    Test sur plusieurs écrans : Une fois le design terminé, teste-le sur différents écrans pour voir comment il s'adapte.
+
+Cela devrait te donner un bon point de départ pour ton design sur Figma !

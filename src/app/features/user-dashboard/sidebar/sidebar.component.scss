@@ -1,0 +1,9 @@
+// @import url("../../../../SharedModule/styles/hamburger.scss");
+@import url("../../../SharedModule/styles/hamburger.scss");
+
+
+.menu-btn-side .hamburger-top,
+.menu-btn-side .hamburger-middle,
+.menu-btn-side .hamburger-bottom{
+background: black;
+}
