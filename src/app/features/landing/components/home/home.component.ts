@@ -1,23 +1,38 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent,TranslateModule],
+  imports: [CommonModule, HeaderComponent, TranslateModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss'] // corrected to styleUrls
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
+  phrases: string[] = [];
+  currentPhraseIndex = 0;
+  displayedText = '';
+  typingSpeed = 80; // Speed of typing
+  erasingSpeed = 25; // Speed of erasing
+  pauseBetween = 1000; // Pause between phrases
+  typingTimeout: any;
+
   currentSlide = 0;
-  translateService = Inject(TranslateService)
   images = [
     'images/people_in_meeting.jpg',
   ];
 
+  constructor(private translate: TranslateService) {}
+
   ngOnInit() {
+    // Load translated phrases
+    this.translate.get(['FIND_TALENTS', 'FIND_JOBS']).subscribe(translations => {
+      this.phrases = [translations['FIND_TALENTS'], translations['FIND_JOBS']];
+      this.type(); // Start typing after fetching translations
+    });
+
     this.autoSlide();
   }
 
@@ -33,5 +48,31 @@ export class HomeComponent {
 
   prevSlide() {
     this.currentSlide = (this.currentSlide - 1 + this.images.length) % this.images.length;
+  }
+
+  type() {
+    const currentPhrase = this.phrases[this.currentPhraseIndex];
+    this.displayedText += currentPhrase.charAt(this.displayedText.length);
+    
+    if (this.displayedText.length === currentPhrase.length) {
+      this.typingTimeout = setTimeout(() => this.erase(), this.pauseBetween);
+    } else {
+      this.typingTimeout = setTimeout(() => this.type(), this.typingSpeed);
+    }
+  }
+
+  erase() {
+    this.displayedText = this.displayedText.slice(0, -1);
+    
+    if (this.displayedText.length === 0) {
+      this.currentPhraseIndex = (this.currentPhraseIndex + 1) % this.phrases.length;
+      this.typingTimeout = setTimeout(() => this.type(), this.pauseBetween);
+    } else {
+      this.typingTimeout = setTimeout(() => this.erase(), this.erasingSpeed);
+    }
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.typingTimeout);
   }
 }

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './features/authModule/login/login.component';
-import { SignupComponent } from './features/authModule/signup/signup.component';
-import { AuthComponent } from './features/authModule/auth/auth.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { SignupComponent } from './features/auth/signup/signup.component';
+import { AuthComponent } from './features/auth/auth/auth.component';
 import { UserDashboardComponent } from './features/user-dashboard/user-dashboard.component';
 
 export const routes: Routes = [

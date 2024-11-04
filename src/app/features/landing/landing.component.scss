@@ -1,0 +1,22 @@
+*{
+    scroll-behavior: smooth;
+}
+
+.header {
+    transition: all 0.3s ease;
+  }
+  
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white; /* or any other background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 50; /* Ensure it is above other content */
+  }
+
+  .footer-block h3{
+    font-size: 22px;
+  }
+  

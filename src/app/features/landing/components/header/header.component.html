@@ -1,4 +1,4 @@
-<div class="w-full">
+<!-- <div class="w-full">
     <div class="hidden justify-evenly px-[2vw] items-center gap-20 sm:flex">
       <div class="w-[30px] h-[30px]"> 
         <img src="images/people_in_meeting.jpg" alt="" class="w-full h-full">
@@ -36,6 +36,62 @@
   
     <sidebar 
         class="capitalize mobile-menu fixed right-0 top-0 flex flex-col items-center pt-8 h-screen w-[90vw] sm:w-[70vw] bg-red-500/50 backdrop-blur-md transition-transform transition duration-1000" 
+        [ngClass]="{'translate-x-0': isOpen, 'translate-x-full': !isOpen}"
+        >
+      <div class="w-[70px] h-[70px] rounded-full"> 
+        <img src="images/people_in_meeting.jpg" alt="" class="w-full h-full">
+      </div>
+      <div class="flex flex-col items-end justify-center gap-2 text-xl mt-4">
+        <div class="sign-block w-full">
+          <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active"  class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"SIGNUP" | translate}}</a>
+          <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active"  class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"LOGIN" | translate}}</a>
+        </div>
+        <nav class="flex flex-col w-full justify-center items-center">
+          <a href="#" class="mx-4 px-2 py-2 text-white hover:text-[#AF4E64]">{{"HOME" | translate}}</a>
+          <a href="#services" class="mx-4 px-2 py-2 text-white hover:text-[#AF4E64]">{{"SERVICES" | translate}}</a>
+          <a href="#cvs" class="mx-4 px-2 py-2 text-white hover:text-[#AF4E64]">{{"CVs" | translate}}</a>
+          <a href="#contact" class="mx-4 px-2 py-2 text-white hover:text-[#AF4E64]">{{"CONTACTS-US" | translate}}</a>
+        </nav>
+      </div>
+    </sidebar>
+  </div>
+   -->
+  <div class="w-full">
+    <div class="hidden justify-between px-[1vw] py-2 my-2 items-center md:flex">
+      <div class="w-[30px] h-[30px]"> 
+        <img src="images/people_in_meeting.jpg" alt="" class="w-full h-full">
+      </div>
+      <nav class="flex justify-center items-center capitalize">
+        <a href="" class="mx-4 px-2 py-2 text-black rounded-2xl hover:text-[#AF4E64] hover:bg-pink-200/60 transition duration-700">{{"HOME" | translate}}</a>
+        <a href="#services" class="mx-4 px-2 py-2 text-black rounded-2xl hover:text-[#AF4E64] hover:bg-pink-200/60 transition duration-700">{{"SERVICES" | translate}}</a>
+        <a href="#cvs" class="mx-4 px-2 py-2 text-black rounded-2xl hover:text-[#AF4E64] hover:bg-pink-200/60 transition duration-700">{{"CVs" | translate}}</a>
+        <a href="#contact" class="mx-4 px-2 py-2 text-black rounded-2xl hover:text-[#AF4E64] hover:bg-pink-200/60 transition duration-700">{{"CONTACTS-US" | translate}}</a>
+      </nav>
+      <div class="sign-block flex items-end justify-center">
+        <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-white bg-primary px-4 rounded-full hover:text-[#AF4E64] hover:bg-pink-200/80 transition duration-700">{{"LOGIN" | translate}}</a>
+        <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-black hover:bg-pink-200/60 rounded-full transition duration-700">{{"REGISTER" | translate}}</a>
+        <a [routerLink]="['/user']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-[#AF4E64] hover:text-[#AF4E64]">{{"TEST" | translate}}</a>
+      </div>
+    </div>    
+
+
+    <div class="fixed left-10 top-14 z-40 md:hidden w-[50px] h-[50px] rounded-full">
+      <img src="images/people_in_meeting.jpg" alt="" class="w-full h-full object-cover">
+    </div>
+    <div class="fixed right-10 top-10 z-50 md:hidden ">
+        <button 
+            (click)="toggleSidebar()"
+            class="hamburger menu-btn-side" 
+            [ngClass]="{'open' : isOpen}"
+            id="menu-btn-side">
+            <span class="hamburger-top"></span>
+            <span class="hamburger-middle"></span>
+            <span class="hamburger-bottom"></span>
+        </button>
+    </div>
+  
+    <sidebar 
+        class="capitalize z-40 mobile-menu fixed right-0 top-0 flex flex-col items-center pt-8 h-screen w-[90vw] sm:w-[70vw] bg-red-500/50 backdrop-blur-md transition-transform transition duration-1000" 
         [ngClass]="{'translate-x-0': isOpen, 'translate-x-full': !isOpen}"
         >
       <div class="w-[70px] h-[70px] rounded-full"> 

@@ -1,11 +1,17 @@
 {
     "HELLO": "Hi everyone",
     "SIGNUP": "signup",
+    "REGISTER": "register",
     "LOGIN": "login",
     "HOME": "home",
     "SERVICES": "services",
     "CONTACTS-US": "contact-us",
-    "FIND_TALENTS": "Trouvez les talents dont vous avez besoin, plus rapidement",
-    "FIND_JOBS": "Soyez trouvés par les entreprises ideales pour les postes de vos rêves",
-    "START_NOW": "Commencez dès maintenant"
+    "CHECK_LATEST_CV_INTRO": "CHECK OUT THE LASTEST CVs",
+    "CHECK_LATEST_CV_DESC": "get the most out of Cvtheque by looking at our bests candidates",
+    "FIND": "trouvez",
+    "FIND_TALENTS": "les talents dont vous avez besoin, plus rapidement",
+    "FIND_JOBS": "les entreprises ideales pour les postes de vos rêves",
+    "START_NOW": "commencez dès maintenant",
+    "SEE_MORE": "voir plus",
+    "START": "commencer"
 }

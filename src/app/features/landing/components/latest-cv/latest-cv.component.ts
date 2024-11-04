@@ -10,8 +10,8 @@ import { interval, Subscription } from 'rxjs';
   templateUrl: './latest-cv.component.html',
   styleUrls: ['./latest-cv.component.scss']
 })
-export class LatestCvComponent implements OnInit, OnDestroy { 
-  @ViewChild('cvContainer') cvContainer!: ElementRef;
+export class LatestCvComponent{ 
+
   cvs: any[] = [];  
   private scrollSubscription!: Subscription;
 
@@ -25,33 +25,7 @@ export class LatestCvComponent implements OnInit, OnDestroy {
     this.cvs = [...baseCvs, ...baseCvs]; // Duplicate the array
   }
 
-  ngOnInit(): void {
-    this.startAutoScroll();
-  }
-
-  ngOnDestroy(): void {
-    if (this.scrollSubscription) {
-      this.scrollSubscription.unsubscribe();
-    }
-  }
-
-  startAutoScroll() {
-    this.scrollSubscription = interval(3000).subscribe(() => {
-      this.scrollToRight();
-    });
-  }
-
-  scrollToRight() {
-    const element = this.cvContainer.nativeElement;
-    const scrollWidth = 329 + 16; // Card width + margin
-
-    element.scrollLeft += scrollWidth;
-
-    // Reset scroll if it reaches the end
-    if (element.scrollLeft >= element.scrollWidth / 2 - element.clientWidth) {
-      element.scrollLeft = 0; // Reset to the start
-    }
-  }
+  
 
   // Function to generate random colors
   private getRandomColor(): string {

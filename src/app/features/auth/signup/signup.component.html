@@ -1,6 +1,6 @@
-<div class="z-40 w-full bg-gray-900 py-4">
+<div class="z-40 w-full shadow-xl">
     <app-header></app-header>
-  </div>
+</div>
   <div class="flex min-h-screen flex-col lg:flex-row-reverse">
     <!-- Left Side -->
     <div class="pt-20 lg:pt-0 flex lg:flex lg:w-1/2 bg-gray-100 justify-center items-center relative">
@@ -16,7 +16,7 @@
     <div class="flex flex-col justify-center w-full px-8 py-12 lg:w-1/2 lg:px-10">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
-        <h2 class="mt-10 text-center text-2xl font-bold tracking-tight text-[#AF4E64]">Sign up for your account</h2>
+        <h2 class="mt-10 text-center text-2xl font-bold tracking-tight text-primary">Sign up for your account</h2>
       </div>
   
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -75,7 +75,7 @@
           </div>
   
           <div>
-            <button type="submit" [disabled]="loading || signupForm.invalid" class="px-6 py-2 bg-[#AF4E64] text-white transition duration-800 hover:bg-[#701C2F] cursor-pointer">
+            <button type="submit" [disabled]="loading || signupForm.invalid" class="px-6 py-2 bg-primary text-white transition duration-800 hover:bg-[#701C2F] cursor-pointer">
               <span *ngIf="loading">Loading...</span>
               <span *ngIf="!loading">Sign up</span>
             </button>
