@@ -7,10 +7,11 @@ import { LatestCvComponent } from "./components/latest-cv/latest-cv.component";
 import { faFacebook, faInstagram, faLinkedin, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { ScrollAnimationDirective } from '../../shared/directives/scroll-animation.directive';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [HomeComponent, HeaderComponent, ServicesComponent, ContactUsComponent, LatestCvComponent,FontAwesomeModule],
+  imports: [ScrollAnimationDirective, HomeComponent, HeaderComponent, ServicesComponent, ContactUsComponent, LatestCvComponent,FontAwesomeModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
 })
