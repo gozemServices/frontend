@@ -1,0 +1,24 @@
+<div [ngClass]="{'list': layout === 'list', 'grid': layout === 'grid'}" class="job-list-container">
+    <div *ngFor="let job of jobs" class="job-item border border-gray-300 rounded-lg p-4">
+      <!-- Job Details -->
+      <div>
+        <h3 class="text-lg font-semibold">{{ job.title }}</h3>
+        <p class="text-sm text-gray-600 flex items-center">
+          <span class="material-icons text-gray-500 mr-1">location_on</span>{{ job.location }}
+          <span class="mx-2">|</span>
+          <span class="material-icons text-gray-500 mr-1">attach_money</span>{{ job.salary }}
+        </p>
+      </div>
+  
+      <!-- Posting time and Actions -->
+      <div class="actions flex items-center space-x-4">
+        <span class="posted-time bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">Posted {{ job.posted }}</span>
+        <button class="text-gray-500">
+          <span class="material-icons">bookmark_border</span>
+        </button>
+        <button class="apply-button bg-red-600 text-white px-4 py-2 rounded-lg">Apply</button>
+        <button class="share-button bg-gray-200 text-gray-800 px-4 py-2 rounded-lg">Share</button>
+      </div>
+    </div>
+  </div>
+  

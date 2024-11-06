@@ -2,25 +2,25 @@
     <div class="w-full h-full bg-black z-30 absolute top-0 left-0 bg-opacity-70 hidden" id="dark_overlay"></div>
     <app-sidebar (tabSelected)="onTabSelected($event)"></app-sidebar>
     <section class="p-4 md:mr-64 flex flex-col w-full">
-        <header class="section-header flex w-full justify-around items-center px-4 py-8 bg-white rounded-xl shadow-lg shadow-gray-400">
+    <header class="section-header flex w-full justify-around items-center px-4 py-8 bg-lightGray rounded-xl shadow-lg shadow-gray-400">
             <button  id="menu-btn-side" class="absolute block z-40 bg-transparent border-none hamburger md:hidden focus:outline-none">
                 <span class="hamburger-top"></span>
                 <span class="hamburger-middle"></span>
                 <span class="hamburger-bottom"></span>
             </button>
-            <h2 class="flex items-center dark:text-white"><span class=" hidden mr-2 sm:block">Bienvenue </span><span class="font-bold text-xl capitalize"><span>$user->username</span></span></h2>
-            <div class="links flex justify-center items-center space-x-2">
-                <button id="theme-toggle-btn" class="theme-toggle-btn text-slate-600 rounded-full w-full py-2 px-2 cursor-pointer flex justify-center items-center transition hover:text-white  hover:bg-blue-500  dark:text-white">
-                    <i class="fa-regular fa-moon w-4 h-full hidden" id="theme-toggle-dark-icon"></i>
-                    <i class="fa-regular fa-sun w-4 h-full hidden" id="theme-toggle-light-icon"></i>
-                </button>
-                <a class="text-slate-600 rounded-full w-full py-2 px-2 cursor-pointer flex justify-center items-center transition hover:text-white hover:bg-blue-500  dark:text-white relative" href="">
-                    <i class="fa-regular fa-user"></i>
-                    <span class="bg-red px-2 py-2 text-white font-semibold absolute top-0 right-0">1</span>
-                </a>
-                <a class="text-slate-600 rounded-full w-full py-2 px-2 cursor-pointer flex justify-center items-center transition hover:text-white hover:bg-blue-500  dark:text-white" href=""><i class="fa-regular fa-envelope"></i></a>
-                <a class="text-slate-600 rounded-full w-full py-2 px-2 cursor-pointer flex justify-center items-center transition hover:text-white hover:bg-blue-500  dark:text-white" href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-            </div>    
+            <div class="sample-infos w-full flex justify-between px-4 items-center">
+                <div class="date">Friday, 28th December 2024</div>
+                <div class="availabilities  text-green-600  flex items-center justify-center gap-2 bg-green-200/60 px-2 py-2 rounded-full cursor-pointer">
+                    <span class="block h-[15px] w-[15px] bg-green-600 rounded-full shadow-2xl"></span>
+                    <span class="font-bold uppercase">Ready to interview</span>
+                    <fa-icon [icon]="faChevronDown"></fa-icon>
+                </div>
+                <div class="flex items-center align-center justify-center gap-2">
+                    <fa-icon [icon]="faNotificationRing"></fa-icon>
+                    <!-- <p>Notifications</p> -->
+                    <img src="images/man_on_computer.png" class="w-[40px] h-[40px] rounded-full" alt="user Profile pic">
+                </div>
+            </div>
         </header>
        
         <section id="dashboard-content mt-40 w-full">
@@ -40,6 +40,9 @@
                 </div> 
                 <div *ngIf="selectedTab === 'point_management'">
                     settings
+                </div>
+                <div class="w-full" *ngIf="selectedTab === 'jobs' ">
+                    <app-jobs></app-jobs>
                 </div>
             </div>
         </section>

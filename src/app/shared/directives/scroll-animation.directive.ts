@@ -14,7 +14,8 @@ export class ScrollAnimationDirective {
     const element = this.el.nativeElement;
     const position = element.getBoundingClientRect().top;
 
-    if (position < window.innerHeight - 100) {
+    // Check if the element is in the viewport
+    if (position < window.innerHeight - 200 && position > 0) {
       this.renderer.addClass(element, 'animate');
       this.renderer.removeClass(element, 'left');
       this.renderer.removeClass(element, 'right');
@@ -26,4 +27,5 @@ export class ScrollAnimationDirective {
       this.renderer.removeClass(element, 'animate');
     }
   }
+
 }

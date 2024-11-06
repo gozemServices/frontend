@@ -1,0 +1,56 @@
+<div class="div w-full flex flex-col justify-between items-center my-6">
+    <div class="w-full flex justify-around items-center">
+        <!-- Tabs at the top -->
+        <div class="flex space-x-4">
+            <button class="flex items-start justify-start px-2 pr-16 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">
+                <span class="material-icons mr-2">description</span>
+                <div class="text-left">
+                <p class="text-sm font-semibold">Browse All</p>
+                <p class="text-xs text-gray-500">1245 Jobs</p>
+                </div>
+            </button>
+            <button class="flex items-start justify-start px-2 pr-16 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">
+                <span class="material-icons mr-2">favorite</span>
+                <div class="text-left">
+                <p class="text-sm font-semibold">Ideal Match</p>
+                <p class="text-xs text-gray-500">1245 Jobs</p>
+                </div>
+            </button>
+            <button class="flex items-start justify-start px-2 pr-16 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">
+                <span class="material-icons mr-2">bookmark</span>
+                <div class="text-left">
+                <p class="text-sm font-semibold">Saved</p>
+                <p class="text-xs text-gray-500">1245 Jobs</p>
+                </div>
+            </button>
+        </div>
+        <!-- Layout Toggle Buttons -->
+        <div class="flex items-center space-x-4">
+            <button (click)="setLayout('list')" [class.text-blue-500]="layout === 'list'">
+                <span class="material-icons">view_list</span>
+            </button>
+            <button (click)="setLayout('grid')" [class.text-blue-500]="layout === 'grid'">
+                <span class="material-icons">grid_view</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Section title -->
+     <div class="w-full flex flex-col justify-center items-start mt-8" >
+        <h2 class="text-xl font-semibold mb-4">Ideal Jobs for you</h2>
+        <app-job-list [layout]="layout"></app-job-list>
+     </div>
+
+</div>
+
+    <!-- <div class="flex flex-col w-full h-full items-center">
+    <div class="links">
+        <div class="browser-all flex justify-star items-center px-4 rounded-full py-2 border-2 border-darkShade min-w-[100px]">
+            <fa-icon [icon]="faBrowseAll"></fa-icon>
+            <p class="flex flex-col">
+                <strong class="font-bold">Browser All</strong>
+                <strong class="font-regular"><span>1245</span>Jobs</strong>
+            </p>
+        </div>
+    </div>
+</div> -->

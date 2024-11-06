@@ -57,9 +57,9 @@
   </div>
    -->
   <div class="w-full">
-    <div class="hidden justify-between px-[1vw] py-2 my-2 items-center md:flex">
-      <div class="w-[30px] h-[30px]"> 
-        <img src="images/people_in_meeting.jpg" alt="" class="w-full h-full">
+    <div class="desktop-menu hidden justify-between px-[1vw] my-2 items-center md:flex">
+      <div class="w-[70px] h-[70x]"> 
+        <img src="logos/gozem-services.jpg" alt="" class="w-full h-full">
       </div>
       <nav class="flex justify-center items-center capitalize">
         <a href="" class="mx-4 px-2 py-2 text-black rounded-2xl hover:text-[#AF4E64] hover:bg-pink-200/60 transition duration-700">{{"HOME" | translate}}</a>
@@ -74,12 +74,11 @@
       </div>
     </div>    
 
-
-    <div class="fixed left-10 top-14 z-40 md:hidden w-[50px] h-[50px] rounded-full">
-      <img src="images/people_in_meeting.jpg" alt="" class="w-full h-full object-cover">
-    </div>
-    <div class="fixed right-10 top-10 z-50 md:hidden ">
-        <button 
+    <div class="fixed left-0 top-4 z-50 md:hidden  w-full flex items-center justify-between px-8">
+      <div class="w-[70px] h-[70px] rounded-full">
+        <img src="logos/gozem-services.jpg" alt="logo gozem" class="w-full h-full rounded-full object-cover">
+      </div>
+      <button 
             (click)="toggleSidebar()"
             class="hamburger menu-btn-side" 
             [ngClass]="{'open' : isOpen}"
@@ -93,9 +92,9 @@
     <sidebar 
         class="capitalize z-40 mobile-menu fixed right-0 top-0 flex flex-col items-center pt-8 h-screen w-[90vw] sm:w-[70vw] bg-red-500/50 backdrop-blur-md transition-transform transition duration-1000" 
         [ngClass]="{'translate-x-0': isOpen, 'translate-x-full': !isOpen}"
-        >
+    >
       <div class="w-[70px] h-[70px] rounded-full"> 
-        <img src="images/people_in_meeting.jpg" alt="" class="w-full h-full">
+        <img src="logos/gozem-services.jpg" alt="" class="w-full h-full rounded-full object-cover">
       </div>
       <div class="flex flex-col items-end justify-center gap-2 text-xl mt-4">
         <div class="sign-block w-full">
