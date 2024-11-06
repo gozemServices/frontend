@@ -1,5 +1,5 @@
-<div [ngClass]="{'list': layout === 'list', 'grid': layout === 'grid'}" class="job-list-container">
-    <div *ngFor="let job of jobs" class="job-item border border-gray-300 rounded-lg p-4">
+<div [ngClass]="{'list': layout === 'list', 'grid': layout === 'grid'}" class="job-list-container w-full bg-red-500">
+    <div *ngFor="let job of jobs" class="job-item border border-gray-300 rounded-lg p-4 w-full">
       <!-- Job Details -->
       <div>
         <h3 class="text-lg font-semibold">{{ job.title }}</h3>
