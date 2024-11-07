@@ -15,7 +15,7 @@ export class JobsComponent {
 
   faBrowseAll = faFileLines;
    // Layout state, 'list' for list view, 'grid' for grid view
-   layout: 'list' | 'grid' = 'list';
+   layout: 'list' | 'grid' = 'grid';
  
    // Function to toggle layout
    setLayout(layout: 'list' | 'grid') {

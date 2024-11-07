@@ -1,1 +1,36 @@
-<p>job-apply works!</p>
+<div class="flex flex-col items-center justify-center p-4 border-2 border-primary min-w-lg">
+    <div>
+      <h4 class="uppercase">Job application</h4>
+      <p>Enter any particular skills for this job</p>
+    </div>
+  
+    <form [formGroup]="jobApplyForm" class="flex flex-col w-full items-start" (ngSubmit)="onSubmit()">
+      <div formArrayName="specialSkills">
+        <div *ngFor="let skill of specialSkills.controls; let i = index">
+          <div [formGroupName]="i" class="flex items-center space-x-4 my-2">
+            <input formControlName="skill" placeholder="Enter special skill" class="p-2 border rounded" />
+            
+            <!--  remove skill button -->
+            <button type="button" (click)="removeSkill(i)" *ngIf="i > 0" class="text-red-500 px-2">
+              <fa-icon [icon]="faTimesCircle"></fa-icon> 
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <!--  add skill button -->
+      <button type="button" (click)="addSkill()" class="text-blue-500 flex items-center">
+        <fa-icon [icon]="faPlusCircle"></fa-icon> Add Skill
+      </button>
+  
+      <div class="flex space-x-4 mt-4">
+        <button type="submit" [disabled]="jobApplyForm.invalid" class="bg-primary text-white px-4 py-2 rounded-lg">
+          Submit
+        </button>
+        <button type="button" (click)="onCancel()" class="border-2 border-gray-500 text-gray-500 px-4 py-2 rounded-lg">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+  

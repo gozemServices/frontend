@@ -17,7 +17,7 @@ import { JobsComponent } from "./jobs/jobs.component";
   styleUrl: './user-dashboard.component.scss'
 })
 export class UserDashboardComponent {
-  selectedTab: string = 'dashboard'; // Default tab
+  selectedTab: string = 'jobs'; // Default tab
 
   faChevronDown = faChevronDown;
   faNotificationRing = faBell;

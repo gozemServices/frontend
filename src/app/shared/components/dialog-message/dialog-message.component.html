@@ -1,0 +1,7 @@
+<div class="dialog-content" [ngStyle]="{'border-left': '5px solid ' + dialogColor}">
+  <div class="message-container">
+    <h2>{{ data.title }}</h2>
+    <p>{{ data.message }}</p>
+    <button mat-button (click)="closeDialog()">Close</button>
+  </div>
+</div>

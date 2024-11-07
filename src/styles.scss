@@ -12,7 +12,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-
+@import url('./app/shared/styles/globalStyles.scss');
 
 @include mat.core();
 

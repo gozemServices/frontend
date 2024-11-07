@@ -3,18 +3,23 @@
     <app-sidebar (tabSelected)="onTabSelected($event)"></app-sidebar>
     <section class="p-4 md:mr-64 flex flex-col w-full">
     <header class="section-header flex w-full justify-around items-center px-4 py-8 bg-lightGray rounded-xl shadow-lg shadow-gray-400">
-            <button  id="menu-btn-side" class="absolute block z-40 bg-transparent border-none hamburger md:hidden focus:outline-none">
-                <span class="hamburger-top"></span>
-                <span class="hamburger-middle"></span>
-                <span class="hamburger-bottom"></span>
-            </button>
+           <div class="absolute top-50 z-40 md:hidden">
+                <button  id="menu-btn-side" class=" block  bg-transparent border-none hamburger  focus:outline-none">
+                    <span class="hamburger-top"></span>
+                    <span class="hamburger-middle"></span>
+                    <span class="hamburger-bottom"></span>
+                </button>
+           </div>
             <div class="sample-infos w-full flex justify-between px-4 items-center">
-                <div class="date">Friday, 28th December 2024</div>
-                <div class="availabilities  text-green-600  flex items-center justify-center gap-2 bg-green-200/60 px-2 py-2 rounded-full cursor-pointer">
-                    <span class="block h-[15px] w-[15px] bg-green-600 rounded-full shadow-2xl"></span>
-                    <span class="font-bold uppercase">Ready to interview</span>
-                    <fa-icon [icon]="faChevronDown"></fa-icon>
+                <div class="flex  w-fit items-center gap-4  flex-wrap flex-1">
+                    Friday, 28th December 2024
+                    <div class="availabilities  text-green-600  flex items-center justify-center gap-2 bg-green-200/60 px-2 py-2 rounded-full cursor-pointer">
+                        <span class="block h-[15px] w-[15px] bg-green-600 rounded-full shadow-2xl"></span>
+                        <span class="font-bold uppercase">Ready to interview</span>
+                        <fa-icon [icon]="faChevronDown"></fa-icon>
+                    </div>
                 </div>
+               
                 <div class="flex items-center align-center justify-center gap-2">
                     <fa-icon [icon]="faNotificationRing"></fa-icon>
                     <!-- <p>Notifications</p> -->
