@@ -57,9 +57,22 @@
             <label for="password" class="block text-sm font-medium text-gray-900">Password</label>
             <div class="mt-2">
               <input id="password" formControlName="password" type="password" required class="block w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-              <div *ngIf="formControls['password'].invalid && (formControls['password'].touched || formControls['password'].dirty)" class="text-red-500 text-sm">
-                <div *ngIf="formControls['password'].errors?.['required']">Password is required.</div>
-                <div *ngIf="formControls['password'].errors?.['minlength']">Password must be at least 6 characters long.</div>
+              <!-- <div  *ngIf="formControls['password'].invalid && (formControls['password'].touched || formControls['password'].dirty)" class="text-red-500 text-sm">
+                <ng-container [ngSwitch]="signupForm.controls['password'].errors | firstKey"></ng-container>
+                <div *ngSwitchCase="formControls['password'].errors?.['required']">Password is required.</div>
+                <div *ngSwitchCase="formControls['password'].errors?.['minlength']">Password must be at least 6 characters long.</div>
+                <div *ngSwitchCase="formControls['password'].errors?.['pattern']">Password must not contains common letter combination.</div>
+              </div> -->
+
+
+              <div  *ngIf="formControls['password'].invalid && (formControls['password'].touched || formControls['password'].dirty)" class="text-red-500 text-sm">
+                <pre>{{ formControls['password'].errors | json }}</pre>
+                <ng-container [ngSwitch]="formControls['password'].errors | firstKey">
+                  <div *ngSwitchCase="'required'">Password is required.</div>
+                  <div *ngSwitchCase="'minlength'">Password must be at least 6 characters long.</div>
+                  <div *ngSwitchCase="'pattern'">Password must not contains common letter combination.</div>
+                </ng-container>
+               
               </div>
             </div>
           </div>

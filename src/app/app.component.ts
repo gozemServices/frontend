@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import { TranslationService } from './core/services/translation.service';
+import { GenericService } from './core/services/generic.service';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +15,14 @@ export class AppComponent {
   title = 'frontend';
   constructor(
     private translateService: TranslateService,
-    private translationService: TranslationService
+    private genericService: GenericService
   ) {
-    this.translateService.addLangs(['fr', 'en']);
-    this.translateService.setDefaultLang('en');
-    this.translateService.use('en');
+    this.translateService.addLangs(['fr', 'en','es']);
+    this.translateService.setDefaultLang('fr');
+    this.translateService.use('fr');
   }
 
-
   switchLanguage(language: string) {
-    this.translateService.use(language);
+   this.genericService.switchLanguage(language)
   }
 }

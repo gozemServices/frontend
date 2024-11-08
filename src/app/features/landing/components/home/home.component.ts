@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { GenericService } from '../../../../core/services/generic.service';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentSlide = 0;
   images = [
     'images/people_in_meeting.jpg',
+    'images/man_giving_hand.jpg',
+    'images/people_in_meeting_from_top.jpg',
+    'images/sav_calling.jpg',
   ];
 
   constructor(private translate: TranslateService) {}
@@ -39,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   autoSlide() {
     setInterval(() => {
       this.currentSlide = (this.currentSlide + 1) % this.images.length;
-    }, 3000); // Change slide every 3 seconds
+    }, 1700); // Change slide every 3 seconds
   }
 
   nextSlide() {
@@ -75,4 +79,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     clearTimeout(this.typingTimeout);
   }
+
+
 }

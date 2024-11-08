@@ -1,4 +1,10 @@
 {
     "HELLO": "Bonjour le monde",
-    "SIGNUP": "inscription"
+    "SIGNUP": "inscription",
+    "LANGUAGES": {
+        "EN": "Anglais",
+        "FR": "Français",
+        "ES": "Espagnol"
+    },
+    "WELCOME_IN": "Bienvenue dans la Cvthèque"
 }

@@ -13,5 +13,11 @@
     "FIND_JOBS": "les entreprises ideales pour les postes de vos rêves",
     "START_NOW": "commencez dès maintenant",
     "SEE_MORE": "voir plus",
-    "START": "commencer"
+    "START": "commencer",
+    "LANGUAGES": {
+        "EN": "English",
+        "FR": "French",
+        "ES": "Spanish"
+    },
+    "WELCOME_IN": "welcome in the Cvthèque"
 }

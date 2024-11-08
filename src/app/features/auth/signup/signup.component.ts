@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../landing/components/header/header.component";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FirstKeyPipe } from "../../../shared/pipes/first-key.pipe";
 
 @Component({
   selector: 'app-signup',
@@ -19,7 +20,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatButtonModule,
     CommonModule,
     ReactiveFormsModule,
-    HeaderComponent
+    HeaderComponent,
+    FirstKeyPipe
 ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
@@ -35,7 +37,7 @@ export class SignupComponent {
       fullname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], // Adjust pattern as needed
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required]
     }, { validators: this.passwordMatchValidator });
   }
