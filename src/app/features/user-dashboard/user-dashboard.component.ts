@@ -10,17 +10,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JobsComponent } from "./jobs/jobs.component";
 import { GenericService } from '../../core/services/generic.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ProfileComponent } from "./profile/profile.component";
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [TranslateModule, FontAwesomeModule, SidebarComponent, CommonModule, DashboardComponent, PayingToolsComponent, CvBuilderComponent, StatisticsComponent, JobsComponent],
+  imports: [TranslateModule, FontAwesomeModule, SidebarComponent, CommonModule, DashboardComponent, PayingToolsComponent, CvBuilderComponent, StatisticsComponent, JobsComponent, ProfileComponent],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss'
 })
 export class UserDashboardComponent implements OnInit{
   // private genericService = Inject(GenericService);
-  selectedTab: string = 'jobs'; 
+  selectedTab: string = 'profile'; 
   currentLanguage = 'en';
   languages !: string[];
   isLangDropdownOpened = false;
@@ -44,6 +45,7 @@ export class UserDashboardComponent implements OnInit{
   switchLanguage(language: string) {
     this.translate.setDefaultLang(language);  
     this.translate.use(language);  
+    this.currentLanguage = language;
     this.toggleLangSelector();
    }
 

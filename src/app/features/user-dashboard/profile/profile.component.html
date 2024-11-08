@@ -1,0 +1,121 @@
+<div class="p-6 w-full">
+
+    <!-- Points Section -->
+    <div class="bg-white shadow-md rounded-lg p-4 mb-4">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">Your Points</h3>
+      <div class="flex items-center space-x-4 mb-4">
+        <div class="text-xl font-bold text-gray-700">{{ userPoints }} Points</div>
+        <button (click)="buyPoints()" class="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition">Buy More Points</button>
+        <button class="bg-primary text-white py-2 px-6 rounded-md hover:bg-darkShade transition">Buy Premium tools</button>
+      </div>
+      <p class="text-gray-500">Points allow you to access premium tools and features. You can purchase more anytime.</p>
+    </div>
+  
+    <!-- Profile Header -->
+    <div class="bg-white shadow-md rounded-lg p-4 mb-8">
+      <div class="flex items-center space-x-6">
+        <img src="images/man_on_computer.png"  alt="User Avatar" class="rounded-full w-24 h-24">
+        <div>
+          <h2 class="text-3xl font-semibold text-gray-800">{{ userInfo?.fullName }}</h2>
+          <p class="text-xl text-gray-600">{{ userInfo?.email }}</p>
+          <p class="text-md text-gray-500">{{ userInfo?.location }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Premium Tools Section -->
+    <div class="bg-white shadow-md rounded-lg p-8 mb-8">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-4">Premium Tools</h3>
+      <div class="space-y-4">
+        <div *ngFor="let tool of userTools" class="flex justify-between items-center p-4 bg-gray-100 rounded-lg">
+          <div class="text-lg font-semibold text-gray-700">{{ tool.name }}</div>
+          <button class="bg-red-500 text-white py-1 px-4 rounded-md hover:bg-red-600 transition" (click)="removeTool(tool.id, tool.name)">
+            Remove
+          </button>
+        </div>
+        <div *ngIf="userTools.length === 0" class="text-gray-500">No premium tools purchased yet.</div>
+      </div>
+    </div>
+  
+    <!-- Applied Jobs Section -->
+    <div class="bg-white shadow-md rounded-lg p-8 h-[400px] overflow-y-auto">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-4">Applied Jobs</h3>
+      <div class="space-y-4">
+        <div *ngFor="let job of appliedJobs" class="p-4 bg-gray-100 rounded-lg">
+          <h4 class="text-xl font-semibold text-gray-800">{{ job.title }} - {{ job.company }}</h4>
+          <p class="text-md text-gray-600">Applied on: {{ job.applicationDate | date }}</p>
+          <p class="text-md text-gray-600">Status: <span [ngClass]="{ 'text-green-600': job.status === 'Approved', 'text-yellow-500': job.status === 'Pending', 'text-red-600': job.status === 'Rejected' }">{{ job.status }}</span></p>
+          <p class="text-gray-500 mt-2">Location: {{ job.location }}</p>
+          <p class="text-gray-500 mt-1">Job Type: {{ job.jobType }}</p>
+          <button class="text-white bg-primary px-4 py-2 rounded hover:bg-darkShade transition duration-700">View Job</button>
+        </div>
+      </div>
+      <div *ngIf="appliedJobs.length === 0" class="text-gray-500">No jobs applied yet.</div>
+    </div>
+    <div id="update-password" class="bg-white shadow-md rounded-lg p-8 mt-8">
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Update Password</h3>
+        <form [formGroup]="updatePasswordForm" (ngSubmit)="onSubmit()">
+          <div class="space-y-4">
+            <!-- Old Password Field -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Old password</label>
+              <input
+                type="password"
+                class="w-full mt-2 p-3 border rounded-lg"
+                placeholder="Enter the old password"
+                formControlName="oldPassword"
+              />
+              <div *ngIf="f['oldPassword'].touched && f['oldPassword'].invalid" class="text-red-500 text-sm">
+                <div *ngIf="f['oldPassword'].errors?.['required']">Old password is required.</div>
+              </div>
+            </div>
+      
+            <!-- New Password Field -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700">New Password</label>
+              <input
+                type="password"
+                class="w-full mt-2 p-3 border rounded-lg"
+                placeholder="Enter new password"
+                formControlName="newPassword"
+              />
+              <div *ngIf="f['newPassword'].touched && f['newPassword'].invalid" class="text-red-500 text-sm">
+                <div *ngIf="f['newPassword'].errors?.['required']">New password is required.</div>
+                <div *ngIf="f['newPassword'].errors?.['minlength']">New password must be at least 8 characters long.</div>
+              </div>
+            </div>
+      
+            <!-- Confirm New Password Field -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Confirm New Password</label>
+              <input
+                type="password"
+                class="w-full mt-2 p-3 border rounded-lg"
+                placeholder="Confirm new password"
+                formControlName="confirmPassword"
+              />
+              <div *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid" class="text-red-500 text-sm">
+                <div *ngIf="f['confirmPassword'].errors?.['required']">Confirmation password is required.</div>
+              </div>
+              <!-- Show mismatch error if present -->
+              <div *ngIf="updatePasswordForm.errors?.['mismatch'] && f['confirmPassword'].touched" class="text-red-500 text-sm">
+                Passwords do not match.
+              </div>
+            </div>
+      
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="bg-blue-600 text-white mt-4 px-6 py-2 rounded-md"
+              [disabled]="updatePasswordForm.invalid"
+            >
+              Change Password
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      
+  
+  </div>
+  

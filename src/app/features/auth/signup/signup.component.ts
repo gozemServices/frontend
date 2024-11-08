@@ -22,23 +22,27 @@ import { FirstKeyPipe } from "../../../shared/pipes/first-key.pipe";
     ReactiveFormsModule,
     HeaderComponent,
     FirstKeyPipe
-],
+  ],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
- 
+  
   signupForm: FormGroup;
   loading = false;
   error: string | null = null;
+  profilePic: string | null = null;
 
   constructor(private fb: FormBuilder, private genericService: GenericService) {
     this.signupForm = this.fb.group({
-      fullname: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      surname: ['', [Validators.required, Validators.minLength(3)]],
+      username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], // Adjust pattern as needed
       password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
+      profilePic: ['',Validators.required]  // to handle profile picture
     }, { validators: this.passwordMatchValidator });
   }
 
@@ -60,7 +64,19 @@ export class SignupComponent {
     this.loading = true;
     this.error = null;
 
-    this.genericService.postData('signup', this.signupForm.value).subscribe(
+    // Prepare form data for submission
+    const formData = new FormData();
+    formData.append('name', this.signupForm.value.name);
+    formData.append('surname', this.signupForm.value.surname);
+    formData.append('username', this.signupForm.value.username);
+    formData.append('email', this.signupForm.value.email);
+    formData.append('phone', this.signupForm.value.phone);
+    formData.append('password', this.signupForm.value.password);
+    if (this.profilePic) {
+      formData.append('profilePic', this.profilePic);
+    }
+
+    this.genericService.postData('signup', formData).subscribe(
       response => {
         console.log('Signup successful', response);
         this.loading = false;
@@ -70,5 +86,22 @@ export class SignupComponent {
         this.loading = false;
       }
     );
+  }
+
+  // Function to handle profile picture change
+  onProfilePicChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.profilePic = e.target.result;
+      };
+      reader.readAsDataURL(file);  // Convert to base64 string
+    }
+  }
+
+  // Function to remove profile picture
+  removeProfilePic() {
+    this.profilePic = null;
   }
 }

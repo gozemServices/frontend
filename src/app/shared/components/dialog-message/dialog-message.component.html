@@ -2,6 +2,9 @@
   <div class="message-container">
     <h2>{{ data.title }}</h2>
     <p>{{ data.message }}</p>
-    <button mat-button (click)="closeDialog()">Close</button>
+    <button 
+      class="px-4 py-2 bg-red-500"  
+      (click)="closeDialog()"
+      >Close</button>
   </div>
 </div>

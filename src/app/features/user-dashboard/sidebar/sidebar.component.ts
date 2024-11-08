@@ -28,7 +28,7 @@ export class SidebarComponent {
   faPayingTools= faFileInvoiceDollar;
   userTabs = [
     { id: 'dashboard', label: 'Dashboard', icon: this.faDashboard, title: 'dashboard' },
-    { id: 'dashboard', label: 'Profile', icon: this.faUser, title: 'profile' },
+    { id: 'profile', label: 'Profile', icon: this.faUser, title: 'profile' },
     { id: 'jobs', label: 'Jobs', icon: this.faSearch, title: 'jobs' },
     { id: 'dashboard', label: 'Messages', icon: this.faMessage, title: 'messages' },
     { id: 'cvs', label: 'Gestion des cvs', icon: this.faVcard, title: 'cvs' },

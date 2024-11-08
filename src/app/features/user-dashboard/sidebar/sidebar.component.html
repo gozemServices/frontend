@@ -23,9 +23,10 @@
         <button 
             *ngFor="let tab of userTabs"
             (click)="selectTab(tab.id)" 
-            class="bg-primary border-none text-white w-full py-2 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" 
+            class="bg-none text-[#757575]   border-none w-full py-2 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" 
             [title]="tab.title"
-            [ngClass]="{'bg-[#95223C]': selectedTab === tab.id}">
+            >
+            <!-- [ngClass]="{'bg-[#95223C]': selectedTab === tab.id}" -->
             <fa-icon [icon]="tab.icon"></fa-icon>
             <span class="menu-item">{{ tab.label }}</span>
         </button>
