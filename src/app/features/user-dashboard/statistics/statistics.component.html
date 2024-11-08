@@ -1,1 +1,131 @@
-<p>statistics works!</p>
+<div class="container p-6 space-y-8 w-full">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Applied Jobs Card -->
+        <div class="bg-gradient-to-r p-4 rounded-lg shadow-xl hover:scale-105 transition-transform">
+          <div class="flex items-center space-x-2">
+            <fa-icon [icon]="faCheckCircle" class="text-blue-500 text-4xl"></fa-icon>
+            <div>
+              <p class="text-2xl font-semibold text-gray-700">Applied Jobs</p>
+              <p class="text-4xl font-bold text-blue-600">{{ stats.applied }}</p>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Rejected Jobs Card -->
+        <div class="bg-gradient-to-r p-4 rounded-lg shadow-xl hover:scale-105 transition-transform">
+          <div class="flex items-center space-x-4">
+            <fa-icon [icon]="faTimesCircle" class="text-red-500 text-4xl"></fa-icon>
+            <div>
+              <p class="text-2xl font-semibold text-gray-700">Rejected Jobs</p>
+              <p class="text-4xl font-bold text-red-600">{{ stats.rejected }}</p>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Pending Jobs Card -->
+        <div class="bg-gradient-to-r p-4 rounded-lg shadow-xl hover:scale-105 transition-transform">
+          <div class="flex items-center space-x-4">
+            <fa-icon [icon]="faHourglassHalf" class="text-yellow-500 text-4xl"></fa-icon>
+            <div>
+              <p class="text-2xl font-semibold text-gray-700">Pending Jobs</p>
+              <p class="text-4xl font-bold text-yellow-600">{{ stats.pending }}</p>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Accepted Jobs Card -->
+        <div class="bg-gradient-to-r p-4 rounded-lg shadow-xl hover:scale-105 transition-transform">
+          <div class="flex items-center space-x-4">
+            <fa-icon [icon]="faClipboardList" class="text-green-500 text-4xl"></fa-icon>
+            <div>
+              <p class="text-2xl font-semibold text-gray-700">Accepted Jobs</p>
+              <p class="text-4xl font-bold text-green-600">{{ stats.accepted }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+  
+    <!-- Waiting List Invitations -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold text-gray-700">Jobs Pending Invitations</h2>
+      <p class="text-lg text-gray-400">jobs waiting for you to join de pending list</p>
+      <div class="overflow-x-auto mt-4">
+        <table class="min-w-full border-collapse">
+          <thead class="bg-primary">
+            <tr class="border-b">
+              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Job Title</th>
+              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Company</th>
+              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Date Invited</th>
+              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let job of displayedWaitingListJobs" class="border-b">
+              <td class="py-3 px-6 text-sm text-gray-700">{{ job.jobTitle }}</td>
+              <td class="py-3 px-6 text-sm text-gray-500">{{ job.company }}</td>
+              <td class="py-3 px-6 text-sm text-gray-500">{{ job.dateInvited | date }}</td>
+              <td class="py-3 px-6 text-sm space-x-2">
+                <button (click)="acceptWaitingList(job.jobTitle)" class="bg-green-500 text-white px-4 py-2 mx-1 rounded-md">Accept</button>
+                <button (click)="refuseWaitingList(job.jobTitle)" class="bg-red-500 text-white px-4 py-2 mx-1 rounded-md">Refuse</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  
+      <!-- Pagination Controls -->
+      <div class="flex justify-between mt-6">
+        <button (click)="prevPageWaitingList()" [disabled]="pageWaitingList === 1" class="px-4 py-2 bg-gray-500 text-white rounded-md disabled:opacity-50">
+          Previous
+        </button>
+        <div class="flex items-center">
+            <span class="text-gray-600">Page {{ pageWaitingList }} of {{ getTotalPagesWaitingList() }}</span>        </div>
+        <button (click)="nextPageWaitingList()" [disabled]="pageWaitingList * itemsPerPage >= waitingListInvitations.length" class="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50">
+          Next
+        </button>
+      </div>
+    </div>
+  
+    <!-- Applied Jobs -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold text-gray-700">Jobs You Applied To</h2>
+      <div class="overflow-x-auto mt-4">
+        <table class="min-w-full border-collapse">
+          <thead class="bg-primary">
+            <tr class="border-b">
+              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Job Title</th>
+              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Company</th>
+              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Date Applied</th>
+              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let job of displayedAppliedJobs" class="border-b">
+              <td class="py-3 px-6 text-sm text-gray-700">{{ job.jobTitle }}</td>
+              <td class="py-3 px-6 text-sm text-gray-500">{{ job.company }}</td>
+              <td class="py-3 px-6 text-sm text-gray-500">{{ job.dateApplied | date }}</td>
+              <td class="py-3 px-6 text-sm text-gray-500">{{ job.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  
+      <!-- Pagination Controls -->
+      <div class="flex justify-between mt-6">
+        <button (click)="prevPageApplied()" [disabled]="pageApplied === 1" class="px-4 py-2 bg-gray-500 text-white rounded-md disabled:opacity-50">
+          Previous
+        </button>
+        <div class="flex items-center">
+            <span class="text-gray-600">Page {{ pageApplied }} of {{ getTotalPagesApplied() }}</span>        </div>
+        <button (click)="nextPageApplied()" [disabled]="pageApplied * itemsPerPage >= appliedJobs.length" class="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50">
+          Next
+        </button>
+      </div>
+    </div>
+  
+  </div>
+  

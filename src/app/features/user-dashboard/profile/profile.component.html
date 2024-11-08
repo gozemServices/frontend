@@ -1,19 +1,21 @@
-<div class="p-6 w-full">
+<div class="md:p-6 w-full">
 
     <!-- Points Section -->
-    <div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="bg-white shadow-md rounded-lg p-4 mb-4 flex-wrap">
       <h3 class="text-xl font-semibold text-gray-800 mb-4">Your Points</h3>
-      <div class="flex items-center space-x-4 mb-4">
+      <div class="flex items-center space-x-4 mb-4 flex-wrap">
         <div class="text-xl font-bold text-gray-700">{{ userPoints }} Points</div>
-        <button (click)="buyPoints()" class="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition">Buy More Points</button>
-        <button class="bg-primary text-white py-2 px-6 rounded-md hover:bg-darkShade transition">Buy Premium tools</button>
+        <div class="flex flex-wrap gap-2">
+          <button (click)="buyPoints()" class="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition">Buy More Points</button>
+          <button class="bg-primary text-white py-2 px-6 rounded-md hover:bg-darkShade transition">Buy Premium tools</button>  
+        </div>
       </div>
       <p class="text-gray-500">Points allow you to access premium tools and features. You can purchase more anytime.</p>
     </div>
   
     <!-- Profile Header -->
     <div class="bg-white shadow-md rounded-lg p-4 mb-8">
-      <div class="flex items-center space-x-6">
+      <div class="flex items-start md:items-center space-x-6 flex-wrap">
         <img src="images/man_on_computer.png"  alt="User Avatar" class="rounded-full w-24 h-24">
         <div>
           <h2 class="text-3xl font-semibold text-gray-800">{{ userInfo?.fullName }}</h2>
@@ -24,7 +26,7 @@
     </div>
   
     <!-- Premium Tools Section -->
-    <div class="bg-white shadow-md rounded-lg p-8 mb-8">
+    <div class="bg-white shadow-md rounded-lg p-4 md:p-8 mb-8">
       <h3 class="text-2xl font-semibold text-gray-800 mb-4">Premium Tools</h3>
       <div class="space-y-4">
         <div *ngFor="let tool of userTools" class="flex justify-between items-center p-4 bg-gray-100 rounded-lg">
@@ -38,11 +40,11 @@
     </div>
   
     <!-- Applied Jobs Section -->
-    <div class="bg-white shadow-md rounded-lg p-8 h-[400px] overflow-y-auto">
+    <div class="bg-white shadow-md rounded-lg p-4 md:p-8 h-[400px] overflow-y-auto">
       <h3 class="text-2xl font-semibold text-gray-800 mb-4">Applied Jobs</h3>
       <div class="space-y-4">
         <div *ngFor="let job of appliedJobs" class="p-4 bg-gray-100 rounded-lg">
-          <h4 class="text-xl font-semibold text-gray-800">{{ job.title }} - {{ job.company }}</h4>
+          <h4 class="text-md  font-semibold text-gray-800">{{ job.title }} - {{ job.company }}</h4>
           <p class="text-md text-gray-600">Applied on: {{ job.applicationDate | date }}</p>
           <p class="text-md text-gray-600">Status: <span [ngClass]="{ 'text-green-600': job.status === 'Approved', 'text-yellow-500': job.status === 'Pending', 'text-red-600': job.status === 'Rejected' }">{{ job.status }}</span></p>
           <p class="text-gray-500 mt-2">Location: {{ job.location }}</p>

@@ -1,0 +1,25 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  button:disabled {
+    cursor: not-allowed;
+  }
+  
+  button:hover:enabled {
+    cursor: pointer;
+  }
+  
+  .notification-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .notification-card .icon {
+    margin-right: 15px;
+  }
+  

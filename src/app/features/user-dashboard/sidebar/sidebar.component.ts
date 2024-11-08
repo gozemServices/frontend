@@ -30,8 +30,8 @@ export class SidebarComponent {
     { id: 'dashboard', label: 'Dashboard', icon: this.faDashboard, title: 'dashboard' },
     { id: 'profile', label: 'Profile', icon: this.faUser, title: 'profile' },
     { id: 'jobs', label: 'Jobs', icon: this.faSearch, title: 'jobs' },
-    { id: 'dashboard', label: 'Messages', icon: this.faMessage, title: 'messages' },
-    { id: 'cvs', label: 'Gestion des cvs', icon: this.faVcard, title: 'cvs' },
+    { id: 'messages', label: 'Messages', icon: this.faMessage, title: 'messages' },
+    { id: 'cvs', label: 'Gestion du cv', icon: this.faVcard, title: 'cvs' },
     { id: 'stats', label: 'Suivis et stats', icon: this.faStats, title: 'stats' },
     { id: 'paying_tools', label: 'Outils payants', icon: this.faPayingTools, title: 'paying_tools' },
     // { id: 'point_management', label: 'Gestion des points', icon: 'fa-solid fa-grip', title: 'point_management' }

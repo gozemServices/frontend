@@ -9,3 +9,21 @@ export interface User {
     username: string;
   }
   
+
+export interface Message {
+  id: number;
+  sender: string;
+  subject: string;
+  content: string;
+  timestamp: string;
+  read: boolean;
+}
+
+export interface Notification {
+  type: string;    
+  title: string;   
+  message: string; 
+  timestamp: string; 
+  icon: any;       
+  read: boolean;
+}

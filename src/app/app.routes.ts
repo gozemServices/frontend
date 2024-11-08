@@ -20,7 +20,7 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'user',
+        path: 'user/admin',
         component: UserDashboardComponent,
     }
 ];

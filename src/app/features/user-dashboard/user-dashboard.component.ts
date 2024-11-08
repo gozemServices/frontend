@@ -11,17 +11,19 @@ import { JobsComponent } from "./jobs/jobs.component";
 import { GenericService } from '../../core/services/generic.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProfileComponent } from "./profile/profile.component";
+import { NotificationsComponent } from "./notifications/notifications.component";
+import { JobseekerMessagesComponent } from "./jobseeker-messages/jobseeker-messages.component";
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [TranslateModule, FontAwesomeModule, SidebarComponent, CommonModule, DashboardComponent, PayingToolsComponent, CvBuilderComponent, StatisticsComponent, JobsComponent, ProfileComponent],
+  imports: [TranslateModule, FontAwesomeModule, SidebarComponent, CommonModule, DashboardComponent, PayingToolsComponent, CvBuilderComponent, StatisticsComponent, JobsComponent, ProfileComponent, NotificationsComponent, JobseekerMessagesComponent],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss'
 })
 export class UserDashboardComponent implements OnInit{
   // private genericService = Inject(GenericService);
-  selectedTab: string = 'profile'; 
+  selectedTab: string = 'stats'; 
   currentLanguage = 'en';
   languages !: string[];
   isLangDropdownOpened = false;
@@ -39,6 +41,10 @@ export class UserDashboardComponent implements OnInit{
 
   onTabSelected(tab: string) {
     this.selectedTab = tab;
+  }
+
+  goToNotifications(){
+    this.selectedTab = 'notifications'
   }
  
 
