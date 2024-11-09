@@ -1,5 +1,5 @@
 <!-- messages.component.html -->
-<div class="container p-6 space-y-8 w-full bg-lightGray">
+<div class="container p-6 space-y-8 w-full bg-lightGray rounded-xl mt-2">
 
     <!-- Page Title -->
     <div class="text-center">
@@ -16,7 +16,7 @@
             <p class="text-xs text-gray-400">{{ message.timestamp }}</p>
           </div>
           <div class="flex justify-between mt-4">
-            <button (click)="toggleReadStatus(message)" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+            <button (click)="toggleReadStatus(message)" class="px-2 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
               <fa-icon [icon]="faCheckCircle" class="mr-2"></fa-icon>{{ message.read ? 'Mark as Unread' : 'Mark as Read' }}
             </button>
             <button (click)="deleteMessage(message)" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">

@@ -23,7 +23,7 @@ import { JobseekerMessagesComponent } from "./jobseeker-messages/jobseeker-messa
 })
 export class UserDashboardComponent implements OnInit{
   // private genericService = Inject(GenericService);
-  selectedTab: string = 'stats'; 
+  selectedTab: string = 'dashboard'; 
   currentLanguage = 'en';
   languages !: string[];
   isLangDropdownOpened = false;

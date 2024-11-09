@@ -5,11 +5,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmRemoveToolsModalComponent } from './confirm-remove-tools-modal/confirm-remove-tools-modal.component';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BuyPointsModalComponent } from './buy-points-modal/buy-points-modal.component';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule,ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -17,6 +19,7 @@ export class ProfileComponent implements OnInit {
   isLoading = true;
   errorMessage: string | null = null;
   updatePasswordForm!: FormGroup;
+  faWarning = faWarning;
 
   userInfo = {
     fullName: 'John Doe',
@@ -166,6 +169,19 @@ export class ProfileComponent implements OnInit {
           this.userPoints += result;
         }
       });
+    }
+
+
+    onDeactivateClick() {
+      if (confirm('Are you sure you want to deactivate your account? This action cannot be undone.')) {
+        // Call your API to deactivate the account here
+        console.log('Account deactivated');
+      }
+    }
+  
+    // Placeholder function for the Cancel action
+    onCancelClick() {
+      console.log('Deactivation canceled');
     }
   
 }

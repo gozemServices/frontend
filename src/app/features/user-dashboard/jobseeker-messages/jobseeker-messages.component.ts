@@ -46,7 +46,7 @@ export class JobseekerMessagesComponent {
     }
   ];
 
-  selectedMessage: Message | null = null; // Currently selected message
+  selectedMessage: Message | null = null; 
   currentPage = 1;
   itemsPerPage = 3;
   totalPages = Math.ceil(this.messages.length / this.itemsPerPage);
@@ -55,20 +55,20 @@ export class JobseekerMessagesComponent {
   constructor() {}
 
   ngOnInit(): void {
-    // Initial setup can go here
+   
   }
 
-  // Select a message to view its content
+  
   selectMessage(message: Message) {
     this.selectedMessage = message;
   }
 
-  // Mark a message as read/unread
+  
   toggleReadStatus(message: Message) {
     message.read = !message.read;
   }
 
-  // Delete a message
+ 
   deleteMessage(message: Message) {
     const index = this.messages.indexOf(message);
     if (index > -1) {

@@ -40,6 +40,7 @@ export class SidebarComponent {
   selectTab(tab: string) {
     this.selectedTab =  tab;
     this.tabSelected.emit(tab);
+    this.isSidebarOpened = !this.isSidebarOpened;
   }
 
   toggleSidebar() {
