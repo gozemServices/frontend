@@ -48,27 +48,27 @@
     <footer class="bg-primary text-white pt-8 footer-block">
       <div class="container mx-auto flex flex-col md:flex-row text-white justify-between px-2">
         <div class="mb-8 md:mb-0">
-          <h2 class="text-2xl font-bold uppercase">cvtheque</h2>
-          <p class="mt-2">Your one-stop solution for managing and sharing your CVs with ease.</p>
+          <h2 class="text-2xl font-bold uppercase">{{ 'CVTHEQUE' | translate }}</h2>
+          <p class="mt-2">{{ 'CVTHEQUE_DESCRIPTION' | translate }}</p>
         </div>
         <div class="mb-8 md:mb-0">
-          <h3 class="text-md font-semibold">Company</h3>
+          <h3 class="text-md font-semibold">{{ 'COMPANY' | translate }}</h3>
           <ul class="mt-2">
-            <li><a href="#" class="hover:underline">About Us</a></li>
-            <li><a href="#" class="hover:underline">Our Services</a></li>
-            <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+            <li><a href="#" class="hover:underline">{{ 'ABOUT_US' | translate }}</a></li>
+            <li><a href="#" class="hover:underline">{{ 'OUR_SERVICES' | translate }}</a></li>
+            <li><a href="#" class="hover:underline">{{ 'PRIVACY_POLICY' | translate }}</a></li>
           </ul>
         </div>
         <div class="mb-8 md:mb-0">
-          <h3 class="text-md font-semibold">Fast Links</h3>
+          <h3 class="text-md font-semibold">{{ 'FAST_LINKS' | translate }}</h3>
           <ul class="mt-2">
-            <li><a href="#" class="hover:underline">Home</a></li>
-            <li><a href="#" class="hover:underline">Services</a></li>
-            <li><a href="#" class="hover:underline">Contact</a></li>
+            <li><a href="#" class="hover:underline">{{ 'HOME' | translate }}</a></li>
+            <li><a href="#" class="hover:underline">{{ 'SERVICES' | translate }}</a></li>
+            <li><a href="#" class="hover:underline">{{ 'CONTACT' | translate }}</a></li>
           </ul>
         </div>
         <div>
-          <h3 class="text-md font-semibold">Follow Us</h3>
+          <h3 class="text-md font-semibold">{{ 'FOLLOW_US' | translate }}</h3>
           <div class="mt-2 flex space-x-4">
             <a href="#" class="w-[45px] h-[45px] text-lg flex items-center justify-center rounded-full bg-darkShade hover:bg-gray-900 hover:text-white transition duration-700">
               <fa-icon [icon]="faFacebook"></fa-icon>
@@ -86,8 +86,9 @@
         </div>
       </div>
       <div class="bg-[#823244] mt-8 py-4 text-center">
-        <p class="text-sm">© 2024 Cvtheque. All rights reserved.</p>
+        <p class="text-sm">{{ 'COPYRIGHT' | translate }}</p>
       </div>
     </footer>
+    
   </div>
 </div>

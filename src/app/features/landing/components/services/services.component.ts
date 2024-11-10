@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-services',
@@ -10,49 +10,53 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './services.component.scss'
 })
 export class ServicesComponent {
-  companiesAdvantages: {title: string, description: string}[] = [
+  companiesAdvantages: { title: string, description: string }[] = [
     {
-      title: "Access to a Vast Talent Pool",
-      description: "Easily search, filter, and find qualified candidates suited for various roles across industries"
+      title: "ACCESS_TALENT_POOL",
+      description: "EASILY_SEARCH_CANDIDATES"
     },
     {
-      title: "Enhanced Screening Tools",
-      description: "View standardized CV formats, skill summaries, and candidate profiles to streamline the hiring process"
+      title: "ENHANCED_SCREENING_TOOLS",
+      description: "STANDARDIZED_CV_FORMATS"
     },
     {
-      title: "Customizable CV Database",
-      description: "Save and organize favorite profiles, and set notifications for new candidates meeting your requirements"
+      title: "CUSTOMIZABLE_CV_DATABASE",
+      description: "SAVE_AND_ORGANIZE_PROFILES"
     },
     {
-      title: "Direct Messaging and Scheduling",
-      description: "Contact candidates directly or schedule interviews within the platform"
+      title: "DIRECT_MESSAGING_SCHEDULING",
+      description: "CONTACT_AND_SCHEDULE_INTERVIEWS"
     },
     {
-      title: "Analytics and Insights",
-      description: "Access data on search trends and hiring stats to make informed recruitment decisions"
+      title: "ANALYTICS_AND_INSIGHTS",
+      description: "MAKE_INFORMED_RECRUITMENT_DECISIONS"
     },
-  ]
+  ];
+  
   jobSeekersAdvantages: {title: string, description: string}[] = [
     {
-      title: "Professional CV Builder",
-      description: "Create and customize a standout CV with templates that suit various industries and roles."
+      title: "JOBSEEKER_PROFESSIONAL_CV_BUILDER",
+      description: "JOBSEEKER_CREATE_CUSTOM_CV"
     },
     {
-      title: "Personalized Job Recommendations",
-      description: "Receive job matches based on your skills, experience, and career goals."
+      title: "JOBSEEKER_PERSONALIZED_JOB_RECOMMENDATIONS",
+      description: "JOBSEEKER_RECEIVE_JOB_MATCHES"
     },
     {
-      title: "Enhanced Profile Visibility",
-      description: "Showcase your skills and achievements directly to top companies"
+      title: "JOBSEEKER_ENHANCED_PROFILE_VISIBILITY",
+      description: "JOBSEEKER_SHOWCASE_SKILLS"
     },
     {
-      title: "Application Tracking",
-      description: "Stay updated on the status of your applications, from submission to interview invites"
+      title: "JOBSEEKER_APPLICATION_TRACKING",
+      description: "JOBSEEKER_TRACK_APPLICATION_STATUS"
     },
     {
-      title: "Career Resources",
-      description: "Access tools and tips on improving your CV, acing interviews, and advancing your career"
-    },
+      title: "JOBSEEKER_CAREER_RESOURCES",
+      description: "JOBSEEKER_ACCESS_CAREER_TOOLS"
+    }
   ]
+  
+  constructor(private translate: TranslateService) {}
+
 
 }

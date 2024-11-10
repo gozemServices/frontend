@@ -6,11 +6,13 @@ import {MatIconModule} from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome'
 import {faCoffee} from '@fortawesome/free-solid-svg-icons'
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-basic-infos',
   standalone: true,
   imports: [  
+    TranslateModule,
     MatFormFieldModule,
     MatInputModule,
     MatPseudoCheckboxModule,

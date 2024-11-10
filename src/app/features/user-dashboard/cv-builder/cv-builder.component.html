@@ -5,7 +5,7 @@
       <div class="my-4">
         <button 
           (click)="toggleShowCvSectionsList()"
-          class="bg-transparent text-[#AF4E64] border-[#AF4E64] border-2 py-4 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]"
+          class="bg-primary text-white border-[#AF4E64] border-2 py-4 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]"
         >{{currentCvSection.title}}</button>
         <div class="transition duration-800 border-2 border-[#AF4E64] bg-[#AF4E64] md:bg-transparent" *ngIf="iscvSectionListShown">
             <a 

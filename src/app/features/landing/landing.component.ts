@@ -8,10 +8,11 @@ import { faFacebook, faInstagram, faLinkedin, faXTwitter } from '@fortawesome/fr
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { ScrollAnimationDirective } from '../../shared/directives/scroll-animation.directive';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [ScrollAnimationDirective, HomeComponent, HeaderComponent, ServicesComponent, ContactUsComponent, LatestCvComponent,FontAwesomeModule],
+  imports: [TranslateModule,ScrollAnimationDirective, HomeComponent, HeaderComponent, ServicesComponent, ContactUsComponent, LatestCvComponent,FontAwesomeModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
 })

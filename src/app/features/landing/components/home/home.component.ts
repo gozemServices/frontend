@@ -1,13 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { GenericService } from '../../../../core/services/generic.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, TranslateModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'] // corrected to styleUrls
 })

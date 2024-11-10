@@ -4,11 +4,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChartArea, faChartBar, faFileInvoiceDollar, faGauge, faMessage, faSearch, faUser, faVcard } from '@fortawesome/free-solid-svg-icons';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, MatTabsModule,FontAwesomeModule],
+  imports: [CommonModule,TranslateModule, MatTabsModule,FontAwesomeModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
@@ -27,13 +28,13 @@ export class SidebarComponent {
   faStats = faChartBar;
   faPayingTools= faFileInvoiceDollar;
   userTabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: this.faDashboard, title: 'dashboard' },
-    { id: 'profile', label: 'Profile', icon: this.faUser, title: 'profile' },
-    { id: 'jobs', label: 'Jobs', icon: this.faSearch, title: 'jobs' },
-    { id: 'messages', label: 'Messages', icon: this.faMessage, title: 'messages' },
-    { id: 'cvs', label: 'Gestion du cv', icon: this.faVcard, title: 'cvs' },
-    { id: 'stats', label: 'Suivis et stats', icon: this.faStats, title: 'stats' },
-    { id: 'paying_tools', label: 'Outils payants', icon: this.faPayingTools, title: 'paying_tools' },
+    { id: 'dashboard', label: 'DASHBOARD_LABEL', icon: this.faDashboard, title: 'DASHBOARD_TITLE' },
+  { id: 'profile', label: 'PROFILE_LABEL', icon: this.faUser, title: 'PROFILE_TITLE' },
+  { id: 'jobs', label: 'JOBS_LABEL', icon: this.faSearch, title: 'JOBS_TITLE' },
+  { id: 'messages', label: 'MESSAGES_LABEL', icon: this.faMessage, title: 'MESSAGES_TITLE' },
+  { id: 'cvs', label: 'CVS_LABEL', icon: this.faVcard, title: 'CVS_TITLE' },
+  { id: 'stats', label: 'STATS_LABEL', icon: this.faStats, title: 'STATS_TITLE' },
+  { id: 'paying_tools', label: 'PAYING_TOOLS_LABEL', icon: this.faPayingTools, title: 'PAYING_TOOLS_TITLE' },
     // { id: 'point_management', label: 'Gestion des points', icon: 'fa-solid fa-grip', title: 'point_management' }
   ];
 

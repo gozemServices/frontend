@@ -2,10 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAdd, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-education',
   standalone: true,
   imports: [
+    TranslateModule,
     MatIconModule,
     FontAwesomeModule
 ],
