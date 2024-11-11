@@ -18,13 +18,14 @@ import { JobseekerMessagesComponent } from "./jobseeker-messages/jobseeker-messa
   selector: 'app-user-dashboard',
   standalone: true,
   imports: [TranslateModule, FontAwesomeModule, SidebarComponent, CommonModule, DashboardComponent, PayingToolsComponent, CvBuilderComponent, StatisticsComponent, JobsComponent, ProfileComponent, NotificationsComponent, JobseekerMessagesComponent],
-  templateUrl: './user-dashboard.component.html',
-  styleUrl: './user-dashboard.component.scss'
+  templateUrl: './user-space.component.html',
+  styleUrl: './user-space.component.scss'
 })
-export class UserDashboardComponent implements OnInit{
+export class UserSpaceComponent implements OnInit{
   // private genericService = Inject(GenericService);
   selectedTab: string = 'dashboard'; 
   currentLanguage = 'en';
+  userType = 'jobseeker'
   languages !: string[];
   isLangDropdownOpened = false;
   faChevronDown = faChevronDown;

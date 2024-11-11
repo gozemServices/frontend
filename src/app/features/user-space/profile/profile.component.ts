@@ -7,11 +7,12 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { BuyPointsModalComponent } from './buy-points-modal/buy-points-modal.component';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule, FontAwesomeModule],
+  imports: [CommonModule,TranslateModule,ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

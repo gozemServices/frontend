@@ -3,7 +3,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { SignupComponent } from './features/auth/signup/signup.component';
 import { AuthComponent } from './features/auth/auth/auth.component';
-import { UserDashboardComponent } from './features/user-dashboard/user-dashboard.component';
+import { RecruiterSpaceComponent } from './features/recruiter-space/recruiter-space.component';
+import { UserSpaceComponent } from './features/user-space/user-space.component';
 
 export const routes: Routes = [
     {
@@ -21,6 +22,10 @@ export const routes: Routes = [
     },
     {
         path: 'user/admin',
-        component: UserDashboardComponent,
+        component: UserSpaceComponent,
+    },
+    {
+        path: 'user/recruiter/admin',
+        component: RecruiterSpaceComponent
     }
 ];

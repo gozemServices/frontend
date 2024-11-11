@@ -1,4 +1,4 @@
-<div class="fixed right-10 top-20 z-50 md:hidden ">
+<div class="fixed right-10 top-10 sm:top-8 md:top-4 z-50 md:hidden ">
     <button 
         (click)="toggleSidebar()"
         class="hamburger menu-btn-side" 
@@ -12,7 +12,7 @@
 <div class="bg-black md:hidden fixed z-40 left-0 top-0 w-full" [ngClass]="{'block': isSidebarOpened, 'hidden': !isSidebarOpened} "></div>
 <aside 
     [ngClass]="{'translate-x-0 w-70': isSidebarOpened, 'translate-x-full': !isSidebarOpened}"
-    class="rounded-2xl sidebar1 fixed bg-white shadow-lg shadow-gray-500 top-0 right-0 z-40 w-64 h-screen transition-transform duration-700 translate-x-full md:translate-x-0 border-slate-900">
+    class="rounded-2xl sidebar1 overflow-auto fixed bg-gray-100 shadow-lg shadow-gray-500 top-0 right-0 z-40 w-64 h-[98vh] mt-2 transition-transform duration-700 translate-x-full md:translate-x-0 border-slate-900">
     <section class="user-infos flex justify-center items-center flex-col">
         <img src="images/people_in_meeting.jpg" alt="User logo" class="w-[50px] object-cover h-[50px] rounded-full my-2">
         <h4 class="username">John snow</h4>
@@ -21,15 +21,14 @@
 
     <div class="menu-items overflow-auto flex flex-col justify-start items-center mt-7 w-full px-2 gap-2">
         <button 
-            *ngFor="let tab of userTabs"
+            *ngFor="let tab of menuItems"
             (click)="selectTab(tab.id)" 
-            class="bg-none text-[#757575]   border-none w-full py-2 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" 
+            class="bg-none text-[#757575] rounded-lg border-none w-full py-2 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" 
             [title]="tab.title"
-            [ngClass]="{'bg-[#95223C] text-white': selectedTab === tab.id}"
-            [class.bg-]
+            [ngClass]="{'bg-[#95223C] font-bold text-white ': selectedTab === tab.id}"
             >
             <!-- [ngClass]="{'bg-[#95223C]': selectedTab === tab.id}" -->
-            <fa-icon [icon]="tab.icon"></fa-icon>
+            <fa-icon [icon]="tab.icon" class="h-8 w-8 items-center flex justify-center bg-white shadow-custom shadow-gray-500 text-primary rounded-xl"></fa-icon>
             <span class="menu-item">{{ tab.label | translate}}</span>
         </button>
         <a href="" id="deconnecter" class="bg-transparent text-primary border-primary border-2 w-full py-2 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" title="deconnexion">

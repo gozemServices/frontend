@@ -2,11 +2,12 @@ import { Component, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-confirm-remove-tools-modal',
   standalone: true,
-  imports: [MatDialogModule,FontAwesomeModule],
+  imports: [MatDialogModule,FontAwesomeModule,TranslateModule],
   templateUrl: './confirm-remove-tools-modal.component.html',
   styleUrl: './confirm-remove-tools-modal.component.scss'
 })

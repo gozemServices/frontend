@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import { TranslationService } from './core/services/translation.service';
 import { GenericService } from './core/services/generic.service';
 
 @Component({
@@ -18,8 +17,8 @@ export class AppComponent {
     private genericService: GenericService
   ) {
     this.translateService.addLangs(['fr', 'en','es']);
-    this.translateService.setDefaultLang('fr');
-    this.translateService.use('fr');
+    this.translateService.setDefaultLang('en');
+    this.translateService.use('en');
   }
 
   switchLanguage(language: string) {
