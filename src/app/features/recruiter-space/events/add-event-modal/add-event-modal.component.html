@@ -1,0 +1,74 @@
+<div class="flex flex-col p-6">
+    <!-- Modal Content -->
+<h2 class="text-xl font-semibold">{{ isEditMode ? 'Edit Event' : 'Add Event' }}</h2>
+<form [formGroup]="eventForm" class="space-y-4 mt-4 overflow-auto w-[600px] px-6">
+
+  <!-- Event Name -->
+  <div>
+    <label for="eventName" class="block text-gray-700">Event Name</label>
+    <input id="eventName" formControlName="eventName" type="text" 
+      class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+    <div *ngIf="eventForm.controls['eventName'].invalid && eventForm.controls['eventName'].touched" 
+      class="text-red-600 text-sm">Event Name is required.</div>
+  </div>
+
+  <!-- Description -->
+  <div>
+    <label for="description" class="block text-gray-700">Description</label>
+    <textarea id="description" formControlName="description" rows="3" 
+      class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+    <div *ngIf="eventForm.controls['description'].invalid && eventForm.controls['description'].touched" 
+      class="text-red-600 text-sm">Description is required.</div>
+  </div>
+
+  <!-- Start Date -->
+  <div>
+    <label for="startDate" class="block text-gray-700">Start Date</label>
+    <input id="startDate" formControlName="startDate" type="date" 
+      class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+    <div *ngIf="eventForm.controls['startDate'].invalid && eventForm.controls['startDate'].touched" 
+      class="text-red-600 text-sm">Start Date is required.</div>
+  </div>
+
+  <!-- End Date -->
+  <div>
+    <label for="endDate" class="block text-gray-700">End Date</label>
+    <input id="endDate" formControlName="endDate" type="date" 
+      class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+    <div *ngIf="eventForm.controls['endDate'].invalid && eventForm.controls['endDate'].touched" 
+      class="text-red-600 text-sm">End Date is required.</div>
+  </div>
+
+  <!-- Event Type -->
+  <div>
+    <label for="eventType" class="block text-gray-700">Event Type</label>
+    <select id="eventType" formControlName="eventType" 
+      class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <option *ngFor="let type of eventTypes" [value]="type">{{ type }}</option>
+    </select>
+    <div *ngIf="eventForm.controls['eventType'].invalid && eventForm.controls['eventType'].touched" 
+      class="text-red-600 text-sm">Event Type is required.</div>
+  </div>
+
+  <!-- Status (only editable for new events) -->
+  <div *ngIf="!isEditMode">
+    <label for="status" class="block text-gray-700">Status</label>
+    <select id="status" formControlName="status" 
+      class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <option value="Upcoming">Upcoming</option>
+      <option value="Ongoing">Ongoing</option>
+      <option value="Completed">Completed</option>
+      <option value="Cancelled">Cancelled</option>
+    </select>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex justify-end space-x-4 mt-6">
+    <button type="button" (click)="cancel()" class="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300">Cancel</button>
+    <button type="button" (click)="saveEvent()" 
+      [disabled]="eventForm.invalid" 
+      class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save</button>
+  </div>
+</form>
+
+</div>

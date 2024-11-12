@@ -1,0 +1,124 @@
+::root{
+    --accent-color: #2babe2;
+    --accent-color: #67e0fc;
+}
+
+/* A4 Paper size */
+@page {
+    size: A4;
+    margin: 1cm;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+}
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem;
+    flex-wrap: wrap;
+}
+/* Left Sidebar */
+.sidebar {
+    width: 35%;
+    background: #3d3e51;
+    color: #fff;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+}
+.sidebar .profile-bloc{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background: red;
+}
+.sidebar img {
+    width: 80%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    object-fit: cover;
+}
+.sidebar h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 0.5rem;
+}
+.sidebar p, .sidebar ul {
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar ul li {
+    margin-bottom: 0.5rem;
+}
+.sidebar a {
+    color: #fff;
+    text-decoration: none;
+}
+/* Main Content */
+.main-content {
+    width: 65%;
+    padding-left: 2rem;
+    box-sizing: border-box;
+}
+.main-content h1 {
+    font-size: 2rem;
+    margin-top: 0;
+    color: #3d3e51;
+    color: #0f85c9;
+    font-weight: bolder;
+}
+.main-content h2 {
+    font-size: 1.8rem;
+    margin: 1.5rem 0 1rem;
+    color: #333;
+    border-bottom: 2px solid #3d3e51;
+    padding-bottom: 0.5rem;
+    color: #0f85c9;
+}
+.section {
+    margin-bottom: 1.5rem;
+}
+.section p, .section ul {
+    line-height: 1.6;
+    margin: 0.5rem 0;
+}
+.section ul {
+    list-style: none;
+    padding: 0;
+}
+.section ul li {
+    margin-bottom: 0.5rem;
+}
+.contact-info i,ul li i {
+    margin-right: 8px;
+}
+.languages ul span {
+        font-weight: bolder;
+}
+.job-title {
+    color: var(--accent-color);
+    font-size: 24px;
+    color: #0f85c9;
+}
+
+hr {
+    border: 0;
+    border-top: 2px solid #3d3e51; /* Same color as sidebar background */
+    margin: 20px 0;
+}

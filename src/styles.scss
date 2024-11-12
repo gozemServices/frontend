@@ -45,3 +45,9 @@ $frontend-theme: mat.define-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-dialog-container {
+  width: 100% !important;  /* This could override the width set via the dialog options */
+}
+.custom-modal .mat-dialog-container {
+  width: 500px !important;  /* Enforce the width here */
+}

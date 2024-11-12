@@ -7,6 +7,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SidebarComponent } from '../user-space/sidebar/sidebar.component';
 import { ProfileManagementComponent } from "./profile-management/profile-management.component";
+import { OffersComponent } from "./offers/offers.component";
+import { CandidaturesComponent } from "./candidatures/candidatures.component";
+import { PayingToolsComponent } from "../user-space/paying-tools/paying-tools.component";
+import { EventsComponent } from "./events/events.component";
+import { CandidatesComponent } from "./candidates/candidates.component";
 @Component({
   selector: 'app-recruiter-space',
   standalone: true,
@@ -17,7 +22,12 @@ import { ProfileManagementComponent } from "./profile-management/profile-managem
     SidebarComponent,
     TranslateModule,
     FontAwesomeModule,
-    ProfileManagementComponent
+    ProfileManagementComponent,
+    OffersComponent,
+    CandidaturesComponent,
+    PayingToolsComponent,
+    EventsComponent,
+    CandidatesComponent
 ],
   templateUrl: './recruiter-space.component.html',
   styleUrl: './recruiter-space.component.scss'

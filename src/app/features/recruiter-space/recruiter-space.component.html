@@ -6,7 +6,7 @@
   >
   </app-sidebar>
   <section class="p-4 md:mr-64 flex flex-col w-full">
-      <header class="section-header flex w-full justify-between flex-wrap items-center px-4 py-8 bg-lightGray rounded-xl shadow-lg shadow-gray-400">
+      <header class="section-header  flex w-full justify-between flex-wrap items-center px-4 py-8 bg-lightGray rounded-xl shadow-lg shadow-gray-400">
           <!-- Hamburger menu for mobile -->
           <div class="absolute top-80 left-4 z-40 md:hidden">
             <button id="menu-btn-side" class="block bg-transparent border-none hamburger focus:outline-none">
@@ -72,6 +72,21 @@
               </div>
               <div class="w-full" *ngIf="selectedTab === 'profile'">
                 <app-profile-management></app-profile-management>
+              </div>
+              <div class="w-full" *ngIf="selectedTab === 'offers'">
+                <app-offers></app-offers>
+              </div>
+              <div class="w-full" *ngIf="selectedTab === 'candidatures'">
+                <app-candidatures></app-candidatures>
+              </div>
+              <div class="w-full" *ngIf="selectedTab === 'paying_tools'">
+                <app-paying-tools></app-paying-tools>
+              </div>
+              <div class="w-full" *ngIf="selectedTab === 'events'">
+                <app-events></app-events>
+              </div>
+              <div class="w-full" *ngIf="selectedTab === 'candidates'">
+                <app-candidates></app-candidates>
               </div>
               
           </div>

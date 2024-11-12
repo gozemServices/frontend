@@ -27,3 +27,14 @@ export interface Notification {
   icon: any;       
   read: boolean;
 }
+
+
+export interface Event {
+  id: number;
+  eventName: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+  eventType: 'Conference' | 'Webinar' | 'Workshop' | 'Seminar';  // Example event types
+  status: 'Upcoming' | 'Ongoing' | 'Completed' | 'Cancelled';
+}

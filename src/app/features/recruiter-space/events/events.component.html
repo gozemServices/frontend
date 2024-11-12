@@ -1,0 +1,73 @@
+<!-- Event Management Table -->
+<div class="flex justify-between items-center">
+    <h2 class="text-xl font-semibold">Event Management</h2>
+    <button (click)="openAddEventModal()" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+      Add Event
+    </button>
+  </div>
+  
+  <div class="mt-4">
+    <input [(ngModel)]="searchQuery" (input)="applyFilters()" placeholder="Search events..." class="mb-4 p-2 border border-gray-300 rounded-md" />
+  
+    <table class="min-w-full border-collapse table-auto">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="py-2 px-4">Event Name</th>
+          <th class="py-2 px-4">Event Type</th>
+          <th class="py-2 px-4">Start Date</th>
+          <th class="py-2 px-4">End Date</th>
+          <th class="py-2 px-4">Status</th>
+          <th class="py-2 px-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class=" border-b-2 border-b-primary" *ngFor="let event of filteredEvents">
+          <td class="py-2 px-4">{{ event.eventName }}</td>
+          <td class="py-2 px-4">{{ event.eventType }}</td>
+          <td class="py-2 px-4">{{ event.startDate | date: 'shortDate' }}</td>
+          <td class="py-2 px-4">{{ event.endDate | date: 'shortDate' }}</td>
+          <td class="py-2 px-4">
+            <span class="inline-block py-1 px-2 rounded-md z-40" [ngClass]="{
+              'bg-gray-300': event.status === 'Upcoming',
+              'bg-blue-300': event.status === 'Ongoing',
+              'bg-green-300': event.status === 'Completed',
+              'bg-red-300': event.status === 'Cancelled'
+            }">
+              {{ event.status }}
+            </span>
+          </td>
+          <td class="py-2 px-4 relative">
+            <!-- Action Button: Three dots icon -->
+            <button (click)="toggleActions(event.id)" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+              <fa-icon [icon]="faEllipsisH" class="w-6 h-6"></fa-icon>
+            </button>
+            
+            <!-- Dropdown Menu for Actions -->
+            <div *ngIf="activeActions === event.id" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-md">
+              <ul class="py-1">
+                <!-- Edit Action -->
+                <li>
+                  <button (click)="openAddEventModal(event)" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+                    <fa-icon [icon]="faEdit" class="mr-2"></fa-icon> Edit
+                  </button>
+                </li>
+                <!-- Delete Action -->
+                <li>
+                  <button (click)="deleteEvent(event)" class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-200">
+                    <fa-icon [icon]="faTrashAlt" class="mr-2"></fa-icon> Delete
+                  </button>
+                </li>
+                <!-- Update Status -->
+                <li>
+                  <button (click)="updateStatus(event, 'Completed')" class="flex items-center px-4 py-2 text-sm text-green-600 hover:bg-gray-200">
+                    <fa-icon [icon]="faCalendarAlt" class="mr-2"></fa-icon> Mark as Completed
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

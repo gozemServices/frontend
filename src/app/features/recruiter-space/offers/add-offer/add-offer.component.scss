@@ -1,0 +1,13 @@
+.custom-modal .mat-dialog-container {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    width: 80%;
+    background: red($color: #000000);
+}
+
+  .mat-dialog-container {
+    width: 100% !important;  /* This could override the width set via the dialog options */
+  }
+  .custom-modal .mat-dialog-container {
+    width: 500px !important;  /* Enforce the width here */
+  }
