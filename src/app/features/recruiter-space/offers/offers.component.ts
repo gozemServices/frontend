@@ -6,14 +6,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
+import { faDeleteLeft, faEdit, faEye, faToggleOff, faToggleOn } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'app-offers',
   standalone: true,
-  imports: [CommonModule,FormsModule,MatTabsModule],
+  imports: [CommonModule,FormsModule,MatTabsModule,FontAwesomeModule],
   templateUrl: './offers.component.html',
   styleUrl: './offers.component.scss'
 })
 export class OffersComponent implements OnInit {
+
+  faDelete = faDeleteLeft;
+  faEdit = faEdit;
+  faViewCandidates = faEye;
+  fatoggleOn = faToggleOn;
+  fatoggleOf = faToggleOff;
   jobOffers: JobOffer[] = [
     { id: 1, title: 'Software Engineer', company: 'Tech Corp', location: 'New York', salary: 120000, description: 'Develop web applications', postingDate: new Date(), active: true },
     { id: 2, title: 'Product Manager', company: 'Innovative Inc.', location: 'San Francisco', salary: 150000, description: 'Lead product development', postingDate: new Date(), active: false },

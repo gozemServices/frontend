@@ -42,13 +42,13 @@ export class SidebarComponent {
   ];
   
   recruitersTab = [
-    { id: 'dashboard', label: 'Dashboard', icon: faTachometerAlt, title: 'DASHBOARD_TITLE' },
-    { id: 'profile', label: 'Profile Management', icon: faUser, title: 'PROFILE_TITLE' },
-    { id: 'offers', label: 'Job Offers', icon: faBriefcase, title: 'OFFERS_TITLE' },
-    { id: 'candidatures', label: 'Candidatures', icon: faClipboardList, title: 'CANDIDATURES_TITLE' },
+    { id: 'dashboard', label: 'DASHBOARD_LABEL', icon: faTachometerAlt, title: 'DASHBOARD_TITLE' },
+    { id: 'profile', label: 'PROFILE_LABEL', icon: faUser, title: 'PROFILE_TITLE' },
+    { id: 'offers', label: 'OFFERS_LABEL', icon: faBriefcase, title: 'OFFERS_TITLE' },
+    { id: 'candidatures', label: 'CANDIDATURES_LABEL', icon: faClipboardList, title: 'CANDIDATURES_TITLE' },
     { id: 'paying_tools', label: 'PAYING_TOOLS_LABEL', icon: faDollarSign, title: 'PAYING_TOOLS_TITLE' },
-    { id: 'events', label: 'Event Management', icon: faCalendarAlt, title: 'EVENTS_TITLE' },
-    { id: 'candidates', label: 'Candidates', icon: faUsers, title: 'CANDIDATES_TITLE' }
+    { id: 'events', label: 'EVENT_LABEL', icon: faCalendarAlt, title: 'EVENTS_TITLE' },
+    { id: 'candidates', label: 'CANDIDATES_LABEL', icon: faUsers, title: 'CANDIDATES_TITLE' }
   ];
 
 

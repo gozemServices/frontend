@@ -1,19 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenericService } from '../../../core/services/generic.service';
-import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../landing/components/header/header.component";
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    HttpClientModule,
     MatSlideToggleModule,
     MatInputModule,
     MatFormFieldModule,
@@ -23,10 +23,12 @@ import { HeaderComponent } from "../../landing/components/header/header.componen
     HeaderComponent,
 ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']  // Note: Changed 'styleUrl' to 'styleUrls'
+  styleUrls: ['./login.component.scss']  
 })
 export class LoginComponent {
-  
+  authService = inject(AuthService);
+  router = inject(Router);
+
   loginForm: FormGroup;
   loading = false;
   error: string | null = null;
@@ -34,7 +36,7 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, private genericService: GenericService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required]],
     });
   }
 
@@ -48,19 +50,21 @@ export class LoginComponent {
       return;
     }
 
-    this.loading = true;
-    this.error = null;
-
-    this.genericService.postData('login', this.loginForm.value).subscribe(
-      response => {
-        console.log('Login successful', response);
-        this.loading = false;
-        // Handle successful login, e.g., navigate or store token
-      },
-      error => {
-        this.error = 'Login failed. Please check your credentials.';
-        this.loading = false;
-      }
-    );
+    const { email, password } = this.loginForm.value;
+      this.authService.login(this.loginForm.value).subscribe(() => {
+        this.router.navigate(['/profile']);
+      });
+   
+    // this.genericService.postData('login', this.loginForm.value).subscribe(
+    //   response => {
+    //     console.log('Login successful', response);
+    //     this.loading = false;
+    //     // Handle successful login, e.g., navigate or store token
+    //   },
+    //   error => {
+    //     this.error = 'Login failed. Please check your credentials.';
+    //     this.loading = false;
+    //   }
+    // );
   }
 }

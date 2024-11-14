@@ -12,7 +12,7 @@
 <div class="bg-black md:hidden fixed z-40 left-0 top-0 w-full" [ngClass]="{'block': isSidebarOpened, 'hidden': !isSidebarOpened} "></div>
 <aside 
     [ngClass]="{'translate-x-0 w-70': isSidebarOpened, 'translate-x-full': !isSidebarOpened}"
-    class="rounded-2xl sidebar1 overflow-auto fixed bg-gray-100 shadow-lg shadow-gray-500 top-0 right-0 z-40 w-64 h-[98vh] mt-2 transition-transform duration-700 translate-x-full md:translate-x-0 border-slate-900">
+    class="rounded-2xl sidebar1 overflow-auto fixed bg-gray-100 shadow-lg shadow-gray-500 top-0 right-0 z-40 w-64 h-screen transition-transform duration-700 translate-x-full md:translate-x-0 border-slate-900">
     <section class="user-infos flex justify-center items-center flex-col">
         <img src="images/people_in_meeting.jpg" alt="User logo" class="w-[50px] object-cover h-[50px] rounded-full my-2">
         <h4 class="username">John snow</h4>
