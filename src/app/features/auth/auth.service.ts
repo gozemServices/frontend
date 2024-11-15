@@ -1,79 +1,80 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, tap } from 'rxjs';
+import { Injectable, inject, signal } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
+
+export const isAuthenticated = signal(false);
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private authUrl = 'http://localhost:9000/api/public/';
-  private currentUserSubject = new BehaviorSubject<any>(null);
-  private http = inject(HttpClient);
+  private apiUrl = `${environment.apiAuthUrl}`;
 
-  constructor() {
-    this.loadCurrentUser();
+  constructor(private http: HttpClient, private router: Router) {}
+
+  // Signup method
+  signup(userType: string, data: FormData): Observable<any> {
+    if(userType == 'user')
+      return this.http.post(`${this.apiUrl}/register`, data);
+    return this.http.post(`${this.apiUrl}/register-employeer`,data);
   }
 
-  private loadCurrentUser() {
-    const token = localStorage.getItem('jwtToken');
-    if (token && !this.isTokenExpired(token)) {
-      this.currentUserSubject.next(this.decodeToken(token));
-    }
+  // Login method - stores JWT in sessionStorage
+  login(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, { email, password });
   }
 
-  get currentUser() {
-    return this.currentUserSubject.asObservable();
+  // Store JWT in sessionStorage
+  saveToken(token: string): void {
+    sessionStorage.setItem('token', token);
+    isAuthenticated.set(true); // Update signal state
   }
 
-  register(data: any) {
-    return this.http.post(`${this.authUrl}/register`, data);
-  }
-  login(credentials: { email: string; password: string }) {
-    return this.http.post<{ token: string }>(`${this.authUrl}/login`, credentials).pipe(
-      tap(response => {
-        localStorage.setItem('jwtToken', response.token);
-        this.currentUserSubject.next(this.decodeToken(response.token));
-      })
-    );
+  // Get JWT from sessionStorage
+  getToken(): string | null {
+    return sessionStorage.getItem('token');
   }
 
-  logout() {
-    localStorage.removeItem('jwtToken');
-    this.currentUserSubject.next(null);
+  // Logout method - clears JWT
+  logout(): void {
+    sessionStorage.removeItem('token');
+    isAuthenticated.set(false); // Update signal state
+    this.router.navigate(['/login']);
   }
 
-  forgotPassword(email: string) {
-    return this.http.post(`${this.authUrl}/forgot-password`, { email });
+  // Check if the user is logged in
+  isLoggedIn(): boolean {
+    const token = this.getToken();
+    return token ? !this.isTokenExpired(token) : false;
   }
 
-  resetPassword(token: string, password: string) {
-    return this.http.post(`${this.authUrl}/reset-password`, { token, password });
+  // Optionally check if the token has expired
+  isTokenExpired(token: string): boolean {
+    const decoded = this.decodeToken(token);
+    const exp = decoded.exp;
+    return exp < Date.now() / 1000;
   }
 
-  refreshToken() {
-    return this.http.post<{ token: string }>(`${this.authUrl}/refresh-token`, {}).pipe(
-      tap(response => {
-        localStorage.setItem('jwtToken', response.token);
-        this.currentUserSubject.next(this.decodeToken(response.token));
-      })
-    );
-  }
-
-  isAuthenticated() {
-    const token = localStorage.getItem('jwtToken');
-    return token && !this.isTokenExpired(token);
-  }
-
-  // Helper methods for JWT
-  private decodeToken(token: string) {
+  // Decode JWT to read payload
+  decodeToken(token: string): any {
     const payload = token.split('.')[1];
-    const decoded = atob(payload);
-    return JSON.parse(decoded);
+    return JSON.parse(atob(payload));
   }
 
-  private isTokenExpired(token: string): boolean {
-    const decodedToken = this.decodeToken(token);
-    const expirationTime = decodedToken.exp * 1000;
-    return Date.now() > expirationTime;
+  // Send request with token verification
+  getProtectedData(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/protected`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  // Headers with token for protected routes
+  getHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
   }
 }

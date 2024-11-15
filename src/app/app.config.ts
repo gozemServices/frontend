@@ -6,9 +6,6 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideStore } from '@ngrx/store';
-import { provideEffects } from '@ngrx/effects';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
@@ -20,7 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(),
-    provideEffects(),
     provideRouter(routes),
     importProvidersFrom(  [TranslateModule.forRoot({
             loader: {
@@ -29,8 +25,5 @@ export const appConfig: ApplicationConfig = {
                 deps: [HttpClient],
             },
         })]), provideAnimationsAsync(), provideAnimationsAsync(),
-    provideStore(),
-    provideEffects(),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ]
 };

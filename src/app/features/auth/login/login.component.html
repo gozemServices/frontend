@@ -54,7 +54,8 @@
             <span *ngIf="!loading">Sign in</span>
           </button>
         </div>
-
+        <div class="flex items-center space-x-2">You don't have an account yet ? <a [routerLink]="['/auth/signup']" class="text-primary ml-1 hover:text-darkShade" routerLinkActive="router-link-active" >register</a></div>
+        <a [routerLink]="['/auth/signup']" class="text-primary ml-1 hover:text-darkShade" routerLinkActive="router-link-active">I forgot my password</a>
         <div *ngIf="error" class="mt-4 text-red-500 text-center">
           {{ error }}
         </div>

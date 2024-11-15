@@ -1,13 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { version } = require('../../package.json');
+import { version } from '../../package.json';
 
 export const environment = {
   production: false,
   appVersion: `${version}-dev`,
-
-  // Replace this with your server API URL
-  // We assigned it to empty string for the Fake API
-  apiUrl: '',
+  
+  apiUrl: 'http://localhost:9000/api',
+  apiAuthUrl: 'http://localhost:9000/api/public/auth',
 
   settings: {
     auth: {

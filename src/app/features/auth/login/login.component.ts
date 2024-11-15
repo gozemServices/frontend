@@ -8,7 +8,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../landing/components/header/header.component";
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
     CommonModule,
     ReactiveFormsModule,
     HeaderComponent,
+    RouterModule
 ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']  
@@ -32,7 +33,6 @@ export class LoginComponent {
   loginForm: FormGroup;
   loading = false;
   error: string | null = null;
-
   constructor(private fb: FormBuilder, private genericService: GenericService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -49,22 +49,18 @@ export class LoginComponent {
       this.loginForm.markAllAsTouched(); // Mark all controls as touched to show validation errors
       return;
     }
-
     const { email, password } = this.loginForm.value;
-      this.authService.login(this.loginForm.value).subscribe(() => {
-        this.router.navigate(['/profile']);
-      });
-   
-    // this.genericService.postData('login', this.loginForm.value).subscribe(
-    //   response => {
-    //     console.log('Login successful', response);
-    //     this.loading = false;
-    //     // Handle successful login, e.g., navigate or store token
-    //   },
-    //   error => {
-    //     this.error = 'Login failed. Please check your credentials.';
-    //     this.loading = false;
-    //   }
-    // );
+    this.authService.login(email, password).subscribe({
+      next: (response) => {
+        this.authService.saveToken(response.token);  // Save JWT to sessionStorage
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        this.error = 'Login failed. Please check your credentials.';
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
   }
 }
