@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../landing/components/header/header.component";
-import { FirstKeyPipe } from "../../../shared/pipes/first-key.pipe";
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -21,55 +20,41 @@ import { AuthService } from '../auth.service';
 export class SignupComponent {
   authService = inject(AuthService);
   router = inject(Router);
-  errorMessage: string | null = null;
-  signupForm: FormGroup;
+  signupForm!: FormGroup;
   loading = false;
   error: string | null = null;
-  profilePic: string | null = null;
+  profilePicPreview: string | null = null;
+  profilePicFile: File | null = null;
 
-  constructor(
-    private fb: FormBuilder
-  ) {
-    this.signupForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      surname: ['', [Validators.required, Validators.minLength(3)]],
-      username: ['', [Validators.required, Validators.minLength(4)]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]], // Adjust pattern as needed
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['',Validators.required],
-      profilePic: [''],
-      userType: ['user', Validators.required],
-      sector: ['',Validators.required],
-      activity: ['',Validators.required]
-    }, { validators: this.passwordMatchValidator });
+  constructor(private fb: FormBuilder) {
+    this.initForm();
   }
+
   get formControls() {
     return this.signupForm.controls;
   }
 
-  // Password matching validator
   passwordMatchValidator(form: FormGroup) {
     return form.get('password')?.value === form.get('confirmPassword')?.value
-      ? null : { mismatch: true };
+      ? null
+      : { mismatch: true };
   }
 
-
-  // Function to handle profile picture change
   onProfilePicChange(event: any) {
     const file = event.target.files[0];
     if (file) {
+      this.profilePicFile = file;
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.profilePic = e.target.result;
+        this.profilePicPreview = e.target.result;
       };
-      reader.readAsDataURL(file);  // Convert to base64 string
+      reader.readAsDataURL(file);
     }
   }
 
-  // Function to remove profile picture
   removeProfilePic() {
-    this.profilePic = null;
+    this.profilePicPreview = null;
+    this.profilePicFile = null;
   }
 
   onSubmit() {
@@ -77,39 +62,101 @@ export class SignupComponent {
       this.signupForm.markAllAsTouched();
       return;
     }
-
     this.loading = true;
     this.error = null;
-
-    // Prepare form data for submission
     const userType = this.signupForm.value.userType;
-    const formData = new FormData();
-    formData.append('name', this.signupForm.value.name);
-    formData.append('surname', this.signupForm.value.surname);
-    formData.append('username', this.signupForm.value.username);
-    formData.append('email', this.signupForm.value.email);
-    formData.append('phone', this.signupForm.value.phone);
-    formData.append('password', this.signupForm.value.password);
-
-    if (this.signupForm.value.userType === 'recruiter') {
-      formData.append('sector', this.signupForm.value.sector);
-      formData.append('activity', this.signupForm.value.activity);
-    }
-
-    if (this.profilePic) {
-      formData.append('profilePic', this.profilePic);
-    }
-    
-    this.authService.signup(userType,formData).subscribe({
-      next: (response) => {
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        this.errorMessage = 'Registration failed. Please try again.';
-      },
-      complete: () => {
-        this.loading = false;
+    const createPayload = () => {
+      const basePayload = {
+        name: this.signupForm.value.name,
+        surname: this.signupForm.value.surname,
+        username: this.signupForm.value.username,
+        email: this.signupForm.value.email,
+        phone: this.signupForm.value.phone,
+        password: this.signupForm.value.password,
+      };
+  
+      if (userType === 'user') { return { ...basePayload, role: 'APPLICANT' };}
+      if (userType === 'recruiter') {
+        return {
+          ...basePayload,
+          role: 'RECRUITER',
+          sector: this.signupForm.value.sector,
+          activity: this.signupForm.value.activity,
+        };
       }
+      return basePayload;
+    };
+  
+    const payload = createPayload();
+  
+    if (userType === 'user') {
+      const formData = new FormData();
+      formData.append('user', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
+      if (this.profilePicFile) {
+        formData.append('profilePicture', this.profilePicFile);
+      }
+      formData.forEach((value, key) => console.log(`${key}:`, value));
+      
+      this.authService.signupUser(formData).subscribe({
+        next: (response) => {
+          this.router.navigate(['/login']);
+          console.log('Is the success block reached?', response);
+        },
+        error: (err) => {
+          this.error = err.error?.message || 'Registration failed. Please try again.';
+          this.loading = false;
+          console.log('Error response:', err);
+        },
+        complete: () => (this.loading = false),
+      });
+    } else if (userType === 'recruiter') {
+
+      this.authService.signupRecruiter(payload).subscribe({
+        next: () => this.router.navigate(['/login']),
+        error: (err) => {
+          this.error = err.error?.message || 'Registration failed. Please try again.';
+          this.loading = false;
+        },
+        complete: () => (this.loading = false),
+      });
+    } else {
+      this.error = 'Invalid user type. Please try again.';
+      this.loading = false;
+    }
+  }
+  
+  initForm() {
+    this.signupForm = this.fb.group(
+      {
+        name: ['', [Validators.required, Validators.minLength(3)]],
+        surname: ['', [Validators.required, Validators.minLength(3)]],
+        username: ['', [Validators.required, Validators.minLength(4)]],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', Validators.required],
+        userType: ['user', Validators.required],
+        sector: [''],
+        activity: [''],
+        profilePic: [''],
+      },
+      { validators: this.passwordMatchValidator }
+    );
+
+    this.signupForm.get('userType')?.valueChanges.subscribe((userType) => {
+      const sectorControl = this.signupForm.get('sector');
+      const activityControl = this.signupForm.get('activity');
+
+      if (userType === 'recruiter') {
+        sectorControl?.setValidators([Validators.required]);
+        activityControl?.setValidators([Validators.required]);
+      } else {
+        sectorControl?.clearValidators();
+        activityControl?.clearValidators();
+      }
+
+      sectorControl?.updateValueAndValidity();
+      activityControl?.updateValueAndValidity();
     });
   }
 }

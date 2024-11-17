@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserProfileService {
-  
-    private apiUrl = 'https://api.example.com/user'; // Replace with your API URL
+    private apiUrl = `${environment.apiUrl}/jobs`;
   
     constructor(private http: HttpClient) {}
   

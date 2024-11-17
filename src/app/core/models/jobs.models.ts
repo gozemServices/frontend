@@ -22,6 +22,14 @@ export interface JobOffer {
     appliedDate: Date;
   }
 
-  
+  export interface Job {
+    id: string; 
+    title: string;
+    location: string;
+    type: string;
+    salary: string;
+    posted: string;
+    description: string;
+  }
   
   

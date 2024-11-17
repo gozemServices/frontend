@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmRemoveToolsModalComponent } from './confirm-remove-tools-modal/confirm-remove-tools-modal.component';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BuyPointsModalComponent } from './buy-points-modal/buy-points-modal.component';
-import { faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   errorMessage: string | null = null;
   updatePasswordForm!: FormGroup;
   faWarning = faWarning;
+  faDanger = faExclamationTriangle;
 
   userInfo = {
     fullName: 'John Doe',

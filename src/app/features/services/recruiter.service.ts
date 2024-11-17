@@ -1,0 +1,28 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RecruiterService {
+  private http = inject(HttpClient);
+  private baseUrl = `${environment.apiUrl}/jobs`;
+
+  createJob(jobData: any): Observable<any> {
+    return this.http.post(this.baseUrl, jobData);
+  }
+
+  updateJob(jobId: string, jobData: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${jobId}`, jobData);
+  }
+
+  deleteJob(jobId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${jobId}`);
+  }
+
+  getApplications(jobId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${jobId}/applications`);
+  }
+}

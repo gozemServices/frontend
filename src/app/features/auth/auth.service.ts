@@ -16,9 +16,24 @@ export class AuthService {
 
   // Signup method
   signup(userType: string, data: FormData): Observable<any> {
-    if(userType == 'user')
-      return this.http.post(`${this.apiUrl}/register`, data);
-    return this.http.post(`${this.apiUrl}/register-employeer`,data);
+    const endpoint = userType === 'user' 
+    ? `${this.apiUrl}/register` 
+    : `${this.apiUrl}/register-employeer`;
+    // const headers = new HttpHeaders({'Content-Type': 'multipart/form-data'});
+    return this.http.post(endpoint, data);  
+  }
+
+  signupUser(data: FormData): Observable<any> {
+    const endpoint = `${this.apiUrl}/register`;
+    // const headers = new HttpHeaders({'Content-Type': 'multipart/form-data'});
+    return this.http.post(endpoint, data);
+  }
+
+   
+  signupRecruiter(data: any): Observable<any> {
+    const endpoint = `${this.apiUrl}/register-employeer`;
+    // const headers = new HttpHeaders({'Content-Type': 'multipart/form-data'});
+    return this.http.post(endpoint, data);
   }
 
   // Login method - stores JWT in sessionStorage
