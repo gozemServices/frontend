@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ProfileManagementComponent {
   // Profile Form (Reactive Form)
   profileForm: FormGroup;
+  updatePasswordForm: FormGroup;
 
   // Avatar or profile picture URL
   avatarUrl: string = 'https://www.example.com/default-avatar.png'; 
@@ -30,10 +31,13 @@ export class ProfileManagementComponent {
       companyName: ['', [Validators.required, Validators.maxLength(100)]],
       companyEmail: ['', [Validators.required, Validators.email]],
       companyWebsite: ['', [Validators.required, Validators.pattern('https?://.+')]],
-      
+
+    });
+    
+    this.updatePasswordForm  = this.fb.group({
       password: ['', [Validators.minLength(8)]],
       confirmPassword: ['']
-    });
+    })
   }
 
   updateProfile() {
@@ -81,5 +85,9 @@ export class ProfileManagementComponent {
 
   get formControls() {
     return this.profileForm.controls;
+  }
+
+  get passwordFormControls() {
+    return this.updatePasswordForm.controls;
   }
 }

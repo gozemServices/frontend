@@ -1,61 +1,54 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { JobOffer } from '../../../../core/models/jobs.models';
-import { BrowserModule } from '@angular/platform-browser';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSelectModule } from '@angular/material/select'; // If needed
+import { MatSelectModule } from '@angular/material/select';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-add-offer',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    FormsModule
-  ],
+  imports: [CommonModule,ReactiveFormsModule,FormsModule,TranslateModule],
   templateUrl: './add-offer.component.html',
   styleUrl: './add-offer.component.scss'
 })
 export class AddOfferComponent {
-  offerForm: FormGroup;
+  offerForm!: FormGroup;
+  @Input() isVisible = false;
+  @Input() title = 'Modal Title';
+  @Input() data: any ;
+  @Output() closed = new EventEmitter<void>();
+  @Output() confirmed = new EventEmitter<void>();
 
   constructor(
-    public dialogRef: MatDialogRef<AddOfferComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: JobOffer,
     private fb: FormBuilder
   ) {
+      this.initForm(this.data);
+  }
+  initForm(data: any) {
     this.offerForm = this.fb.group({
       title: [data?.title || '', [Validators.required]],
-      company: [data?.company || '', [Validators.required]],
+      description: [data?.description || '', [Validators.required,Validators.minLength(25)]],
       location: [data?.location || '', [Validators.required]],
       salary: [data?.salary || '', [Validators.required, Validators.min(1)]],
-      description: [data?.description || '', [Validators.required]],
-      active: [data?.active ?? true]
+      status: [data?.active ?? true],
+      city: [data?.city ?? true],
+      type: [data?.type || 'remote', Validators.required] 
     });
   }
-
-  // Method to save the offer (either new or edited)
   saveOffer() {
-    if (this.offerForm.invalid) {
-      return; // Prevent save if form is invalid
-    }
-
+    if (this.offerForm.invalid) {return;}
     const result: JobOffer = {
       ...this.offerForm.value,
-      id: this.data?.id || 0,  // Use existing ID or create new if adding
-      postingDate: new Date()  // Add posting date
+      id: this.data?.id || 0,  
+      postingDate: new Date() 
     };
-
-    this.dialogRef.close(result);  // Close dialog and pass the offer data back
+  }
+  onModalConfirmed() {
+    console.log('Action confirmed');
   }
 
-  // Method to close the dialog without saving
   closeDialog() {
-    this.dialogRef.close();
+    this.isVisible = false;
+    this.closed.emit();
   }
 }

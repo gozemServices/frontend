@@ -35,7 +35,7 @@ export class JobListComponent {
     this.loading = true;
     this.errorMessage = null;
 
-    this.jobService.getAllJobs('').subscribe({
+    this.jobService.getAllJobs().subscribe({
       next: (data) => {
         this.jobs = data;
         this.loading = false;

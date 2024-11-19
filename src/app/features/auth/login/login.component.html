@@ -47,7 +47,9 @@
             </div>
           </div>
         </div>
-
+        <div *ngIf="error" class="mt-4 text-red-500 text-center">
+          {{ error }}
+        </div>
         <div>
           <button type="submit" [disabled]="loading || loginForm.invalid" class="px-6 py-2 bg-[#AF4E64] text-white transition duration-800 hover:bg-[#701C2F] cursor-pointer">
             <span *ngIf="loading">Loading...</span>
@@ -56,9 +58,6 @@
         </div>
         <div class="flex items-center space-x-2">You don't have an account yet ? <a [routerLink]="['/auth/signup']" class="text-primary ml-1 hover:text-darkShade" routerLinkActive="router-link-active" >register</a></div>
         <a [routerLink]="['/auth/signup']" class="text-primary ml-1 hover:text-darkShade" routerLinkActive="router-link-active">I forgot my password</a>
-        <div *ngIf="error" class="mt-4 text-red-500 text-center">
-          {{ error }}
-        </div>
       </form>
     </div>
   </div>

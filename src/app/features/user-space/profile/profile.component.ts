@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserProfileService } from '../../../shared/services/user-profile.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmRemoveToolsModalComponent } from './confirm-remove-tools-modal/confirm-remove-tools-modal.component';
@@ -8,6 +8,8 @@ import { BuyPointsModalComponent } from './buy-points-modal/buy-points-modal.com
 import { faExclamationTriangle, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '../../auth/auth.service';
+import { User } from '../../../core/models/common.model';
 
 @Component({
   selector: 'app-profile',
@@ -17,17 +19,13 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
+  authService = inject(AuthService); 
+  user!: User | null;
   isLoading = true;
   errorMessage: string | null = null;
   updatePasswordForm!: FormGroup;
   faWarning = faWarning;
   faDanger = faExclamationTriangle;
-
-  userInfo = {
-    fullName: 'John Doe',
-    email: 'john.doe@example.com',
-    location: 'New York, NY'
-  };
 
   userPoints = 120; // Example points
 
@@ -71,21 +69,22 @@ export class ProfileComponent implements OnInit {
     this.loadUserTools();
     this.loadAppliedJobs();
     this.initPasswordUpdateForm();
+    this.user = this.authService.getUser();
   }
 
   loadUserProfile() {
-    this.isLoading = true;
-    this.userProfileService.getUserProfile().subscribe(
-      data => {
-        this.userInfo = data;
-        this.isLoading = false;
-      },
-      error => {
-        this.isLoading = false;
-        this.errorMessage = 'Failed to load profile data. Please try again later.';
-        console.error(error);
-      }
-    );
+    // this.isLoading = true;
+    // this.userProfileService.getUserProfile().subscribe(
+    //   data => {
+    //     this.userInfo = data;
+    //     this.isLoading = false;
+    //   },
+    //   error => {
+    //     this.isLoading = false;
+    //     this.errorMessage = 'Failed to load profile data. Please try again later.';
+    //     console.error(error);
+    //   }
+    // );
   }
 
   loadUserPoints() {

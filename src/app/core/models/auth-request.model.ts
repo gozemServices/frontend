@@ -20,3 +20,11 @@ export interface RegistrationRequest {
 export interface AuthenticationResponse{
     token?: string;
 }
+
+interface User {
+    id: number;
+    name: string;
+    surname: string;
+    username: string;
+    profilePhotoUrl: string;
+}

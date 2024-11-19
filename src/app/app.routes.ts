@@ -5,6 +5,8 @@ import { SignupComponent } from './features/auth/signup/signup.component';
 import { AuthComponent } from './features/auth/auth.component';
 import { RecruiterSpaceComponent } from './features/recruiter-space/recruiter-space.component';
 import { UserSpaceComponent } from './features/user-space/user-space.component';
+import { recruiterRoutes } from './features/routes/recruiter.routes';
+import { authGuard } from './features/auth/guards';
 
 export const routes: Routes = [
     { path: '',  redirectTo: 'home', pathMatch: 'full'},
@@ -18,11 +20,15 @@ export const routes: Routes = [
         loadChildren: () => import('./features/auth/auth.routes').then(c => c.authRoutes)
     },
     {
-        path: 'user/admin',
+        path: 'user/jobseeker',
+        canActivate: [authGuard],
+        loadChildren: () => import('./features/routes/jobseeker.routes').then(c => c.jobSeekerRoutes),
         component: UserSpaceComponent,
     },
     {
         path: 'user/recruiter/admin',
+        canActivate: [authGuard],
+        loadChildren: () => import('./features/routes/recruiter.routes').then(c => c.recruiterRoutes),
         component: RecruiterSpaceComponent
     },
 

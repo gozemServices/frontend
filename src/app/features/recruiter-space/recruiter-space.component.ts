@@ -12,6 +12,7 @@ import { CandidaturesComponent } from "./candidatures/candidatures.component";
 import { PayingToolsComponent } from "../user-space/paying-tools/paying-tools.component";
 import { EventsComponent } from "./events/events.component";
 import { CandidatesComponent } from "./candidates/candidates.component";
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-recruiter-space',
   standalone: true,
@@ -27,7 +28,8 @@ import { CandidatesComponent } from "./candidates/candidates.component";
     CandidaturesComponent,
     PayingToolsComponent,
     EventsComponent,
-    CandidatesComponent
+    CandidatesComponent,
+    RouterModule
 ],
   templateUrl: './recruiter-space.component.html',
   styleUrl: './recruiter-space.component.scss'

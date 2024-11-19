@@ -4,7 +4,7 @@
     <div class="bg-white shadow-md rounded-lg p-4 mb-4 flex-wrap">
       <h3 class="text-xl font-semibold text-gray-800 mb-4">{{"YOUR" | translate}}{{"POINTS" | translate}}</h3>
       <div class="flex items-center space-x-4 mb-4 flex-wrap">
-        <div class="text-2xl font-bold text-gray-700">{{ userPoints }} {{"POINTS" | translate}}</div>
+        <div class="text-2xl font-bold text-gray-700">{{  0 }} {{"POINTS" | translate}}</div>
         <div class="flex flex-wrap gap-2">
           <button (click)="buyPoints()" class="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition">{{"BUY_POINTS" | translate}}</button>
           <button class="bg-primary text-white py-2 px-6 rounded-md hover:bg-darkShade transition">{{"BUY_TOOL_TITLE"}}</button>  
@@ -16,11 +16,11 @@
     <!-- Profile Header -->
     <div class="bg-white shadow-md rounded-lg p-4 mb-8">
       <div class="flex items-start md:items-center space-x-6 flex-wrap">
-        <img src="images/man_on_computer.png"  alt="User Avatar" class="rounded-full w-24 h-24">
+        <img [src]="'http://localhost:9000/uploads/profile-pictures/'+user?.profilePhotoUrl"  alt="User Avatar" class="rounded-full w-24 h-24">
         <div>
-          <h2 class="text-3xl font-semibold text-gray-800">{{ userInfo.fullName }}</h2>
-          <p class="text-xl text-gray-600">{{ userInfo.email }}</p>
-          <p class="text-md text-gray-500">{{ userInfo.location }}</p>
+          <h2 class="text-3xl font-semibold text-gray-800 capitalize">{{ user?.name }} {{user?.surname}}</h2>
+          <p class="text-xl text-gray-600">{{ user?.email }}</p>
+          <p class="text-md text-gray-500">{{ user?.phone}}</p>
         </div>
       </div>
     </div>

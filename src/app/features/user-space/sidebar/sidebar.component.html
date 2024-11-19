@@ -9,6 +9,7 @@
         <span class="hamburger-bottom"></span>
     </button>
 </div>
+
 <div class="bg-black md:hidden fixed z-40 left-0 top-0 w-full" [ngClass]="{'block': isSidebarOpened, 'hidden': !isSidebarOpened} "></div>
 <aside 
     [ngClass]="{'translate-x-0 w-70': isSidebarOpened, 'translate-x-full': !isSidebarOpened}"
@@ -20,21 +21,21 @@
     </section>
 
     <div class="menu-items overflow-auto flex flex-col justify-start items-center mt-7 w-full px-2 gap-2">
-        <button 
+        <a 
             *ngFor="let tab of menuItems"
-            (click)="selectTab(tab.id)" 
+            [routerLink]="tab.link"
             class="bg-none text-[#757575] rounded-lg border-none w-full py-2 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" 
             [title]="tab.title"
-            [ngClass]="{'bg-[#95223C] font-bold text-white ': selectedTab === tab.id}"
+            routerLinkActive="bg-[#95223C] font-bold text-white"
             >
-            <!-- [ngClass]="{'bg-[#95223C]': selectedTab === tab.id}" -->
             <fa-icon [icon]="tab.icon" class="h-8 w-8 items-center flex justify-center bg-white shadow-custom shadow-gray-500 text-primary rounded-xl"></fa-icon>
             <span class="menu-item">{{ tab.label | translate}}</span>
-        </button>
-        <a href="" id="deconnecter" class="bg-transparent text-primary border-primary border-2 w-full py-2 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" title="deconnexion">
+        </a>
+
+       
+        <button (click)="onLogout()" id="deconnecter" class="bg-transparent text-primary border-primary border-2 w-full py-2 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" title="deconnexion">
             <i class="text-center fa-solid fa-arrow-right-from-bracket"></i>
             <span class="menu-item">Deconnexion</span>
-        </a>
+        </button>
     </div>
 </aside>
-

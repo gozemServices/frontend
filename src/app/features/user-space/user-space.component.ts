@@ -13,11 +13,18 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProfileComponent } from "./profile/profile.component";
 import { NotificationsComponent } from "./notifications/notifications.component";
 import { JobseekerMessagesComponent } from "./jobseeker-messages/jobseeker-messages.component";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [TranslateModule, FontAwesomeModule, SidebarComponent, CommonModule, DashboardComponent, PayingToolsComponent, CvBuilderComponent, StatisticsComponent, JobsComponent, ProfileComponent, NotificationsComponent, JobseekerMessagesComponent],
+  imports: [
+    TranslateModule,
+    RouterModule, 
+    FontAwesomeModule, 
+    SidebarComponent, 
+    CommonModule, 
+    ],
   templateUrl: './user-space.component.html',
   styleUrl: './user-space.component.scss'
 })

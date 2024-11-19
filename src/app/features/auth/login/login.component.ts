@@ -1,10 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenericService } from '../../../core/services/generic.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../landing/components/header/header.component";
 import { AuthService } from '../auth.service';
@@ -14,10 +10,6 @@ import { Router, RouterModule } from '@angular/router';
   selector: 'app-login',
   standalone: true,
   imports: [
-    MatSlideToggleModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
     CommonModule,
     ReactiveFormsModule,
     HeaderComponent,
@@ -46,19 +38,30 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched(); // Mark all controls as touched to show validation errors
+      this.loginForm.markAllAsTouched();
       return;
     }
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe({
       next: (response) => {
-        this.authService.saveToken(response.token);  // Save JWT to sessionStorage
-        this.router.navigate(['/dashboard']);
+        const token = response.headers.get('Authorization');
+        const role = response.headers.get('User-Type');
+        const user = response.body;
+        console.log(user);
+        if (token && role && user) {
+          this.authService.saveToken(token);
+          this.authService.saveUserType(role);
+          this.authService.saveAuthUser(user);
+        }
+        const route = `user/${role === 'APPLICANT' ? 'jobseeker' : 'recruiter/admin'}/dashboard/`;
+        this.router.navigate([route]);
       },
       error: (err) => {
+        console.log(err);
         this.error = 'Login failed. Please check your credentials.';
       },
       complete: () => {
+        console.log('done'); 
         this.loading = false;
       }
     });

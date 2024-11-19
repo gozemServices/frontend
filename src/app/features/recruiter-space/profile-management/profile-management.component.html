@@ -105,14 +105,14 @@
 
   <!-- Password Change Section -->
   <div class="w-full bg-white shadow-xl rounded-lg p-8 mb-8">
-    <form (ngSubmit)="changePassword()" class="space-y-6">
+    <form [formGroup]="updatePasswordForm" (ngSubmit)="changePassword()" class="space-y-6">
       <div>
         <label for="password" class="block text-sm font-medium text-gray-900">{{ 'NEW_PASSWORD' | translate }}</label>
         <div class="mt-2">
           <input id="password" formControlName="password" type="password" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['password'].invalid && (formControls['password'].touched || formControls['password'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['password'].errors?.['required']">{{ 'PASSWORD_REQUIRED' | translate }}</div>
-            <div *ngIf="formControls['password'].errors?.['minlength']">{{ 'PASSWORD_MIN_LENGTH' | translate }}</div>
+          <div *ngIf="passwordFormControls['password'].invalid && (passwordFormControls['password'].touched || passwordFormControls['password'].dirty)" class="text-red-500 text-sm">
+            <div *ngIf="passwordFormControls['password'].errors?.['required']">{{ 'PASSWORD_REQUIRED' | translate }}</div>
+            <div *ngIf="passwordFormControls['password'].errors?.['minlength']">{{ 'PASSWORD_MIN_LENGTH' | translate }}</div>
           </div>
         </div>
       </div>
@@ -121,9 +121,9 @@
         <label for="confirmPassword" class="block text-sm font-medium text-gray-900">{{ 'CONFIRM_PASSWORD' | translate }}</label>
         <div class="mt-2">
           <input id="confirmPassword" formControlName="confirmPassword" type="password" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['confirmPassword'].invalid && (formControls['confirmPassword'].touched || formControls['confirmPassword'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['confirmPassword'].errors?.['required']">{{ 'CONFIRM_PASSWORD_REQUIRED' | translate }}</div>
-            <div *ngIf="formControls['confirmPassword'].errors?.['passwordMismatch']">{{ 'PASSWORD_MISMATCH' | translate }}</div>
+          <div *ngIf="passwordFormControls['confirmPassword'].invalid && (passwordFormControls['confirmPassword'].touched || passwordFormControls['confirmPassword'].dirty)" class="text-red-500 text-sm">
+            <div *ngIf="passwordFormControls['confirmPassword'].errors?.['required']">{{ 'CONFIRM_PASSWORD_REQUIRED' | translate }}</div>
+            <div *ngIf="passwordFormControls['confirmPassword'].errors?.['passwordMismatch']">{{ 'PASSWORD_MISMATCH' | translate }}</div>
           </div>
         </div>
       </div>

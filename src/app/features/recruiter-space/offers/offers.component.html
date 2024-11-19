@@ -1,65 +1,80 @@
+<app-add-offer
+  [isVisible]="isModalVisible"
+  [title]="'My TailwindCSS Modal'"
+  (closed)="onModalClosed()"
+  (confirmed)="onModalConfirmed()"
+>
+  <p class="text-gray-700">This is a TailwindCSS-styled modal!</p>
+</app-add-offer>
+
 <div class="p-6 mt-4 shadow rounded-lg">
-
-    <!-- Search and Filter Controls -->
-    <div class="flex justify-between mb-4">
-      <input type="text" [(ngModel)]="searchQuery" placeholder="Search offers..." 
-        class="px-4 py-2 border rounded-md focus:outline-none w-1/2" (input)="applyFilters()" />
+  <!-- Search and Filter Controls -->
+  <div class="flex justify-between mb-4">
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search offers..." 
+      class="px-4 py-2 border rounded-md focus:outline-none w-1/2" (input)="applyFilters()" />
   
-      <button (click)="openAddOfferModal()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-        Add New Offer
-      </button>
-    </div>
-  
-    <!-- Job Offers Table -->
-   <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
-  <table class="min-w-full table-auto w-fit">
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="py-2 px-4 cursor-pointer" (click)="setSortField('title')">Job Title</th>
-        <th class="py-2 px-4 cursor-pointer" (click)="setSortField('company')">Company</th>
-        <th class="py-2 px-4 cursor-pointer" (click)="setSortField('location')">Location</th>
-        <th class="py-2 px-4 cursor-pointer" (click)="setSortField('salary')">Salary</th>
-        <th class="py-2 px-4">Status</th>
-        <th class="py-2 px-4">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let offer of filteredOffers">
-        <td class="py-2 px-4">{{ offer.title }}</td>
-        <td class="py-2 px-4">{{ offer.company }}</td>
-        <td class="py-2 px-4">{{ offer.location }}</td>
-        <td class="py-2 px-4">{{ offer.salary | currency }}</td>
-        <td class="py-2 px-4">
-          <span [ngClass]="offer.active ? 'text-green-500' : 'text-red-500'">
-            {{ offer.active ? 'Active' : 'Inactive' }}
-          </span>
-        </td>
-        <td class="py-2 px-4">
-          <button (click)="openAddOfferModal(offer)" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-            <fa-icon [icon]="faViewCandidates"></fa-icon>
-          </button>
-          <button (click)="openAddOfferModal(offer)" class="ml-2 px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">
-            <fa-icon [icon]="faEdit"></fa-icon>
-          </button>
-          <button (click)="deleteOffer(offer.id)" class="ml-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
-            <fa-icon [icon]="faDelete"></fa-icon>
-          </button>
-          <button (click)="toggleOfferStatus(offer.id)" class="ml-2 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
-            <fa-icon [icon]="offer.active ? 'toggle-on' : 'toggle-off'"></fa-icon>
-            Status
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-  
-    <!-- Pagination Controls -->
-    <div class="flex justify-between items-center mt-4">
-      <button (click)="setPage(page - 1)" [disabled]="page === 1" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400">Previous</button>
-      <span class="text-sm text-gray-600">Page {{ page }}</span>
-      <button (click)="setPage(page + 1)" [disabled]="filteredOffers.length < itemsPerPage" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400">Next</button>
-    </div>
+    <button (click)="openAddOfferModal()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+      Add New Offer
+    </button>
   </div>
-  
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="flex justify-center items-center">
+    <div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
+  </div>
+
+  <!-- No Job Offers Message -->
+  <div *ngIf="!isLoading && jobOffers.length === 0" class="text-center text-gray-600 py-4">
+    <p>No job offers available at the moment.</p>
+  </div>
+
+  <!-- Job Offers Table -->
+  <div *ngIf="!isLoading && jobOffers.length > 0" class="overflow-x-auto bg-white shadow-lg rounded-lg">
+    <table class="min-w-full table-auto w-fit">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="py-2 px-4 cursor-pointer" (click)="setSortField('title')">Job Title</th>
+          <th class="py-2 px-4 cursor-pointer" (click)="setSortField('company')">Company</th>
+          <th class="py-2 px-4 cursor-pointer" (click)="setSortField('location')">Location</th>
+          <th class="py-2 px-4 cursor-pointer" (click)="setSortField('salary')">Salary</th>
+          <th class="py-2 px-4">Status</th>
+          <th class="py-2 px-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let offer of filteredOffers">
+          <td class="py-2 px-4">{{ offer.title }}</td>
+          <td class="py-2 px-4">{{ offer.company }}</td>
+          <td class="py-2 px-4">{{ offer.location }}</td>
+          <td class="py-2 px-4">{{ offer.salary | currency }}</td>
+          <td class="py-2 px-4">
+            <span [ngClass]="offer.active ? 'text-green-500' : 'text-red-500'">
+              {{ offer.active ? 'Active' : 'Inactive' }}
+            </span>
+          </td>
+          <td class="py-2 px-4">
+            <button (click)="openAddOfferModal(offer)" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+              <fa-icon [icon]="faViewCandidates"></fa-icon>
+            </button>
+            <button (click)="openAddOfferModal(offer)" class="ml-2 px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+            <button (click)="deleteOffer(offer.id)" class="ml-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+              <fa-icon [icon]="faDelete"></fa-icon>
+            </button>
+            <button (click)="toggleOfferStatus(offer.id)" class="ml-2 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+              Status
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="!isLoading && filteredOffers.length > 0" class="flex justify-between items-center mt-4">
+    <button (click)="setPage(page - 1)" [disabled]="page === 1" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400">Previous</button>
+    <span class="text-sm text-gray-600">Page {{ page }}</span>
+    <button (click)="setPage(page + 1)" [disabled]="filteredOffers.length < itemsPerPage" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400">Next</button>
+  </div>
+</div>

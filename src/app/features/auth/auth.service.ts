@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
+import { User } from '../../core/models/common.model';
 
 
 export const isAuthenticated = signal(false);
@@ -11,7 +12,7 @@ export const isAuthenticated = signal(false);
 })
 export class AuthService {
   private apiUrl = `${environment.apiAuthUrl}`;
-
+  user = signal<User | null>(null);
   constructor(private http: HttpClient, private router: Router) {}
 
   // Signup method
@@ -38,24 +39,42 @@ export class AuthService {
 
   // Login method - stores JWT in sessionStorage
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { email, password });
+    const headers  = new HttpHeaders({'Content-Type' : 'application/json'}) 
+    return this.http.post(`${this.apiUrl}/login`, { email, password }, {headers, observe: 'response'} );
   }
 
   // Store JWT in sessionStorage
   saveToken(token: string): void {
-    sessionStorage.setItem('token', token);
-    isAuthenticated.set(true); // Update signal state
+    sessionStorage.setItem('AUTH_TOKEN', token);
+    isAuthenticated.set(true);
   }
-
+  saveUserType(userType: string) : void {
+    sessionStorage.setItem('AUTH_USER_ROLE',userType);
+  }
+  saveAuthUser(user: User) : void {
+    sessionStorage.setItem('AUTH_USER',JSON.stringify(user));
+    this.user.set(user);
+  }
   // Get JWT from sessionStorage
   getToken(): string | null {
-    return sessionStorage.getItem('token');
+    return sessionStorage.getItem('AUTH_TOKEN');
+  }
+
+  getUserRole() : string  | null{
+    return sessionStorage.getItem('AUTH_USER_ROLE') ?? null;
+  }
+
+  getUser() : User | null{
+    return JSON.parse(sessionStorage.getItem('AUTH_USER') ?? '');
   }
 
   // Logout method - clears JWT
   logout(): void {
-    sessionStorage.removeItem('token');
-    isAuthenticated.set(false); // Update signal state
+    sessionStorage.removeItem('AUTH_TOKEN');
+    sessionStorage.removeItem('AUTH_USER');
+    sessionStorage.removeItem('AUTH_USER_ROLE');
+    isAuthenticated.set(false);
+    sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 
@@ -91,5 +110,21 @@ export class AuthService {
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
+  }
+
+  getDashboardRoute(role: string): string {
+    switch (role) {
+      case 'APPLICANT':
+        return 'user/jobseeker/dashboard/';
+      case 'RECRUITER':
+      case 'ADMIN':
+        return 'user/recruiter/admin/dashboard/';
+      default:
+        throw new Error('Unknown user role');
+    }
+  }
+
+   handleError(error: any): string {
+    return error.error?.message || 'An error occurred. Please try again.';
   }
 }

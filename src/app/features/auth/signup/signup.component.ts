@@ -112,7 +112,7 @@ export class SignupComponent {
     } else if (userType === 'recruiter') {
 
       this.authService.signupRecruiter(payload).subscribe({
-        next: () => this.router.navigate(['/login']),
+        next: () => this.router.navigate(['auth/login']),
         error: (err) => {
           this.error = err.error?.message || 'Registration failed. Please try again.';
           this.loading = false;
