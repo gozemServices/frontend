@@ -1,38 +1,71 @@
-<div class="w-full rounded-0 px-10 py-8">
-    <h2>{{ data.isEditMode ? 'Edit Experience' : 'Add Experience' }}</h2>
-    <p class="mb-4">Add a new item about your work experience</p>
-  
-    <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label>Starting Date</label>
-          <input class="border p-2 w-full" type="date" formControlName="startDate" />
-        </div>
-        <div>
-          <label>Ending Date</label>
-          <input class="border p-2 w-full" type="date" formControlName="endDate" />
-        </div>
-        <div>
-          <label>Town</label>
-          <input class="border p-2 w-full" type="text" formControlName="town" />
-        </div>
-        <div>
-          <label>Job Title</label>
-          <input class="border p-2 w-full" type="text" formControlName="jobTitle" />
-        </div>
-        <div>
-          <label>Company Name</label>
-          <input class="border p-2 w-full" type="text" formControlName="companyName" />
-        </div>
-        <div>
-          <label>Description</label>
-          <textarea class="border p-2 w-full" formControlName="description"></textarea>
-        </div>
+@if(isVisible) {
+  @if(isLoading) {
+    <div class="absolute w-screen h-screen top-0 left-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+      <div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
+    </div>
+  }
+  <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
+    <div class="flex bg-white flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
+      <div class="w-full rounded-0 px-10 py-8">
+        <h2>{{ isEditMode ? 'Edit Experience' : 'Add Experience' }}</h2>
+        <p class="mb-4">Provide details about your work experience.</p>
+      
+        <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Start Date -->
+            <div>
+              <label>Starting Date</label>
+              <input class="border p-2 w-full" type="date" formControlName="startDate" />
+              <div *ngIf="experienceForm.controls['startDate'].invalid && (experienceForm.controls['startDate'].touched || experienceForm.controls['startDate'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="experienceForm.controls['startDate'].errors?.['required']">Start date is required.</div>
+              </div>
+            </div>
+
+            <!-- End Date -->
+            <div>
+              <label>Ending Date</label>
+              <input class="border p-2 w-full" type="date" formControlName="endDate" />
+              <div *ngIf="experienceForm.controls['endDate'].invalid && (experienceForm.controls['endDate'].touched || experienceForm.controls['endDate'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="experienceForm.controls['endDate'].errors?.['required']">End date is required.</div>
+              </div>
+            </div>
+
+            <!-- Position -->
+            <div>
+              <label>Job Title</label>
+              <input class="border p-2 w-full" type="text" formControlName="position" />
+              <div *ngIf="experienceForm.controls['position'].invalid && (experienceForm.controls['position'].touched || experienceForm.controls['position'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="experienceForm.controls['position'].errors?.['required']">Job title is required.</div>
+              </div>
+            </div>
+
+            <!-- Company -->
+            <div>
+              <label>Company Name</label>
+              <input class="border p-2 w-full" type="text" formControlName="company" />
+              <div *ngIf="experienceForm.controls['company'].invalid && (experienceForm.controls['company'].touched || experienceForm.controls['company'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="experienceForm.controls['company'].errors?.['required']">Company name is required.</div>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="col-span-1 sm:col-span-2">
+              <label>Description</label>
+              <textarea class="border p-2 w-full" formControlName="description"></textarea>
+              <div *ngIf="experienceForm.controls['description'].invalid && (experienceForm.controls['description'].touched || experienceForm.controls['description'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="experienceForm.controls['description'].errors?.['maxlength']">Description cannot exceed 500 characters.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex justify-end mt-6">
+            <button type="button" class="bg-gray-200 px-4 py-2 mr-2 rounded" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" [disabled]="experienceForm.invalid">Submit</button>
+          </div>
+        </form>
       </div>
-      <div class="flex justify-end mt-6">
-        <button type="button" class="bg-gray-200 px-4 py-2 mr-2 rounded" (click)="onCancel()">Cancel</button>
-        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Submit</button>
-      </div>
-    </form>
+    </div>
   </div>
-  
+}

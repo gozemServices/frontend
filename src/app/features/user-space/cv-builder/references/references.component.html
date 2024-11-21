@@ -1,0 +1,45 @@
+<app-edit-references
+  [isVisible]="isEditVisible"
+  [isEditMode]="false"
+  (closeModal)="closeEditModal()"
+  >
+</app-edit-references>
+
+<div class="p-4 rounded mb-4">
+  <div class="flex justify-between items-center">
+    <h2 class="font-semibold">References</h2>
+    <button (click)="addReference()">
+      <fa-icon class="cursor-pointer" [icon]="faAdd"></fa-icon>
+    </button>
+  </div>
+  <div class="mt-2 border-2 border-b-[#AF4E64]  border-b-2 p-2">
+    <div class="">
+      <p>John doe - Web developper</p>
+      <p>Lorem ipsum dolor sit amet.</p>
+    </div>
+    <div class="flex space-x-2 mt-2 actions">
+      <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faTrash"></fa-icon>
+      <fa-icon class="text-green-400 cursor-pointer" [icon]="faEdit"></fa-icon>
+    </div>
+  </div>
+  <div class="mt-2 border-2 border-b-[#AF4E64]  border-b-2 p-2">
+    <div class="">
+        <p>John doe - Web developper</p>
+      <p>Lorem ipsum dolor sit amet.</p>
+    </div>
+    <div class="flex space-x-2 mt-2 actions">
+      <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faTrash"></fa-icon>
+      <fa-icon class="text-green-400 cursor-pointer" [icon]="faEdit"></fa-icon>
+    </div>
+  </div>
+  <div class="mt-2 border-2 border-b-[#AF4E64]  border-b-2 p-2">
+    <div class="">
+        <p>John doe - Web developper</p>
+      <p>Lorem ipsum dolor sit amet.</p>
+    </div>
+    <div class="flex space-x-2 mt-2 actions">
+      <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faTrash"></fa-icon>
+      <fa-icon class="text-green-400 cursor-pointer" [icon]="faEdit"></fa-icon>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+@if (isVisible) {
+    <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2>{{ isEditMode ? 'Edit Interest' : 'Add Interest' }}</h2>
+        <form [formGroup]="interestForm" (ngSubmit)="onSubmit()">
+          <div>
+            <label>Name</label>
+            <input type="text" formControlName="name" class="border p-2 w-full" />
+          </div>
+          <div>
+            <label>Description</label>
+            <textarea formControlName="description" class="border p-2 w-full"></textarea>
+          </div>
+          <div class="flex justify-end mt-4">
+            <button type="button" (click)="onCancel()" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
+            <button type="submit" [disabled]="interestForm.invalid" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+  

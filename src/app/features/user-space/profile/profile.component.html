@@ -101,7 +101,7 @@
             </div>
             <!-- Show mismatch error if present -->
             <div *ngIf="updatePasswordForm.errors?.['mismatch'] && f['confirmPassword'].touched" class="text-red-500 text-sm">
-              [translate]="'PASSWORDS_DO_NOT_MATCH'"
+              {{ 'PASSWORDS_DO_NOT_MATCH' | translate}}
             </div>
           </div>
     

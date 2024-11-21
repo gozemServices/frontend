@@ -139,5 +139,9 @@
     "COMPANY_NAME": "Company Name",
     "COMPANY_EMAIL": "Company Email",
     "COMPANY_WEBSITE": "Company Website",
-    "PASSWORD_DO_NOT_MATCH": "Passwords do not match"
+    "PASSWORD_DO_NOT_MATCH": "Passwords do not match",
+
+    "CONFIRM_REMOVE_ITEM": "Are you sure you want to remove this item ",
+    "IRREVERSIBLE_SIMPLE": "This action is irreversible",
+    "DELETE": "Delete"
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BasicInfosComponent } from "./basic-infos/basic-infos.component";
 import { GeneralInfosComponent } from "./general-infos/general-infos.component";
 import { EducationComponent } from "./education/education.component";
@@ -13,20 +13,21 @@ import { EditEducationComponent } from './actions/edit-education/edit-education.
 import { Education, Experience, Social } from '../../../core/models/cv-sections.model';
 import { EditExperienceComponent } from './actions/edit-experience/edit-experience.component';
 import { EditSocialComponent } from './actions/edit-social/edit-social.component';
+import { ReferencesComponent } from "./references/references.component";
+import { GenericService } from '../../../core/services/generic.service';
+
 
 @Component({
   selector: 'app-cv-builder',
   standalone: true,
-  imports: [CommonModule,MatDialogModule, RouterModule, BasicInfosComponent, GeneralInfosComponent, EducationComponent, ExperienceComponent, SkillsComponent, InterestsComponent, SocialsComponent],
+  imports: [CommonModule, MatDialogModule, RouterModule, BasicInfosComponent, GeneralInfosComponent, EducationComponent, ExperienceComponent, SkillsComponent, InterestsComponent, SocialsComponent, ReferencesComponent],
   templateUrl: './cv-builder.component.html',
   styleUrls: ['./cv-builder.component.scss']
 })
-export class CvBuilderComponent {
+export class CvBuilderComponent implements OnInit {
   currentCvSection: { title: string, anchor: string };
   iscvSectionListShown: boolean = false;
-  educationList: Education[] = [];
-  experienceList: Experience[] = [];
-  socialList: Social[] = [];
+  cvId: any;
   cvSections = [
     { title: 'BASIC_INFOS', anchor: 'basic_infos' },
     { title: 'GENERAL_INFOS', anchor: 'general_infos' },
@@ -37,8 +38,13 @@ export class CvBuilderComponent {
     { title: 'SOCIALS', anchor: 'socials' }
   ];
 
-  constructor(private dialog: MatDialog) {
+  isLoading = false;
+
+  constructor(private cvService: GenericService) {
     this.currentCvSection = this.cvSections[0];
+  }
+  ngOnInit(): void {
+      this.fetchCvInfos();
   }
 
   setCvSection(index: number) {
@@ -57,88 +63,9 @@ export class CvBuilderComponent {
     }
   }
 
-
-//
-  openAddEducationDialog() {
-    const dialogRef = this.dialog.open(EditEducationComponent, {
-      data: {
-        isEditMode: false,
-      },
-      panelClass: 'no-radius-dialog',
-    });
-
-    dialogRef.afterClosed().subscribe((result: Education) => {
-      if (result) {
-        this.educationList.push(result); // Add new education to the list
-      }
-    });
-  }
-
-  openEditEducationModal(education: any) {
-    const dialogRef = this.dialog.open(EditEducationComponent, {
-      data: {
-        isEditMode: true,
-        educationData: education
-      },
-      panelClass: 'no-radius-dialog',
-    });
-
-    dialogRef.afterClosed().subscribe((result: Education) => {
-      if (result) {
-        // Update the existing education entry in the list
-        const index = this.educationList.indexOf(education);
-        if (index !== -1) {
-          this.educationList[index] = result;
-        }
-      }
-    });
-  }
-
-
-  openExperienceDialog(experience?: Experience) {
-    const dialogRef = this.dialog.open(EditExperienceComponent, {
-      data: { isEditMode: !!experience, experienceData: experience },
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Handle the result (e.g., save or update the experience data)
-        console.log('Experience data:', result);
-      }
-    });
-  }
-
-
-
-
-
-
-
-  openAddSocialDialog() {
-    const dialogRef = this.dialog.open(EditSocialComponent, {
-      data: { isEditMode: false }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.socialList.push(result);
-      }
-    });
-  }
-
-  openEditSocialModal(social: any) {
-    const dialogRef = this.dialog.open(EditSocialComponent, {
-      data: { isEditMode: true, socialsData: social }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Find and update the existing social profile in the list
-        const index = this.socialList.findIndex(item => item.platformName === result.platformName);
-        if (index !== -1) {
-          this.socialList[index] = result;
-        }
-      }
-    });
+  fetchCvInfos() {
+    const cvDatas = this.cvService.getCvDatas().cv;
+    // console.log(cvDatas);
+    this.cvId = cvDatas.id;
   }
 }

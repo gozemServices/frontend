@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -9,5 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './general-infos.component.scss'
 })
 export class GeneralInfosComponent {
+
+  @Input()cvId!: number;
 
 }

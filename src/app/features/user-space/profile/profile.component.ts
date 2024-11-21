@@ -144,21 +144,22 @@ export class ProfileComponent implements OnInit {
         confirmPassword: new FormControl('', [Validators.required]),
       }, { validators: this.passwordMatchValidator });  // Group-level validator
     }
-    
-    
 
     onSubmit(): void {
-      if (this.updatePasswordForm.valid) {
-        const formValues = this.updatePasswordForm.value;
-        // You can call your service to update the password here
-        console.log('Password update successful:', formValues);
-        // Add logic for API call to update password.
-      } else {
-        console.log('Form is invalid');
+      if (!this.updatePasswordForm.valid) {
+        return
       }
+      const formValues = this.updatePasswordForm.value;
+      this.authService.updatePassword(this.user,formValues.currentPassword,formValues.newPassword).subscribe({
+        next: (response) => {
+          this.updateSucceded('password');
+        },
+        error: (error) => {
+          alert('Error updating password: ' + error.message);
+          this.errorMessage = 'Error updating password: ' + error.message;
+        },
+      });
     }
-
-
 
     buyPoints(): void {
       const dialogRef = this.dialog.open(BuyPointsModalComponent, {
@@ -183,6 +184,10 @@ export class ProfileComponent implements OnInit {
     // Placeholder function for the Cancel action
     onCancelClick() {
       console.log('Deactivation canceled');
+    }
+
+    updateSucceded(code: string) {
+      alert(code);
     }
   
 }

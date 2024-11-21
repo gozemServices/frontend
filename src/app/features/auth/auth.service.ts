@@ -12,6 +12,7 @@ export const isAuthenticated = signal(false);
 })
 export class AuthService {
   private apiUrl = `${environment.apiAuthUrl}`;
+  private allApiUrl = `${environment.allApiUrl}`
   user = signal<User | null>(null);
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -73,6 +74,7 @@ export class AuthService {
     sessionStorage.removeItem('AUTH_TOKEN');
     sessionStorage.removeItem('AUTH_USER');
     sessionStorage.removeItem('AUTH_USER_ROLE');
+    sessionStorage.removeItem('CV_INFOS');
     isAuthenticated.set(false);
     sessionStorage.clear();
     this.router.navigate(['/login']);
@@ -126,5 +128,30 @@ export class AuthService {
 
    handleError(error: any): string {
     return error.error?.message || 'An error occurred. Please try again.';
+  }
+
+
+  updatePassword(user: User | null, currentPassword: string, newPassword: string): Observable<any> {
+    const endpoint = `${this.allApiUrl}/update-password`;
+    const headers = new HttpHeaders({
+       'Content-Type': 'application/json' ,
+        'Authorization': this.getToken() ?? ''
+      });
+    const updatePasswordDto = {currentPassword,newPassword}
+    const body = {user,updatePasswordDto};
+
+    return this.http.put(endpoint,body, {headers});
+    // // Send HTTP request to update password
+    // return this.http.patch(endpoint, body, { headers }).pipe(
+    //   tap((response) => {
+    //     // Optionally handle any actions after successful password update
+    //     console.log('Password updated successfully:', response);
+    //   }),
+    //   // Handle errors in response
+    //   catchError((error) => {
+    //     console.error('Error updating password:', error);
+    //     throw error;
+    //   })
+    // );
   }
 }

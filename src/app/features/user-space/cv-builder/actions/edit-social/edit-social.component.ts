@@ -1,6 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { SocialsService } from '../../../../services/cv/socials.service';
 
 @Component({
   selector: 'app-edit-social',
@@ -11,50 +12,59 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class EditSocialComponent {
   socialsForm!: FormGroup;
+  @Input() isVisible!: boolean;
+  @Input() isEditMode: boolean = false;
+  @Input() socialData?: any;
+  @Output() closeModal = new EventEmitter<void>();
 
-  // Predefined social platform images (you can update these with actual images)
-  platformImages: { [key: string]: string } = {
-    'LinkedIn': 'https://example.com/linkedin-icon.png',  // Replace with actual URL or asset path
-    'GitHub': 'https://example.com/github-icon.png',  // Replace with actual URL or asset path
-    'Twitter': 'https://example.com/twitter-icon.png',  // Replace with actual URL or asset path
-    'Facebook': 'https://example.com/facebook-icon.png',  // Replace with actual URL or asset path
-    'Instagram': 'https://example.com/instagram-icon.png',  // Replace with actual URL or asset path
-    'YouTube': 'https://example.com/youtube-icon.png',  // Replace with actual URL or asset path
-    // Add more platform images as needed
-  };
+  socialForm!: FormGroup;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<EditSocialComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { isEditMode: boolean; socialsData?: any }
+    private socialsService: SocialsService
   ) {}
 
   ngOnInit() {
-    this.initForm(this.data);
+    this.initForm(this.socialData);
   }
 
   initForm(data: any) {
-    this.socialsForm = this.fb.group({
-      platformName: [data.socialsData?.platformName || '', Validators.required],
-      url: [data.socialsData?.url || '', [Validators.required, Validators.pattern('https?://.+')]],
-      description: [data.socialsData?.description || ''],
+    this.socialForm = this.fb.group({
+      name: [data?.name || '', Validators.required],
     });
   }
 
-  // Return the image URL based on the platform name
-  getSocialImageUrl(): string {
-    const platform = this.socialsForm.get('platformName')?.value;
-    return this.platformImages[platform] || 'https://example.com/default-icon.png';  // Fallback image if platform not found
-  }
-
   onSubmit() {
-    if (this.socialsForm.valid) {
-      const socialsData = this.socialsForm.value;
-      this.dialogRef.close(socialsData);
+    if (this.socialForm.valid) {
+      const socialData = this.socialForm.value;
+      this.isLoading = true;
+
+      if (this.isEditMode) {
+        this.socialsService.updateSocial(this.socialData?.id, socialData).subscribe(
+          (updatedData: any) => {
+            console.log('Social updated:', updatedData);
+            this.closeModal.emit();
+          },
+          (error: any) => {
+            console.error('Error updating social:', error);
+          }
+        );
+      } else {
+        this.socialsService.addSocial(socialData).subscribe(
+          (newData: any) => {
+            console.log('New social added:', newData);
+            this.closeModal.emit();
+          },
+          (error: any) => {
+            console.error('Error adding social:', error);
+          }
+        );
+      }
     }
   }
 
   onCancel() {
-    this.dialogRef.close();
+    this.closeModal.emit();
   }
 }

@@ -14,3 +14,10 @@ the address : [creativeTimTemplate : https://demos.creative-tim.com/ ](https://d
 -- also use popular design : 
         https://dribbble.com/shots/popular/web-design
         https://dribbble.com/tags/tech-app
+
+
+## Backend things to do 
+
+-- review the fields of the database, change it to have common cv infos in on table 
+-- update the form to add a new job opportunity
+-- add town to the education

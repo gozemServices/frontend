@@ -1,32 +1,44 @@
-<div [ngClass]="{'list': layout === 'list', 'grid': layout === 'grid'}" class="job-list-container w-full">
-  <div *ngFor="let job of jobs" class="job-item bg-white border border-gray-300 rounded-lg p-4 w-full shadow-xl flex flex-col">
-    <!-- Job Details -->
-    <div class="">
-      <p class="px-4 w-fit text-start  align-start rounded-full {{ job.type === 'permanent' ? 'bg-orange-500' : 'bg-green-500' }} text-white">{{job.type}} </p>
-      <h3 class="text-md !text-[28px] font-bolder text-[#002133]">{{ job.title }}</h3>
-      <p class="job-description text-gray-500">
-        {{job.description}} 
-        <a href="#" class="text-bold text-blue-500">view Job</a>
-      </p>
-    </div>
-    <div>
-      <p class="text-sm text-gray-600 flex items-center">
-        <fa-icon [icon]="faLocationPin" class="text-gray-500 mr-1"></fa-icon>{{ job.location }}
-        <span class="mx-2">|</span>
-        <fa-icon [icon]="faDollarSign" class="text-gray-500 mr-1"></fa-icon>{{ job.salary }}
-      </p>
-    </div>
 
-    <!-- Posting time and Actions -->
-    <div class="actions flex items-center space-x-4">
-      <span class="posted-time bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">Posted {{ job.posted }}</span>
-      <button class="text-gray-500">
-        <fa-icon [icon]="faBookmark" class="text-gray-500"></fa-icon>
-      </button>
-      <button (click)="openApplyDialog('')" class="apply-button bg-primary text-white px-4 py-2 rounded-lg">Apply</button>
-      <button class="share-button border-2 border-primary text-gray-800 px-4 py-2 rounded-lg hover:bg-primary hover:text-white">
-        <fa-icon [icon]="faShareSquare" class="mr-2"></fa-icon>Share
-      </button>
+@if(loading) {
+  <div class="absolute w-screen h-screen top-0 left-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
+  </div>
+}
+@if(!loading){
+  @if(jobs.length === 0 ){
+    <div>No job found</div>
+  }
+  <div [ngClass]="{'list': layout === 'list', 'grid': layout === 'grid'}" class="job-list-container w-full">
+    <div *ngFor="let job of jobs" class="job-item bg-white border border-gray-300 rounded-lg p-4 w-full shadow-xl flex flex-col">
+      <!-- Job Details -->
+      <div class="">
+        <p class="px-4 w-fit text-start  align-start rounded-full {{ job.type === 'permanent' ? 'bg-orange-500' : 'bg-green-500' }} text-white">{{job.type}} </p>
+        <h3 class="text-md !text-[28px] font-bolder text-[#002133]">{{ job.title }}</h3>
+        <p class="job-description text-gray-500">
+          {{job.description}} 
+          <a href="#" class="text-bold text-blue-500">view Job</a>
+        </p>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 flex items-center">
+          <fa-icon [icon]="faLocationPin" class="text-gray-500 mr-1"></fa-icon>{{ job.location }}
+          <span class="mx-2">|</span>
+          <fa-icon [icon]="faDollarSign" class="text-gray-500 mr-1"></fa-icon>{{ job.salary }}
+        </p>
+      </div>
+  
+      <!-- Posting time and Actions -->
+      <div class="actions flex items-center space-x-4">
+        <span class="posted-time bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">Posted {{ job.posted }}</span>
+        <button class="text-gray-500">
+          <fa-icon [icon]="faBookmark" class="text-gray-500"></fa-icon>
+        </button>
+        <button (click)="openApplyDialog('')" class="apply-button bg-primary text-white px-4 py-2 rounded-lg">Apply</button>
+        <button class="share-button border-2 border-primary text-gray-800 px-4 py-2 rounded-lg hover:bg-primary hover:text-white">
+          <fa-icon [icon]="faShareSquare" class="mr-2"></fa-icon>Share
+        </button>
+      </div>
     </div>
   </div>
-</div>
+  
+}

@@ -21,7 +21,7 @@ import { Router, RouterModule } from '@angular/router';
 export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
-
+  isLogin =false;
   loginForm: FormGroup;
   loading = false;
   error: string | null = null;
@@ -41,14 +41,15 @@ export class LoginComponent {
       this.loginForm.markAllAsTouched();
       return;
     }
+    this.loading = true;
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe({
       next: (response) => {
         const token = response.headers.get('Authorization');
         const role = response.headers.get('User-Type');
         const user = response.body;
-        console.log(user);
         if (token && role && user) {
+          this.loading = false;
           this.authService.saveToken(token);
           this.authService.saveUserType(role);
           this.authService.saveAuthUser(user);
@@ -57,13 +58,28 @@ export class LoginComponent {
         this.router.navigate([route]);
       },
       error: (err) => {
-        console.log(err);
         this.error = 'Login failed. Please check your credentials.';
+        this.loading = false
       },
       complete: () => {
-        console.log('done'); 
         this.loading = false;
       }
     });
   }
 }
+// this.genericService.getCvInfos().subscribe(
+//   (data) => {
+//     const cvInfos = data;
+//     if(cvInfos) {
+//       this.loading = false;
+//       this.authService.saveToken(token);
+//       this.authService.saveUserType(role);
+//       this.authService.saveAuthUser(user);
+      
+//     }
+//   },
+//   (error) => {
+//     console.error('Error fetching experiences:', error);
+//     // this.isLoading = false;
+//   }
+// );

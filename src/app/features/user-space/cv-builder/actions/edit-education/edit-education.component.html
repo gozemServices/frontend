@@ -1,38 +1,84 @@
-<div class="w-full rounded-0 px-10 py-8">
-  <h2>{{ data.isEditMode ? 'Edit Education' : 'Add Education' }}</h2>
-  <p class="mb-4">Add a new item about your education</p>
-
-  <form [formGroup]="educationForm" (ngSubmit)="onSubmit()">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div>
-        <label>Starting Date</label>
-        <input class="border p-2 w-full" type="date" formControlName="startDate" />
-      </div>
-      <div>
-        <label>Ending Date</label>
-        <input class="border p-2 w-full" type="date" formControlName="endDate" />
-      </div>
-      <div>
-        <label>Town</label>
-        <input class="border p-2 w-full" type="text" formControlName="town" />
-      </div>
-      <div>
-        <label>Diploma Name</label>
-        <input class="border p-2 w-full" type="text" formControlName="diplomaName" />
-      </div>
-      <div>
-        <label>School name</label>
-        <input class="border p-2 w-full" type="text" formControlName="school" />
-      </div>
-      <div>
-        <label>Description</label>
-        <textarea class="border p-2 w-full" formControlName="description"></textarea>
+@if(isVisible) {
+  @if(isLoading) {
+    <div class="absolute w-screen h-screen top-0 left-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+      <div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
+    </div>
+  }
+  <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
+    <div class="flex bg-white flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
+      <div class="w-full rounded-0 px-10 py-8">
+        <h2>{{ isEditMode ? 'Edit Education' : 'Add Education' }}</h2>
+        <p class="mb-4">Add a new item about your education</p>
+      
+        <form [formGroup]="educationForm" (ngSubmit)="onSubmit()">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Starting Date -->
+            <div>
+              <label>Starting Date</label>
+              <input class="border p-2 w-full" type="date" formControlName="startDate" />
+              <div *ngIf="educationForm.controls['startDate'].invalid && (educationForm.controls['startDate'].touched || educationForm.controls['startDate'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="educationForm.controls['startDate'].errors?.['required']">Starting date is required.</div>
+              </div>
+            </div>
+      
+            <!-- Ending Date -->
+            <div>
+              <label>Ending Date</label>
+              <input class="border p-2 w-full" type="date" formControlName="endDate" />
+              <div *ngIf="educationForm.controls['endDate'].invalid && (educationForm.controls['endDate'].touched || educationForm.controls['endDate'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="educationForm.controls['endDate'].errors?.['required']">Ending date is required.</div>
+              </div>
+            </div>
+      
+            <!-- Town -->
+            <div>
+              <label>Town</label>
+              <input class="border p-2 w-full" type="text" formControlName="town" />
+              <div *ngIf="educationForm.controls['town'].invalid && (educationForm.controls['town'].touched || educationForm.controls['town'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="educationForm.controls['town'].errors?.['required']">Town is required.</div>
+                <div *ngIf="educationForm.controls['town'].errors?.['minlength']">Town must be at least 2 characters long.</div>
+              </div>
+            </div>
+      
+            <!-- Diploma Name -->
+            <div>
+              <label>Diploma Name</label>
+              <input class="border p-2 w-full" type="text" formControlName="diplomaName" />
+              <div *ngIf="educationForm.controls['diplomaName'].invalid && (educationForm.controls['diplomaName'].touched || educationForm.controls['diplomaName'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="educationForm.controls['diplomaName'].errors?.['required']">Diploma name is required.</div>
+                <div *ngIf="educationForm.controls['diplomaName'].errors?.['minlength']">Diploma name must be at least 3 characters long.</div>
+              </div>
+            </div>
+      
+            <!-- School Name -->
+            <div>
+              <label>School Name</label>
+              <input class="border p-2 w-full" type="text" formControlName="institution" />
+              <div *ngIf="educationForm.controls['institution'].invalid && (educationForm.controls['institution'].touched || educationForm.controls['institution'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="educationForm.controls['institution'].errors?.['required']">institution name is required.</div>
+                <div *ngIf="educationForm.controls['institution'].errors?.['minlength']">institution name must be at least 3 characters long.</div>
+              </div>
+            </div>
+      
+            <!-- Description -->
+            <div>
+              <label>Description</label>
+              <textarea class="border p-2 w-full" formControlName="description"></textarea>
+              <div *ngIf="educationForm.controls['description'].invalid && (educationForm.controls['description'].touched || educationForm.controls['description'].dirty)" class="text-red-500 text-sm">
+                <div *ngIf="educationForm.controls['description'].errors?.['maxlength']">Description can be a maximum of 500 characters long.</div>
+              </div>
+            </div>
+      
+          </div>
+      
+          <div class="flex justify-end mt-6">
+            <button type="button" class="bg-gray-200 px-4 py-2 mr-2 rounded" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" [disabled]="educationForm.invalid">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="flex justify-end mt-6">
-      <button type="button" class="bg-gray-200 px-4 py-2 mr-2 rounded" (click)="onCancel()">Cancel</button>
-      <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Submit</button>
-    </div>
-  </form>
-
-</div>
+  </div>
+  
+}

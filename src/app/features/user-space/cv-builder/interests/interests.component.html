@@ -1,8 +1,12 @@
+<app-edit-interests
+  [isVisible]="isAddModalVisible"
+  [isEditMode]="false"
+  (closeModal)="onModalClose()"></app-edit-interests>
 <div class="p-4 rounded mb-4">
     <div class="flex justify-between items-center">
       <h2 class="font-semibold">Interests</h2>
       <button>
-        <fa-icon class="cursor-pointer" [icon]="faAdd"></fa-icon>
+        <fa-icon class="cursor-pointer" [icon]="faAdd" (click)="onAdd()"></fa-icon>
       </button>
     </div>
     <div class="mt-2 border-2 border-b-[#AF4E64] flex justify-between  border-b-2 p-2">

@@ -1,38 +1,30 @@
+<app-edit-skill
+  [isVisible]="isAddModalVisible"
+  [isEditMode]="isEditMode"
+  [skillData]="selectedSkill"
+  (closeModal)="onModalClose()"
+  >
+</app-edit-skill>
+
 <div class="p-4 rounded mb-4">
   <div class="flex justify-between items-center">
     <h2 class="font-semibold">Skills</h2>
-    <button>
+    <button (click)="onAdd()">
       <fa-icon class="cursor-pointer" [icon]="faAdd"></fa-icon>
     </button>
   </div>
-  <div class="mt-2 border-2 border-b-[#AF4E64]  border-b-2 p-2">
-    <div class="">
-      <p>Organised</p>
-      <p>Lorem ipsum dolor sit amet.</p>
-    </div>
-    <div class="flex space-x-2 mt-2 actions">
-      <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faTrash"></fa-icon>
-      <fa-icon class="text-green-400 cursor-pointer" [icon]="faEdit"></fa-icon>
-    </div>
-  </div>
-  <div class="mt-2 border-2 border-b-[#AF4E64]  border-b-2 p-2">
-    <div class="">
-      <p>Organised</p>
-      <p>Lorem ipsum dolor sit amet.</p>
-    </div>
-    <div class="flex space-x-2 mt-2 actions">
-      <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faTrash"></fa-icon>
-      <fa-icon class="text-green-400 cursor-pointer" [icon]="faEdit"></fa-icon>
-    </div>
-  </div>
-  <div class="mt-2 border-2 border-b-[#AF4E64]  border-b-2 p-2">
-    <div class="">
-      <p>Organised</p>
-      <p>Lorem ipsum dolor sit amet.</p>
-    </div>
-    <div class="flex space-x-2 mt-2 actions">
-      <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faTrash"></fa-icon>
-      <fa-icon class="text-green-400 cursor-pointer" [icon]="faEdit"></fa-icon>
-    </div>
+  <div class="mt-2">
+    @for (skill of skillsList; track skill.id) {
+      <div class="border-2 border-b-[#AF4E64] border-b-2 p-2 mt-2">
+        <div>
+          <p>{{ skill.name }}</p>
+          <p>{{ skill.description || 'No description provided.' }}</p>
+        </div>
+        <div class="flex space-x-2 mt-2 actions">
+          <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faTrash" (click)="onDelete(skill.id)"></fa-icon>
+          <fa-icon class="text-green-400 cursor-pointer" [icon]="faEdit" (click)="onEdit(skill)"></fa-icon>
+        </div>
+      </div>
+    }
   </div>
 </div>

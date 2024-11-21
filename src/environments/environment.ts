@@ -6,6 +6,8 @@ export const environment = {
   appVersion: version,
   apiUrl: 'http://localhost:9000/api',
   apiAuthUrl: 'http://localhost:9000/api/public/auth',
+  allApiUrl: 'http://localhost:9000/api/all/user',
+  cvApiUrl: 'http://localhost:9000/api/applicant/cv',
 
   settings: {
     auth: {

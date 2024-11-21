@@ -34,7 +34,6 @@ export class JobListComponent {
   fetchJobs(): void {
     this.loading = true;
     this.errorMessage = null;
-
     this.jobService.getAllJobs().subscribe({
       next: (data) => {
         this.jobs = data;
@@ -51,7 +50,7 @@ export class JobListComponent {
   openApplyDialog(jobId: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '600px';
-    dialogConfig.data = { jobId };
+    dialogConfig.data = { jobId };  
 
     const dialogRef = this.dialog.open(JobApplyComponent, dialogConfig);
 

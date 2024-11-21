@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class JobService {
   private http = inject(HttpClient);
-  private baseUrl = `${environment.apiUrl}/jobs`;
+  private baseUrl = `${environment.apiUrl}/all/job`;
 
   // getAllJobs(filters: any): Observable<any> {
   //   return this.http.get(this.baseUrl, { params: filters });

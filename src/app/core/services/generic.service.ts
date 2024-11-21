@@ -30,6 +30,18 @@ export class GenericService {
     return this.http.delete<T>(`${this.baseUrl}/${endpoint}`);
   }
 
+  fetchCvInfos(): Observable<any[]> {
+    const url = `${environment.apiUrl}/all/user/me`;
+    return this.http.get<any>(url);
+  }
+
+  saveCvDatas(cvInfos: any) : void{
+    sessionStorage.setItem('CV_INFOS',JSON.stringify(cvInfos));
+  }
+  getCvDatas() : any | null{
+    return JSON.parse(sessionStorage.getItem('CV_INFOS') ?? '');
+  }
+
   getLanguages(): string[] {
     return this.languages;
   }

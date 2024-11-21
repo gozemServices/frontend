@@ -1,44 +1,70 @@
-<div class="p-4 rounded mb-4">
-    <div class="flex justify-between items-center">
-      <h2 class="font-semibold">Experiences</h2>
-      <button mat-icon-button color="primary" class="cursor-pointer" aria-label="Add">
-        <button (click)="onAdd()">
-            <fa-icon class="cursor-pointer" [icon]="faAdd"></fa-icon>
+<app-edit-experience
+  *ngIf="isEditVisible"
+  [isVisible]="isEditVisible"
+  [isEditMode]="isEditMode"
+  (experienceUpdated)="refreshExperienceList()"
+  (closeModal)="onModalClose()"
+  [experienceData]="selectedExperience"
+></app-edit-experience>
+
+<div *ngIf="isConfirmationModalOpened" class="fixed w-full h-full top-0 left-0 z-50 bg-gray-800 bg-opacity-50 flex pt-[80px] items-start justify-center">  
+  <div class="h-screen w-screen flex items-start justify-center">
+    <div class="flex bg-white flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[70vw] md:max-w-[50vw]">
+      <h2 class="text-4xl w-full bg-red-500 uppercase text-white">
+        <fa-icon class="text-white" [icon]="faDanger"></fa-icon>
+        <span class="text-white ml-2" [translate]="'DELETE'"></span>
+      </h2>
+      
+      <div>
+        <p class="text-lg">
+          {{ 'CONFIRM_REMOVE_ITEM' | translate }}
+        </p>
+        <p class="text-xl text-[#ff5733]" [translate]="'IRREVERSIBLE_SIMPLE'"></p>
+      </div>
+      
+      <div>
+        <button (click)="effectiveDeleteExperience(false)" class="bg-none border-2 border-primary text-primary mx-2 px-4 py-2 hover:border-2 hover:bg-primary hover:text-white transition duration-700">
+          {{ 'CANCEL' | translate }}
         </button>
-      </button>
-    </div>
-    <div class="mt-2 border-2 border-b-[#AF4E64]  border-b-2 p-2">
-      <div class="">
-        <p>Frontend developper</p>
-        <p>Septembre 2014 - Juillet 2021 | GBHSG, Galim</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, ullam.</p>
-      </div>
-      <div class="flex space-x-2 mt-2 actions">
-        <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faTrash"></fa-icon>
-        <fa-icon class="text-green-400 cursor-pointer" [icon]="faEdit"></fa-icon>
-      </div>
-    </div>
-    <div class="mt-2 border-2 border-b-[#AF4E64]  border-b-2 p-2">
-        <div class="">
-            <p>Frontend developper</p>
-            <p>Septembre 2014 - Juillet 2021 | GBHSG, Galim</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, ullam.</p>
-          </div>
-      <div class="flex space-x-2 mt-2 actions">
-        <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faTrash"></fa-icon>
-        <fa-icon class="text-green-400 cursor-pointer" [icon]="faEdit"></fa-icon>
-      </div>
-    </div>
-    <div class="mt-2 border-2 border-b-[#AF4E64]  border-b-2 p-2">
-        <div class="">
-            <p>Frontend developper</p>
-            <p>Septembre 2014 - Juillet 2021 | GBHSG, Galim</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, ullam.</p>
-        </div>
-      <div class="flex space-x-2 mt-2 actions">
-        <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faTrash"></fa-icon>
-        <fa-icon class="text-green-400 cursor-pointer" [icon]="faEdit"></fa-icon>
+        <button (click)="effectiveDeleteExperience(true)" class="bg-green-800 mx-2 px-4 py-2 text-white hover:bg-green-900 transition duration-700">
+          {{ 'REMOVE' | translate }}
+        </button>
       </div>
     </div>
   </div>
-  
+</div>
+
+<div class="p-4 rounded mb-4">
+  <div class="flex justify-between items-center">
+    <h2 class="font-semibold">{{ "EXPERIENCES" | translate }}</h2>
+    <button (click)="addExperience()">
+      <fa-icon class="cursor-pointer" [icon]="faAdd"></fa-icon>
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="top-0 left-0 z-50 bg-opacity-50 flex justify-center items-center">
+    <div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
+  </div>
+  @if(!loading) {
+    <div *ngIf="!loading">
+      @if(experienceList.length === 0) {
+        <div class="text-md">Found 0 experience entry! <strong>Click on the + to add some</strong></div>
+      }@else {
+        @for(experienceItem of experienceList; track experienceItem.id){
+        <div class="mt-2 border-2 border-b-[#AF4E64] border-b-2 p-2">
+          <div>
+            <p class="text-lg">{{ experienceItem.position }}</p>
+            <p>{{ experienceItem.startDate }} - {{ experienceItem.endDate }} | {{ experienceItem.company }}, {{ experienceItem.location }}</p>
+            <p>{{ experienceItem.description }}</p>
+          </div>
+          <div class="flex space-x-2 mt-2 actions">
+            <fa-icon class="text-[#AF4E64] cursor-pointer" (click)="deleteExperience(experienceItem.id)" [icon]="faTrash"></fa-icon>
+            <fa-icon class="text-green-400 cursor-pointer" (click)="editExperience(experienceItem)" [icon]="faEdit"></fa-icon>
+          </div>
+        </div>
+        }
+      }
+    </div>
+  }
+ 
+</div>
