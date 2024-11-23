@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
@@ -30,9 +30,10 @@ export class GenericService {
     return this.http.delete<T>(`${this.baseUrl}/${endpoint}`);
   }
 
-  fetchCvInfos(): Observable<any[]> {
+  fetchCvInfos(): Observable<any> {
     const url = `${environment.apiUrl}/all/user/me`;
     return this.http.get<any>(url);
+
   }
 
   saveCvDatas(cvInfos: any) : void{
@@ -47,5 +48,11 @@ export class GenericService {
   }
   switchLanguage(language: string) {
     this.translateService.use(language);
+  }
+
+  getImageRessource(fileName: string): Observable<Blob> {
+    const apiUrl = `${environment.apiUrl}/all/user/uploads/`;
+    const headers = new HttpHeaders();
+    return this.http.get(`${apiUrl}${fileName}`, { headers, responseType: 'blob' });
   }
 }

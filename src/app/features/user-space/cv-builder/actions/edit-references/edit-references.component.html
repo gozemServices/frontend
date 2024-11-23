@@ -3,7 +3,7 @@
       <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
         <div class="flex bg-white flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
           <div class="w-full rounded-0 px-10 py-8">
-            <h2>{{ isEditMode ? 'Add Reference' : 'Edit Reference' }}</h2>
+            <h2>{{ !isEditMode ? 'Add Reference' : 'Edit Reference' }}</h2>
             <p class="mb-4">Provide details about the reference you want to add or edit.</p>
               <!-- Loading Spinner -->
             
@@ -24,10 +24,10 @@
                 <!-- reference contact -->
                 <div>
                   <label>Reference contact</label>
-                  <input class="border p-2 w-full" type="number" formControlName="contact" />
-                  <div *ngIf="referenceForm.controls['contact'].invalid && (referenceForm.controls['contact'].touched || referenceForm.controls['contact'].dirty)" class="text-red-500 text-sm">
-                    <div *ngIf="referenceForm.controls['contact'].errors?.['required']">reference contact is required.</div>
-                    <div *ngIf="referenceForm.controls['contact'].errors?.['pattern']">reference contact must be numeric (e.g., 1-651858890).</div>
+                  <input class="border p-2 w-full" type="number" formControlName="contactInfo" />
+                  <div *ngIf="referenceForm.controls['contactInfo'].invalid && (referenceForm.controls['contactInfo'].touched || referenceForm.controls['contactInfo'].dirty)" class="text-red-500 text-sm">
+                    <div *ngIf="referenceForm.controls['contactInfo'].errors?.['contactInfo']">reference contact is required.</div>
+                    <div *ngIf="referenceForm.controls['contactInfo'].errors?.['contactInfo']">reference contact must be numeric (e.g., 1-651858890).</div>
                   </div>
                 </div>
           

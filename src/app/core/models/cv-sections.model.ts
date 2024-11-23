@@ -18,6 +18,10 @@ export interface Education {
   endDate: Date;
 }
 
+export interface Task {
+  id: number;
+  name: string;
+}
   
 export interface Experience {
   id: number,
@@ -27,10 +31,36 @@ export interface Experience {
   position: string;
   company: string;
   description?: string;
+  tasks: Task[];
 }
 
 export interface Social {
-  platformName: string;
+  id: number;
+  name: string;
   url: string;
-  description?: string;
+  iconSvg?: string;
+}
+
+export interface Reference{
+  id: number;
+  name: String;
+  contactInfo: String;
+  relation: String;
+}
+
+export interface Language{
+  id: number;
+  name: string;
+  level: string;
+}
+
+
+export interface CVDetailRequest {
+  userId: number;
+  description:string;
+  jobTitle:string;
+  name:string;
+  surname:string;
+  birthdate:string;
+  phone:string;
 }

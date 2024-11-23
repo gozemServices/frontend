@@ -65,41 +65,18 @@ export class SignupComponent {
     this.loading = true;
     this.error = null;
     const userType = this.signupForm.value.userType;
-    const createPayload = () => {
-      const basePayload = {
-        name: this.signupForm.value.name,
-        surname: this.signupForm.value.surname,
-        username: this.signupForm.value.username,
-        email: this.signupForm.value.email,
-        phone: this.signupForm.value.phone,
-        password: this.signupForm.value.password,
-      };
-  
-      if (userType === 'user') { return { ...basePayload, role: 'APPLICANT' };}
-      if (userType === 'recruiter') {
-        return {
-          ...basePayload,
-          role: 'RECRUITER',
-          sector: this.signupForm.value.sector,
-          activity: this.signupForm.value.activity,
-        };
-      }
-      return basePayload;
-    };
-  
-    const payload = createPayload();
-  
-    if (userType === 'user') {
-      const formData = new FormData();
-      formData.append('user', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
-      if (this.profilePicFile) {
-        formData.append('profilePicture', this.profilePicFile);
-      }
-      formData.forEach((value, key) => console.log(`${key}:`, value));
-      
+    const payload = this.createPayload(userType);
+    const formData = new FormData();
+    formData.append('user', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
+    if (this.profilePicFile) {
+      formData.append('profilePicture', this.profilePicFile);
+    }
+    formData.forEach((value, key) => console.log(`${key}:`, value));
+
+    if (userType === 'user') {  
       this.authService.signupUser(formData).subscribe({
         next: (response) => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/auth/login']);
           console.log('Is the success block reached?', response);
         },
         error: (err) => {
@@ -111,7 +88,7 @@ export class SignupComponent {
       });
     } else if (userType === 'recruiter') {
 
-      this.authService.signupRecruiter(payload).subscribe({
+      this.authService.signupRecruiter(formData).subscribe({
         next: () => this.router.navigate(['auth/login']),
         error: (err) => {
           this.error = err.error?.message || 'Registration failed. Please try again.';
@@ -146,17 +123,60 @@ export class SignupComponent {
     this.signupForm.get('userType')?.valueChanges.subscribe((userType) => {
       const sectorControl = this.signupForm.get('sector');
       const activityControl = this.signupForm.get('activity');
-
+      const firstnameControl = this.signupForm.get('surname');
       if (userType === 'recruiter') {
         sectorControl?.setValidators([Validators.required]);
         activityControl?.setValidators([Validators.required]);
+        firstnameControl?.clearValidators();
       } else {
         sectorControl?.clearValidators();
         activityControl?.clearValidators();
+        firstnameControl?.setValidators([Validators.required,Validators.minLength(3)])
       }
 
       sectorControl?.updateValueAndValidity();
       activityControl?.updateValueAndValidity();
+      firstnameControl?.updateValueAndValidity();
     });
   }
+
+
+
+  createPayload = (userType: string) => {
+    const basePayload = {
+      name: this.signupForm.value.name,
+      username: this.signupForm.value.username,
+      email: this.signupForm.value.email,
+      phone: this.signupForm.value.phone,
+      password: this.signupForm.value.password,
+    };
+
+    if (userType === 'user') { return { ...basePayload, role: 'APPLICANT', surname: this.signupForm.value.surname };}
+    if (userType === 'recruiter') {
+      return {
+        ...basePayload,
+        role: 'EMPLOYEER',
+        sector: this.signupForm.value.sector,
+        activity: this.signupForm.value.activity,
+      };
+    }
+    return basePayload;
+  };
 }
+
+
+
+
+
+
+
+
+// console.log('Form Validity:', this.generalInfoForm.valid); // Overall validity
+//     // console.log('Form Errors:', this.generalInfoForm.errors); // Check global errors if any
+  
+//     // // Check individual controls
+//     // Object.keys(this.generalInfoForm.controls).forEach((key) => {
+//     //   const control = this.generalInfoForm.get(key);
+//     //   console.log(`${key} Valid:`, control?.valid);
+//     //   console.log(`${key} Errors:`, control?.errors);
+//     // });

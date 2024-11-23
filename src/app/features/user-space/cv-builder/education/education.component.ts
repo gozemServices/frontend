@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAdd, faEdit, faExclamationTriangle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
@@ -28,6 +27,7 @@ export class EducationComponent implements OnInit{
   faEdit = faEdit;
   faAdd = faAdd;
   faDanger = faExclamationTriangle;
+
   cvId!: number;
   isEditVisible = false;
   selectedEducation: any = null;
@@ -39,10 +39,10 @@ export class EducationComponent implements OnInit{
 
   constructor(private educationService: EducationService,private genericsService: GenericService) {}
   ngOnInit() {
-    this.cvId = this.genericsService.getCvDatas().cv.id;
     this.getEducationList();
   }
   getEducationList() {
+    this.loading = true;
     this.educationService.getEducationList().subscribe(
       (data) => {
         this.educationList = data;
@@ -83,7 +83,7 @@ export class EducationComponent implements OnInit{
             this.refreshEducationList();
           },
           (error: any) => {
-            console.error('Error deleting reference:', error);
+            console.error('Error deleting education:', error);
           }
         );
       } else {

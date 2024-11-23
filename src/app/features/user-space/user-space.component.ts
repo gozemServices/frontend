@@ -14,6 +14,8 @@ import { ProfileComponent } from "./profile/profile.component";
 import { NotificationsComponent } from "./notifications/notifications.component";
 import { JobseekerMessagesComponent } from "./jobseeker-messages/jobseeker-messages.component";
 import { RouterModule } from '@angular/router';
+import { User } from '../../core/models/common.model';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -37,14 +39,18 @@ export class UserSpaceComponent implements OnInit{
   isLangDropdownOpened = false;
   faChevronDown = faChevronDown;
   faNotificationRing = faBell;
+  user!: User | null;
+  profilePic: string | ArrayBuffer | null = null;
 
   constructor(
     private genericService: GenericService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthService
   ){}
   ngOnInit() {
     this.languages = this.genericService.getLanguages();
-    
+    this.user = this.authService.getUser();
+    this.loadProfileImage(this.user?.profilePhotoUrl ?? '');
   }
 
   onTabSelected(tab: string) {
@@ -65,5 +71,20 @@ export class UserSpaceComponent implements OnInit{
 
    toggleLangSelector(){
     this.isLangDropdownOpened = !this.isLangDropdownOpened;
+  }
+
+
+
+  loadProfileImage(fileName: string) {
+    this.genericService.getImageRessource(fileName).subscribe(
+      (data) => {
+        // Convert the Blob to a URL and display it
+        this.profilePic = URL.createObjectURL(data);
+      },
+      (error) => {
+        console.error('Error fetching image', error);
+        this.profilePic = null
+      }
+    );
   }
 }

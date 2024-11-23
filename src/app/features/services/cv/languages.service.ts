@@ -8,8 +8,8 @@ import { GenericService } from '../../../core/services/generic.service';
 @Injectable({
   providedIn: 'root',
 })
-export class InterestsService {
-  private apiUrl = `${environment.cvApiUrl}/interests`;
+export class LanguagesService {
+  private apiUrl = `${environment.cvApiUrl}/language`;
 
   constructor(private http: HttpClient, private genericService: GenericService) {}
 
@@ -21,13 +21,13 @@ export class InterestsService {
     throw new Error('CV ID is not available. Ensure CV data is fetched before using this service.');
   }
 
-  // Get all interests
-  getInterestsList(): Observable<any[]> {
+  // Get all languages
+  getLanguagesList(): Observable<any[]> {
     try {
       const cvId = this.getCvId();
       return this.http.get<any[]>(`${this.apiUrl}/${cvId}`).pipe(
         catchError((error) => {
-          console.error('Error fetching interests list:', error);
+          console.error('Error fetching languages list:', error);
           return throwError(() => error);
         })
       );
@@ -36,23 +36,23 @@ export class InterestsService {
     }
   }
 
-  // Get a specific interest by ID
-  getInterestById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
+  // Get a specific language by ID
+  getLanguageById(languageId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${languageId}`).pipe(
       catchError((error) => {
-        console.error(`Error fetching interest with ID ${id}:`, error);
+        console.error(`Error fetching language with ID ${languageId}:`, error);
         return throwError(() => error);
       })
     );
   }
 
-  // Add a new interest
-  addInterest(interestData: any): Observable<any> {
+  // Add a new language
+  addLanguage(languageData: any): Observable<any> {
     try {
       const cvId = this.getCvId();
-      return this.http.post<any>(`${this.apiUrl}/${cvId}`, interestData).pipe(
+      return this.http.post<any>(`${this.apiUrl}/${cvId}`, languageData).pipe(
         catchError((error) => {
-          console.error('Error adding interest:', error);
+          console.error('Error adding language:', error);
           return throwError(() => error);
         })
       );
@@ -61,21 +61,21 @@ export class InterestsService {
     }
   }
 
-  // Update an existing interest
-  updateInterest(interestId: number, interestData: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${interestId}`, interestData).pipe(
+  // Update an existing language
+  updateLanguage(languageId: number, languageData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${languageId}`, languageData).pipe(
       catchError((error) => {
-        console.error(`Error updating interest with ID ${interestId}:`, error);
+        console.error(`Error updating language with ID ${languageId}:`, error);
         return throwError(() => error);
       })
     );
   }
 
-  // Delete an interest by ID
-  deleteInterest(interestId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${interestId}`).pipe(
+  // Delete a language by ID
+  deleteLanguage(languageId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${languageId}`).pipe(
       catchError((error) => {
-        console.error(`Error deleting interest with ID ${interestId}:`, error);
+        console.error(`Error deleting language with ID ${languageId}:`, error);
         return throwError(() => error);
       })
     );

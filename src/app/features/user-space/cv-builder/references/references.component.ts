@@ -3,27 +3,37 @@ import { ReferencesService } from '../../../services/cv/references.service';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EditReferencesComponent } from '../actions/edit-references/edit-references.component';
-import { faAdd, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faEdit, faExclamationTriangle, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Reference } from '../../../../core/models/cv-sections.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-references',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule,EditReferencesComponent],
+  imports: [TranslateModule, CommonModule,FontAwesomeModule,EditReferencesComponent],
   templateUrl: './references.component.html',
   styleUrl: './references.component.scss'
 })
 export class ReferencesComponent {
-  @Input() cvId!: number;
-  references: any[] = [];
-  isLoading = false;
-  isEditMode = false;
-  selectedReference: any = null;
-  isEditVisible = false;
   faTrash = faTrash;
   faEdit = faEdit;
   faAdd = faAdd;
+  faDanger = faExclamationTriangle;
 
-  constructor(private referencesService: ReferencesService) {}
+  @Input() cvId!: number;
+  references: Reference[] = [];
+  isLoading = false;
+  confirmDeletion = true;
+  isEditMode = false;
+  selectedReference: any = null;
+  isEditVisible = false;
+  isConfirmationModalOpened = false;
+  itemToDelete: number | null = null;
+ 
+
+  constructor(
+    private referencesService: ReferencesService,
+  ) {}
 
   ngOnInit() {
     this.fetchReferences();
@@ -44,34 +54,47 @@ export class ReferencesComponent {
   }
 
   addReference() {
-    this.selectedReference = null; // Clear selection for new entry.
+    this.selectedReference = null; 
     this.isEditMode = false;
     this.isEditVisible = true;
   }
 
-  editReference(reference: any) {
+  editReference(reference: Reference) {
     this.selectedReference = reference;
     this.isEditMode = true;
     this.isEditVisible = true;
   }
 
   deleteReference(referenceId: number) {
-    if (confirm('Are you sure you want to delete this reference?')) {
-      this.referencesService.deleteReference(referenceId).subscribe(
+    this.confirmDeletion = true;
+    this.isConfirmationModalOpened = true;
+    this.itemToDelete = referenceId;
+  }
+
+  effectiveDeleteReference(action: boolean) {
+    const educationId = this.itemToDelete;
+    if(action === true) {
+      this.referencesService.deleteReference(educationId ?? 0).subscribe(
         () => {
-          this.references = this.references.filter((ref) => ref.id !== referenceId);
+          this.references = this.references.filter((ref) => ref.id !== educationId);
+          this.isConfirmationModalOpened = false;
+          this.itemToDelete = null;
+          this.fetchReferences();
         },
         (error: any) => {
-          console.error('Error deleting reference:', error);
+          console.error('Error deleting education:', error);
         }
       );
+    } else {
+      this.itemToDelete = null;
+      this.isConfirmationModalOpened = false
     }
-  }
+   
+}
 
-  closeEditModal() {
-    this.isEditVisible = false;
-    this.fetchReferences(); // Refresh the list.
-  }
-
+onModalClose() {
+  this.isEditVisible = false; 
+  this.fetchReferences();
+}
 
 }

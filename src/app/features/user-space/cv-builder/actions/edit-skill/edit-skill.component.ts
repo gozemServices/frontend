@@ -14,16 +14,16 @@ import { LoadingComponent } from '../../../../../shared/components/loading/loadi
 export class EditSkillComponent {
   @Input() isVisible!: boolean;
   @Input() isEditMode: boolean = false;
-  @Input() skillData?: any;
+  @Input() selectedSkill?: any;
   @Output() closeModal = new EventEmitter<void>();
-
+  @Output() educationUpdated = new EventEmitter<void>();
   skillForm!: FormGroup;
   isLoading = false;
 
   constructor(private fb: FormBuilder, private skillsService: SkillsService) {}
 
   ngOnInit() {
-    this.initForm(this.skillData);
+    this.initForm(this.selectedSkill);
   }
 
   initForm(data: any) {
@@ -40,7 +40,7 @@ export class EditSkillComponent {
       this.isLoading = true;
 
       if (this.isEditMode) {
-        this.skillsService.updateSkill(this.skillData.id, skillData).subscribe(
+        this.skillsService.updateSkill(this.selectedSkill.id, skillData).subscribe(
           () => {
             console.log('Skill updated');
             this.closeModal.emit();

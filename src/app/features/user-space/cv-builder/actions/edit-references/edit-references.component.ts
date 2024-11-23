@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ReferencesService } from '../../../../services/cv/references.service';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../../../../shared/components/loading/loading.component';
+import { Reference } from '../../../../../core/models/cv-sections.model';
+import { ReferencesService } from '../../../../services/cv/references.service';
 
 @Component({
   selector: 'app-edit-references',
@@ -13,9 +14,10 @@ import { LoadingComponent } from '../../../../../shared/components/loading/loadi
 })
 export class EditReferencesComponent {
   @Input() isVisible!: boolean;
-  @Input() isEditMode: boolean = false;
-  @Input() referenceData?: any;
+  @Input() isEditMode!: boolean;
+  @Input() selectedReference?: Reference;
   @Output() closeModal = new EventEmitter<void>();
+  @Output() referenceUpdated = new EventEmitter<void>();
 
   referenceForm!: FormGroup;
   isLoading = false;
@@ -26,13 +28,13 @@ export class EditReferencesComponent {
   ) {}
 
   ngOnInit() {
-    this.initForm(this.referenceData);
+    this.initForm(this.selectedReference);
   }
 
   initForm(data: any) {
     this.referenceForm = this.fb.group({
       name: [data?.name || '', Validators.required],
-      contact: [data?.contact || '', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      contactInfo: [data?.contactInfo || '', [Validators.required, Validators.pattern('^[0-9]+$')]],
       relation: [data?.relation || '', Validators.required],
     });
   }
@@ -43,7 +45,7 @@ export class EditReferencesComponent {
       this.isLoading = true;
 
       if (this.isEditMode) {
-        this.referencesService.updateReference(this.referenceData?.id, referenceData).subscribe(
+        this.referencesService.updateReference(this.selectedReference?.id ?? 0, referenceData).subscribe(
           (updatedData: any) => {
             console.log('Reference updated:', updatedData);
             this.closeModal.emit();

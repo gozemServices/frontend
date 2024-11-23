@@ -3,7 +3,7 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs'; 
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faChartArea, faChartBar, faFileInvoiceDollar, faGauge, faMessage, faSearch, faUser, faVcard } from '@fortawesome/free-solid-svg-icons';
+import { faChartArea, faChartBar, faFileAlt, faFileInvoiceDollar, faGauge, faMessage, faSearch, faUser, faVcard } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { faTachometerAlt, faBriefcase, faClipboardList, faDollarSign, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { RouterModule } from '@angular/router';
@@ -31,6 +31,7 @@ export class SidebarComponent {
   faVcard = faVcard;
   faStats = faChartBar;
   faPayingTools= faFileInvoiceDollar;
+  faCvtheque = faFileAlt;
 
   userTabs = [
   { id: 'dashboard', link: 'dashboard', label: 'DASHBOARD_LABEL', icon: this.faDashboard, title: 'DASHBOARD_TITLE' },
@@ -45,6 +46,7 @@ export class SidebarComponent {
   
   recruitersTab = [
     { id: 'dashboard', link: 'dashboard', label: 'DASHBOARD_LABEL', icon: faTachometerAlt, title: 'DASHBOARD_TITLE' },
+    { id: 'cvtheque', link: 'cvtheque', label: 'CVTHEQUE_LABEL', icon: this.faCvtheque, title: 'CVTHEQUE_TITLE' },
     { id: 'profile', link: 'profile', label: 'PROFILE_LABEL', icon: faUser, title: 'PROFILE_TITLE' },
     { id: 'offers', link: 'offers', label: 'OFFERS_LABEL', icon: faBriefcase, title: 'OFFERS_TITLE' },
     { id: 'candidatures', link: 'candidatures', label: 'CANDIDATURES_LABEL', icon: faClipboardList, title: 'CANDIDATURES_TITLE' },

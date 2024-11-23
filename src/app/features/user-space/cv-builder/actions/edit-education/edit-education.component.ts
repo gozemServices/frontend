@@ -23,7 +23,6 @@ export class EditEducationComponent implements OnInit {
   @Input() selectedEducation?: Education;
   @Output() closeModal = new EventEmitter<void>();
   @Output() educationUpdated = new EventEmitter<void>();
-
   educationForm!: FormGroup;
   isLoading = false;
 

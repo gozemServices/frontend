@@ -6,29 +6,65 @@
         <p class="mb-4">Add a new social where we can find you on</p>
       
         <!-- Form starts here -->
-        <form [formGroup]="socialsForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="socialForm" (ngSubmit)="onSubmit()">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
+            <!-- Autocomplete input -->
+            <div class="relative">
               <label>Platform Name</label>
-              <input class="border p-2 w-full" type="text" formControlName="platformName" />
+              <input
+                class="border p-2 w-full"
+                type="text"
+                formControlName="platformName"
+                (input)="onPlatformInput($event)"
+              />
+              <!-- Suggestions dropdown -->
+              <ul
+                *ngIf="isSuggestionsVisible"
+                class="absolute z-10 bg-white border rounded shadow-md mt-2 w-full"
+              >
+                <li
+                  *ngFor="let suggestion of filteredSuggestions"
+                  class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  (click)="selectSuggestion(suggestion)"
+                >
+                  {{ suggestion.name }}
+                </li>
+              </ul>
             </div>
             <div>
               <label>URL</label>
-              <input class="border p-2 w-full" type="url" formControlName="url" />
+              <input
+                class="border p-2 w-full"
+                type="url"
+                formControlName="url"
+              />
             </div>
             <div>
               <label>Description (Optional)</label>
-              <textarea class="border p-2 w-full" formControlName="description"></textarea>
+              <textarea
+                class="border p-2 w-full"
+                formControlName="description"
+              ></textarea>
             </div>
           </div>
       
           <div class="flex justify-end mt-6">
-            <button type="button" class="bg-gray-200 px-4 py-2 mr-2 rounded" (click)="onCancel()">Cancel</button>
-            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Submit</button>
+            <button
+              type="button"
+              class="bg-gray-200 px-4 py-2 mr-2 rounded"
+              (click)="onCancel()"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="bg-red-500 text-white px-4 py-2 rounded"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>
     </div>
   </div>
-  
 }

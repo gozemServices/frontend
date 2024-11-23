@@ -18,17 +18,10 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [
     CommonModule,
-    DashboardComponent,
     FontAwesomeModule,
     SidebarComponent,
     TranslateModule,
     FontAwesomeModule,
-    ProfileManagementComponent,
-    OffersComponent,
-    CandidaturesComponent,
-    PayingToolsComponent,
-    EventsComponent,
-    CandidatesComponent,
     RouterModule
 ],
   templateUrl: './recruiter-space.component.html',
@@ -44,6 +37,7 @@ export class RecruiterSpaceComponent {
   faChevronDown = faChevronDown;
   faNotificationRing = faBell;
   userType = 'recruiter'
+
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
@@ -74,4 +68,5 @@ export class RecruiterSpaceComponent {
    toggleLangSelector(){
     this.isLangDropdownOpened = !this.isLangDropdownOpened;
   }
+
 }

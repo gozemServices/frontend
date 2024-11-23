@@ -15,20 +15,21 @@ export class EditInterestsComponent {
 
   @Input() isVisible!: boolean;
   @Input() isEditMode: boolean = false;
-  @Input() interestData?: any;
+  @Input() selectedInterest?: any;
   @Output() closeModal = new EventEmitter<void>();
+  @Output() interestUpdated = new EventEmitter<void>();
   interestForm!: FormGroup;
   isLoading = false;
 
   constructor(private fb: FormBuilder,private interestsService: InterestsService) {}
 
   ngOnInit() {
-    this.initForm(this.interestData);
+    this.initForm(this.selectedInterest);
   }
 
   initForm(data: any) {
     this.interestForm = this.fb.group({
-      name: [data?.name || '', Validators.required],
+      interestName: [data?.interestName || '', Validators.required],
       description: [data?.description || '', Validators.maxLength(500)],
     });
   }
@@ -36,13 +37,16 @@ export class EditInterestsComponent {
   onSubmit() {
     if (this.interestForm.valid) {
       const interestData = this.interestForm.value;
+      const educationId = this.selectedInterest?.id;
       this.isLoading = true;
 
-      if (this.isEditMode) {
+      if (this.isEditMode && educationId) {
         this.interestsService.updateInterest(interestData.id, interestData).subscribe(
           (updatedData: any) => {
             console.log('Interest updated:', updatedData);
+            this.interestForm.reset();
             this.closeModal.emit();
+            this.interestUpdated.emit();
           },
           (error: any) => {
             console.error('Error updating interest:', error);
@@ -52,7 +56,8 @@ export class EditInterestsComponent {
         this.interestsService.addInterest(interestData).subscribe(
           (newData: any) => {
             console.log('New interest added:', newData);
-            this.closeModal.emit();
+            this.interestUpdated.emit();
+          this.closeModal.emit();
           },
           (error: any) => {
             console.error('Error adding interest:', error);
@@ -64,6 +69,7 @@ export class EditInterestsComponent {
 
   onCancel() {
     this.closeModal.emit();
+    this.interestForm.reset();
   }
 
 }

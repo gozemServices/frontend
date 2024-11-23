@@ -1,0 +1,40 @@
+@if(isVisible) {
+    <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
+      <div class="flex bg-white flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
+        <div class="w-full rounded-0 px-10 py-8">
+          <h2>{{ isEditMode ? ('EDIT_LANGUAGE' | translate) : ('ADD_LANGUAGE' | translate) }}</h2>
+          <p class="mb-4">
+            {{ isEditMode ? ('EDIT_LANGUAGE_DESCRIPTION' | translate) : ('ADD_LANGUAGE_DESCRIPTION' | translate) }}
+          </p>
+          
+          <form [formGroup]="languageForm" (ngSubmit)="onSubmit()">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label>{{ 'LANGUAGE_NAME' | translate }}</label>
+                <input class="border p-2 w-full" type="text" formControlName="name" />
+              </div>
+              <div>
+                <label>{{ 'LEVEL' | translate }}</label>
+                <select class="border p-2 w-full" formControlName="level">
+                  <option value="beginner">{{ 'BEGINNER' | translate }}</option>
+                  <option value="intermediate">{{ 'INTERMEDIATE' | translate }}</option>
+                  <option value="advanced">{{ 'ADVANCED' | translate }}</option>
+                  <option value="native">{{ 'NATIVE' | translate }}</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="flex justify-end mt-6">
+              <button type="button" class="bg-gray-200 px-4 py-2 mr-2 rounded" (click)="onCancel()">
+                {{ 'CANCEL' | translate }}
+              </button>
+              <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">
+                {{ 'SAVE' | translate }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  }
+  

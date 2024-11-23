@@ -1,29 +1,38 @@
-<div class="w-full flex flex-col items-center justify-center py-6 md:p-6 ">
-    <h1 class="text-xl font-semibold text-red-700 relative">Mon CV</h1>
-    <div class="w-full flex items-center justify-center absolute top-10">
-      <div>Go to </div>
-      <div class="my-4">
-        <button 
-          (click)="toggleShowCvSectionsList()"
-          class="bg-primary text-white border-[#AF4E64] border-2 py-4 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]"
-        >{{currentCvSection.title}}</button>
-        <div class="transition duration-800 border-2 border-[#AF4E64] bg-[#AF4E64] md:bg-transparent" *ngIf="iscvSectionListShown">
+<div class="w-full  flex flex-col  p-6 items-center justify-center relative ">
+    <h1 class="text-xl font-semibold text-red-700">Mon CV</h1>
+    <div class="flex w-full items-center justify-around">
+      <div class="flex space-x-4">
+        <!-- Previsualize Button -->
+        <button (click)="togglePrevisualized()" class="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded transition duration-200">
+          <fa-icon [icon]="faView" class="mr-2"></fa-icon>
+          Previsualize
+        </button>
+      
+        <!-- Download Button -->
+        <button class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded transition duration-200">
+          <fa-icon [icon]="faDownload" class="mr-2"></fa-icon>
+          Download
+        </button>
+      </div>
+    </div>
+    <div class="w-full max-w-4xl sticky top-0 left-0 z-50 flex flex-col items-center justify-center">
+      <span>Go to </span>
+        <div class="flex items-start justify-start max-w-[450px] lg:max-w-[780px] overflow-x-auto transition duration-800 border-2 border-[#AF4E64] bg-[#AF4E64] text-white">
             <a 
               *ngFor="let cvSection of cvSections; let index = index"
-              class="w-full py-4 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:bg-[#95223C]" 
-              (click)="setCvSection(index); scrollToSection(cvSection.anchor)">
-              {{cvSection.title}}
-            </a>
-
+              class="w-fit min-w-fit py-4 px-2 cursor-pointer flex justify-start items-center space-x-2 transition border-l-2 border-r-[#95223c] hover:bg-[#95223C]" 
+              (click)="scrollToSection(index)"
+              >
+              {{cvSection.title | translate}}
+            </a> 
         </div>
-      </div>
     </div>
     <div class="w-full">
       <div *ngIf="cvId" id="basic_infos" class="w-full bg-white shadow-xl">
-        <!-- <app-basic-infos ></app-basic-infos></div>
+        <!-- <app-basic-infos ></app-basic-infos></div> -->
         <div  id="general_infos" class="w-full bg-white shadow-xl">
           <app-general-infos ></app-general-infos>
-        </div> -->
+        </div>
         <div  id="education" class="w-full bg-white shadow-xl">
           <app-education ></app-education>
         </div>
@@ -35,13 +44,24 @@
         </div>
         <div  id="interests" class="w-full bg-white shadow-xl">
           <app-interests ></app-interests>
-        </div> <!--
+        </div>
+        <div  id="language" class="w-full bg-white shadow-xl">
+          <app-languages></app-languages>
+        </div>
         <div id="references" class="w-full bg-white shadow-xl">
           <app-references ></app-references>
-        </div>
+        </div> 
         <div  id="socials" class="w-full bg-white shadow-xl">
           <app-socials ></app-socials>
-        </div> -->
+        </div>
       </div>
 </div>
   
+
+@if(isPrevisualized) {
+ <app-cv-template
+  [userData]="userData"
+  [isVisible]="isPrevisualized"
+  (closeModal)="onCloseModal()"
+ ></app-cv-template>
+}

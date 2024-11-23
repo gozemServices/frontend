@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../auth/auth.service';
 import { User } from '../../../core/models/common.model';
+import { GenericService } from '../../../core/services/generic.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,13 +21,14 @@ import { User } from '../../../core/models/common.model';
 })
 export class ProfileComponent implements OnInit {
   authService = inject(AuthService); 
+  genericService = inject(GenericService);
   user!: User | null;
   isLoading = true;
   errorMessage: string | null = null;
   updatePasswordForm!: FormGroup;
   faWarning = faWarning;
   faDanger = faExclamationTriangle;
-
+  profilePic: string | ArrayBuffer | null = null;
   userPoints = 120; // Example points
 
   userTools = [
@@ -70,6 +72,20 @@ export class ProfileComponent implements OnInit {
     this.loadAppliedJobs();
     this.initPasswordUpdateForm();
     this.user = this.authService.getUser();
+    this.loadProfileImage(this.user?.profilePhotoUrl ?? '');
+  }
+
+  loadProfileImage(fileName: string) {
+    this.genericService.getImageRessource(fileName).subscribe(
+      (data) => {
+        // Convert the Blob to a URL and display it
+        this.profilePic = URL.createObjectURL(data);
+      },
+      (error) => {
+        console.error('Error fetching image', error);
+        this.profilePic = null
+      }
+    );
   }
 
   loadUserProfile() {

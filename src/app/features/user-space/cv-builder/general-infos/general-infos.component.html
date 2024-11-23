@@ -1,17 +1,57 @@
-<div class="p-4 rounded mb-4 w-full  flex flex-col">
-    <h2 class="font-semibold">{{"GENERAL_INFORMATIONS" | translate}}</h2>
+<section class="bg-transparent-space-y-4 flex-flex-col-w-full">  
+  <div class="p-4 rounded my-4 w-full  flex flex-col">
+    <div class="font-semibold flex-wrap flex justify-between w-full">
+      <h2 class="font-semibold text-[10px]">{{"GENERAL_INFORMATIONS" | translate}}</h2>
+      <button (click)="EditInfos()" class="text-md space-x-2 h-fit text-green-700 hover:text-white px-2 py-2 hover:bg-green-800 transition duration-700">
+        <span>Edit infos</span>
+        <fa-icon class="cursor-pointer" [icon]="faEdit"></fa-icon>
+      </button>
+    </div>
     <div class="flex w-full flex-col gap-2">
       <div class="infos flex justify-between items-center w-full">
-        <span class="strong text-2xl text-[#AF4E64]">Software developper</span>
+        <span class="strong text-2xl text-[#AF4E64]">{{generalInfos?.cv?.jobTitle ?? 'Your job title here'}}</span>
       </div>
 
       <div class="infos flex justify-between items-center w-full">
-        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor asperiores perspiciatis dolores iusto delectus, iure repudiandae totam placeat et incidunt doloremque architecto veniam quae eius. Quibusdam debitis laboriosam officiis odit excepturi. Voluptate ducimus dolorum aperiam?</span>
+        <span>{{generalInfos?.cv?.description ?? 'your self introduction'}}</span>
       </div>
     </div>
-  </div>
+  </div> 
+
+  <div class="p-4 rounded mb-4 w-full  flex flex-col">
+    <h2 class="font-semibold">{{"BASIC_INFORMATIONS_TITLE" | translate}}</h2>
+    <div class="flex w-full flex-col gap-2">
+      <div class="infos flex justify-between items-center w-full">
+        <span>Firstname</span>
+        <strong class="strong capitalize text-xl font-bold text-[#AF4E64]">{{generalInfos?.name}}</strong>
+      </div>
   
+      <div class="infos flex justify-between items-center w-full">
+        <span>Lastname</span>
+        <strong class="strong capitalize text-xl font-bold text-[#AF4E64]">{{generalInfos?.surname}}</strong>
+      </div>
+  
+      <div class="infos flex justify-between items-center w-full">
+        <span>Birthdate</span>
+        <strong class="strong text-xl font-bold text-[#AF4E64]">{{generalInfos?.birthdate}}</strong>
+      </div>
+  
+      <div class="infos flex justify-between items-center w-full">
+        <span>Phone</span>
+        <strong class="strong text-xl font-bold text-[#AF4E64]">{{generalInfos?.phone}}</strong>
+      </div>
+      <div class="infos flex justify-between items-center w-full">
+        <span>Email Address</span>
+        <strong class="strong text-xl font-bold text-[#AF4E64]">{{generalInfos?.email}}</strong>
+      </div>
+    </div>
+  </div> 
+</section>
 
-
-
-
+@if(isEditVisible) {
+  <app-edit-general-infos
+  [isEditVisible]="isEditVisible"
+  (generalInfosUpdated)="fetchGeneralInfos()"
+  (closeModal)="onModalClose()"
+  ></app-edit-general-infos>
+}
