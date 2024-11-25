@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GenericService } from '../../../core/services/generic.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBriefcase, faCheckCircle, faCog, faEnvelope, faGears, faGraduationCap, faMapMarkerAlt, faPencilAlt, faPhone, faX } from '@fortawesome/free-solid-svg-icons';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cv-template',
@@ -27,13 +28,15 @@ export class CvTemplateComponent implements OnInit{
   @Output() closeModal = new EventEmitter<void>();
 
   profilePic: string | ArrayBuffer | null = null;
-  constructor(private genericsService: GenericService) {}
+  sanitizedIconSvg: any;
+  sanitizedSocialIcons: { id: number; name: string; url: string; iconSvg: SafeHtml }[] = [];
+  constructor(private genericsService: GenericService, private domSanitizer: DomSanitizer) {}
   ngOnInit(): void {
       this.loadProfileImage(this.userData?.profilePhotoUrl);
+      this.sanitizeSocialIcons();
+      console.log(this.userData.profilePhotoUrl);
+      console.log(this.userData);
   }
-
-
-
   loadProfileImage(fileName: string) {
     this.genericsService.getImageRessource(fileName).subscribe(
       (data) => {
@@ -45,6 +48,15 @@ export class CvTemplateComponent implements OnInit{
         this.profilePic = null
       }
     );
+  }
+
+  sanitizeSocialIcons() {
+    if (this.userData?.cv?.social) {
+      this.sanitizedSocialIcons = this.userData.cv.social.map((social: any) => ({
+        ...social,
+        iconSvg: this.domSanitizer.bypassSecurityTrustHtml(social.iconSvg),
+      }));
+    }
   }
 
   oncloseTemplate() {

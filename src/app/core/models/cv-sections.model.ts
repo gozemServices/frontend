@@ -31,7 +31,7 @@ export interface Experience {
   position: string;
   company: string;
   description?: string;
-  tasks: Task[];
+  task: Task[];
 }
 
 export interface Social {

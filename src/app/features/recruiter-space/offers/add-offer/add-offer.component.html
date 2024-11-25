@@ -1,63 +1,122 @@
-@if(isVisible){
-   <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
+<div *ngIf="isVisible" class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
     <div class="flex bg-white flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
-        <h2 class="text-xl font-semibold">{{ data ? 'EDIT' : 'ADD' | translate}} Job Offer</h2>
-        <form [formGroup]="offerForm" class="space-y-4 h-full max-h-[90%] px-2 overflow-auto">
-                <div>
-                    <label class="block text-gray-700">Job Title</label>
-                    <input formControlName="title" class="w-full px-4 py-2 border rounded-md focus:outline-none" type="text" placeholder="Job Title"/>
-                    <div *ngIf="offerForm.get('title')?.invalid && offerForm.get('title')?.touched" class="text-sm text-red-500">
-                    Job title is required.
-                    </div>
-                </div>    
-                <div>
-                    <label class="block text-gray-700">Location</label>
-                    <input formControlName="location" class="w-full px-4 py-2 border rounded-md focus:outline-none" type="text" placeholder="Location"/>
-                    <div *ngIf="offerForm.get('location')?.invalid && offerForm.get('location')?.touched" class="text-sm text-red-500">
-                    Location is required.
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-gray-700">Job type</label>
-                    <select formControlName="type" class="appearance-none w-full px-4 py-2 border rounded-md focus:outline-none">
-                        <option value="onsite" selected>Onsite</option>
-                        <option value="remote">Remote</option>
-                        <option value="full-remote">full-remote</option>
-                    </select>
-                    <!-- <input formControlName="type" class="w-full px-4 py-2 border rounded-md focus:outline-none" type="text" placeholder="Location"/> -->
-                    <div *ngIf="offerForm.get('type')?.invalid && offerForm.get('type')?.touched" class="text-sm text-red-500">
-                    job type is required.
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-gray-700">Salary</label>
-                    <input formControlName="salary" class="w-full px-4 py-2 border rounded-md focus:outline-none" type="number" placeholder="Salary"/>
-                    <div *ngIf="offerForm.get('salary')?.invalid && offerForm.get('salary')?.touched" class="text-sm text-red-500">
-                    Salary must be greater than 0.
-                    </div>
-                </div>
-            <div>
-                <label class="block text-gray-700">Description</label>
-                <textarea formControlName="description" class="w-full px-4 py-2 border rounded-md focus:outline-none" placeholder="Job Description"></textarea>
-                <div *ngIf="offerForm.get('description')?.invalid && offerForm.get('description')?.touched" class="text-sm text-red-500">
-                Description is required.
-                </div>
-            </div>        
-            <div>
-                <label>
-                <input formControlName="active" type="checkbox" class="mr-2" />
-                Active Job Offer
-                </label>
+      <h2 class="text-xl font-semibold">{{ data ? 'EDIT' : 'ADD' | translate }} Job Offer</h2>
+      <form [formGroup]="offerForm" (submit)="onSubmit()" class="space-y-4 h-full max-h-[90%] px-2 overflow-auto">
+        <!-- Text Fields -->
+        <div *ngFor="let field of ['title', 'description', 'location', 'company', 'contactEmail']; let i = index">
+          <label [for]="field" class="block text-gray-700">{{ field | translate }}</label>
+          <input
+            [formControlName]="field"
+            [id]="field"
+            [type]="field === 'contactEmail' ? 'email' : 'text'"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none"
+          />
+          <div *ngIf="offerForm.get(field)?.invalid && offerForm.get(field)?.touched" class="text-sm text-red-500">
+            {{ field | translate }} is required.
+          </div>
+        </div>
+  
+        <!-- Enums -->
+        <div>
+          <label for="status" class="block text-gray-700">Status</label>
+          <select formControlName="status" class="w-full px-4 py-2 border rounded-md">
+            <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+          </select>
+        </div>
+  
+        <div>
+          <label for="workLocation" class="block text-gray-700">Work Location</label>
+          <select formControlName="workLocation" class="w-full px-4 py-2 border rounded-md">
+            <option *ngFor="let location of workLocations" [value]="location">{{ location }}</option>
+          </select>
+        </div>
+  
+        <div>
+          <label for="employmentType" class="block text-gray-700">Employment Type</label>
+          <select formControlName="employmentType" class="w-full px-4 py-2 border rounded-md">
+            <option *ngFor="let type of employmentTypes" [value]="type">{{ type }}</option>
+          </select>
+        </div>
+  
+        <!-- Repeated Fields -->
+        <div formArrayName="benefits">
+          <label class="block text-gray-700">Benefits</label>
+          <div *ngFor="let benefit of benefits.controls; let i = index" class="flex items-center space-x-2">
+            <input [formControlName]="i" class="w-full px-4 py-2 border rounded-md" />
+            <button type="button" (click)="removeItem('benefits', i)" class="px-2 py-1 bg-red-500 text-white rounded">           
+                 <fa-icon class="text-white" [icon]="faRemove"></fa-icon>
+            </button>
+          </div>
+          <button title="add benefit" type="button" (click)="addItem('benefits')" class="px-4 py-2 mt-2 bg-blue-500 text-white rounded">
+            <fa-icon class="text-white" [icon]="faAdd"></fa-icon>
+          </button>
+        </div>
+  
+        <div formArrayName="responsibilities">
+          <label class="block text-gray-700">Responsibilities</label>
+          <div *ngFor="let responsibility of responsibilities.controls; let i = index" class="flex items-center space-x-2">
+            <input [formControlName]="i" class="w-full px-4 py-2 border rounded-md" />
+            <button type="button" (click)="removeItem('responsibilities', i)" class="px-2 py-1 bg-red-500 text-white rounded">
+                <fa-icon class="text-white" [icon]="faRemove"></fa-icon>
+            </button>
+          </div>
+          <button type="button" (click)="addItem('responsibilities')" class="px-4 py-2 mt-2 bg-blue-500 text-white rounded">
+            <fa-icon class="text-white" [icon]="faAdd"></fa-icon>
+          </button>
+        </div>
+  
+        <div>
+          <label class="block text-gray-700">Application Deadline</label>
+          <input type="date" formControlName="applicationDeadline" class="w-full px-4 py-2 border rounded-md" />
+          <div *ngIf="offerForm.get('applicationDeadline')?.invalid && offerForm.get('applicationDeadline')?.touched" class="text-sm text-red-500">
+            Application deadline is required.
+          </div>
+        </div>
+  
+        <div formGroupName="requirements">
+          <label class="block text-gray-700">Job Requirements</label>
+          <div class="space-y-4">
+            <input
+              formControlName="education"
+              placeholder="Education"
+              class="w-full px-4 py-2 border rounded-md"
+            />
+            <div *ngIf="offerForm.get('requirements.education')?.invalid && offerForm.get('requirements.education')?.touched" class="text-sm text-red-500">
+                An education is required
+              </div>
+            <input
+              formControlName="experience"
+              placeholder="Experience"
+              class="w-full px-4 py-2 border rounded-md"
+            />
+            <div *ngIf="offerForm.get('requirements.experience')?.invalid && offerForm.get('requirements.experience')?.touched" class="text-sm text-red-500">
+                An experience is required
             </div>
-            
-            <div class="flex justify-end mt-6">
-                <button (click)="closeDialog()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 mr-4">Cancel</button>
-                <button (click)="saveOffer()" [disabled]="offerForm.invalid" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                Save Offer
+            <div formArrayName="skills">
+              <label class="block text-gray-700">Skills</label>
+              <div *ngFor="let skill of skills.controls; let i = index" class="flex items-center space-x-2">
+                <input [formControlName]="i" class="w-full px-4 py-2 border rounded-md" />
+                <button type="button" (click)="removeItem('requirements.skills', i)" class="px-2 py-1 bg-red-500 text-white rounded">
+                  <fa-icon class="text-white" [icon]="faRemove"></fa-icon>
                 </button>
+              </div>
+              <button type="button" (click)="addItem('requirements.skills')" class="px-4 py-2 mt-2 bg-blue-500 text-white rounded">
+                <fa-icon class="text-white" [icon]="faAdd"></fa-icon>
+              </button>
             </div>
-            
-        </form>
+          </div>
+        </div>
+  
+        <!-- Save and Cancel -->
+        <div class="flex justify-end mt-6">
+          <button type="button" (click)="closeDialog()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-4">
+            Cancel
+          </button>
+          <button type="submit"  class="px-4 py-2 bg-blue-500 text-white rounded-md">
+            Save Offer
+          </button>
+        </div>
+      </form>
     </div>
-   </div>
-}
+  </div>
+  

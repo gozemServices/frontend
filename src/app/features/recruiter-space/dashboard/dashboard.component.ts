@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [TranslateModule, CvTemplateComponent, FormsModule,CommonModule],
+  imports: [TranslateModule, CvTemplateComponent, FormsModule, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
@@ -21,9 +21,9 @@ export class DashboardComponent implements OnInit {
 
   // Filtering criteria
   filterCriteria = {
-    experience: '',
-    skills: '',
-    location: '',
+    jobTitle: '',
+    language: '',
+    skill: '',
   };
 
   constructor(private cvthequeService: CvthequeService) {}
@@ -48,28 +48,31 @@ export class DashboardComponent implements OnInit {
   }
 
   applyFilters() {
+    const { jobTitle, language, skill } = this.filterCriteria;
+
     this.filteredCvList = this.cvList.filter((cv: any) => {
-      const matchesExperience = this.filterCriteria.experience
-        ? cv.experienceLevel === this.filterCriteria.experience
+      const matchesJobTitle = jobTitle
+        ? cv.cv?.jobTitle?.toLowerCase().includes(jobTitle.toLowerCase())
         : true;
 
-      const matchesSkills = this.filterCriteria.skills
-        ? cv.skills.some((skill: string) =>
-            skill.toLowerCase().includes(this.filterCriteria.skills.toLowerCase())
+      const matchesLanguage = language
+        ? cv.cv?.language?.some((lang: any) =>
+            lang.name.toLowerCase().includes(language.toLowerCase())
           )
         : true;
 
-      const matchesLocation = this.filterCriteria.location
-        ? cv.location.toLowerCase().includes(this.filterCriteria.location.toLowerCase())
+      const matchesSkill = skill
+        ? cv.cv?.skills?.some((sk: any) =>
+            sk.name.toLowerCase().includes(skill.toLowerCase())
+          )
         : true;
 
-      return matchesExperience && matchesSkills && matchesLocation;
+      return matchesJobTitle && matchesLanguage && matchesSkill;
     });
   }
 
   loadPicture(fileName: string): string {
-    // Implement logic to generate picture URL
-    return '';
+    return fileName ? `/assets/images/${fileName}` : 'assets/default-profile.png';
   }
 
   togglePrevisualized() {

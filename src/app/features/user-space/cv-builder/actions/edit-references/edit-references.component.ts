@@ -32,6 +32,7 @@ export class EditReferencesComponent {
   }
 
   initForm(data: any) {
+    console.log(this.selectedReference);
     this.referenceForm = this.fb.group({
       name: [data?.name || '', Validators.required],
       contactInfo: [data?.contactInfo || '', [Validators.required, Validators.pattern('^[0-9]+$')]],

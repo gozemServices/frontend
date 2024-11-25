@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAdd, faEdit, faExclamationTriangle, faTrash} from '@fortawesome/free-solid-svg-icons';
@@ -45,6 +45,7 @@ export class SocialsComponent implements OnInit{
     this.socialService.getSocialLinks().subscribe(
       (data) => {
         this.socialList = data;
+        console.log(data);
         this.loading = false;
       },
       (error) => {
@@ -59,6 +60,7 @@ export class SocialsComponent implements OnInit{
     this.socialService.getAllSocialsLinks().subscribe(
       (data) => {
         this.systemSocialList = data;
+        console.log(data);
         this.loading = false;
       },
       (error) => {

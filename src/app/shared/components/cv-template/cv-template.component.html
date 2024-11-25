@@ -1,4 +1,4 @@
-@if(isVisible) {
+@if(isVisible) {  
   <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
     <div (click)="oncloseTemplate()" class="text-white fixed right-10 text-3xl top-4 cursor-pointer">
       <fa-icon class="cursor-pointer" [icon]="faClose"></fa-icon>  
@@ -23,17 +23,33 @@
               </li>
             </ul>
     
-            <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Languages</p>
-            <ul class="mb-6 list-disc">
-              <li *ngFor="let language of userData?.cv?.language">{{ language.name }} ({{ language.level }})</li>
-            </ul>
+           @if(userData?.cv?.language.length >= 0) {
+              <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Languages</p>
+              <ul class="mb-6 list-disc">
+                <li *ngFor="let language of userData?.cv?.language">{{ language.name }} ({{ language.level }})</li>
+              </ul>
+           }
     
-            <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Interests</p>
-            <ul class="mb-6">
-              <li *ngFor="let interest of userData?.cv?.interest">
-                <fa-icon class="mr-2" [icon]="faPencil"></fa-icon>{{ interest.name }}
-              </li>
-            </ul>
+            @if(userData?.cv?.interest.length >= 0) {
+              <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Interests</p>
+              <ul class="mb-6">
+                <li *ngFor="let interest of userData?.cv?.interest">
+                  <fa-icon class="mr-2" [icon]="faPencil"></fa-icon>{{ interest.name }}
+                </li>
+              </ul>
+            }
+
+            <div class="" *ngIf="(sanitizedSocialIcons)">
+              <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Socials</p>
+              <ul class="social-item mb-6">
+                <li *ngFor="let social of sanitizedSocialIcons">
+                  <a [href]="social.url" target="_blank" class="flex space-x-1 items-center text-white" rel="noopener noreferrer">
+                    <div class="h-[35px] w-[35px] text-[white]" style="fill: white;" [innerHTML]="social.iconSvg"></div>
+                    <span>{{ social.name }}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </aside>
     
           <!-- Main Content -->

@@ -36,7 +36,7 @@ export class EditEducationComponent implements OnInit {
   }
 
   initForm(data: any) {
-    console.log(data ?? 'nothing here');
+    // console.log(data ?? 'nothing here');
     this.educationForm = this.fb.group({
       startDate: [data?.startDate || '', Validators.required],
       endDate: [data?.endDate || '', Validators.required],
@@ -60,7 +60,7 @@ export class EditEducationComponent implements OnInit {
       if (this.isEditMode && educationId) {
         this.educationService.updateEducation(educationId, educationData).subscribe(
           (updatedData) => {
-            console.log('Education updated:', updatedData);
+            // console.log('Education updated:', updatedData);
             this.educationForm.reset();
             this.closeModal.emit();
             this.educationUpdated.emit();
@@ -72,7 +72,7 @@ export class EditEducationComponent implements OnInit {
       } else {
         this.educationService.addEducation(educationData).subscribe(
           (newData) => {
-            console.log('New education created:', newData);
+            // console.log('New education created:', newData);
             this.closeModal.emit();
             this.educationUpdated.emit();
           },

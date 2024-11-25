@@ -40,23 +40,24 @@ export class EditExperienceComponent implements OnInit {
 
   ngOnInit() {
     this.initForm(this.experienceData);
+    console.log(this.experienceData);
   }
 
   initForm(data?: Experience) {
-    if(data) console.log(data);
+    // if(data) console.log(data);
     this.experienceForm = this.fb.group({
       startDate: [data?.startDate || '', Validators.required],
       endDate: [data?.endDate || '', Validators.required],
       position: [data?.position || '', Validators.required],
       company: [data?.company || '', Validators.required],
-      tasks: this.createTasksArray(data?.tasks || []), // Initialize tasks as a FormArray
+      tasks: this.createTasksArray(data?.task || []), // Initialize tasks as a FormArray
     });
   }
 
   createTasksArray(tasks: Task[]): FormArray {
     return this.fb.array(
       tasks.map((task) =>
-        this.fb.control(task, [Validators.required, Validators.minLength(3)])
+        this.fb.control(task?.name, [Validators.required, Validators.minLength(3)])
       )
     );
   }
@@ -82,13 +83,13 @@ export class EditExperienceComponent implements OnInit {
     if (this.experienceForm.valid) {
       const experienceData = this.experienceForm.value;
       const experienceId = this.experienceData?.id;
+      console.log(experienceData);
 
       if (this.isEditMode && experienceId) {
         this.experienceService
           .updateExperience(experienceId, experienceData)
           .subscribe(
             (updatedData) => {
-              console.log('Experience updated:', updatedData);
               this.experienceForm.reset();
               this.closeModal.emit();
               this.experienceUpdated.emit();
@@ -100,7 +101,7 @@ export class EditExperienceComponent implements OnInit {
       } else {
         this.experienceService.addExperience(experienceData).subscribe(
           (newData) => {
-            console.log('New experience created:', newData);
+            // console.log('New experience created:', newData);
             this.closeModal.emit();
             this.experienceUpdated.emit();
           },

@@ -1,79 +1,109 @@
 <div class="mt-4">
-    <!-- Main layout -->
-    <div class="flex flex-col">
-      <!-- Sidebar Navigation -->
-      <nav class="flex w-full bg-white p-6 mt-4 shadow-custom lg:block">
-        <ul class="w-full flex items-center space-x-4 justify-center">
-          <li><a href="#" class="text-primary font-medium hover:underline">Dashboard</a></li>
-          <li><a href="#" class="text-gray-700 hover:text-primary">Saved CVs</a></li>
-          <li><a href="#" class="text-gray-700 hover:text-primary">Job Posts</a></li>
-          <li><a href="#" class="text-gray-700 hover:text-primary">Settings</a></li>
-        </ul>
-      </nav>
-  
-      <!-- Main Content -->
-      <main class="flex-1 p-6">
-        <h2 class="text-2xl font-bold mb-6 text-darkShade">Candidates</h2>
-  
-        <!-- Filters Panel -->
-        <aside class="bg-white p-4 rounded-md shadow-custom mb-6 flex flex-wrap gap-4">
-          <!-- Experience Level -->
-          <div>
-            <label for="experience" class="block text-sm font-medium text-gray-700">Experience Level</label>
-            <select id="experience" [(ngModel)]="filterCriteria.experience" class="mt-1 border border-mediumGray rounded-md px-2 py-1">
-              <option value="">All Levels</option>
-              <option value="Junior">Junior</option>
-              <option value="Mid">Mid</option>
-              <option value="Senior">Senior</option>
-            </select>
-          </div>
-          <!-- Skills -->
-          <div>
-            <label for="skills" class="block text-sm font-medium text-gray-700">Skills</label>
-            <input id="skills" [(ngModel)]="filterCriteria.skills" type="text" placeholder="E.g., Python, Marketing" 
-              class="mt-1 border border-mediumGray rounded-md px-2 py-1">
-          </div>
-          <!-- Location -->
-          <div>
-            <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
-            <input id="location" [(ngModel)]="filterCriteria.location" type="text" placeholder="E.g., Remote, New York"
-              class="mt-1 border border-mediumGray rounded-md px-2 py-1">
-          </div>
-          <!-- Apply Filter Button -->
-          <div class="mt-2">
-            <button (click)="applyFilters()" class="bg-primary text-white px-4 py-2 rounded hover:bg-primaryDark transition">
-              Apply Filters
-            </button>
-          </div>
-        </aside>
-  
-        <!-- CV Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <ng-container *ngIf="filteredCvList.length > 0; else noResults">
-            <div *ngFor="let applicant of filteredCvList" class="bg-white p-4 rounded-md shadow-custom hover:shadow-lg transition">
-              <img [src]="loadPicture(applicant.profilePhotoUrl)" alt="Candidate" class="rounded-full w-16 h-16 mx-auto">
-              <h3 class="text-center font-medium text-lg mt-4 text-darkShade">{{applicant.name}} {{applicant.surname}}</h3>
-              <p class="text-center text-mediumGray">{{applicant.cv.jobTitle}}</p>
-              <p class="text-center text-gray-500 text-sm">{{applicant.email}}</p>
-              <div class="flex justify-center gap-2 mt-4">
-                <button (click)="selectCv(applicant)" class="px-4 py-1 text-sm bg-primary text-white rounded">View</button>
-                <button class="px-4 py-1 text-sm bg-lightPink text-darkShade rounded">Save</button>
-              </div>
-            </div>
-          </ng-container>
-          <ng-template #noResults>
-            <p class="text-center text-gray-500">No results match the selected criteria.</p>
-          </ng-template>
+  <!-- Main layout -->
+  <div class="flex flex-col">
+    <!-- Sidebar Navigation -->
+    <nav class="flex w-full bg-white p-6 mt-4 shadow-custom lg:block">
+      <ul class="w-full flex items-center space-x-4 justify-center">
+        <li><a href="#" class="text-primary font-medium hover:underline">Dashboard</a></li>
+        <li><a href="#" class="text-gray-700 hover:text-primary">Saved CVs</a></li>
+        <li><a href="#" class="text-gray-700 hover:text-primary">Job Posts</a></li>
+        <li><a href="#" class="text-gray-700 hover:text-primary">Settings</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <h2 class="text-2xl font-bold mb-6 text-darkShade">Candidates</h2>
+
+      <!-- Filters Panel -->
+      <aside class="bg-white p-4 rounded-md shadow-custom mb-6 flex flex-wrap gap-4">
+        <!-- Job Title -->
+        <div>
+          <label for="jobTitle" class="block text-sm font-medium text-gray-700">Job Title</label>
+          <input
+            id="jobTitle"
+            [(ngModel)]="filterCriteria.jobTitle"
+            type="text"
+            placeholder="E.g., Software Engineer"
+            class="mt-1 border border-mediumGray rounded-md px-2 py-1"
+          />
         </div>
-      </main>
-    </div>
+
+        <!-- Language -->
+        <div>
+          <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
+          <input
+            id="language"
+            [(ngModel)]="filterCriteria.language"
+            type="text"
+            placeholder="E.g., English, French"
+            class="mt-1 border border-mediumGray rounded-md px-2 py-1"
+          />
+        </div>
+
+        <!-- Skills -->
+        <div>
+          <label for="skill" class="block text-sm font-medium text-gray-700">Skill</label>
+          <input
+            id="skill"
+            [(ngModel)]="filterCriteria.skill"
+            type="text"
+            placeholder="E.g., HTML, Python"
+            class="mt-1 border border-mediumGray rounded-md px-2 py-1"
+          />
+        </div>
+
+        <!-- Apply Filter Button -->
+        <div class="mt-2">
+          <button
+            (click)="applyFilters()"
+            class="bg-primary text-white px-4 py-2 rounded hover:bg-primaryDark transition"
+          >
+            Apply Filters
+          </button>
+        </div>
+      </aside>
+
+      <!-- CV Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ng-container *ngIf="filteredCvList.length > 0; else noResults">
+          <div
+            *ngFor="let applicant of filteredCvList"
+            class="bg-white p-4 rounded-md shadow-custom hover:shadow-lg transition"
+          >
+            <img
+              [src]="loadPicture(applicant.profilePhotoUrl)"
+              alt="Candidate"
+              class="rounded-full w-16 h-16 mx-auto"
+            />
+            <h3 class="text-center font-medium text-lg mt-4 text-darkShade">
+              {{ applicant.name }} {{ applicant.surname }}
+            </h3>
+            <p class="text-center text-mediumGray">{{ applicant.cv.jobTitle }}</p>
+            <div class="flex justify-center gap-2 mt-4">
+              <button
+                (click)="selectCv(applicant)"
+                class="px-4 py-1 text-sm bg-primary text-white rounded"
+              >
+                View
+              </button>
+              <button class="px-4 py-1 text-sm bg-lightPink text-darkShade rounded">
+                Save
+              </button>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noResults>
+          <p class="text-center text-gray-500">No results match the selected criteria.</p>
+        </ng-template>
+      </div>
+    </main>
   </div>
-  
-  @if(isPrevisualized && selectedData) {
-    <app-cv-template
-      [userData]="selectedData"
-      [isVisible]="isPrevisualized"
-      (closeModal)="onCloseModal()"
-    ></app-cv-template>
-  }
-  
+</div>
+
+<app-cv-template
+  *ngIf="isPrevisualized && selectedData"
+  [userData]="selectedData"
+  [isVisible]="isPrevisualized"
+  (closeModal)="onCloseModal()"
+></app-cv-template>

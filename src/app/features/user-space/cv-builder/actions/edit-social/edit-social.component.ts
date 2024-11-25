@@ -45,7 +45,7 @@ export class EditSocialComponent implements OnInit {
 
   initForm(data: any) {
     this.socialForm = this.fb.group({
-      platformName: [data?.platformName || '', Validators.required],
+      name: [data?.name || '', Validators.required],
       url: [data?.url || '', [Validators.required, Validators.pattern(/https?:\/\/.+/)]],
       description: [data?.description || ''],
     });
@@ -77,11 +77,24 @@ export class EditSocialComponent implements OnInit {
   }
 
   selectSuggestion(suggestion: Social) {
-    this.socialForm.patchValue({ platformName: suggestion.name });
+    this.socialForm.patchValue({ name: suggestion.name });
     this.isSuggestionsVisible = false;
   }
 
   onSubmit() {
+    // alert(this.socialForm.valid);
+
+    // console.log('Form Validity:', this.socialForm.valid); // Overall validity
+    // console.log('Form Errors:', this.socialForm.errors); // Check global errors if any
+  
+    // // Check individual controls
+    // Object.keys(this.socialForm.controls).forEach((key) => {
+    //   const control = this.socialForm.get(key);
+    //   console.log(`${key} Valid:`, control?.valid);
+    //   console.log(`${key} Errors:`, control?.errors);
+    // });
+
+
     if (this.socialForm.valid) {
       const socialData = this.socialForm.value;
       const socialId = this.selectedSocial?.id ?? 0;
@@ -99,8 +112,9 @@ export class EditSocialComponent implements OnInit {
         );
       } else {
         this.socialsService.addSocialLink(socialData).subscribe(
-          () => {
+          (data) => {
             console.log('Social added successfully');
+            console.log(data)
             this.closeModal.emit();
           },
           (error) => {

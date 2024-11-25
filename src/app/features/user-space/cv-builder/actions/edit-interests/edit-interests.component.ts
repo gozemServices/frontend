@@ -41,7 +41,7 @@ export class EditInterestsComponent {
       this.isLoading = true;
 
       if (this.isEditMode && educationId) {
-        this.interestsService.updateInterest(interestData.id, interestData).subscribe(
+        this.interestsService.updateInterest(educationId, interestData).subscribe(
           (updatedData: any) => {
             console.log('Interest updated:', updatedData);
             this.interestForm.reset();

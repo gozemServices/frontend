@@ -38,7 +38,7 @@
 </div>
     <div class="p-4 rounded mb-4">
     <div class="flex justify-between items-center">
-      <h2 class="font-semibold">Socials</h2>
+    <h2 class="font-semibold">Socials</h2>
       <button>
         <fa-icon class="cursor-pointer" (click)="addSocial()" [icon]="faAdd"></fa-icon>
       </button>
@@ -53,10 +53,8 @@
           }@else { 
             @for(socialItem of socialList; track socialItem.id){
                 <div class="mt-2 border-2 border-b-[#AF4E64] flex justify-between  border-b-2 p-2">
-                    <a [href]="socialItem.name" class="flex gap-2 cursor-pointer">
-                        <span> {{socialItem.name}}</span>
-                        <span class="text-[#AF4E64]" [innerHTML]="socialItem.iconSvg"></span>
-                        <!-- <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faFacebook"></fa-icon> -->
+                    <a target="_blank" [href]="socialItem.url" class="flex gap-2 cursor-pointer">
+                        <span> {{socialItem.name}}</span>                    <!-- <fa-icon class="text-[#AF4E64] cursor-pointer" [icon]="faFacebook"></fa-icon> -->
                     </a>
                     <div class="flex space-x-2 mt-2 actions">
                         <fa-icon class="text-[#AF4E64] cursor-pointer" (click)="deleteSocial(socialItem.id)" [icon]="faTrash"></fa-icon>
