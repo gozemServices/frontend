@@ -27,6 +27,7 @@ export class EditSocialComponent implements OnInit {
 
   socialForm!: FormGroup;
   isLoading = false;
+  error: string | null = null;
 
   // Autocomplete-related variables
   allSocials: Social[] = []; // Array of all system social objects
@@ -93,6 +94,11 @@ export class EditSocialComponent implements OnInit {
     //   console.log(`${key} Valid:`, control?.valid);
     //   console.log(`${key} Errors:`, control?.errors);
     // });
+
+    if( this.allSocials.includes(this.socialForm.value.name)) {
+    }else {
+      this.error = 'please select a valid social network';
+    }
 
 
     if (this.socialForm.valid) {

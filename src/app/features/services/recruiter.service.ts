@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RecruiterService {
   private http = inject(HttpClient);
-  private baseUrl = `${environment.apiUrl}/jobs`;
+  private baseUrl = `${environment.apiUrl}/all/job`;
 
   createJob(jobData: any): Observable<any> {
     return this.http.post(this.baseUrl, jobData);

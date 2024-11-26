@@ -1,19 +1,23 @@
 <div *ngIf="isVisible" class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
     <div class="flex bg-white flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
-      <h2 class="text-xl font-semibold">{{ data ? 'EDIT' : 'ADD' | translate }} Job Offer</h2>
+      <h2 class="text-xl font-semibold">{{ offerData ? 'EDIT' : 'ADD' | translate }} Job Offer</h2>
       <form [formGroup]="offerForm" (submit)="onSubmit()" class="space-y-4 h-full max-h-[90%] px-2 overflow-auto">
         <!-- Text Fields -->
-        <div *ngFor="let field of ['title', 'description', 'location', 'company', 'contactEmail']; let i = index">
+        <div *ngFor="let field of ['title', 'description', 'location','salary', 'company', 'contactEmail']; let i = index">
           <label [for]="field" class="block text-gray-700">{{ field | translate }}</label>
           <input
             [formControlName]="field"
             [id]="field"
             [type]="field === 'contactEmail' ? 'email' : 'text'"
             class="w-full px-4 py-2 border rounded-md focus:outline-none"
+            [placeholder]="field === 'salary' ? '15k-70k' : ''"
           />
           <div *ngIf="offerForm.get(field)?.invalid && offerForm.get(field)?.touched" class="text-sm text-red-500">
             {{ field | translate }} is required.
           </div>
+          <span *ngIf="offerForm.get(field)?.errors?.['minlength']" class="text-sm text-red-500">
+            {{ field | translate }} must be at least {{ offerForm.get(field)?.errors?.['minlength'].requiredLength }} characters.
+          </span>
         </div>
   
         <!-- Enums -->

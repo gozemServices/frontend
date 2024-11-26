@@ -7,6 +7,9 @@
       
         <!-- Form starts here -->
         <form [formGroup]="socialForm" (ngSubmit)="onSubmit()">
+          @if(error) {
+            <span class="text-red-600">{{error}}</span>
+          }
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <!-- Autocomplete input -->
             <div class="relative">
@@ -30,6 +33,9 @@
                   {{ suggestion.name }}
                 </li>
               </ul>
+              <div *ngIf="socialForm.get('name')?.invalid && socialForm.get('name')?.touched" class="text-sm text-red-500">
+                social name is required, select one in the list.
+              </div>
             </div>
             <div>
               <label>URL</label>
@@ -38,6 +44,9 @@
                 type="url"
                 formControlName="url"
               />
+              <div *ngIf="socialForm.get('url')?.invalid && socialForm.get('url')?.touched" class="text-sm text-red-500">
+                social url is required.
+              </div>
             </div>
             <div>
               <label>Description (Optional)</label>

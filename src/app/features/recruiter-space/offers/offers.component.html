@@ -29,40 +29,40 @@
   </div>
 
   <!-- Job Offers Table -->
-  <div *ngIf="!isLoading && jobOffers.length > 0" class="overflow-x-auto bg-white shadow-lg rounded-lg">
-    <table class="min-w-full table-auto w-fit">
+  <div *ngIf="!isLoading && jobOffers.length > 0" class="overflow-x-auto min-w-xl bg-white shadow-lg rounded-lg">
+    <table class="min-w-full table-auto">
       <thead class="bg-gray-200">
         <tr>
-          <th class="py-2 px-4 cursor-pointer" (click)="setSortField('title')">Job Title</th>
-          <th class="py-2 px-4 cursor-pointer" (click)="setSortField('company')">Company</th>
-          <th class="py-2 px-4 cursor-pointer" (click)="setSortField('location')">Location</th>
-          <th class="py-2 px-4 cursor-pointer" (click)="setSortField('salary')">Salary</th>
-          <th class="py-2 px-4">Status</th>
-          <th class="py-2 px-4">Actions</th>
+          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('title')">Job Title</th>
+          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('company')">Company</th>
+          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('location')">Location</th>
+          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('salary')">Salary</th>
+          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Status</th>
+          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let offer of filteredOffers">
-          <td class="py-2 px-4">{{ offer.title }}</td>
-          <td class="py-2 px-4">{{ offer.company }}</td>
-          <td class="py-2 px-4">{{ offer.location }}</td>
-          <td class="py-2 px-4">{{ offer.salary | currency }}</td>
-          <td class="py-2 px-4">
-            <span [ngClass]="offer.active ? 'text-green-500' : 'text-red-500'">
+          <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.title }}</td>
+          <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.company }}</td>
+          <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.location }}</td>
+          <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.salary | currency:'XOF':'symbol':'1.2-2'  }}</td>
+          <td class="py-2 px-4 border-b border-b-gray-50">
+            <span [ngClass]="offer.active ? 'text-emerald-500' : 'text-red-500'">
               {{ offer.active ? 'Active' : 'Inactive' }}
             </span>
           </td>
-          <td class="py-2 px-4">
-            <button (click)="openAddOfferModal(offer)" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+          <td class="py-2 px-4 flex flex-nowrap space-x-2">
+            <button (click)="openAddOfferModal(offer)" class="inline-block h-12 w-12 rounded bg-blue-700/10 text-blue-700 font-medium text-[14px] hover:bg-blue-700/40 leading-none transition duration-700">
               <fa-icon [icon]="faViewCandidates"></fa-icon>
             </button>
-            <button (click)="openAddOfferModal(offer)" class="ml-2 px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">
+            <button (click)="openAddOfferModal(offer)" class="inline-block h-12 w-12 rounded bg-emerald-500/10 text-emerald-500 font-medium text-[14px] hover:bg-emerald-950 leading-none transition duration-700">
               <fa-icon [icon]="faEdit"></fa-icon>
             </button>
-            <button (click)="deleteOffer(offer.id)" class="ml-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+            <button (click)="deleteOffer(offer.id)" class="inline-block h-12 w-12 rounded bg-red-500/10 text-red-500 font-medium text-[14px] hover:bg-red-800 leading-none transition duration-700">
               <fa-icon [icon]="faDelete"></fa-icon>
             </button>
-            <button (click)="toggleOfferStatus(offer.id)" class="ml-2 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+            <button (click)="toggleOfferStatus(offer.id)" class="ml-2 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg- hover:bg-gray-600">
               Status
             </button>
           </td>

@@ -1,27 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormArray,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import {
-  JobOffer,
-  EmploymentType,
-  JobOfferStatus,
-  WorkLocation,
-} from '../../../../core/models/jobs.models';
+import {Component,EventEmitter,inject,Input,Output,} from '@angular/core';
+import {FormBuilder,FormArray,FormControl,FormGroup,ReactiveFormsModule,Validators,} from '@angular/forms';
+import {JobOffer,EmploymentType,JobOfferStatus,WorkLocation,} from '../../../../core/models/jobs.models';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { faAdd, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RecruiterService } from '../../../services/recruiter.service';
+import { GenericService } from '../../../../core/services/generic.service';
 
 @Component({
   selector: 'app-add-offer',
@@ -34,20 +19,27 @@ export class AddOfferComponent {
 
   faAdd = faAdd;
   faRemove = faDeleteLeft;
+  selectedOffer:any;
+  isLoading = false;
   offerForm!: FormGroup;
 
   @Input() isVisible = false;
+  @Input() isEditMode = false;
   @Input() title = 'Modal Title';
-  @Input() data: any;
+  @Input() offerData: any;
   @Output() closed = new EventEmitter<void>();
   @Output() confirmed = new EventEmitter<JobOffer>();
 
+
   employmentTypes = Object.values(EmploymentType);
   statuses = Object.values(JobOfferStatus);
-  workLocations = Object.values(WorkLocation);
+  workLocations = Object.values(WorkLocation); 
 
-  constructor(private fb: FormBuilder) {
-    this.initForm(this.data);
+  private fb = inject(FormBuilder);
+  private offersServices = inject(RecruiterService);
+  private genericsSerice = inject(GenericService);
+  constructor() {
+    this.initForm(this.offerData);
   }
 
   initForm(data: any) {
@@ -95,21 +87,12 @@ export class AddOfferComponent {
   }
 
   addItem(controlName: string) {
-    // console.log(controlName);
-    // console.log(this.offerForm.get(controlName));
     const formArray = this.offerForm.get(controlName) as FormArray;
     formArray.push(this.fb.control('',Validators.required));
   }
 
   removeItem(controlName: string, index: number) {
     (this.offerForm.get(controlName) as FormArray).removeAt(index);
-  }
-
-  saveOffer() {
-    if (this.offerForm.invalid) {
-      return;
-    }
-    this.confirmed.emit(this.offerForm.value);
   }
 
   closeDialog() {
@@ -119,7 +102,65 @@ export class AddOfferComponent {
 
 
   onSubmit() {
-    alert('hefjod');
-    console.log(this.offerForm.value);
+    if (this.offerForm.invalid) {
+      const errors = this.genericsSerice.getFormValidationErrors(this.offerForm);
+      console.log("Form Submission Failed. Validation Issues:", errors);
+      return;
+    }
+    if (this.offerForm.valid) {
+      const offerData = this.offerForm.value;
+      const offerId = this.selectedOffer?.id ?? 0;
+      this.isLoading = true;
+
+      if (this.isEditMode) {
+        this.offersServices.updateJob(offerId, offerData).subscribe(
+          () => {
+            console.log('Social updated successfully');
+            this.closed.emit();
+          },
+          (error) => {
+            console.error('Error updating social:', error);
+          }
+        );
+      } else {
+        console.log('launching')
+        this.offersServices.createJob(offerData).subscribe(
+          (data) => {
+            console.log('Social added successfully');
+            console.log(data)
+            this.closed.emit();
+          },
+          (error) => {
+            console.error('Error adding social:', error);
+          }
+        );
+      }
+    }
   }
+
+
+
+
+
+
+  getFormValidationErrors(formGroup: FormGroup | FormArray): any[] {
+    const errors: any[] = [];
+    
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+  
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        errors.push(...this.getFormValidationErrors(control));
+      } else if (control?.invalid) {
+        errors.push({
+          control: key,
+          errors: control.errors,
+          value: control.value,
+        });
+      }
+    });
+  
+    return errors;
+  }
+  
 }

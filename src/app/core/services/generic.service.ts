@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
+import { FormArray, FormGroup } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
@@ -55,4 +56,26 @@ export class GenericService {
     const headers = new HttpHeaders();
     return this.http.get(`${apiUrl}${fileName}`, { headers, responseType: 'blob' });
   }
+
+
+  getFormValidationErrors(formGroup: FormGroup | FormArray): any[] {
+    const errors: any[] = [];
+    
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+  
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        errors.push(...this.getFormValidationErrors(control));
+      } else if (control?.invalid) {
+        errors.push({
+          control: key,
+          errors: control.errors,
+          value: control.value,
+        });
+      }
+    });
+  
+    return errors;
+  }
+  
 }
