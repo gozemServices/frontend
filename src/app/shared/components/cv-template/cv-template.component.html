@@ -1,94 +1,94 @@
-@if(isVisible) {  
-  <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
-    <div (click)="oncloseTemplate()" class="text-white fixed right-10 text-3xl top-4 cursor-pointer">
+<div class="flex flex-col bg-white max-h-[95vh]">
+  <div class="buttons flex ">
+    <div (click)="oncloseTemplate()" class="text-primary fixed right-10 text-3xl top-4 cursor-pointer">
       <fa-icon class="cursor-pointer" [icon]="faClose"></fa-icon>  
     </div>
-    <div class="flex bg-gray-100 text-gray-800 flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
-        <div class="container mx-auto p-4 flex flex-wrap w-[950px]">
-          <!-- Sidebar -->
-          <aside class="w-full md:w-1/3 bg-gray-800 text-white p-6">
-            <div class="profile-block flex justify-center items-center mb-6">
-              <img [src]="profilePic" alt="User profile pic" class="w-3/4 aspect-square rounded-full object-cover">
-            </div>
-            <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Contact Info</p>
-            <p class="flex items-center mb-4"><fa-icon [icon]="faEnvelope" class="mr-2"></fa-icon>Email: <a class="ml-2" [href]="'mailto:' + userData?.mail" class="text-blue-300">{{ userData?.email }}</a></p>
-            <p class="flex items-center mb-4"><fa-icon [icon]="faMap" class="mr-2"></fa-icon>Location: Yaoundé, Cameroon</p>
-            <p class="flex items-center mb-4"><fa-icon [icon]="faPhone" class="mr-2"></fa-icon>Phone: {{ userData?.phone }}</p>
-    
-            <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Atouts</p>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded mb-4" (click)="downloadPDF()">Download as PDF</button>  
+  </div>
+  <div #cvContent class="flex bg-gray-100 text-gray-800 flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
+      <div class="container mx-auto p-4 flex flex-wrap w-[950px]">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-1/3 bg-gray-800 text-white p-6">
+          <div class="profile-block flex justify-center items-center mb-6">
+            <img [src]="profilePic" alt="User profile pic" class="w-3/4 aspect-square rounded-full object-cover">
+          </div>
+          <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Contact Info</p>
+          <p class="flex items-center mb-4"><fa-icon [icon]="faEnvelope" class="mr-2"></fa-icon>Email: <a class="ml-2" [href]="'mailto:' + selectedCv?.mail" class="text-blue-300">{{ selectedCv?.email }}</a></p>
+          <p class="flex items-center mb-4"><fa-icon [icon]="faMap" class="mr-2"></fa-icon>Location: Yaoundé, Cameroon</p>
+          <p class="flex items-center mb-4"><fa-icon [icon]="faPhone" class="mr-2"></fa-icon>Phone: {{ selectedCv?.phone }}</p>
+
+          <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Atouts</p>
+          <ul class="mb-6">
+            <li *ngFor="let skill of selectedCv?.cv?.skills">
+                <fa-icon class="mr-2" [icon]="faCheckCircle"></fa-icon>
+                {{ skill.name }}
+            </li>
+          </ul>
+
+          @if(selectedCv?.cv?.language.length >= 0) {
+            <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Languages</p>
+            <ul class="mb-6 list-disc">
+              <li *ngFor="let language of selectedCv?.cv?.language">{{ language.name }} ({{ language.level }})</li>
+            </ul>
+          }
+
+          @if(selectedCv?.cv?.interest.length >= 0) {
+            <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Interests</p>
             <ul class="mb-6">
-              <li *ngFor="let skill of userData?.cv?.skills">
-                  <fa-icon class="mr-2" [icon]="faCheckCircle"></fa-icon>
-                  {{ skill.name }}
+              <li *ngFor="let interest of selectedCv?.cv?.interest">
+                <fa-icon class="mr-2" [icon]="faPencil"></fa-icon>{{ interest.name }}
               </li>
             </ul>
-    
-           @if(userData?.cv?.language.length >= 0) {
-              <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Languages</p>
-              <ul class="mb-6 list-disc">
-                <li *ngFor="let language of userData?.cv?.language">{{ language.name }} ({{ language.level }})</li>
-              </ul>
-           }
-    
-            @if(userData?.cv?.interest.length >= 0) {
-              <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Interests</p>
-              <ul class="mb-6">
-                <li *ngFor="let interest of userData?.cv?.interest">
-                  <fa-icon class="mr-2" [icon]="faPencil"></fa-icon>{{ interest.name }}
-                </li>
-              </ul>
-            }
+          }
 
-            <div class="" *ngIf="(sanitizedSocialIcons)">
-              <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Socials</p>
-              <ul class="social-item mb-6">
-                <li *ngFor="let social of sanitizedSocialIcons">
-                  <a [href]="social.url" target="_blank" class="flex space-x-1 items-center text-white" rel="noopener noreferrer">
-                    <div class="h-[35px] w-[35px] text-[white]" style="fill: white;" [innerHTML]="social.iconSvg"></div>
-                    <span>{{ social.name }}</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </aside>
-    
-          <!-- Main Content -->
-          <main class="w-full md:w-2/3 pl-8">
-            <section class="mb-6">
-              <h1 class="text-3xl font-extrabold text-blue-600">{{ userData?.name }} {{ userData?.surname }}</h1>
-              <p class="text-lg font-semibold text-blue-500 mt-2">{{ userData?.cv?.jobTitle }}</p>
-              <p class="mt-4">{{ userData?.cv?.description }}</p>
-            </section>
-    
-            <section class="mb-6">
-              <h3 class="text-2xl font-semibold text-blue-600 mb-4"><fa-icon class="mr-2" [icon]="faGraducation"></fa-icon> Education</h3>
-              <ul class="list-none pl-0">
-                <li *ngFor="let education of userData?.cv?.educations">
-                  <strong>{{ education.diplomaName }}</strong> - {{ education.institution }}, {{ education.town }} ({{ education.startDate }} - {{ education.endDate }})
-                </li>
-              </ul>
-              <hr class="my-6 border-t-2 border-gray-300">
-            </section>
-    
-            <section class="mb-6">
-              <h3 class="text-2xl font-semibold text-blue-600 mb-4"><fa-icon class="mr-2" [icon]="faBriefCase"></fa-icon> Professional Experience</h3>
-              <ul class="list-none pl-0">
-                <li *ngFor="let experience of userData?.cv?.experiences">
-                  <strong>{{ experience.position }}</strong> - {{ experience.company }} ({{ experience.startDate }} - {{ experience.endDate }})
-                </li>
-              </ul>
-              <hr class="my-6 border-t-2 border-gray-300">
-            </section>
-    
-            <section class="mb-6">
-              <h3 class="text-2xl font-semibold text-blue-600 mb-4"> <fa-icon class="mr-2" [icon]="faSkills"></fa-icon> Skills</h3>
-              <ul>
-                <li *ngFor="let skill of userData?.cv?.skills">{{ skill.name }} - {{ skill.level }}</li>
-              </ul>
-            </section>
-          </main>
-        </div>
+          <div class="" *ngIf="(sanitizedSocialIcons)">
+            <p class="text-3xl font-semibold border-b-2 border-white pb-2 my-4">Socials</p>
+            <ul class="social-item mb-6">
+              <li *ngFor="let social of sanitizedSocialIcons">
+                <a [href]="social.url" target="_blank" class="flex space-x-1 items-center text-white" rel="noopener noreferrer">
+                  <div class="h-[35px] w-[35px] text-[white]" style="fill: white;" [innerHTML]="social.iconSvg"></div>
+                  <span>{{ social.name }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="w-full md:w-2/3 pl-8">
+          <section class="mb-6">
+            <h1 class="text-3xl font-extrabold text-blue-600">{{ selectedCv?.name }} {{ selectedCv?.surname }}</h1>
+            <p class="text-lg font-semibold text-blue-500 mt-2">{{ selectedCv?.cv?.jobTitle }}</p>
+            <p class="mt-4">{{ selectedCv?.cv?.description }}</p>
+          </section>
+
+          <section class="mb-6">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4"><fa-icon class="mr-2" [icon]="faGraducation"></fa-icon> Education</h3>
+            <ul class="list-none pl-0">
+              <li *ngFor="let education of selectedCv?.cv?.educations">
+                <strong>{{ education.diplomaName }}</strong> - {{ education.institution }}, {{ education.town }} ({{ education.startDate }} - {{ education.endDate }})
+              </li>
+            </ul>
+            <hr class="my-6 border-t-2 border-gray-300">
+          </section>
+
+          <section class="mb-6">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4"><fa-icon class="mr-2" [icon]="faBriefCase"></fa-icon> Professional Experience</h3>
+            <ul class="list-none pl-0">
+              <li *ngFor="let experience of selectedCv?.cv?.experiences">
+                <strong>{{ experience.position }}</strong> - {{ experience.company }} ({{ experience.startDate }} - {{ experience.endDate }})
+              </li>
+            </ul>
+            <hr class="my-6 border-t-2 border-gray-300">
+          </section>
+
+          <section class="mb-6">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4"> <fa-icon class="mr-2" [icon]="faSkills"></fa-icon> Skills</h3>
+            <ul>
+              <li *ngFor="let skill of selectedCv?.cv?.skills">{{ skill.name }} - {{ skill.level }}</li>
+            </ul>
+          </section>
+        </main>
       </div>
     </div>
-    
-}
+</div>

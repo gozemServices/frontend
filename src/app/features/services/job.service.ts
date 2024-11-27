@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,15 @@ export class JobService {
     const headers  = new HttpHeaders({'Content-Type' : 'application/json'})
     return this.http.get(this.baseUrl,{headers, withCredentials: true});
   }
-  deleteJobOffer(id: any): Observable<any> {
-    return this.http.get(this.baseUrl);
+  deleteJobOffer(jobId: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${jobId}`).pipe(
+      catchError((error) => {
+        console.error(`Error deleting joboffer with ID ${jobId}:`, error);
+        return throwError(() => error);
+      })
+    );
   }
+
   updateJobOffer(id: any, status: any): Observable<any> {
     return this.http.get(this.baseUrl);
   }

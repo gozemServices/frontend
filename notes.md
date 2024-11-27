@@ -21,3 +21,9 @@ the address : [creativeTimTemplate : https://demos.creative-tim.com/ ](https://d
 -- review the fields of the database, change it to have common cv infos in on table 
 -- update the form to add a new job opportunity
 -- add town to the education
+
+
+## things to use :
+
+    public static TELEPHONE_PATTERN = /^((\+)|00)?[0-9]{10,16}$/;
+    public static URL_PATTERN = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';

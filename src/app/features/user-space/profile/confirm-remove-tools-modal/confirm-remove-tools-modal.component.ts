@@ -13,17 +13,17 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ConfirmRemoveToolsModalComponent {
   constructor(
-    public dialogRef: MatDialogRef<ConfirmRemoveToolsModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    // public dialogRef: MatDialogRef<ConfirmRemoveToolsModalComponent>,
+    // @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   faDanger = faExclamationTriangle;
 
   onRemove(): void {
-    this.dialogRef.close(true);  
+    // this.dialogRef.close(true);  
   }
 
   onCancel(): void {
-    this.dialogRef.close(false); 
+    // this.dialogRef.close(false); 
   }
 }

@@ -1,18 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from "./dashboard/dashboard.component";
-import { PayingToolsComponent } from "./paying-tools/paying-tools.component";
-import { CvBuilderComponent } from "./cv-builder/cv-builder.component";
-import { StatisticsComponent } from "./statistics/statistics.component";
 import { faBell, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { JobsComponent } from "./jobs/jobs.component";
 import { GenericService } from '../../core/services/generic.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ProfileComponent } from "./profile/profile.component";
-import { NotificationsComponent } from "./notifications/notifications.component";
-import { JobseekerMessagesComponent } from "./jobseeker-messages/jobseeker-messages.component";
 import { RouterModule } from '@angular/router';
 import { User } from '../../core/models/common.model';
 import { AuthService } from '../auth/auth.service';
@@ -40,13 +32,14 @@ export class UserSpaceComponent implements OnInit{
   faChevronDown = faChevronDown;
   faNotificationRing = faBell;
   user!: User | null;
+  userInfos: any;
   profilePic: string | ArrayBuffer | null = null;
 
-  constructor(
-    private genericService: GenericService,
-    private translate: TranslateService,
-    private authService: AuthService
-  ){}
+
+  private genericService= inject(GenericService);
+  private translate= inject(TranslateService);
+  private authService= inject(AuthService);
+  constructor(){}
   ngOnInit() {
     this.languages = this.genericService.getLanguages();
     this.user = this.authService.getUser();
@@ -80,6 +73,11 @@ export class UserSpaceComponent implements OnInit{
       (data) => {
         // Convert the Blob to a URL and display it
         this.profilePic = URL.createObjectURL(data);
+        this.userInfos = {
+          ...this.user,
+          profilePic: this.profilePic
+        }
+        console.log(this.userInfos);
       },
       (error) => {
         console.error('Error fetching image', error);

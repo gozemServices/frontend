@@ -1,4 +1,4 @@
-import {Component,EventEmitter,inject,Input,Output,} from '@angular/core';
+import {Component,inject,OnInit} from '@angular/core';
 import {FormBuilder,FormArray,FormControl,FormGroup,ReactiveFormsModule,Validators,} from '@angular/forms';
 import {JobOffer,EmploymentType,JobOfferStatus,WorkLocation,} from '../../../../core/models/jobs.models';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { faAdd, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RecruiterService } from '../../../services/recruiter.service';
 import { GenericService } from '../../../../core/services/generic.service';
+import { ModalService } from '../../../../shared/components/modal/modal.service';
 
 @Component({
   selector: 'app-add-offer',
@@ -15,21 +16,14 @@ import { GenericService } from '../../../../core/services/generic.service';
   templateUrl: './add-offer.component.html',
   styleUrls: ['./add-offer.component.scss'],
 })
-export class AddOfferComponent {
+export class AddOfferComponent implements OnInit{
 
   faAdd = faAdd;
   faRemove = faDeleteLeft;
-  selectedOffer:any;
+  selectedOffer!: JobOffer;
   isLoading = false;
   offerForm!: FormGroup;
-
-  @Input() isVisible = false;
-  @Input() isEditMode = false;
-  @Input() title = 'Modal Title';
-  @Input() offerData: any;
-  @Output() closed = new EventEmitter<void>();
-  @Output() confirmed = new EventEmitter<JobOffer>();
-
+  isEditMode!: boolean;
 
   employmentTypes = Object.values(EmploymentType);
   statuses = Object.values(JobOfferStatus);
@@ -38,8 +32,12 @@ export class AddOfferComponent {
   private fb = inject(FormBuilder);
   private offersServices = inject(RecruiterService);
   private genericsSerice = inject(GenericService);
-  constructor() {
-    this.initForm(this.offerData);
+  private modalService = inject(ModalService);
+  constructor() {}
+
+  ngOnInit(): void {
+    console.log(this.selectedOffer ?? 'no data addded');
+    this.initForm(this.selectedOffer);
   }
 
   initForm(data: any) {
@@ -95,10 +93,6 @@ export class AddOfferComponent {
     (this.offerForm.get(controlName) as FormArray).removeAt(index);
   }
 
-  closeDialog() {
-    this.isVisible = false;
-    this.closed.emit();
-  }
 
 
   onSubmit() {
@@ -116,7 +110,7 @@ export class AddOfferComponent {
         this.offersServices.updateJob(offerId, offerData).subscribe(
           () => {
             console.log('Social updated successfully');
-            this.closed.emit();
+            this.modalService
           },
           (error) => {
             console.error('Error updating social:', error);
@@ -126,12 +120,12 @@ export class AddOfferComponent {
         console.log('launching')
         this.offersServices.createJob(offerData).subscribe(
           (data) => {
-            console.log('Social added successfully');
+            console.log('offer added successfully');
             console.log(data)
-            this.closed.emit();
+            this.modalService.close();
           },
           (error) => {
-            console.error('Error adding social:', error);
+            console.error('Error adding offer:', error);
           }
         );
       }
@@ -139,28 +133,8 @@ export class AddOfferComponent {
   }
 
 
-
-
-
-
-  getFormValidationErrors(formGroup: FormGroup | FormArray): any[] {
-    const errors: any[] = [];
-    
-    Object.keys(formGroup.controls).forEach((key) => {
-      const control = formGroup.get(key);
-  
-      if (control instanceof FormGroup || control instanceof FormArray) {
-        errors.push(...this.getFormValidationErrors(control));
-      } else if (control?.invalid) {
-        errors.push({
-          control: key,
-          errors: control.errors,
-          value: control.value,
-        });
-      }
-    });
-  
-    return errors;
+  onClose() {
+    this.modalService.close();
   }
   
 }

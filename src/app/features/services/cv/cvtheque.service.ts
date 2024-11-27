@@ -8,6 +8,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class CvthequeService {
     private baseUrl = environment.cvApiUrl;
+    private apiUrl = `${environment.apiUrl}/all/filter`;
   
     constructor(private http: HttpClient) {}
   
@@ -17,6 +18,28 @@ export class CvthequeService {
     getAllCvs(): Observable<any> {
       return this.http.get<any>(`${this.baseUrl}`);
     }
+
+    /**
+     * 
+     * */ 
+    getFilteredCvs(filters: { skills?: string[]; jobTitles?: string[]; languages?: string[] }): Observable<any> {
+      const params = new URLSearchParams();
+    
+      if (filters.skills && filters.skills.length) {
+        params.append('skills', filters.skills.join(','));
+      }
+      if (filters.jobTitles && filters.jobTitles.length) {
+        params.append('jobTitles', filters.jobTitles.join(','));
+      }
+      if (filters.languages && filters.languages.length) {
+        params.append('languages', filters.languages.join(','));
+      }
+    
+      const query = params.toString();
+      return this.http.get<any>(`${this.apiUrl}?${query}`);
+    }
+      
+    
   
     /**
      * Get a single CV by its ID.

@@ -164,5 +164,9 @@
     "EXPERIENCE": "Experience",
     "SKILLS": "Skills",
     "INTERESTS": "Interests",
-    "SOCIALS": "Social Networks"
+    "SOCIALS": "Social Networks",
+
+    "REMOVAL_CONFIRMATION_TITLE": "Deletion",
+    "REMOVAL_CONFIRMATION_DESCRIPTION": "Are you sure you want to delete",
+    "REMOVAL_CONFIRMATION_WARNING": "This action is irreversible and cannot be undone !"
 }

@@ -1,0 +1,22 @@
+<div>
+    <img
+    [src]="'http://localhost:9000/uploads/profile-pictures/'+cvInfos.profilePhotoUrl"
+    alt="Candidate"
+    class="rounded-full w-16 h-16 mx-auto"
+  />
+  <h3 class="text-center font-medium text-lg mt-4 text-darkShade">
+    {{ cvInfos.name }} {{ cvInfos.surname }}
+  </h3>
+  <p class="text-center text-mediumGray">{{ cvInfos.cv.jobTitle }}</p>
+  <div class="flex justify-center gap-2 mt-4">
+    <button
+      class="px-4 py-1 text-sm bg-primary text-white rounded"
+      (click)="openCvTemplate(cvInfos)"
+    >
+      View
+    </button>
+    <button class="px-4 py-1 text-sm bg-lightPink text-darkShade rounded">
+      Save
+    </button>
+  </div>
+</div>

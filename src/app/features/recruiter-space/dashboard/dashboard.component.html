@@ -15,6 +15,14 @@
     <main class="flex-1 p-6">
       <h2 class="text-2xl font-bold mb-6 text-darkShade">Candidates</h2>
 
+      <!-- Applied Filters -->
+      <div class="mb-6 flex flex-wrap gap-4">
+        <div *ngFor="let filter of appliedFilters" class="inline-flex items-center gap-2 bg-green-500/50 text-white px-3 py-1 rounded-full">
+          <span>{{ filter.value }}</span>
+          <button (click)="removeFilter(filter.category, filter.value)" class="text-red-500 font-bold">&times;</button>
+        </div>
+      </div>
+
       <!-- Filters Panel -->
       <aside class="bg-white p-4 rounded-md shadow-custom mb-6 flex flex-wrap gap-4">
         <!-- Job Title -->
@@ -22,7 +30,7 @@
           <label for="jobTitle" class="block text-sm font-medium text-gray-700">Job Title</label>
           <input
             id="jobTitle"
-            [(ngModel)]="filterCriteria.jobTitle"
+            (keydown)="handleKeydown($event, 'jobTitles')"
             type="text"
             placeholder="E.g., Software Engineer"
             class="mt-1 border border-mediumGray rounded-md px-2 py-1"
@@ -34,7 +42,7 @@
           <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
           <input
             id="language"
-            [(ngModel)]="filterCriteria.language"
+            (keydown)="handleKeydown($event, 'languages')"
             type="text"
             placeholder="E.g., English, French"
             class="mt-1 border border-mediumGray rounded-md px-2 py-1"
@@ -46,7 +54,7 @@
           <label for="skill" class="block text-sm font-medium text-gray-700">Skill</label>
           <input
             id="skill"
-            [(ngModel)]="filterCriteria.skill"
+            (keydown)="handleKeydown($event, 'skills')"
             type="text"
             placeholder="E.g., HTML, Python"
             class="mt-1 border border-mediumGray rounded-md px-2 py-1"
@@ -66,31 +74,13 @@
 
       <!-- CV Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @if(errorMessage) {<div class="text-red-500">{{errorMessage}}</div>}
         <ng-container *ngIf="filteredCvList.length > 0; else noResults">
           <div
             *ngFor="let applicant of filteredCvList"
             class="bg-white p-4 rounded-md shadow-custom hover:shadow-lg transition"
           >
-            <img
-              [src]="loadPicture(applicant.profilePhotoUrl)"
-              alt="Candidate"
-              class="rounded-full w-16 h-16 mx-auto"
-            />
-            <h3 class="text-center font-medium text-lg mt-4 text-darkShade">
-              {{ applicant.name }} {{ applicant.surname }}
-            </h3>
-            <p class="text-center text-mediumGray">{{ applicant.cv.jobTitle }}</p>
-            <div class="flex justify-center gap-2 mt-4">
-              <button
-                (click)="selectCv(applicant)"
-                class="px-4 py-1 text-sm bg-primary text-white rounded"
-              >
-                View
-              </button>
-              <button class="px-4 py-1 text-sm bg-lightPink text-darkShade rounded">
-                Save
-              </button>
-            </div>
+          <app-cv-item [cvInfos]="applicant"></app-cv-item>
           </div>
         </ng-container>
         <ng-template #noResults>
@@ -100,10 +90,3 @@
     </main>
   </div>
 </div>
-
-<app-cv-template
-  *ngIf="isPrevisualized && selectedData"
-  [userData]="selectedData"
-  [isVisible]="isPrevisualized"
-  (closeModal)="onCloseModal()"
-></app-cv-template>

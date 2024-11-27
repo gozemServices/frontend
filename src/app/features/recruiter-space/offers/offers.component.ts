@@ -1,23 +1,19 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { JobOffer } from '../../../core/models/jobs.models';
 import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JobService } from '../../services/job.service';
-import {
-  faDeleteLeft,
-  faEdit,
-  faEye,
-  faToggleOff,
-  faToggleOn,
-} from '@fortawesome/free-solid-svg-icons';
+import {faDeleteLeft,faEdit,faEye,faToggleOff,faToggleOn,} 
+from '@fortawesome/free-solid-svg-icons';
 import { AddOfferComponent } from './add-offer/add-offer.component';
+import { ModalService } from '../../../shared/components/modal/modal.service';
+import { AskDeleteConfirmationComponent } from '../../../shared/components/toasts/ask-delete-confirmation/ask-delete-confirmation.component';
 
 @Component({
   selector: 'app-offers',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule, AddOfferComponent],
+  imports: [CommonModule, FormsModule, FontAwesomeModule],
   templateUrl: './offers.component.html',
   styleUrls: ['./offers.component.scss'],
 })
@@ -29,22 +25,23 @@ export class OffersComponent implements OnInit {
   fatoggleOf = faToggleOff;
 
   isModalVisible = false;
-  isLoading = true;  // New property to track the loading state
-  selectedOffer!: JobOffer;
+  isLoading = true;
   jobOffers: JobOffer[] = [];
   filteredOffers: JobOffer[] = [];
+
   page: number = 1;
   itemsPerPage: number = 3;
   searchQuery: string = '';
   sortField: keyof JobOffer = 'title';
   sortOrder: string = 'asc';
 
+  private jobService = inject(JobService);
+  private modalService = inject(ModalService);
 
-  constructor(private jobService: JobService) {}
 
-  ngOnInit(): void {
-    this.fetchJobOffers();
-  }
+  constructor() {}
+
+  ngOnInit(): void {this.fetchJobOffers();}
 
   fetchJobOffers() {
     this.isLoading = true; 
@@ -52,23 +49,37 @@ export class OffersComponent implements OnInit {
       next: (offers: JobOffer[]) => {
         this.jobOffers = offers;
         this.applyFilters();
-        this.isLoading = false;  // Set loading state to false after data is fetched
+        this.isLoading = false; 
       },
       error: (err: any) => {
         console.error('Failed to fetch job offers:', err);
-        this.isLoading = false;  // Set loading state to false in case of an error
+        this.isLoading = false;  
       },
     });
   }
 
-  deleteOffer(id: number) {
-    this.jobService.deleteJobOffer(id).subscribe({
-      next: () => {
-        this.jobOffers = this.jobOffers.filter((offer) => offer.id !== id);
-        this.applyFilters();
+  deleteOffer(offer: JobOffer) {
+    const offerId = offer.id;
+    this.modalService.open(AskDeleteConfirmationComponent, {
+      size: {
+        width: '100%',
+        padding: '1rem'
       },
-      error: (err: any) => console.error('Failed to delete job offer:', err),
-    });
+      data: {
+        itemToDelete: offer.title,
+        type: 'OFFER'
+      }
+    }).then((data) => {
+        const deletionConfirmed = data;
+        if(deletionConfirmed) {
+          this.jobService.deleteJobOffer(offerId).subscribe({
+            next: () => console.log('job offer deleted with success '),
+            error: (err) => console.error('there was and error : ', err),
+          })
+        }
+        
+      });
+    
   }
 
   toggleOfferStatus(id: number) {
@@ -115,10 +126,10 @@ export class OffersComponent implements OnInit {
     this.applyFilters();
   }
 
-  openAddOfferModal(offer?: JobOffer) {
-    if (offer) this.selectedOffer = offer;
-    this.isModalVisible = true;
-  }
+  // openAddOfferModal(offer?: JobOffer) {
+  //   if (offer) this.selectedOffer = offer;
+  //   this.isModalVisible = true;
+  // }
 
   onModalClosed() {
     this.isModalVisible = false;
@@ -132,4 +143,24 @@ export class OffersComponent implements OnInit {
   letsOpenModal() {
     
   }
+
+  iseverythingclose: any;
+
+  openAddOfferModal(offer?: JobOffer) {
+    // alert("opened");
+    this.modalService.open(AddOfferComponent, {
+      size: {
+        width: '80%',
+        padding: '1rem'
+      },
+      data: {
+        selectedOffer: offer,
+        isEditMode: offer ? true : false,
+      }
+    }).then((data) => {
+      this.iseverythingclose = data;
+      alert(this.iseverythingclose);
+      });
+  }
+
 }

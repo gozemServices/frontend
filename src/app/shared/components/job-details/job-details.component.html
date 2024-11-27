@@ -1,0 +1,127 @@
+<div class="bg-gray-200">
+
+  <!-- Hero Section -->
+  <header class="bg-primary text-white">
+    <div class="container mx-auto px-4 py-6 flex items-center justify-between">
+      <!-- <h1 class="text-2xl font-bold">JobPortal</h1> -->
+      <button (click)="goBack()"><fa-icon [icon]="faArrowLeft" class="font-bold text-xl"></fa-icon></button>
+      <nav>
+        <a href="/" class="text-white hover:text-gray-200 mx-3">Home</a>
+        <a href="/jobs" class="text-white hover:text-gray-200 mx-3">Jobs</a>
+        <a href="/about" class="text-white hover:text-gray-200 mx-3">About Us</a>
+      </nav>
+    </div>
+  </header>
+  <div class="bg-white rounded-lg shadow-md p-6 container mx-auto px-4 py-8 my-4">
+    <div class="flex flex-wrap justify-between items-start">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">Senior Frontend Developer</h2>
+        <p class="text-gray-500 text-lg mb-4">Google Inc. - Mountain View, CA</p>
+        <div class="flex items-center gap-4 flex-wrap  md:space-x-4">
+          <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">Full-Time</span>
+          <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-medium">Remote</span>
+          <span class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-sm font-medium">Posted 3 days ago</span>
+        </div>
+      </div>
+      <button class="bg-primary mt-4 md:mt-0 text-white px-6 py-2 rounded-lg shadow-md hover:bg-darkShade">
+        Apply Now
+      </button>
+    </div>
+  </div>
+
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Job Details Section -->
+      <div class="lg:col-span-2">
+        <!-- Job Description -->
+        <section class="bg-white shadow rounded-lg p-6 mb-6">
+          <h2 class="text-xl font-semibold text-primary mb-4">Job Description</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            As a Senior Frontend Developer at Google, you will be responsible for creating and implementing user-friendly interfaces, improving user experiences, and collaborating with a talented team of developers.
+          </p>
+        </section>
+
+        <!-- Responsibilities -->
+        <section class="bg-white shadow rounded-lg p-6 mb-6">
+          <h3 class="text-xl font-semibold text-primary mb-3">Responsibilities</h3>
+          <ul class="list-disc pl-6 text-gray-700 space-y-2">
+            <li>Design and implement modern user interfaces.</li>
+            <li>Collaborate with backend developers to integrate APIs.</li>
+            <li>Optimize applications for performance and scalability.</li>
+            <li>Lead code reviews and provide mentorship to junior developers.</li>
+          </ul>
+        </section>
+
+        <!-- Qualifications -->
+        <section class="bg-white shadow rounded-lg p-6 mb-6">
+          <h3 class="text-xl font-semibold text-primary mb-3">Qualifications</h3>
+          <ul class="list-disc pl-6 text-gray-700 space-y-2">
+            <li>5+ years of experience in frontend development.</li>
+            <li>Strong knowledge of JavaScript, React, and Angular.</li>
+            <li>Experience with RESTful APIs and responsive design.</li>
+            <li>Excellent problem-solving and communication skills.</li>
+          </ul>
+        </section>
+
+        <!-- Benefits -->
+        <section class="bg-white shadow rounded-lg p-6">
+          <h3 class="text-xl font-semibold text-primary mb-3">Benefits</h3>
+          <ul class="list-disc pl-6 text-gray-700 space-y-2">
+            <li>Competitive salary and stock options.</li>
+            <li>Comprehensive health insurance.</li>
+            <li>Work-from-home flexibility.</li>
+            <li>On-site perks: free meals, gym access, and more.</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="bg-white shadow rounded-lg p-6">
+        <h3 class="text-2xl font-semibold text-primary mb-4">Job Overview</h3>
+        <ul class="text-gray-700 space-y-4">
+          <li><strong>Company:</strong> Google Inc.</li>
+          <li><strong>Location:</strong> Mountain View, CA</li>
+          <li><strong>Job Type:</strong> Full-Time</li>
+          <li><strong>Remote:</strong> Yes</li>
+          <li><strong>Salary:</strong> $120,000 - $150,000/year</li>
+          <li><strong>Posted:</strong> 3 days ago</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-primary mt-8 mb-4">Contact Information</h3>
+        <p class="text-gray-700">
+          Email: <a href="mailto:jobs@google.com" class="text-primary hover:underline">jobs agoogle.com</a>
+        </p>
+        <p class="text-gray-700">Phone: +1 (123) 456-7890</p>
+
+        <button class="w-full bg-primary text-white mt-6 py-2 rounded-lg shadow hover:bg-darkShade">
+          Apply Now
+        </button>
+      </div>
+    </div>
+
+    <!-- Related Jobs Section -->
+    <section class="mt-12">
+      <h3 class="text-2xl font-semibold text-primary mb-6">Related Jobs</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white shadow rounded-lg p-4">
+          <h4 class="text-lg font-bold text-primary mb-2">Backend Developer</h4>
+          <p class="text-gray-700 mb-4">Amazon - Seattle, WA</p>
+          <a href="/jobs/1" class="text-primary hover:underline">View Details</a>
+        </div>
+        <div class="bg-white shadow rounded-lg p-4">
+          <h4 class="text-lg font-bold text-primary mb-2">UX Designer</h4>
+          <p class="text-gray-700 mb-4">Meta - Menlo Park, CA</p>
+          <a href="/jobs/2" class="text-primary hover:underline">View Details</a>
+        </div>
+        <div class="bg-white shadow rounded-lg p-4">
+          <h4 class="text-lg font-bold text-primary mb-2">Data Scientist</h4>
+          <p class="text-gray-700 mb-4">Microsoft - Redmond, WA</p>
+          <a href="/jobs/3" class="text-primary hover:underline">View Details</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</div>

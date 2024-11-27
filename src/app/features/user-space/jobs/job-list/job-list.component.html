@@ -14,16 +14,16 @@
       <div class="">
         <p class="px-4 w-fit text-start  align-start rounded-full {{ job.type === 'permanent' ? 'bg-orange-500' : 'bg-green-500' }} text-white">{{job.type}} </p>
         <h3 class="text-md !text-[28px] font-bolder text-[#002133]">{{ job.title }}</h3>
-        <p class="job-description text-gray-500">
+        <div class="job-description break-words text-red-500">
           {{job.description}} 
-          <a href="#" class="text-bold text-blue-500">view Job</a>
-        </p>
+          <button (click)="goToJobDetails(job)" class="text-bold text-blue-500">view Job</button>
+        </div>
       </div>
       <div>
         <p class="text-sm text-gray-600 flex items-center">
           <fa-icon [icon]="faLocationPin" class="text-gray-500 mr-1"></fa-icon>{{ job.location }}
           <span class="mx-2">|</span>
-          <fa-icon [icon]="faDollarSign" class="text-gray-500 mr-1"></fa-icon>{{ job.salary }}
+          <span>{{ job.salary | currency:'XOF':'symbol':'1.0-2' }}</span>
         </p>
       </div>
   

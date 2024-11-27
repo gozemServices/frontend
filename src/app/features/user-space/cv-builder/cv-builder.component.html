@@ -60,8 +60,7 @@
 
 @if(isPrevisualized) {
  <app-cv-template
-  [userData]="userData"
-  [isVisible]="isPrevisualized"
+  [selectedc]="userData"
   (closeModal)="onCloseModal()"
  ></app-cv-template>
 }

@@ -80,9 +80,9 @@ export class SignupComponent {
           console.log('Is the success block reached?', response);
         },
         error: (err) => {
-          this.error = err.error?.message || 'Registration failed. Please try again.';
+          this.error = err.error || 'Registration failed. Please try again.';
           this.loading = false;
-          console.log('Error response:', err);
+          console.log('Error response:', err.error);
         },
         complete: () => (this.loading = false),
       });
@@ -91,7 +91,7 @@ export class SignupComponent {
       this.authService.signupRecruiter(formData).subscribe({
         next: () => this.router.navigate(['auth/login']),
         error: (err) => {
-          this.error = err.error?.message || 'Registration failed. Please try again.';
+          this.error = err.error || 'Registration failed. Please try again.';
           this.loading = false;
         },
         complete: () => (this.loading = false),
@@ -164,19 +164,3 @@ export class SignupComponent {
   };
 }
 
-
-
-
-
-
-
-
-// console.log('Form Validity:', this.generalInfoForm.valid); // Overall validity
-//     // console.log('Form Errors:', this.generalInfoForm.errors); // Check global errors if any
-  
-//     // // Check individual controls
-//     // Object.keys(this.generalInfoForm.controls).forEach((key) => {
-//     //   const control = this.generalInfoForm.get(key);
-//     //   console.log(`${key} Valid:`, control?.valid);
-//     //   console.log(`${key} Errors:`, control?.errors);
-//     // });

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BasicInfosComponent } from "./basic-infos/basic-infos.component";
 import { GeneralInfosComponent } from "./general-infos/general-infos.component";
 import { EducationComponent } from "./education/education.component";
 import { ExperienceComponent } from "./experience/experience.component";

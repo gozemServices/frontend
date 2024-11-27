@@ -67,7 +67,6 @@ export class ProfileComponent implements OnInit {
   constructor(private userProfileService: UserProfileService,private dialog: MatDialog) {}
   ngOnInit(): void {
     this.loadUserProfile();
-    this.loadUserPoints();
     this.loadUserTools();
     this.loadAppliedJobs();
     this.initPasswordUpdateForm();

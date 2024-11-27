@@ -13,6 +13,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import url('./app/shared/styles/globalStyles.scss');
+@import url('./app/shared/components/modal/modal-animation.scss');
 
 @include mat.core();
 
@@ -50,4 +51,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .custom-modal .mat-dialog-container {
   width: 500px !important;  /* Enforce the width here */
+}
+
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  app-cv-template {
+    visibility: visible;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }

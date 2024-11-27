@@ -12,14 +12,14 @@
   <button mat-button class="bg-green-800 mx-2 px-4 py-2 text-white  hover:bg-green-900 transition duration-700"  (click)="onRemove()">Remove</button>
 </mat-dialog-actions> -->
 
-<h2 mat-dialog-title class="text-4xl w-full bg-red-500 uppercase text-white">
+<h2 mat-dialog-title class="text-4xl w-[800px] bg-red-500 uppercase text-white">
   <fa-icon class="text-white" [icon]="faDanger"></fa-icon>
   <span class="text-white ml-2" [translate]="'REMOVE_TOOL'"></span>
 </h2>
 
 <mat-dialog-content>
 <p class="text-lg">
-  {{ 'CONFIRM_REMOVE_TOOL' | translate: { toolName: data.toolName } }}
+  <!-- {{ 'CONFIRM_REMOVE_TOOL' | translate: { toolName: data.toolName } }} -->
 </p>
 <p class="text-xl text-[#ff5733]" [translate]="'IRREVERSIBLE_ACTION'"></p>
 </mat-dialog-content>

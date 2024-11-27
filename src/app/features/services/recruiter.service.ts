@@ -14,7 +14,7 @@ export class RecruiterService {
     return this.http.post(this.baseUrl, jobData);
   }
 
-  updateJob(jobId: string, jobData: any): Observable<any> {
+  updateJob(jobId: number, jobData: any): Observable<any> {
     return this.http.put(`${this.baseUrl}/${jobId}`, jobData);
   }
 

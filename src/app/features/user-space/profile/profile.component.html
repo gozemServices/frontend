@@ -2,15 +2,15 @@
 
     <!-- Points Section -->
     <div class="bg-white shadow-md rounded-lg p-4 mb-4 flex-wrap">
-      <h3 class="text-xl font-semibold text-gray-800 mb-4">{{"YOUR" | translate}}{{"POINTS" | translate}}</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-4 space-x-2 capitalize">{{"YOUR" | translate}} {{"POINTS" | translate}}</h3>
       <div class="flex items-center space-x-4 mb-4 flex-wrap">
         <div class="text-2xl font-bold text-gray-700">{{  0 }} {{"POINTS" | translate}}</div>
         <div class="flex flex-wrap gap-2">
           <button (click)="buyPoints()" class="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition">{{"BUY_POINTS" | translate}}</button>
-          <button class="bg-primary text-white py-2 px-6 rounded-md hover:bg-darkShade transition">{{"BUY_TOOL_TITLE"}}</button>  
+          <button class="bg-primary text-white py-2 px-6 rounded-md hover:bg-darkShade transition">{{"BUY_TOOL_TITLE" | translate}}</button>  
         </div>
       </div>
-      <p class="text-gray-500">{{"BUY_TOOL_DESCRIPTION"}}</p>
+      <p class="text-gray-500">{{"BUY_TOOL_DESCRIPTION" | translate}}</p>
     </div>
   
     <!-- Profile Header -->

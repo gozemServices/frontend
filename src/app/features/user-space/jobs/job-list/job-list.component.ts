@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { JobApplyComponent } from '../job-apply/job-apply.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { faLocationPin, faDollarSign, faBookmark, faShareSquare } from '@fortawesome/free-solid-svg-icons'; // Import the icons
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Job } from '../../../../core/models/jobs.models';
 import { JobService } from '../../../services/job.service';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-job-list',
   standalone: true,
@@ -24,8 +25,10 @@ export class JobListComponent {
   jobs: Job[] = [];
   loading = false;
   errorMessage: string | null = null;
+  private router = inject(Router);
+  private jobService = inject(JobService);
 
-  constructor(private dialog: MatDialog, private jobService: JobService) {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fetchJobs();
@@ -37,6 +40,7 @@ export class JobListComponent {
     this.jobService.getAllJobs().subscribe({
       next: (data) => {
         this.jobs = data;
+        console.log(this.jobs)
         this.loading = false;
       },
       error: (err) => {
@@ -61,6 +65,11 @@ export class JobListComponent {
         console.log('Dialog closed without submission.');
       }
     });
+  }
+
+  goToJobDetails(job: any) {
+    const jobId = job ? job?.id : null;
+    this.router.navigate(['/user/job/details/',jobId]);
   }
   
 

@@ -7,6 +7,7 @@ import { RecruiterSpaceComponent } from './features/recruiter-space/recruiter-sp
 import { UserSpaceComponent } from './features/user-space/user-space.component';
 import { recruiterRoutes } from './features/routes/recruiter.routes';
 import { authGuard } from './features/auth/guards';
+import { JobDetailsComponent } from './shared/components/job-details/job-details.component';
 
 export const routes: Routes = [
     { path: '',  redirectTo: 'home', pathMatch: 'full'},
@@ -30,6 +31,11 @@ export const routes: Routes = [
         canActivate: [authGuard],
         loadChildren: () => import('./features/routes/recruiter.routes').then(c => c.recruiterRoutes),
         component: RecruiterSpaceComponent
+    },
+    {
+        path: 'user/job/details/:id',
+        canActivate: [authGuard],
+        loadComponent: () => import('./shared/components/job-details/job-details.component').then(c => c.JobDetailsComponent)
     },
 
       // Redirect to home if no route found

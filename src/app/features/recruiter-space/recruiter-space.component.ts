@@ -1,18 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { faBell, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { GenericService } from '../../core/services/generic.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SidebarComponent } from '../user-space/sidebar/sidebar.component';
-import { ProfileManagementComponent } from "./profile-management/profile-management.component";
-import { OffersComponent } from "./offers/offers.component";
-import { CandidaturesComponent } from "./candidatures/candidatures.component";
-import { PayingToolsComponent } from "../user-space/paying-tools/paying-tools.component";
-import { EventsComponent } from "./events/events.component";
-import { CandidatesComponent } from "./candidates/candidates.component";
 import { RouterModule } from '@angular/router';
+import { User } from '../../core/models/common.model';
+import { AuthService } from '../auth/auth.service';
 @Component({
   selector: 'app-recruiter-space',
   standalone: true,
@@ -30,24 +25,29 @@ import { RouterModule } from '@angular/router';
 export class RecruiterSpaceComponent {
   title = 'Recruiteur Dashboard';
   selectedTab: string = 'dashboard'; 
+  
   currentLanguage = 'en';
   isSidebarOpen = false; 
   languages !: string[];
   isLangDropdownOpened = false;
   faChevronDown = faChevronDown;
   faNotificationRing = faBell;
-  userType = 'recruiter'
 
+  userType = 'recruiter'
+  user!: User | null;
+
+  private genericService = inject(GenericService);
+  private authService = inject(AuthService);
+  private translateService = inject(TranslateService);
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-  constructor(
-    private genericService: GenericService,
-    private translate: TranslateService
-  ){}
+  constructor(){}
   ngOnInit() {
     this.languages = this.genericService.getLanguages();
+    this.user = this.authService.getUser();
+    console.log(this.user);
   }
 
   onTabSelected(tab: string) {
@@ -59,8 +59,8 @@ export class RecruiterSpaceComponent {
   }
 
   switchLanguage(language: string) {
-    this.translate.setDefaultLang(language);  
-    this.translate.use(language);  
+    this.translateService.setDefaultLang(language);  
+    this.translateService.use(language);  
     this.currentLanguage = language;
     this.toggleLangSelector();
    }

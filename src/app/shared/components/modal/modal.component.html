@@ -1,15 +1,7 @@
-<div class="modal">
-    <div class="modal-header">
-        HERE GOES THE TITLE
-        <span class="modal-close">x</span>
-    </div>
-    <div class="modal-content">
-        <ng-content></ng-content>
-    </div>
-    <div class="modal-footer">
-        <button>Submit</button>
-    </div>
+<div class="modal-container">
+  <section class="ngx-modal" #modal>
+    <ng-content></ng-content>
+  </section>
+
+  <div class="ngx-overlay" #overlay (click)="onClose()"></div>
 </div>
-
-
-<div class="modal-backdrop"></div>

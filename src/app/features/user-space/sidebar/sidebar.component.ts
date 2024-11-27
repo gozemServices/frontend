@@ -19,6 +19,7 @@ export class SidebarComponent {
   // authService =Inject(AuthService);
   @Output() tabSelected = new EventEmitter<string>();
   @Input() userType =  'jobseeker'
+  @Input() userInfos: any;
   selectedTab: string = 'dashboard';
   isSidebarOpened = false;
   menuItems: any;
@@ -68,6 +69,10 @@ export class SidebarComponent {
   }
 
   ngOnInit(){
+
+    this.userInfos = {
+      
+    }
     if(this.userType == 'recruiter'){
       this.menuItems = this.recruitersTab;
 
