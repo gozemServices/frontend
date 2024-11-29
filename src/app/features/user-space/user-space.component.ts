@@ -34,7 +34,7 @@ export class UserSpaceComponent implements OnInit{
   user!: User | null;
   userInfos: any;
   profilePic: string | ArrayBuffer | null = null;
-
+  currentDate = new Date();
 
   private genericService= inject(GenericService);
   private translate= inject(TranslateService);

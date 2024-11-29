@@ -1,0 +1,42 @@
+<div class="flex flex-col">
+    <button class="share-button border-2 border-none bg-none w-fit">
+        <fa-icon [icon]="faShareSquare" class="mr-2"></fa-icon> Share this job on
+      </button>
+    <div class="share-buttons flex flex-wrap gap-2 mt-4">
+        <!-- Facebook -->
+        <button 
+          (click)="shareOnFacebook()" 
+          class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          <fa-icon [icon]="faFacebook"></fa-icon>
+        </button>
+        
+        <!-- Twitter -->
+        <button 
+          (click)="shareOnTwitter()" 
+          class="flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-500 transition">
+          <fa-icon [icon]="faXTwitter"></fa-icon>
+        </button>
+        
+        <!-- LinkedIn -->
+        <button 
+          (click)="shareOnLinkedIn()" 
+          class="flex items-center gap-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition">
+          <fa-icon [icon]="faLinkedIn"></fa-icon>
+        </button>
+        
+        <!-- WhatsApp -->
+        <button 
+          (click)="shareOnWhatsApp()" 
+          class="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+          <fa-icon [icon]="fawhatsapp"></fa-icon>
+        </button>
+        
+        <!-- Email -->
+        <button 
+          (click)="shareViaEmail()" 
+          class="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">
+          <fa-icon [icon]="faEmail"></fa-icon>
+        </button>
+      </div>
+      
+</div>

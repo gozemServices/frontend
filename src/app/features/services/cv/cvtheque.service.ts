@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 // import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 @Injectable({
@@ -80,5 +80,13 @@ export class CvthequeService {
     searchCvs(searchCriteria: any): Observable<any> {
       return this.http.post<any>(`${this.baseUrl}/search`, searchCriteria);
     }
+
+   // Service method to fetch CV (ArrayBuffer response)
+    printCv(userId: number): Observable<ArrayBuffer> {
+      return this.http.get<ArrayBuffer>(`${this.baseUrl}/${userId}/generate-pdf`, { responseType: 'arraybuffer' as 'json' });
+    }
+
+    
+    
   }
 

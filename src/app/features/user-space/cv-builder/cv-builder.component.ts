@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { GeneralInfosComponent } from "./general-infos/general-infos.component";
 import { EducationComponent } from "./education/education.component";
 import { ExperienceComponent } from "./experience/experience.component";
@@ -14,7 +14,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { faDownload, faEye, faUsersViewfinder } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CvTemplateComponent } from '../../../shared/components/cv-template/cv-template.component';
-
+import { ModalService } from '../../../shared/components/modal/modal.service';
+import { CvthequeService } from '../../services/cv/cvtheque.service';
 
 @Component({
   selector: 'app-cv-builder',
@@ -32,14 +33,12 @@ import { CvTemplateComponent } from '../../../shared/components/cv-template/cv-t
     SocialsComponent, 
     ReferencesComponent, 
     LanguagesComponent,
-    CvTemplateComponent
   ],
   templateUrl: './cv-builder.component.html',
   styleUrls: ['./cv-builder.component.scss']
 })
 export class CvBuilderComponent implements OnInit {
   currentCvSection: { title: string, anchor: string };
-  isPrevisualized = false;
   cvId: any;
   cvSections = [
     { title: 'BASIC_INFOS', anchor: 'basic_infos' },
@@ -56,14 +55,16 @@ export class CvBuilderComponent implements OnInit {
   faView = faUsersViewfinder;
   faview2 = faEye;
   faDownload = faDownload;
-  userData: any;
+  cvInfos: any;
+  private modalService = inject(ModalService);
+  private genericsService =  inject(GenericService);
+  private cvThequeServices = inject(CvthequeService);
   
 
-  constructor(private genericsService: GenericService) {
+  constructor() {
     this.currentCvSection = this.cvSections[0];
   }
   ngOnInit(): void {
-      // this.fetchCvInfos();
       this.getCvInfos();
   }
 
@@ -76,24 +77,24 @@ export class CvBuilderComponent implements OnInit {
     }
   }
 
-  fetchCvInfos() {
-    const cvDatas = this.genericsService.getCvDatas();
-    // console.log(cvDatas);
-    this.cvId = cvDatas.cv.id;
-    // if (cvDatas) this.userData = cvDatas;
-    console.log(this.userData);
-  }
+  // fetchCvInfos() {
+  //   const cvDatas = this.genericsService.getCvDatas();
+  //   // console.log(cvDatas);
+  //   this.cvId = cvDatas.cv.id;
+  //   // if (cvDatas) this.userData = cvDatas;
+  //   console.log(this.userData);
+  // }
 
 
   getCvInfos() {
     this.isLoading = true;
     this.genericsService.fetchCvInfos().subscribe(
       (data) => {
-        let cvInfos = data;
-        if(cvInfos) {
-          this.userData = cvInfos;
-          this.cvId = cvInfos.cv.id;
-          this.genericsService.saveCvDatas(this.userData);
+        let userData = data;
+        if(userData) {
+          this.cvInfos = userData;
+          this.cvId = userData.cv.id;
+          this.genericsService.saveCvDatas(this.cvInfos);
         }
       },
       (error) => {
@@ -103,13 +104,44 @@ export class CvBuilderComponent implements OnInit {
     );
   }
 
-  togglePrevisualized() {
-    this.getCvInfos();
-    this.isPrevisualized = !this.isPrevisualized;
+  downloadCv() {
+    this.cvThequeServices.printCv(this.cvId).subscribe(
+      (response: ArrayBuffer) => {
+        // Convert ArrayBuffer to Blob
+        const blob = new Blob([response], { type: 'application/pdf' });
+  
+        // Create a URL for the Blob
+        const blobUrl = URL.createObjectURL(blob);
+  
+        // Create a link element to trigger the file download
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = 'cv.pdf';  // Set the file name
+        a.click();  // Trigger the download
+  
+        // Clean up the URL object
+        URL.revokeObjectURL(blobUrl);
+  
+        alert('CV is being downloaded!');
+      },
+      (error) => {
+        console.error('Error downloading CV', error);
+      }
+    );
   }
+  openCvTemplate() {
+    // alert("opened");
+    this.modalService.open(CvTemplateComponent, {
+      size: {
+        width: '80%',
+        padding: '1rem'
+      },
+      data: {
+        selectedCv: this.cvInfos,
+      }
+    }).then((data) => {
 
-  onCloseModal() {
-    this.isPrevisualized = !this.isPrevisualized;
+      });
   }
   
 }

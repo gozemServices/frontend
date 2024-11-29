@@ -45,7 +45,6 @@ export class SocialsComponent implements OnInit{
     this.socialService.getSocialLinks().subscribe(
       (data) => {
         this.socialList = data;
-        console.log(data);
         this.loading = false;
       },
       (error) => {

@@ -1,78 +1,71 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar'; 
-import { DialogMessageComponent } from '../../../../shared/components/dialog-message/dialog-message.component';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, inject,} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlusCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'; 
+import { faTrash, faUpload } from '@fortawesome/free-solid-svg-icons'; 
+import { ModalService } from '../../../../shared/components/modal/modal.service';
 @Component({
   selector: 'app-job-apply',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule,FontAwesomeModule],
+  imports: [ReactiveFormsModule, CommonModule,FontAwesomeModule, FormsModule],
   templateUrl: './job-apply.component.html',
   styleUrl: './job-apply.component.scss'
 })
 export class JobApplyComponent {
-  jobApplyForm: FormGroup;
-  faPlusCircle = faPlusCircle;
-  faTimesCircle = faTimesCircle;
-  constructor(
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog,
-    public dialogRef: MatDialogRef<JobApplyComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {jobId?: string }
-  ) {
-    this.jobApplyForm = this.fb.group({
-      specialSkills: this.fb.array([this.createSkillField()])
-    });
+  faUpload = faUpload;
+  faTrash = faTrash;
+  selectedOffer!: number;
+  formData: any = {
+    email: '',
+    cv: null,
+    picture: null,
+    motivation_letter: null,
+  };
+
+  filePreview: any = {};
+
+  files = [
+    { name: 'cv', label: 'CV', accept: '.pdf,.doc,.docx', isImage: false },
+    { name: 'picture', label: 'Profile Picture', accept: 'image/*', isImage: true },
+    { name: 'motivation_letter', label: 'Motivation Letter', accept: '.pdf,.doc,.docx', isImage: false },
+  ];
+  private sanitizer =  inject(DomSanitizer);
+  private modalService = inject(ModalService);
+  constructor() {}
+
+  triggerFileInput(fileKey: string): void {
+    const fileInput = document.getElementById(fileKey) as HTMLInputElement;
+    fileInput.click();
   }
 
-  ngOnInit(): void {}
+  onFileChange(event: Event, fileKey: string): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      this.formData[fileKey] = input.files[0];
 
-  
-  createSkillField(): FormGroup {
-    return this.fb.group({
-      skill: ['', Validators.required]
-    });
-  }
-
-  get specialSkills(): FormArray {
-    return this.jobApplyForm.get('specialSkills') as FormArray;
-  }
-
-  addSkill(): void {
-    this.specialSkills.push(this.createSkillField());
-  }
-
-  removeSkill(index: number): void {
-    this.specialSkills.removeAt(index);
-  }
-
-  onSubmit(): void {
-    if (this.jobApplyForm.valid) {
-      // Show success message
-      this.openDialog('Success', 'Your application has been submitted successfully!');
-    } else {
-      this.openDialog('Error', 'Please fill out all required fields!');
+      // If the file is an image, create a preview
+      if (this.files.find((file) => file.name === fileKey)?.isImage) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.filePreview[fileKey] = this.sanitizer.bypassSecurityTrustUrl(e.target?.result as string);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
     }
   }
 
-  openDialog(title: string, message: string): void {
-    const dialogRef = this.dialog.open(DialogMessageComponent, {
-      data: { title, message } 
-    });
-  
-    // Handle the dialog result when it is closed
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        console.log('Dialog closed with result:', result);
-      }
-    });
+  removeFile(fileKey: string): void {
+    this.formData[fileKey] = null;
+    this.filePreview[fileKey] = null;
   }
 
-  onCancel(): void {
-    this.dialogRef.close();
+  submitForm(): void {
+    console.log('Form Data Submitted:', this.formData);
+    alert('Form submitted successfully!');
+  }
+
+  onClose() {
+    this.modalService.close();
   }
 }

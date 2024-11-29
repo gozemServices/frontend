@@ -1,9 +1,12 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
 import { FormArray, FormGroup } from '@angular/forms';
+import { Toast } from '../models/common.model';
+import { ToastComponent } from '../../shared/components/toast/toast.component';
+import { ModalService } from '../../shared/components/modal/modal.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +14,7 @@ export class GenericService {
 
   private apiUrl = 'http://localhost:8080/api'; 
   private translateService= Inject(TranslateService);
+  private modalService = inject(ModalService);
   private languages = ['en','fr','es'];
   private baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
@@ -58,6 +62,19 @@ export class GenericService {
   }
 
 
+  openToast(toast: Toast) {
+    this.modalService.open(ToastComponent, {
+      size: {
+        width: '80%',
+        padding: '1rem'
+      },
+      data: {
+        toast: toast
+      }
+    })
+  }
+
+
   getFormValidationErrors(formGroup: FormGroup | FormArray): any[] {
     const errors: any[] = [];
     
@@ -78,4 +95,33 @@ export class GenericService {
     return errors;
   }
   
+  timeAgo(createdAt: string | Date): string {
+    const now = new Date();
+    const createdDate = new Date(createdAt);
+    // alert(createdAt);
+   if(!createdAt) {
+    return 'just now'
+   }else {
+    const diffInSeconds = Math.floor((now.getTime() - createdDate.getTime()) / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+    const diffInMonths = Math.floor(diffInDays / 30);
+    const diffInYears = Math.floor(diffInMonths / 12);
+
+    if (diffInSeconds < 60) {
+      return `${diffInSeconds} second${diffInSeconds > 1 ? 's' : ''} ago`;
+    } else if (diffInMinutes < 60) {
+      return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
+    } else if (diffInHours < 24) {
+      return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+    } else if (diffInDays < 30) {
+      return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+    } else if (diffInMonths < 12) {
+      return `${diffInMonths} month${diffInMonths > 1 ? 's' : ''} ago`;
+    } else {
+      return `${diffInYears} year${diffInYears > 1 ? 's' : ''} ago`;
+    }
+   }
+  }
 }

@@ -1,110 +1,110 @@
-.cv-container {
-    background: #ffffff;
-    display: flex;
-    flex-direction: column;
-    max-height: 95vh;
-  }
+// .cv-container {
+//     background: #ffffff;
+//     display: flex;
+//     flex-direction: column;
+//     max-height: 95vh;
+//   }
   
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
+//   .buttons {
+//     display: flex;
+//     justify-content: space-between;
+//     padding: 10px;
   
-    .close-btn {
-      position: fixed;
-      right: 10px;
-      top: 10px;
-      cursor: pointer;
+//     .close-btn {
+//       position: fixed;
+//       right: 10px;
+//       top: 10px;
+//       cursor: pointer;
   
-      .icon {
-        font-size: 1.5rem;
-        color: #af4e64;
-      }
-    }
+//       .icon {
+//         font-size: 1.5rem;
+//         color: #af4e64;
+//       }
+//     }
   
-    .download-btn {
-      background-color: #007bff;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  }
+//     .download-btn {
+//       background-color: #007bff;
+//       color: #fff;
+//       padding: 10px 20px;
+//       border: none;
+//       border-radius: 5px;
+//       cursor: pointer;
+//     }
+//   }
   
-  .cv-content {
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    max-height: calc(95vh - 50px);
-    width: 100%;
-    margin: auto;
+//   .cv-content {
+//     display: flex;
+//     flex-direction: column;
+//     overflow-y: auto;
+//     max-height: calc(95vh - 50px);
+//     width: 100%;
+//     margin: auto;
   
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      width: 210mm; /* A4 width for PDF */
-      padding: 20px;
-    }
+//     .container {
+//       display: flex;
+//       flex-wrap: wrap;
+//       width: 210mm; /* A4 width for PDF */
+//       padding: 20px;
+//     }
   
-    .sidebar {
-      width: 33%;
-      background: #333;
-      color: #fff;
-      padding: 20px;
+//     .sidebar {
+//       width: 33%;
+//       background: #333;
+//       color: #fff;
+//       padding: 20px;
   
-      .profile-block {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
+//       .profile-block {
+//         display: flex;
+//         justify-content: center;
+//         margin-bottom: 20px;
   
-        .profile-pic {
-          width: 75%;
-          aspect-ratio: 1;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-      }
+//         .profile-pic {
+//           width: 75%;
+//           aspect-ratio: 1;
+//           border-radius: 50%;
+//           object-fit: cover;
+//         }
+//       }
   
-      .section-title {
-        font-size: 1.2rem;
-        font-weight: bold;
-        border-bottom: 2px solid #fff;
-        margin: 20px 0 10px;
-        padding-bottom: 5px;
-      }
+//       .section-title {
+//         font-size: 1.2rem;
+//         font-weight: bold;
+//         border-bottom: 2px solid #fff;
+//         margin: 20px 0 10px;
+//         padding-bottom: 5px;
+//       }
   
-      .contact-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
+//       .contact-item {
+//         display: flex;
+//         align-items: center;
+//         margin-bottom: 10px;
   
-        .icon {
-          margin-right: 10px;
-        }
-      }
-    }
+//         .icon {
+//           margin-right: 10px;
+//         }
+//       }
+//     }
   
-    .main-content {
-      width: 66%;
-      padding-left: 20px;
+//     .main-content {
+//       width: 66%;
+//       padding-left: 20px;
   
-      .section {
-        margin-bottom: 30px;
+//       .section {
+//         margin-bottom: 30px;
   
-        h1 {
-          font-size: 1.5rem;
-          font-weight: bold;
-          color: #007bff;
-        }
+//         h1 {
+//           font-size: 1.5rem;
+//           font-weight: bold;
+//           color: #007bff;
+//         }
   
-        h3 {
-          font-size: 1.2rem;
-          font-weight: bold;
-          margin-bottom: 10px;
-          color: #007bff;
-        }
-      }
-    }
-  }
+//         h3 {
+//           font-size: 1.2rem;
+//           font-weight: bold;
+//           margin-bottom: 10px;
+//           color: #007bff;
+//         }
+//       }
+//     }
+//   }
   

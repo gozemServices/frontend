@@ -1,1 +1,33 @@
-<p>toast works!</p>
+<div class="flex w-full items-center justify-center">
+    <div
+    class="flex min-h-[150px] w-fit min-w-[280px] items-center justify-between px-4 py-2 rounded shadow-lg text-white"
+    [ngClass]="{
+    'bg-green-500': toast.type === 'success',
+    'bg-red-500': toast.type === 'error',
+    'bg-yellow-400 text-black': toast.type === 'warning',
+    'bg-blue-500': toast.type === 'info'
+    }"
+>
+    <!-- Icon -->
+    <fa-icon
+    [icon]="getIcon(toast.type)"
+    class="mr-2 text-xl"
+    [ngClass]="{
+        'text-white': toast.type !== 'warning',
+        'text-black': toast.type === 'warning'
+    }"
+    ></fa-icon>
+
+    <!-- Message -->
+    <span class="flex-1">{{ toast.message }}</span>
+
+    <!-- Close Button -->
+    <button
+    class="ml-4 text-xl hover:opacity-80 transition-opacity"
+    (click)="removeToast()"
+    >
+    ×
+    </button>
+</div>
+  
+</div>

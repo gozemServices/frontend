@@ -109,11 +109,11 @@ export class AddOfferComponent implements OnInit{
       if (this.isEditMode) {
         this.offersServices.updateJob(offerId, offerData).subscribe(
           () => {
-            console.log('Social updated successfully');
-            this.modalService
+            console.log('Job offerupdated successfully');
+            this.modalService.close
           },
           (error) => {
-            console.error('Error updating social:', error);
+            console.error('Error updating Job offer:', error);
           }
         );
       } else {

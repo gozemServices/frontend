@@ -25,7 +25,8 @@ import { AuthService } from '../auth/auth.service';
 export class RecruiterSpaceComponent {
   title = 'Recruiteur Dashboard';
   selectedTab: string = 'dashboard'; 
-  
+  profilePic: string | ArrayBuffer | null = null;
+
   currentLanguage = 'en';
   isSidebarOpen = false; 
   languages !: string[];
@@ -35,7 +36,8 @@ export class RecruiterSpaceComponent {
 
   userType = 'recruiter'
   user!: User | null;
-
+  userInfos: any;
+  currentDate = new Date();
   private genericService = inject(GenericService);
   private authService = inject(AuthService);
   private translateService = inject(TranslateService);
@@ -47,7 +49,8 @@ export class RecruiterSpaceComponent {
   ngOnInit() {
     this.languages = this.genericService.getLanguages();
     this.user = this.authService.getUser();
-    console.log(this.user);
+    this.loadProfileImage(this.user?.profilePhotoUrl ?? '');
+    this.currentDate  = new Date();
   }
 
   onTabSelected(tab: string) {
@@ -67,6 +70,24 @@ export class RecruiterSpaceComponent {
 
    toggleLangSelector(){
     this.isLangDropdownOpened = !this.isLangDropdownOpened;
+  }
+
+  loadProfileImage(fileName: string) {
+    this.genericService.getImageRessource(fileName).subscribe(
+      (data) => {
+        // Convert the Blob to a URL and display it
+        this.profilePic = URL.createObjectURL(data);
+        this.userInfos = {
+          ...this.user,
+          profilePic: this.profilePic
+        }
+        // console.log(this.userInfos);
+      },
+      (error) => {
+        console.error('Error fetching image', error);
+        this.profilePic = null
+      }
+    );
   }
 
 }

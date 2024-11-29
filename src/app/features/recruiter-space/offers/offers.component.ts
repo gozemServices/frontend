@@ -9,6 +9,7 @@ from '@fortawesome/free-solid-svg-icons';
 import { AddOfferComponent } from './add-offer/add-offer.component';
 import { ModalService } from '../../../shared/components/modal/modal.service';
 import { AskDeleteConfirmationComponent } from '../../../shared/components/toasts/ask-delete-confirmation/ask-delete-confirmation.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-offers',
@@ -37,8 +38,7 @@ export class OffersComponent implements OnInit {
 
   private jobService = inject(JobService);
   private modalService = inject(ModalService);
-
-
+  private router = inject(Router);
   constructor() {}
 
   ngOnInit(): void {this.fetchJobOffers();}
@@ -73,7 +73,7 @@ export class OffersComponent implements OnInit {
         const deletionConfirmed = data;
         if(deletionConfirmed) {
           this.jobService.deleteJobOffer(offerId).subscribe({
-            next: () => console.log('job offer deleted with success '),
+            next: () => {this.fetchJobOffers()},
             error: (err) => console.error('there was and error : ', err),
           })
         }
@@ -125,25 +125,7 @@ export class OffersComponent implements OnInit {
     this.page = page;
     this.applyFilters();
   }
-
-  // openAddOfferModal(offer?: JobOffer) {
-  //   if (offer) this.selectedOffer = offer;
-  //   this.isModalVisible = true;
-  // }
-
-  onModalClosed() {
-    this.isModalVisible = false;
-  }
-
-  onModalConfirmed() {
-    // Placeholder for any modal confirmation actions
-  }
-
-
-  letsOpenModal() {
-    
-  }
-
+  
   iseverythingclose: any;
 
   openAddOfferModal(offer?: JobOffer) {
@@ -161,6 +143,12 @@ export class OffersComponent implements OnInit {
       this.iseverythingclose = data;
       alert(this.iseverythingclose);
       });
+  }
+
+
+  goToJobDetails(job: any) {
+    const jobId = job ? job?.id : null;
+    this.router.navigate(['/user/job/details/',jobId]);
   }
 
 }

@@ -23,13 +23,14 @@
   }
 
   export interface Job {
-    id: string; 
+    id: number; 
     title: string;
     location: string;
     type: string;
     salary: string;
     posted: string;
     description: string;
+    createdAt: any;
   }
   
   

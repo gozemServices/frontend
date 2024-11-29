@@ -26,6 +26,7 @@ export class JobService {
     );
   }
 
+
   updateJobOffer(id: any, status: any): Observable<any> {
     return this.http.get(this.baseUrl);
   }

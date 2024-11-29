@@ -6,15 +6,20 @@ import { faLocationPin, faDollarSign, faBookmark, faShareSquare } from '@fortawe
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Job } from '../../../../core/models/jobs.models';
 import { JobService } from '../../../services/job.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Router } from '@angular/router';
+import { ShareItemComponent } from "../../../../shared/component/share-job/share-item.component";
+import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
+import { environment } from '../../../../../environments/environment';
+import { ModalService } from '../../../../shared/components/modal/modal.service';
 @Component({
   selector: 'app-job-list',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, ShareItemComponent, TimeAgoPipe],
   templateUrl: './job-list.component.html',
   styleUrl: './job-list.component.scss'
 })
 export class JobListComponent {
+  JOB_URL = `${environment.appURL}/user/job/details`;
   @Input() layout: string = 'list';
 
   faLocationPin = faLocationPin;
@@ -27,6 +32,7 @@ export class JobListComponent {
   errorMessage: string | null = null;
   private router = inject(Router);
   private jobService = inject(JobService);
+  private modalService = inject(ModalService);
 
   constructor(private dialog: MatDialog) {}
 
@@ -51,20 +57,19 @@ export class JobListComponent {
     });
   }
 
-  openApplyDialog(jobId: string): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '600px';
-    dialogConfig.data = { jobId };  
-
-    const dialogRef = this.dialog.open(JobApplyComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log('Application submitted:', result);
-      } else {
-        console.log('Dialog closed without submission.');
+  openApplyDialog(jobId: number): void {
+     // alert("opened");
+     this.modalService.open(JobApplyComponent, {
+      size: {
+        width: '80%',
+        padding: '1rem'
+      },
+      data: {
+        selectedOffer: jobId,
       }
-    });
+    }).then((data) => {
+
+      });
   }
 
   goToJobDetails(job: any) {

@@ -29,15 +29,10 @@
   
       <!-- Posting time and Actions -->
       <div class="actions flex items-center space-x-4">
-        <span class="posted-time bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">Posted {{ job.posted }}</span>
-        <button class="text-gray-500">
-          <fa-icon [icon]="faBookmark" class="text-gray-500"></fa-icon>
-        </button>
-        <button (click)="openApplyDialog('')" class="apply-button bg-primary text-white px-4 py-2 rounded-lg">Apply</button>
-        <button class="share-button border-2 border-primary text-gray-800 px-4 py-2 rounded-lg hover:bg-primary hover:text-white">
-          <fa-icon [icon]="faShareSquare" class="mr-2"></fa-icon>Share
-        </button>
+        <span class="posted-time bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">Posted {{ job.createdAt | timeAgo}}</span>
+        <button (click)="openApplyDialog(job.id)" class="apply-button bg-primary text-white px-4 py-2 rounded-lg">Apply</button>
       </div>
+      <app-share-item  [content]="{ link: JOB_URL+'/'+job.id, title: job.title, description: job.description }"></app-share-item>
     </div>
   </div>
   

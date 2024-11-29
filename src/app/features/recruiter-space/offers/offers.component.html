@@ -44,7 +44,7 @@
             </span>
           </td>
           <td class="py-2 px-4 flex flex-nowrap space-x-2">
-            <button (click)="openAddOfferModal(offer)" class="inline-block h-12 w-12 rounded bg-blue-700/10 text-blue-700 font-medium text-[14px] hover:bg-blue-700/40 leading-none transition duration-700">
+            <button (click)="goToJobDetails(offer)" class="inline-block h-12 w-12 rounded bg-blue-700/10 text-blue-700 font-medium text-[14px] hover:bg-blue-700/40 leading-none transition duration-700">
               <fa-icon [icon]="faViewCandidates"></fa-icon>
             </button>
             <button (click)="openAddOfferModal(offer)" class="inline-block h-12 w-12 rounded bg-emerald-500/10 text-emerald-500 font-medium text-[14px] hover:bg-emerald-950 leading-none transition duration-700">
@@ -68,7 +68,7 @@
     <span class="text-sm text-gray-600">Page {{ page }}</span>
     <button (click)="setPage(page + 1)" [disabled]="filteredOffers.length < itemsPerPage" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400">Next</button>
   </div>
-
+<!-- 
   <div>
     <label for="upload-photo" class=" bg-blue-600 p-8">Click to add your image...</label>
     <input type="file" name="photo" id="upload-photo" />
@@ -85,5 +85,5 @@
       position: absolute;
       z-index: -1;
     }
-  </style>
+  </style> --> 
 </div>

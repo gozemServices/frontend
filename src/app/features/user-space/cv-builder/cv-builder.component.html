@@ -3,19 +3,19 @@
     <div class="flex w-full items-center justify-around">
       <div class="flex space-x-4">
         <!-- Previsualize Button -->
-        <button (click)="togglePrevisualized()" class="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded transition duration-200">
+        <button (click)="openCvTemplate()" class="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded transition duration-200">
           <fa-icon [icon]="faView" class="mr-2"></fa-icon>
           Previsualize
         </button>
       
         <!-- Download Button -->
-        <button class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded transition duration-200">
+        <button (click)="downloadCv()" class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded transition duration-200">
           <fa-icon [icon]="faDownload" class="mr-2"></fa-icon>
           Download
         </button>
       </div>
     </div>
-    <div class="w-full max-w-4xl sticky top-0 left-0 z-50 flex flex-col items-center justify-center">
+    <div class="w-full max-w-4xl sticky top-0 left-0 z-20 flex flex-col items-center justify-center">
       <span>Go to </span>
         <div class="flex items-start justify-start max-w-[450px] lg:max-w-[780px] overflow-x-auto transition duration-800 border-2 border-[#AF4E64] bg-[#AF4E64] text-white">
             <a 
@@ -29,7 +29,6 @@
     </div>
     <div class="w-full">
       <div *ngIf="cvId" id="basic_infos" class="w-full bg-white shadow-xl">
-        <!-- <app-basic-infos ></app-basic-infos></div> -->
         <div  id="general_infos" class="w-full bg-white shadow-xl">
           <app-general-infos ></app-general-infos>
         </div>
@@ -56,11 +55,3 @@
         </div>
       </div>
 </div>
-  
-
-@if(isPrevisualized) {
- <app-cv-template
-  [selectedc]="userData"
-  (closeModal)="onCloseModal()"
- ></app-cv-template>
-}

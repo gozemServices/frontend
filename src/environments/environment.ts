@@ -3,7 +3,8 @@ import { version } from '../../package.json';
 
 export const environment = {
   production: true,
-  appVersion: version,
+  appVersion: 1.0,
+  appURL: 'localhost:4200',
   apiUrl: 'http://localhost:9000/api',
   apiAuthUrl: 'http://localhost:9000/api/public/auth',
   allApiUrl: 'http://localhost:9000/api/all/user',

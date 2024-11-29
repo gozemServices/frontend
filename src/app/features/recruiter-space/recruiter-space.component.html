@@ -3,23 +3,14 @@
   <app-sidebar 
     (tabSelected)="onTabSelected($event)"
     [userType]="userType"
+    [userInfos]="userInfos"
   >
   </app-sidebar>
   <section class="p-4 md:mr-64 flex flex-col w-full">
       <header class="section-header  flex w-full justify-between flex-wrap items-center px-4 py-8 bg-lightGray rounded-xl shadow-lg shadow-gray-400">
-          <!-- Hamburger menu for mobile
-          <div class="absolute top-80 left-4 z-40 md:hidden">
-            <button id="menu-btn-side" class="block bg-transparent border-none hamburger focus:outline-none">
-              <span class="hamburger-top"></span>
-              <span class="hamburger-middle"></span>
-              <span class="hamburger-bottom"></span>
-            </button>
-          </div>
-         -->
-          <!-- Date and Availability Info -->
           <div class="sample-infos w-full flex flex-wrap justify-between px-4 items-center">
             <div class="flex w-fit items-center gap-4 flex-wrap flex-1">
-              Friday, 28th December 2024
+              {{ currentDate | date: 'EEEE, d MMMM yyyy' }}
               <div class="availabilities text-green-600 flex items-center justify-center gap-2 bg-green-200/60 px-2 py-2 rounded-full cursor-pointer">
                 <span class="block h-[15px] w-[15px] bg-green-600 rounded-full shadow-2xl"></span>
                 <span class="font-bold text-sm uppercase">Ready to interview</span>
@@ -36,7 +27,7 @@
                   (click)="goToNotifications()">
                 </fa-icon>
               </a>
-              <img src="images/man_on_computer.png" class="w-[40px] h-[40px] rounded-full" alt="User Profile Pic">
+              <img [src]="profilePic" class="w-[40px] h-[40px] rounded-full" alt="User Profile Pic">
               <div class="relative">
                 <button 
                   class="bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 px-4 rounded-full shadow-lg flex items-center space-x-2 hover:bg-gradient-to-l transition ease-in-out duration-300"

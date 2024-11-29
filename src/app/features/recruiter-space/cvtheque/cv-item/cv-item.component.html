@@ -1,6 +1,6 @@
 <div>
     <img
-    [src]="'http://localhost:9000/uploads/profile-pictures/'+cvInfos.profilePhotoUrl"
+    [src]="cvInfos.profilePic"
     alt="Candidate"
     class="rounded-full w-16 h-16 mx-auto"
   />
@@ -15,8 +15,8 @@
     >
       View
     </button>
-    <button class="px-4 py-1 text-sm bg-lightPink text-darkShade rounded">
-      Save
+    <button (click)="openProposeModal(cvInfos.id)" class="px-4 py-1 text-sm bg-lightPink text-darkShade rounded">
+      propose
     </button>
   </div>
 </div>

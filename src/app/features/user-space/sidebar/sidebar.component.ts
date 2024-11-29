@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs'; 
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faChartArea, faChartBar, faFileAlt, faFileInvoiceDollar, faGauge, faMessage, faSearch, faUser, faVcard } from '@fortawesome/free-solid-svg-icons';
+import {faChartBar, faFileAlt, faFileInvoiceDollar, faGauge, faMessage, faSearch, faUser, faVcard } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { faTachometerAlt, faBriefcase, faClipboardList, faDollarSign, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { RouterModule } from '@angular/router';
@@ -79,6 +78,7 @@ export class SidebarComponent {
     }else{
       this.menuItems = this.userTabs;
     }
+    console.log(this.userInfos);
   }
   constructor(private authService: AuthService) {
     

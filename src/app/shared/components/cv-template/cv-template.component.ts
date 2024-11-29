@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { GenericService } from '../../../core/services/generic.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBriefcase, faCheckCircle, faCog, faEnvelope, faGears, faGraduationCap, faMapMarkerAlt, faPencilAlt, faPhone, faX } from '@fortawesome/free-solid-svg-icons';
+import { faBriefcase, faCheckCircle, faEnvelope, faGears, faGraduationCap, faMapMarkerAlt, faPencilAlt, faPhone, faX } from '@fortawesome/free-solid-svg-icons';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ModalService } from '../modal/modal.service';
 import { jsPDF } from 'jspdf';
@@ -27,7 +27,6 @@ export class CvTemplateComponent implements OnInit{
   faClose = faX;
 
   selectedCv: any;
-  @Input() selectedc!: any;
   profilePic: string | ArrayBuffer | null = null;
   sanitizedIconSvg: any;
   sanitizedSocialIcons: { id: number; name: string; url: string; iconSvg: SafeHtml }[] = [];
@@ -40,8 +39,6 @@ export class CvTemplateComponent implements OnInit{
   ngOnInit(): void {
       this.loadProfileImage(this.selectedCv?.profilePhotoUrl);
       this.sanitizeSocialIcons();
-      console.log(this.selectedCv.profilePhotoUrl);
-      console.log(this.selectedCv);
   }
 
   loadProfileImage(fileName: string) {

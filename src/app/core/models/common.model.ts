@@ -38,3 +38,11 @@ export interface Event {
   eventType: 'Conference' | 'Webinar' | 'Workshop' | 'Seminar';  // Example event types
   status: 'Upcoming' | 'Ongoing' | 'Completed' | 'Cancelled';
 }
+
+
+export interface Toast {
+  id: number;
+  message: string;
+  type: 'success' | 'error' | 'warning' | 'info';
+  timeout?: number;
+}
