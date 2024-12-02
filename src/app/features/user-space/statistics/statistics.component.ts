@@ -2,11 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faClipboardList, faHourglassHalf, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { JobProposalService } from '../../services/job-proposal.service';
-import { AskDeleteConfirmationComponent } from '../../../shared/components/toasts/ask-delete-confirmation/ask-delete-confirmation.component';
-import { ModalService } from '../../../shared/components/modal/modal.service';
-import { ProposalStatus } from '../../../core/models/jobs.models';
-
 @Component({
   selector: 'app-statistics',
   standalone: true,
@@ -20,13 +15,8 @@ export class StatisticsComponent implements OnInit{
   faTimesCircle = faTimesCircle;
   faHourglassHalf = faHourglassHalf;
   faClipboardList = faClipboardList;
-
-  jobProposals: any;
-  filteredProposals: any;
   searchQuery: string = '';
   selectedStatus: string = '';
-  private jobProposalService = inject(JobProposalService);
-  private modalService = inject(ModalService);
 
   stats = {
     applied: 10,
@@ -45,6 +35,15 @@ export class StatisticsComponent implements OnInit{
     { jobTitle: 'DevOps Engineer', company: 'Company F', dateApplied: '2024-10-12', status: 'Accepted' },
     { jobTitle: 'Data Scientist', company: 'Company G', dateApplied: '2024-10-14', status: 'Pending' }
   ];
+  waitingList = [
+    { jobTitle: 'Frontend Developer', company: 'Company A', dateApplied: '2024-10-01', status: 'Pending' },
+    { jobTitle: 'Backend Developer', company: 'Company B', dateApplied: '2024-10-05', status: 'Accepted' },
+    { jobTitle: 'Full Stack Developer', company: 'Company C', dateApplied: '2024-10-07', status: 'Rejected' },
+    { jobTitle: 'UI/UX Designer', company: 'Company D', dateApplied: '2024-10-08', status: 'Pending' },
+    { jobTitle: 'Mobile Developer', company: 'Company E', dateApplied: '2024-10-10', status: 'Pending' },
+    { jobTitle: 'DevOps Engineer', company: 'Company F', dateApplied: '2024-10-12', status: 'Accepted' },
+    { jobTitle: 'Data Scientist', company: 'Company G', dateApplied: '2024-10-14', status: 'Pending' }
+  ];
   // Pagination state
   pageApplied = 1;
   pageWaitingList = 1;
@@ -52,57 +51,7 @@ export class StatisticsComponent implements OnInit{
  
   constructor() {}
 
-  ngOnInit(): void {
-    this.loadJobInvitations();
-  }
-
-  loadJobInvitations() {
-    this.jobProposalService.getProposalsForJobSeeker().subscribe({
-      next: (proposals) => {
-        this.jobProposals = proposals;
-        this.filteredProposals = proposals; 
-        this.stats.pending = this.filterProposals.length;
-      },
-      error: (error) => {
-        console.error('Error fetching job proposals:', error);
-      }
-    });
-  }
-  acceptOrRejectProposal(decision: boolean,proposal: any) {
-     if(decision) {
-      const proposalId = proposal.id;
-      this.modalService.open(AskDeleteConfirmationComponent, {
-        size: {
-          width: '100%',
-          padding: '1rem'
-        },
-        data: {
-          itemToDelete: `${proposal.jobOffer.title} from ${proposal.jobOffer.company}`,
-          type: 'PROPOSAL'
-        }
-      }).then((data) => {
-        const deletionConfirmed = data;
-        if(deletionConfirmed) {
-          this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus[0]).subscribe({
-            next: () => {this.loadJobInvitations()},
-            error: (err) => console.error('there was and error : ', err),
-          })
-        }
-        
-      });
-     }
-  
-    }
-
-  filterProposals(): void {
-    // alert(this.selectedStatus);
-    this.filteredProposals = this.jobProposals.filter((proposal:any) => {
-      const matchesSearch =
-        !this.searchQuery ||
-        proposal.jobOffer.title.toLowerCase().includes(this.searchQuery.toLowerCase());
-      return matchesSearch;
-    });
-  }
+  ngOnInit(): void {}
 
 
   get displayedAppliedJobs() {
@@ -112,7 +61,7 @@ export class StatisticsComponent implements OnInit{
 
   get displayedWaitingListJobs() {
     const startIndex = (this.pageWaitingList - 1) * this.itemsPerPage;
-    return this.filteredProposals.slice(startIndex, startIndex + this.itemsPerPage);
+    return this.waitingList.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
   // Methods to handle pagination
@@ -129,7 +78,7 @@ export class StatisticsComponent implements OnInit{
   }
 
   nextPageWaitingList() {
-    if (this.pageWaitingList * this.itemsPerPage < this.filteredProposals.length) {
+    if (this.pageWaitingList * this.itemsPerPage < this.waitingList.length) {
       this.pageWaitingList++;
     }
   }
@@ -140,7 +89,7 @@ export class StatisticsComponent implements OnInit{
     }
   }
   getTotalPagesWaitingList(): number {
-    return Math.ceil(this.filteredProposals.length / this.itemsPerPage);
+    return Math.ceil(this.waitingList.length / this.itemsPerPage);
   }
 
   // Method to calculate total pages for applied jobs

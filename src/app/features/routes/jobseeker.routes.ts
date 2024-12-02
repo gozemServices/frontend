@@ -35,5 +35,9 @@ export const jobSeekerRoutes: Routes = [
     {
         path: 'paying-tools',
         loadComponent: () => import('../user-space/paying-tools/paying-tools.component').then(c => c.PayingToolsComponent)
+    },
+    {
+        path: 'proposals',
+        loadComponent: () => import('../user-space/job-proposals/job-proposals.component').then(c => c.JobProposalsComponent)
     }
 ]

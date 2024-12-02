@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { JobProposalService } from '../../services/job-proposal.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalService } from '../../../shared/components/modal/modal.service';
 import { AskDeleteConfirmationComponent } from '../../../shared/components/toasts/ask-delete-confirmation/ask-delete-confirmation.component';
@@ -17,7 +17,7 @@ import { ProposalStatus } from '../../../core/models/jobs.models';
 })
 export class CandidatesComponent {
   faDelete = faDeleteLeft;
-
+  faArrowUp = faArrowUp;
   jobProposals: any;
   filteredProposals: any;
   searchQuery: string = '';
@@ -88,6 +88,10 @@ export class CandidatesComponent {
       
     });
 
+  }
+
+  moveToInterview(proposal: any) {
+    this.removeProposal(proposal);
   }
 
 }

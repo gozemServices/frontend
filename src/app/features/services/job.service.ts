@@ -15,7 +15,12 @@ export class JobService {
   // }
   getAllJobs(): Observable<any> {
     const headers  = new HttpHeaders({'Content-Type' : 'application/json'})
-    return this.http.get(this.baseUrl,{headers, withCredentials: true});
+    return this.http.get(`${this.baseUrl}/emplo`,{headers, withCredentials: true});
+  }
+
+  getAllRecruiterOffers(): Observable<any> {
+    const headers  = new HttpHeaders({'Content-Type' : 'application/json'})
+    return this.http.get(`${this.baseUrl}/employer`,{headers, withCredentials: true});
   }
   deleteJobOffer(jobId: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${jobId}`).pipe(

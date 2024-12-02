@@ -44,7 +44,7 @@ export class AddOfferComponent implements OnInit{
     this.offerForm = this.fb.group({
       title: [data?.title || '', [Validators.required]],
       description: [data?.description || '', [Validators.required, Validators.minLength(25)]],
-      salary: [data?.salary || '', [Validators.required, Validators.pattern(/^\d+$/)]],
+      salary: [data?.salary || '', [Validators.required]],
       location: [data?.location || '', [Validators.required]],
       status: [data?.status || JobOfferStatus.ACTIVE, Validators.required],
       workLocation: [data?.workLocation || WorkLocation.REMOTE, Validators.required],
@@ -97,8 +97,8 @@ export class AddOfferComponent implements OnInit{
 
   onSubmit() {
     if (this.offerForm.invalid) {
-      const errors = this.genericsSerice.getFormValidationErrors(this.offerForm);
-      console.log("Form Submission Failed. Validation Issues:", errors);
+      // const errors = this.genericsSerice.getFormValidationErrors(this.offerForm);
+      // console.log("Form Submission Failed. Validation Issues:", errors);
       return;
     }
     if (this.offerForm.valid) {

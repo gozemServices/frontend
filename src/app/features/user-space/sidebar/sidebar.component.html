@@ -25,7 +25,7 @@
             *ngFor="let tab of menuItems"
             [routerLink]="tab.link"
             class="bg-none text-[#757575] rounded-lg border-none w-full py-2 px-4 cursor-pointer flex justify-start items-center space-x-2 transition hover:text-white hover:bg-[#95223C]" 
-            [title]="tab.title"
+            [title]="tab.title | translate"
             routerLinkActive="bg-[#95223C] font-bold text-white"
             >
             <fa-icon [icon]="tab.icon" class="h-8 w-8 items-center flex justify-center bg-white shadow-custom shadow-gray-500 text-primary rounded-xl"></fa-icon>

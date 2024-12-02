@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { interval, Subscription } from 'rxjs';
+import { CvthequeService } from '../../../services/cv/cvtheque.service';
 
 @Component({
   selector: 'app-latest-cv',
@@ -12,9 +13,13 @@ import { interval, Subscription } from 'rxjs';
 })
 export class LatestCvComponent{ 
 
-  cvs: any[] = [];  
-  private scrollSubscription!: Subscription;
 
+  cvs: any[] = [];  
+  isLoading = false;
+  cvList: any[] = [];
+  errorMessage: string | null = null;
+  private scrollSubscription!: Subscription;
+  private cvthequeService = inject(CvthequeService);
   constructor() {
     // Populate your CVs with random colors
     const baseCvs = Array(20).fill(0).map((_, index) => ({
@@ -23,6 +28,7 @@ export class LatestCvComponent{
       color: this.getRandomColor() // Assign random color
     }));
     this.cvs = [...baseCvs, ...baseCvs]; // Duplicate the array
+    this.fetchCvs();
   }
 
   
@@ -36,4 +42,23 @@ export class LatestCvComponent{
     }
     return color;
   }
+
+
+  fetchCvs() {
+    this.isLoading = true;
+    this.cvthequeService.getAllCvs().subscribe({
+      next: (data) => {
+        this.cvList = data;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching data:', err);
+        this.isLoading = false;
+        // Optionally add a user-friendly error message
+        this.errorMessage = 'Failed to load CVs. Please try again later.';
+      }
+    }
+    );
+  }
+  
 }

@@ -105,8 +105,8 @@ export class CvBuilderComponent implements OnInit {
   }
 
   downloadCv() {
-    this.cvThequeServices.printCv(this.cvId).subscribe(
-      (response: ArrayBuffer) => {
+    this.cvThequeServices.printCv(this.cvId).subscribe({
+      next: (response: ArrayBuffer) => {
         // Convert ArrayBuffer to Blob
         const blob = new Blob([response], { type: 'application/pdf' });
           // Create a URL for the Blob
@@ -120,12 +120,13 @@ export class CvBuilderComponent implements OnInit {
         // Clean up the URL object
         URL.revokeObjectURL(blobUrl);
       },
-      (error) => {
+      error: (error) => {
         console.error('Error downloading CV', error);
       }
-    );
+    });
   }
   openCvTemplate() {
+    this.getCvInfos();
     // alert("opened");
     this.modalService.open(CvTemplateComponent, {
       size: {

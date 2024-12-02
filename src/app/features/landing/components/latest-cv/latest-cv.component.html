@@ -20,6 +20,10 @@
           <img src="{{ cv.image }}" alt="" class="w-[45px] h-[45px] rounded-full">
           <p>{{ cv.title }}</p>
         </div>
+        @for(cv of cvList; track cv.id) {
+          <img src="logos/gozen-services.jpg" alt="" class="w-[45px] h-[45px] rounded-full">
+          <p>{{ cv.title }}</p>
+        }
       </div>
     </div>
     <button class="px-6 py-2 bg-[#AF4E64] mt-4 text-white transition duration-800 hover:bg-[#701C2F]">{{ "SEE_MORE" | translate }}</button>
