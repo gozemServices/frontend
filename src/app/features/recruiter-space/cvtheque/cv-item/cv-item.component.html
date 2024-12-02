@@ -1,4 +1,4 @@
-<div>
+<div class="flex flex-col items-center">
     <img
     [src]="cvInfos.profilePic"
     alt="Candidate"
@@ -19,4 +19,8 @@
       propose
     </button>
   </div>
+  <button (click)="downloadCv()" class="mt-2 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded transition duration-200">
+    <fa-icon [icon]="faDownload" class="mr-2"></fa-icon>
+    Download
+  </button>
 </div>

@@ -52,23 +52,23 @@
       <h2 class="text-2xl font-semibold text-gray-700">Jobs Pending Invitations</h2>
       <p class="text-lg text-gray-400">jobs waiting for you to join de pending list</p>
       <div class="overflow-x-auto mt-4">
-        <table class="min-w-full border-collapse">
-          <thead class="bg-primary">
+        <table class="min-w-full  bg-white shadow-md rounded-lg">
+          <thead class="bg-primary text-left text-gray-700" >
             <tr class="border-b">
-              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Job Title</th>
-              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Company</th>
-              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Date Invited</th>
-              <th class="py-3 px-6 text-left text-sm font-semibold text-white">Action</th>
+              <th class="p-4 border-b text-left text-sm font-semibold text-white">Job Title</th>
+              <th class="p-4 border-b text-left text-sm font-semibold text-white">Company</th>
+              <th class="p-4 border-b text-left text-sm font-semibold text-white">Date Invited</th>
+              <th class="p-4 border-b text-left text-sm font-semibold text-white">Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let job of displayedWaitingListJobs" class="border-b">
-              <td class="py-3 px-6 text-sm text-gray-700">{{ job.jobTitle }}</td>
-              <td class="py-3 px-6 text-sm text-gray-500">{{ job.company }}</td>
-              <td class="py-3 px-6 text-sm text-gray-500">{{ job.dateInvited | date }}</td>
+            <tr *ngFor="let proposal of filteredProposals" class="border-b">
+              <td class="py-3 px-6 text-sm text-gray-700">{{ proposal.jobOffer.title }}</td>
+              <td class="py-3 px-6 text-sm text-gray-500">{{ proposal.jobOffer.company }}</td>
+              <td class="py-3 px-6 text-sm text-gray-500">{{ proposal.createdAt | date }}</td>
               <td class="py-3 px-6 text-sm space-x-2">
-                <button (click)="acceptWaitingList(job.jobTitle)" class="bg-green-500 text-white px-4 py-2 mx-1 rounded-md">Accept</button>
-                <button (click)="refuseWaitingList(job.jobTitle)" class="bg-red-500 text-white px-4 py-2 mx-1 rounded-md">Refuse</button>
+                <button (click)="acceptOrRejectProposal(true,proposal)" class="bg-green-500 text-white px-4 py-2 mx-1 rounded-md">Accept</button>
+                <button (click)="acceptOrRejectProposal(false,proposal)" class="bg-red-500 text-white px-4 py-2 mx-1 rounded-md">Refuse</button>
               </td>
             </tr>
           </tbody>
@@ -83,7 +83,7 @@
         </button>
         <div class="flex items-center">
             <span class="text-gray-600">Page {{ pageWaitingList }} of {{ getTotalPagesWaitingList() }}</span>        </div>
-        <button (click)="nextPageWaitingList()" [disabled]="pageWaitingList * itemsPerPage >= waitingListInvitations.length" class="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50">
+        <button (click)="nextPageWaitingList()" [disabled]="pageWaitingList * itemsPerPage >= filteredProposals.length" class="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50">
           Next
         </button>
       </div>

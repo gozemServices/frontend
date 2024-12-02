@@ -64,7 +64,9 @@ export class SidebarComponent {
   }
 
   toggleSidebar() {
+    // alert('yo')
     this.isSidebarOpened = !this.isSidebarOpened;
+    // alert(this.isSidebarOpened);
   }
 
   ngOnInit(){
@@ -78,7 +80,7 @@ export class SidebarComponent {
     }else{
       this.menuItems = this.userTabs;
     }
-    console.log(this.userInfos);
+    // console.log(this.userInfos);
   }
   constructor(private authService: AuthService) {
     

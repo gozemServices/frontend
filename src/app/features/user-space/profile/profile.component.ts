@@ -74,6 +74,8 @@ export class ProfileComponent implements OnInit {
     this.loadProfileImage(this.user?.profilePhotoUrl ?? '');
   }
 
+
+
   loadProfileImage(fileName: string) {
     this.genericService.getImageRessource(fileName).subscribe(
       (data) => {

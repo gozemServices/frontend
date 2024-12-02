@@ -1,4 +1,4 @@
-<div class="fixed right-10 top-10 sm:top-8 md:top-4 z-50 md:hidden ">
+<div class="fixed right-10 top-10 sm:top-8 md:top-4 z-50 lg:hidden ">
     <button 
         (click)="toggleSidebar()"
         class="hamburger menu-btn-side" 
@@ -10,10 +10,10 @@
     </button>
 </div>
 
-<div class="bg-black md:hidden fixed z-50 left-0 top-0 w-full" [ngClass]="{'block': isSidebarOpened, 'hidden': !isSidebarOpened} "></div>
+<!-- <div class="bg-black md:hidden fixed z-50 left-0 top-0 w-full" [ngClass]="{'block': isSidebarOpened, 'hidden': !isSidebarOpened} "></div> -->
 <aside 
     [ngClass]="{'translate-x-0 w-70': isSidebarOpened, 'translate-x-full': !isSidebarOpened}"
-    class="rounded-2xl sidebar1 overflow-auto fixed bg-gray-100 shadow-lg shadow-gray-500 top-0 right-0 z-40 w-64 h-screen transition-transform duration-700 translate-x-full md:translate-x-0 border-slate-900">
+    class="rounded-2xl sidebar1 overflow-auto fixed bg-gray-100 shadow-lg shadow-gray-500 top-0 right-0 z-40 w-64 h-screen transition-transform duration-700 translate-x-full lg:translate-x-0 border-slate-900">
     <section class="user-infos flex justify-center items-center flex-col">
         <img [src]="userInfos.profilePic" [alt]="userInfos.name" class="w-[50px] object-cover h-[50px] rounded-full my-2">
         <h4 class="username capitalize">{{userInfos.name}} {{userInfos.surname}} </h4>

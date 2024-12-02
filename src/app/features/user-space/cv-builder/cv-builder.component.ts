@@ -109,10 +109,8 @@ export class CvBuilderComponent implements OnInit {
       (response: ArrayBuffer) => {
         // Convert ArrayBuffer to Blob
         const blob = new Blob([response], { type: 'application/pdf' });
-  
-        // Create a URL for the Blob
+          // Create a URL for the Blob
         const blobUrl = URL.createObjectURL(blob);
-  
         // Create a link element to trigger the file download
         const a = document.createElement('a');
         a.href = blobUrl;
@@ -121,8 +119,6 @@ export class CvBuilderComponent implements OnInit {
   
         // Clean up the URL object
         URL.revokeObjectURL(blobUrl);
-  
-        alert('CV is being downloaded!');
       },
       (error) => {
         console.error('Error downloading CV', error);

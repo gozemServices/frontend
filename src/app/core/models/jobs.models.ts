@@ -77,3 +77,10 @@
     active: boolean
   }
   
+
+  export enum ProposalStatus {
+    'PENDING', 
+    'ACCEPTED',
+    'REJECTED', 
+    'ABORTED'
+}

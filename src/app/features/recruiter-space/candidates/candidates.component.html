@@ -1,1 +1,75 @@
-<p>candidates works!</p>
+<div class="p-5">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Shortlisted Candidates</h2>
+  
+    <!-- Filters -->
+    <div class="flex flex-wrap gap-4 mb-6">
+      <!-- Search -->
+      <input
+        type="text"
+        class="w-full md:w-1/2 border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200"
+        placeholder="Search by job title..."
+        [(ngModel)]="searchQuery"
+        (input)="filterProposals()"
+      />
+  
+      <!-- Status Filter -->
+      <select
+        class="w-full md:w-1/4 border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200"
+        [(ngModel)]="selectedStatus"
+        (change)="filterProposals()"
+      >
+        <option value="">All Statuses</option>
+        <option value="pending">Pending</option>
+        <option value="accepted">Accepted</option>
+        <option value="refused">Refused</option>
+      </select>
+    </div>
+  
+    <!-- Job Proposals Table -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white shadow-md rounded-lg">
+        <thead>
+          <tr class="bg-gray-100 text-left text-gray-700">
+            <th class="p-4 border-b font-medium">Job Title</th>
+            <th class="p-4 border-b font-medium">Candidate</th>
+            <th class="p-4 border-b font-medium">Status</th>
+            <th class="p-4 border-b font-medium">Date Sent</th>
+            <th class="p-4 border-b font-medium">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Job Proposal Rows -->
+          <tr *ngFor="let proposal of filteredProposals" class="border-b hover:bg-gray-50">
+            <td class="p-4">{{ proposal.jobOffer.title }}</td>
+            <td class="p-4">{{ proposal.jobSeeker.email }}</td>
+            <td class="p-4 capitalize">
+              <span
+                [ngClass]="{
+                  'text-yellow-500': proposal.status === 'pending',
+                  'text-green-500': proposal.status === 'accepted',
+                  'text-red-500': proposal.status === 'refused'
+                }"
+              >
+                {{ proposal.status }}
+              </span>
+            </td>
+            <td class="p-4">{{ proposal.createdAt | date: 'mediumDate' }}</td>
+            <td class="p-4 cursor-pointer text-red-800" (click)="removeProposal(proposal)">
+              <fa-icon [icon]="faDelete"></fa-icon>
+              <span>Remove</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- No Results -->
+     @if(filteredProposals && filteredProposals.length === 0) {
+        <div class="mt-6 text-center text-gray-500">
+          No proposals found.
+        </div>
+     }
+  
+   
+  </div>
+  
