@@ -34,7 +34,7 @@ export class ProposalModalComponent implements OnInit {
 
   fetchJobOffers() {
     this.isLoading = true; 
-    this.jobService.getAllJobs().subscribe({
+    this.jobService.getAllRecruiterOffers().subscribe({
       next: (offers: JobOffer[]) => {
         this.jobOffers = offers;
         this.isLoading = false; 

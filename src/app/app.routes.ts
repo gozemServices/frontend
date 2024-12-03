@@ -8,6 +8,7 @@ import { UserSpaceComponent } from './features/user-space/user-space.component';
 import { recruiterRoutes } from './features/routes/recruiter.routes';
 import { authGuard } from './features/auth/guards';
 import { JobDetailsComponent } from './shared/components/job-details/job-details.component';
+import { roleGuard } from './shared/guards/role.guard';
 
 export const routes: Routes = [
     { path: '',  redirectTo: 'home', pathMatch: 'full'},
@@ -22,13 +23,15 @@ export const routes: Routes = [
     },
     {
         path: 'user/jobseeker',
-        canActivate: [authGuard],
+        canActivate: [authGuard,roleGuard],
+        data: {roles: 'APPLICANT'},
         loadChildren: () => import('./features/routes/jobseeker.routes').then(c => c.jobSeekerRoutes),
         component: UserSpaceComponent,
     },
     {
         path: 'user/recruiter/admin',
-        canActivate: [authGuard],
+        canActivate: [authGuard,roleGuard],
+        data: {roles: 'EMPLOYEER'},
         loadChildren: () => import('./features/routes/recruiter.routes').then(c => c.recruiterRoutes),
         component: RecruiterSpaceComponent
     },
@@ -37,7 +40,10 @@ export const routes: Routes = [
         canActivate: [authGuard],
         loadComponent: () => import('./shared/components/job-details/job-details.component').then(c => c.JobDetailsComponent)
     },
-
+    {
+        path: 'unauthorized',
+        loadComponent: () => import('./shared/components/http-codes/unauthorized/unauthorized.component').then(c => c.UnauthorizedComponent)
+    },
       // Redirect to home if no route found
     { path: '**', redirectTo: 'home' },
 ];

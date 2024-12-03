@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RecruiterService } from '../../../services/recruiter.service';
 import { GenericService } from '../../../../core/services/generic.service';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
+import { Toast } from '../../../../core/models/common.model';
 
 @Component({
   selector: 'app-add-offer',
@@ -31,13 +32,13 @@ export class AddOfferComponent implements OnInit{
 
   private fb = inject(FormBuilder);
   private offersServices = inject(RecruiterService);
-  private genericsSerice = inject(GenericService);
+  private genericsService = inject(GenericService);
   private modalService = inject(ModalService);
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.selectedOffer ?? 'no data addded');
-    this.initForm(this.selectedOffer);
+    // console.log(this.selectedOffer ?? 'no data addded');
+    this.initForm(this.selectedOffer);  
   }
 
   initForm(data: any) {
@@ -102,32 +103,46 @@ export class AddOfferComponent implements OnInit{
       return;
     }
     if (this.offerForm.valid) {
+      const toastInfos : Toast =  {
+        id: 0,
+        message: '',
+        type: 'success',
+        timeout: 2000
+      }
       const offerData = this.offerForm.value;
       const offerId = this.selectedOffer?.id ?? 0;
       this.isLoading = true;
-
+      console.log(offerData);
       if (this.isEditMode) {
-        this.offersServices.updateJob(offerId, offerData).subscribe(
-          () => {
-            console.log('Job offerupdated successfully');
+        this.offersServices.updateJob(offerId, offerData).subscribe({
+          next: () => {
+            this.isLoading = false;
+            toastInfos.message = 'Job proposal updated with success';
+            this.genericsService.openToast(toastInfos);
             this.modalService.close
           },
-          (error) => {
+          error: (error) => {
+            toastInfos.message = 'Error updating that offer! please try again ';
+            toastInfos.type = 'error';
+            this.genericsService.openToast(toastInfos);
             console.error('Error updating Job offer:', error);
           }
-        );
+        });
       } else {
-        console.log('launching')
-        this.offersServices.createJob(offerData).subscribe(
-          (data) => {
-            console.log('offer added successfully');
-            console.log(data)
+        this.offersServices.createJob(offerData).subscribe({
+          next: (data) => {
+            toastInfos.message = 'Job proposal updated with success';
+            this.genericsService.openToast(toastInfos);
+            // console.log(data)
             this.modalService.close();
           },
-          (error) => {
+          error: (error) => {
+            toastInfos.message = 'Error adding a new offer! please try again ';
+            toastInfos.type = 'error';
+            this.genericsService.openToast(toastInfos);
             console.error('Error adding offer:', error);
           }
-        );
+        });
       }
     }
   }

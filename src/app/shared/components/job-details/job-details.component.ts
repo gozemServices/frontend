@@ -9,7 +9,7 @@ import { GenericService } from '../../../core/services/generic.service';
 import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
 import { ModalService } from '../modal/modal.service';
 import { JobApplyComponent } from '../../../features/user-space/jobs/job-apply/job-apply.component';
-import { ShareItemComponent } from "../../component/share-job/share-item.component";
+import { ShareItemComponent } from "../share-job/share-item.component";
 import { environment } from '../../../../environments/environment';
 
 @Component({

@@ -6,19 +6,21 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faClipboardList, faHourglassHalf, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { AskDeleteConfirmationComponent } from '../../../shared/components/toasts/ask-delete-confirmation/ask-delete-confirmation.component';
 import { ProposalStatus } from '../../../core/models/jobs.models';
-
+import { Toast } from '../../../core/models/common.model';
+import { GenericService } from '../../../core/services/generic.service';
+import { faEye, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-job-proposals',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule],
+  imports: [CommonModule,FontAwesomeModule,RouterModule],
   templateUrl: './job-proposals.component.html',
   styleUrl: './job-proposals.component.scss'
 })
 export class JobProposalsComponent {
-  faCheckCircle = faCheckCircle;
-  faTimesCircle = faTimesCircle;
-  faHourglassHalf = faHourglassHalf;
-  faClipboardList = faClipboardList;
+  faEye = faEye;
+  faCheck = faCheck;
+  faTimes = faTimes;
 
   jobProposals: any;
   filteredProposals: any;
@@ -26,17 +28,16 @@ export class JobProposalsComponent {
   selectedStatus: string = '';
   private jobProposalService = inject(JobProposalService);
   private modalService = inject(ModalService);
-
-  stats = {
-    applied: 10,
-    rejected: 3,
-    pending: 5,
-    accepted: 2
-  };
+  private genericsService = inject(GenericService);
+  private router = inject(Router);
   constructor() {}
 
   ngOnInit(): void {
     this.loadJobInvitations();
+  }
+  goToJobDetails(proposal: any) {
+    const jobId = proposal ? proposal?.id : null;
+    this.router.navigate(['/user/job/details/',jobId]);
   }
 
   loadJobInvitations() {
@@ -44,7 +45,6 @@ export class JobProposalsComponent {
       next: (proposals) => {
         this.jobProposals = proposals;
         this.filteredProposals = proposals; 
-        this.stats.pending = this.filterProposals.length;
       },
       error: (error) => {
         console.error('Error fetching job proposals:', error);
@@ -66,8 +66,17 @@ export class JobProposalsComponent {
       }).then((data) => {
         const deletionConfirmed = data;
         if(deletionConfirmed) {
-          this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus[2]).subscribe({
-            next: () => {this.loadJobInvitations()},
+          this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus['REJ']).subscribe({
+            next: () => {
+              const toastInfos : Toast =  {
+                id: 0,
+                message: 'Job proposal rejected with success',
+                type: 'success',
+                timeout: 1500
+              }
+              this.genericsService.openToast(toastInfos);
+              this.loadJobInvitations();
+            },
             error: (err) => console.error('there was and error : ', err),
           })
         }
@@ -75,7 +84,7 @@ export class JobProposalsComponent {
       });
      }else{
       const proposalId = proposal.id;
-      this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus[1]).subscribe({
+      this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus['ACC']).subscribe({
         next: () => {this.loadJobInvitations()},
         error: (err) => console.error('there was and error : ', err),
       })

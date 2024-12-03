@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Job } from '../../../../core/models/jobs.models';
 import { JobService } from '../../../services/job.service';
 import {Router } from '@angular/router';
-import { ShareItemComponent } from "../../../../shared/component/share-job/share-item.component";
+import { ShareItemComponent } from "../../../../shared/components/share-job/share-item.component";
 import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
 import { environment } from '../../../../../environments/environment';
 import { ModalService } from '../../../../shared/components/modal/modal.service';

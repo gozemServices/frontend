@@ -15,7 +15,7 @@ module.exports = {
         '3xl': '1800px', // Your custom size
       },
       animation: {
-        'infinite-scroll': 'infinite-scroll 60s linear infinite',
+        'infinite-scroll': 'infinite-scroll linear infinite',
       },
       keyframes: {
         'infinite-scroll': {

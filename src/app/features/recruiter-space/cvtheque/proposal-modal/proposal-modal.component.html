@@ -41,10 +41,11 @@
               <td class="py-2 px-4 border-b border-gray-50">{{ offer.title }}</td>
               <td class="py-2 px-4 border-b border-gray-50">{{ offer.company }}</td>
               <td class="py-2 px-4 border-b border-gray-50">{{ offer.location }}</td>
-              <td class="py-2 px-4 border-b border-gray-50">{{ offer.salary | currency:'XOF':'symbol':'1.2-2' }}</td>
+              <td class="py-2 px-4 border-b border-gray-50">{{ offer.salary}}</td>
               <td class="py-2 px-4 border-b border-gray-50">
-                <span [ngClass]="offer.active ? 'text-emerald-500' : 'text-red-500'">
-                  {{ offer.active ? 'Active' : 'Inactive' }}
+                <span [ngClass]="offer.status == 'ACTIVE' ? 'text-emerald-500' : offer.status === 'INACTIVE' ? 'text-red-500' : 'text-blue-500'">
+                  <!-- {{ offer.active ? 'Active' : 'Inactive' }} -->
+                    {{offer.status}}
                 </span>
               </td>
             </tr>

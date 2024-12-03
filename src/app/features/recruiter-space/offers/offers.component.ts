@@ -10,6 +10,8 @@ import { AddOfferComponent } from './add-offer/add-offer.component';
 import { ModalService } from '../../../shared/components/modal/modal.service';
 import { AskDeleteConfirmationComponent } from '../../../shared/components/toasts/ask-delete-confirmation/ask-delete-confirmation.component';
 import { Router } from '@angular/router';
+import { Toast } from '../../../core/models/common.model';
+import { GenericService } from '../../../core/services/generic.service';
 
 @Component({
   selector: 'app-offers',
@@ -39,6 +41,7 @@ export class OffersComponent implements OnInit {
   private jobService = inject(JobService);
   private modalService = inject(ModalService);
   private router = inject(Router);
+  private genericsService = inject(GenericService);
   constructor() {}
 
   ngOnInit(): void {this.fetchJobOffers();}
@@ -73,7 +76,16 @@ export class OffersComponent implements OnInit {
         const deletionConfirmed = data;
         if(deletionConfirmed) {
           this.jobService.deleteJobOffer(offerId).subscribe({
-            next: () => {this.fetchJobOffers()},
+            next: () => {
+              this.fetchJobOffers()
+              const toastInfos : Toast =  {
+                id: 0,
+                message: 'job offer deleted with success',
+                type: 'success',
+                timeout: 2000
+              }
+              this.genericsService.openToast(toastInfos);
+            },
             error: (err) => console.error('there was and error : ', err),
           })
         }

@@ -79,8 +79,8 @@
   
 
   export enum ProposalStatus {
-    'PENDING', 
-    'ACCEPTED',
-    'REJECTED', 
-    'ABORTED'
+    'PEND' = 'PENDING', 
+    'ACC' = 'ACCEPTED',
+    'REJ' = 'REJECTED', 
+    'ABO' = 'ABORTED'
 }

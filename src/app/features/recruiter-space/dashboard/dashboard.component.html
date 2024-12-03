@@ -80,7 +80,7 @@
             *ngFor="let applicant of filteredCvList"
             class="bg-white p-4 rounded-md shadow-custom hover:shadow-lg transition"
           >
-          <app-cv-item [cvInfos]="applicant"></app-cv-item>
+            <app-cv-item [cvInfos]="applicant"></app-cv-item>
           </div>
         </ng-container>
         <ng-template #noResults>
