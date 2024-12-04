@@ -21,7 +21,7 @@ export class ToastComponent {
   ngOnInit() {
     setTimeout(() => {
       this.removeToast();
-    },this.toast.timeout ?? 1000);
+    },this.toast.timeout ?? 1700);
   }
   private typeToIconMap: { [key in Toast['type']]: IconDefinition } = {
     success: faCheckCircle,

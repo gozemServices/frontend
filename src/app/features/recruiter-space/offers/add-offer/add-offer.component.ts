@@ -107,7 +107,7 @@ export class AddOfferComponent implements OnInit{
         id: 0,
         message: '',
         type: 'success',
-        timeout: 2000
+        timeout: 1000
       }
       const offerData = this.offerForm.value;
       const offerId = this.selectedOffer?.id ?? 0;
@@ -119,22 +119,26 @@ export class AddOfferComponent implements OnInit{
             this.isLoading = false;
             toastInfos.message = 'Job proposal updated with success';
             this.genericsService.openToast(toastInfos);
-            this.modalService.close
+            setTimeout(() => {
+              this.modalService.close(true);
+            }, 1050);
           },
           error: (error) => {
             toastInfos.message = 'Error updating that offer! please try again ';
             toastInfos.type = 'error';
             this.genericsService.openToast(toastInfos);
-            console.error('Error updating Job offer:', error);
+            // console.error('Error updating Job offer:', error);
           }
         });
       } else {
         this.offersServices.createJob(offerData).subscribe({
           next: (data) => {
-            toastInfos.message = 'Job proposal updated with success';
+            toastInfos.message = 'Job proposal created with success';
             this.genericsService.openToast(toastInfos);
+            setTimeout(() => {
+              this.modalService.close(true);
+            }, 1050);
             // console.log(data)
-            this.modalService.close();
           },
           error: (error) => {
             toastInfos.message = 'Error adding a new offer! please try again ';

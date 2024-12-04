@@ -86,24 +86,28 @@ export class CvBuilderComponent implements OnInit {
   // }
 
 
-  getCvInfos() {
+  getCvInfos(): Promise<void> {
     this.isLoading = true;
-    this.genericsService.fetchCvInfos().subscribe(
-      (data) => {
-        let userData = data;
-        if(userData) {
-          this.cvInfos = userData;
-          this.cvId = userData.cv.id;
-          this.genericsService.saveCvDatas(this.cvInfos);
+    return new Promise((resolve, reject) => {
+      this.genericsService.fetchCvInfos().subscribe({
+        next: (data) => {
+          let userData = data;
+          if (userData) {
+            this.cvInfos = userData;
+            this.cvId = userData.cv.id;
+            this.genericsService.saveCvDatas(this.cvInfos);
+            resolve(); // Resolve the promise when the data is fetched
+          }
+        },
+        error: (error) => {
+          console.error('Error fetching data:', error);
+          this.isLoading = false;
+          reject(error); // Reject the promise in case of an error
         }
-      },
-      (error) => {
-        console.error('Error fetching data:', error);
-        this.isLoading = false;
-      }
-    );
+      });
+    });
   }
-
+  
   downloadCv() {
     this.cvThequeServices.printCv(this.cvId).subscribe({
       next: (response: ArrayBuffer) => {
@@ -125,8 +129,8 @@ export class CvBuilderComponent implements OnInit {
       }
     });
   }
-  openCvTemplate() {
-    this.getCvInfos();
+  async openCvTemplate() {
+    await this.getCvInfos();
     // alert("opened");
     this.modalService.open(CvTemplateComponent, {
       size: {

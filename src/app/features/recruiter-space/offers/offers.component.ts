@@ -35,7 +35,7 @@ export class OffersComponent implements OnInit {
   filteredOffers: JobOffer[] = [];
 
   page: number = 1;
-  itemsPerPage: number = 3;
+  itemsPerPage: number = 8;
   searchQuery: string = '';
   sortField: keyof JobOffer = 'title';
   sortOrder: string = 'asc';
@@ -155,10 +155,9 @@ export class OffersComponent implements OnInit {
         selectedOffer: offer,
         isEditMode: offer ? true : false,
       }
-    }).then((data) => {
-      this.iseverythingclose = data;
-      alert(this.iseverythingclose);
-      });
+    }).then((isDone) => {
+        this.fetchJobOffers();       
+    });
   }
 
 
