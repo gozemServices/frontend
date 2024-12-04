@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import { version } from '../../package.json';
-const BACKEND_URL = '31.207.39.231:9000';
+const BACKEND_URL = 'http://31.207.39.231:9000';
 export const environment = {
   production: true,
   appVersion: 1.0,
-  appURL: 'https://gozemfront.netlify.app',
+  appURL: 'localhost:4200',
   apiUrl: `${BACKEND_URL}/api`,
   apiAuthUrl: `${BACKEND_URL}/api/public/auth`,
   allApiUrl: `${BACKEND_URL}/api/all/user`,
