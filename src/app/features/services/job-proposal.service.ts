@@ -61,7 +61,4 @@ export class JobProposalService {
   removeProposal(proposalId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${proposalId}`);
   }
-
-
-
 }

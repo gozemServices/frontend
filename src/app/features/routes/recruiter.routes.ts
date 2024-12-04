@@ -16,7 +16,7 @@ export const recruiterRoutes: Routes = [
         loadComponent: () => import('../recruiter-space/offers/offers.component').then(c => c.OffersComponent)
     },
      {
-        path: 'candidatures',
+        path: 'candidatures/:id',
         loadComponent: () => import('../recruiter-space/candidatures/candidatures.component').then(c => c.CandidaturesComponent)
     },
     {

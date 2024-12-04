@@ -54,6 +54,9 @@
             <button (click)="deleteOffer(offer)" class="inline-block h-12 w-12 rounded bg-red-500/10 text-red-500 font-medium text-[14px] hover:bg-red-800 leading-none transition duration-700">
               <fa-icon [icon]="faDelete"></fa-icon>
             </button>
+            <a title=candidates [routerLink]="['../candidatures/',offer.id]" class="flex items-center justify-center h-12 w-12 rounded bg-blue-500/10 text-blue-500 font-medium text-[15px] hover:bg-blue-800 leading-none transition duration-700">
+              <fa-icon [icon]="faClipboardList"></fa-icon>
+            </a>
           </td>
         </tr>
       </tbody>

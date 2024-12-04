@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { JobApplyComponent } from '../job-apply/job-apply.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { faLocationPin, faDollarSign, faBookmark, faShareSquare } from '@fortawesome/free-solid-svg-icons'; // Import the icons
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Job } from '../../../../core/models/jobs.models';

@@ -18,6 +18,9 @@ export class CvthequeService {
     getAllCvs(): Observable<any> {
       return this.http.get<any>(`${this.baseUrl}`);
     }
+    getAllPublicCvs(): Observable<any> {
+      return this.http.get<any>(`${environment.apiUrl}/public/cv`);
+    }
 
     /**
      * 

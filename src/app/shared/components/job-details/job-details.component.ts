@@ -47,7 +47,7 @@ export class JobDetailsComponent implements OnInit{
         next: (offer: JobOffer) => {
           this.offer = offer;
           this.loading = false;
-          console.log(this.offer);
+          // console.log(this.offer);
         },
         error: (err: any) => {
           console.error('Failed to fetch job details: ', err);
@@ -78,6 +78,6 @@ export class JobDetailsComponent implements OnInit{
     const regex = new RegExp(`\\${charToRemove}`, 'g');
     return input.replace(regex, charToReplaceWith || '');
   }
-  
+
 
 }

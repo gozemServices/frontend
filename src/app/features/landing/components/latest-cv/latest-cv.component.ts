@@ -36,11 +36,11 @@ export class LatestCvComponent{
 
   fetchCvs() {
     this.isLoading = true;
-    this.cvthequeService.getAllCvs().subscribe({
+    this.cvthequeService.getAllPublicCvs().subscribe({
       next: (data) => {
         this.cvList = data;
         this.cvList = [...this.cvList, ...this.cvList];
-        // console.log(this.cvList);
+        console.log(this.cvList);
         this.isLoading = false;
       },
       error: (err) => {

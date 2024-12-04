@@ -4,19 +4,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JobService } from '../../services/job.service';
-import {faDeleteLeft,faEdit,faEye,faToggleOff,faToggleOn,} 
+import {faClipboardList, faDeleteLeft,faEdit,faEye,faToggleOff,faToggleOn,} 
 from '@fortawesome/free-solid-svg-icons';
 import { AddOfferComponent } from './add-offer/add-offer.component';
 import { ModalService } from '../../../shared/components/modal/modal.service';
 import { AskDeleteConfirmationComponent } from '../../../shared/components/toasts/ask-delete-confirmation/ask-delete-confirmation.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Toast } from '../../../core/models/common.model';
 import { GenericService } from '../../../core/services/generic.service';
 
 @Component({
   selector: 'app-offers',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule,RouterModule],
   templateUrl: './offers.component.html',
   styleUrls: ['./offers.component.scss'],
 })
@@ -26,7 +26,9 @@ export class OffersComponent implements OnInit {
   faViewCandidates = faEye;
   fatoggleOn = faToggleOn;
   fatoggleOf = faToggleOff;
+  faClipboardList = faClipboardList;
 
+  
   isModalVisible = false;
   isLoading = true;
   jobOffers: JobOffer[] = [];
@@ -60,6 +62,8 @@ export class OffersComponent implements OnInit {
       },
     });
   }
+
+  
 
   deleteOffer(offer: JobOffer) {
     const offerId = offer.id;

@@ -9,6 +9,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class JobService {
   private http = inject(HttpClient);
   private baseUrl = `${environment.apiUrl}/all/job`;
+  private applicantApi = `${environment.apiUrl}/`
 
   // getAllJobs(filters: any): Observable<any> {
   //   return this.http.get(this.baseUrl, { params: filters });
@@ -43,5 +44,45 @@ export class JobService {
 
   applyToJob(jobId: string, applicationData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/${jobId}/apply`, applicationData);
+  }
+
+  /**
+   * Fetches all applications for the authenticated user.
+   */
+  getAllApplications(): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get(`${this.baseUrl}/applications/all`, { headers, withCredentials: true }).pipe(
+      catchError((error) => {
+        console.error('Error fetching all applications:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  /**
+   * Fetches all applications for a specific job offer by its ID.
+   * @param jobOfferId - The ID of the job offer.
+   */
+  getAllApplicationsByOffer(jobOfferId: number): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get(`${this.baseUrl}/applications/employer/${jobOfferId}`, { headers, withCredentials: true }).pipe(
+      catchError((error) => {
+        console.error(`Error fetching applications for job offer ID ${jobOfferId}:`, error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  /**
+   * Fetches all applications submitted by the authenticated job seeker.
+   */
+  getAllApplicationsByJobSeeker(): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get(`${this.baseUrl}/applications`, { headers, withCredentials: true }).pipe(
+      catchError((error) => {
+        console.error('Error fetching applications by job seeker:', error);
+        return throwError(() => error);
+      })
+    );
   }
 }

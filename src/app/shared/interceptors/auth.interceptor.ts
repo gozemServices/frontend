@@ -5,7 +5,7 @@ import { AuthService } from '../../features/auth/auth.service';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const authToken = authService.getToken();
-  if (req.url.includes('/api/public/auth/login') || req.url.includes('/api/public/auth/register') || req.url.includes('/api/public/auth/register-employeer')) {
+  if (req.url.includes('/api/public/auth/login') || req.url.includes('/api/public/cv')  || req.url.includes('/api/public/auth/register') || req.url.includes('/api/public/auth/register-employeer')) {
     return next(req);
   }
   if(authToken) {

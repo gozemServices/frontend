@@ -14,27 +14,33 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let proposal  of filteredProposals" class="border-b">
-            <td class="py-3 px-6 text-sm text-gray-700">{{ proposal.jobOffer.title }}</td>
-            <td class="py-3 px-6 text-sm text-gray-500">{{ proposal.jobOffer.company }}</td>
-            <td class="py-3 px-6 text-sm text-gray-500">{{ proposal.status }}</td>
-            <td class="py-3 px-6 text-sm text-gray-500">{{ proposal.createdAt | date }}</td>
-            <td class="py-3 px-6 text-sm space-x-2">
-              <button (click)="acceptProposal(true,proposal)" class="bg-green-500 text-white px-4 py-2 mx-1 rounded-md">
-                <fa-icon class="font-bold" [icon]="faCheck"></fa-icon>
-                Accept
-              </button>
-              <!-- (click)="goToJobDetails(proposal)"  -->
-              <a [routerLink]="'/user/job/details/'+proposal.id" class="bg-blue-500 text-white px-4 py-2 mx-1 rounded-md">
-                  <fa-icon class="font-bold" [icon]="faEye"></fa-icon>
-                  View
-              </a>
-              <button (click)="acceptProposal(false,proposal)" class="bg-red-500 text-white px-4 py-2 mx-1 rounded-md">
-                <fa-icon class="font-bold" [icon]="faTimes"></fa-icon>
-                Refuse
-              </button>
-            </td>
-          </tr>
+          @for(proposal  of filteredProposals; track proposal.id){
+            <tr class="border-b">
+              <td class="py-3 px-6 text-sm text-gray-700">{{ proposal.jobOffer.title }}</td>
+              <td class="py-3 px-6 text-sm text-gray-500">{{ proposal.jobOffer.company }}</td>
+              <td class="py-3 px-6 text-sm text-gray-500">{{ proposal.status }}</td>
+              <td class="py-3 px-6 text-sm text-gray-500">{{ proposal.createdAt | date }}</td>
+                  <td class="py-3 px-6 text-sm space-x-2">
+                    @if(proposal.status === 'PENDING') {
+                
+                    <button (click)="acceptProposal(true,proposal)" class="bg-green-500 text-white px-4 py-2 mx-1 rounded-md">
+                      <fa-icon class="font-bold" [icon]="faCheck"></fa-icon>
+                      Accept
+                    </button>
+                    <button (click)="acceptProposal(false,proposal)" class="bg-red-500 text-white px-4 py-2 mx-1 rounded-md">
+                      <fa-icon class="font-bold" [icon]="faTimes"></fa-icon>
+                      Refuse
+                    </button>
+                  }
+                    <a [routerLink]="'/user/job/details/'+proposal.id" class="bg-blue-500 text-white px-4 py-2 mx-1 rounded-md">
+                      <fa-icon class="font-bold" [icon]="faEye"></fa-icon>
+                      View
+                  </a>
+                </td>
+                
+            </tr>
+          }
+        
         </tbody>
       </table>
     </div>

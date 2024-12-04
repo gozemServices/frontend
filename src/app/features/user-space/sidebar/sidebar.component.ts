@@ -50,7 +50,7 @@ export class SidebarComponent {
     { id: 'cvtheque', link: 'dashboard', label: 'CVTHEQUE_LABEL', icon: this.faCvtheque, title: 'CVTHEQUE_TITLE' },
     { id: 'profile', link: 'profile', label: 'PROFILE_LABEL', icon: faUser, title: 'PROFILE_TITLE' },
     { id: 'offers', link: 'offers', label: 'OFFERS_LABEL', icon: faBriefcase, title: 'OFFERS_TITLE' },
-    { id: 'candidatures', link: 'candidatures', label: 'CANDIDATURES_LABEL', icon: faClipboardList, title: 'CANDIDATURES_TITLE' },
+    // { id: 'candidatures', link: 'candidatures', label: 'CANDIDATURES_LABEL', icon: faClipboardList, title: 'CANDIDATURES_TITLE' },
     { id: 'paying_tools', link: 'paying-tools', label: 'PAYING_TOOLS_LABEL', icon: faDollarSign, title: 'PAYING_TOOLS_TITLE' },
     { id: 'events', link: 'events', label: 'EVENT_LABEL', icon: faCalendarAlt, title: 'EVENTS_TITLE' },
     { id: 'candidates', link: 'candidates', label: 'CANDIDATES_LABEL', icon: faUsers, title: 'CANDIDATES_TITLE' }
