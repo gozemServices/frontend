@@ -15,12 +15,15 @@
       {{ "CHECK_LATEST_CV_DESC" | translate }}
     </p>
     <div class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-      <div class="latest-cv flex items-center justify-center gap-10 md:justify-start [&_img]:max-w-none animate-infinite-scroll" [style.animation-duration]="cvList.length * 100+'s'">
-        @for(cv of cvList; track cv.id) {
-          <div *ngFor="let number of [].constructor(26); let i = index" class="jobseeker-card flex-col items-center justify-center min-w-[340px] min-h-[329px] bg-white p-4 rounded-md shadow-custom hover:shadow-lg transition">
-            <img src="{{ cv?.image ?? 'logos/gozen-services.jpg'}}" alt="" class="w-[60px] h-[60px] rounded-full">
-            <p>{{ cv?.name }} {{cv?.surname}}</p>
-            <p>{{cv?.cv?.jobTitle}}</p>
+      <div class="latest-cv flex items-center justify-center gap-10 md:justify-start [&_img]:max-w-none animate-infinite-scroll" [style.animation-duration]="cvList.length * 5 +'s'">
+        @for(cv of cvList; track $index) {
+          <div class="jobseeker-card flex-col items-center justify-center min-w-[340px] min-h-[329px] bg-white p-4 rounded-md shadow-custom hover:shadow-lg transition">
+            <img [src]="'data:image/jpeg;base64,' + cv?.profilePicture" alt="" class="w-[200px] h-[200px] rounded-full">
+            <p class="font-semibold ">
+              <strong class="text-lg text-gray-800 capitalize font-bold block">{{ cv?.name }} {{cv?.surname}}</strong>
+              <strong class="block text-gray-600 " >{{cv?.jobTitle}}</strong>
+            </p>
+            <!-- <p>{{cv?.cv?.jobTitle}}</p> -->
             <a
               routerLink="/auth/login"
               class="px-4 py-1 text-sm bg-primary text-white rounded"
@@ -31,6 +34,6 @@
         }
       </div>
     </div>
-    <button class="px-6 py-2 bg-[#AF4E64] mt-4 text-white transition duration-800 hover:bg-[#701C2F]">{{ "SEE_MORE" | translate }}</button>
+    <a routerLink="/auth/login" class="px-6 py-2 cursor-pointer bg-[#AF4E64] mt-4 text-white transition duration-800 hover:bg-[#701C2F]">{{ "SEE_MORE" | translate }}</a>
   </div>
 </div>

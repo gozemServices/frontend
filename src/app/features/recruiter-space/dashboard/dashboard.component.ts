@@ -9,22 +9,28 @@ import { catchError, filter, map } from 'rxjs/operators';
 import { GenericService } from '../../../core/services/generic.service';
 import { ModalService } from '../../../shared/components/modal/modal.service';
 import { CvItemComponent } from "../cvtheque/cv-item/cv-item.component";
+import { faBars, faTh } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [TranslateModule, FormsModule, CommonModule, CvItemComponent],
+  imports: [TranslateModule,FontAwesomeModule, FormsModule, CommonModule, CvItemComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   
+  faTh = faTh; 
+  faBars = faBars;
+
   isLoading = false;
   cvList: any[] = [];
   filteredCvList: any[] = [];
   isPrevisualized = false;
   selectedData: any = null;
   errorMessage: string | null = null;
+  layoutStyle: 'inline' | 'grid' = 'inline';
 
   // Updated filter criteria to be arrays
   filterCriteria: any = {
@@ -105,6 +111,10 @@ export class DashboardComponent implements OnInit {
         (event.target as HTMLInputElement).value = ''; // Clear input after adding
       }
     }
+  }
+
+  toggleLayout(): void {
+    this.layoutStyle = this.layoutStyle === 'grid' ? 'inline' : 'grid';
   }
 
 }

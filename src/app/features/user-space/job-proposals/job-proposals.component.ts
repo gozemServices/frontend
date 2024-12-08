@@ -45,6 +45,7 @@ export class JobProposalsComponent {
       next: (proposals) => {
         this.jobProposals = proposals;
         this.filteredProposals = proposals; 
+        console.log(this.jobProposals);
       },
       error: (error) => {
         console.error('Error fetching job proposals:', error);

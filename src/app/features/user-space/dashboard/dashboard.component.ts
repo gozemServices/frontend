@@ -13,7 +13,6 @@ import { CvthequeService } from '../../services/cv/cvtheque.service';
 export class DashboardComponent {
   isLoading = false;
   constructor(private genericService: GenericService) { }
-
   ngOnInit(): void {
     // this.createJobSearchChart();
     // this.createApplicationsChart();

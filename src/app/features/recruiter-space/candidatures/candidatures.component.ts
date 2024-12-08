@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Candidature } from '../../../core/models/jobs.models';
-import { AddOfferComponent } from '../offers/add-offer/add-offer.component';
-import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { faEllipsisH, faEdit, faComments, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ActivatedRoute } from '@angular/router';
 import { JobService } from '../../services/job.service';
+import { ModalService } from '../../../shared/components/modal/modal.service';
+import { JobInterviewScheduleComponent } from '../interviews/job-interview-schedule/job-interview-schedule.component';
 @Component({
   selector: 'app-candidatures',
   standalone: true,
@@ -24,9 +24,7 @@ export class CandidaturesComponent {
   statusFilter: 'pending' | 'interview' | 'hired' | 'rejected' | 'all' = 'all';  // Filter by status
   page: number = 1;
   itemsPerPage: number = 5;
-
-  // Keep track of the currently active actions menu
-  activeActions: number | null = null;  // ID of the candidature with open actions
+  openActionId: string | null = null; 
 
   // Define the icons as properties
   faEllipsisH = faEllipsisH;
@@ -38,6 +36,7 @@ export class CandidaturesComponent {
 
   private route = inject(ActivatedRoute);
   private jobService = inject(JobService);  
+  private modalService = inject(ModalService);
   constructor() {}
 
   ngOnInit(): void {
@@ -61,17 +60,7 @@ export class CandidaturesComponent {
     })
   }
 
-  // Toggle the actions dropdown visibility for the specific candidature
-  toggleActions(candidatureId: number): void {
-    if (this.activeActions === candidatureId) {
-      this.activeActions = null;  // Close dropdown if it's already open
-    } else {
-      this.activeActions = candidatureId;  // Open dropdown for this candidature
-    }
-  }
-  closeActions() {
-    
-  }
+
   // Filter candidatures by search query and status
   applyFilters() {
     this.filteredCandidatures = this.candidatures
@@ -92,5 +81,33 @@ export class CandidaturesComponent {
   setPage(page: number) {
     this.page = page;
     this.applyFilters();
+  }
+
+
+    toggleActions(id: string) {
+    this.openActionId = this.openActionId === id ? null : id;
+  }
+
+  addNote(candidature: any) {
+    console.log('Add note for:', candidature);
+    alert(`Add note for ${candidature.jobSeekerName}`);
+  }
+
+  planInterview(candidature: any) {
+    this.modalService.open(JobInterviewScheduleComponent, {
+      size: {
+        width: '80%',
+        padding: '1rem'
+      },
+      data: {
+      }
+    }).then((isDone) => {
+        // this.fetchJobOffers();       
+    });
+  }
+
+  rejectCandidate(candidature: any) {
+    console.log('Reject candidate:', candidature);
+    alert(`Reject candidate ${candidature.jobSeekerName}`);
   }
 }

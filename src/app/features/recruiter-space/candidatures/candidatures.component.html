@@ -1,4 +1,4 @@
-<div class="mt-8 px-4">
+<div class="mt-8 px-4 relative">
   <!-- Candidatures Header -->
   <h2 class="text-darkShade text-2xl font-bold mb-4">Shortlisted Candidates</h2>
   <p class="text-mediumGray">Candidates for your job offers</p>
@@ -28,8 +28,8 @@
   </div>
 
   <!-- Candidatures Table -->
-  <div class="overflow-x-auto">
-    <table class="w-full bg-white shadow rounded-lg overflow-hidden">
+  <div class="overflow-x-auto z-10">
+    <table class="min-w-full bg-white shadow-md rounded-lg">
       <thead>
         <tr class="bg-lightGray text-left text-darkShade">
           <th class="p-4 font-medium border-b">Name</th>
@@ -38,7 +38,9 @@
           <th class="p-4 font-medium border-b">Actions</th>
         </tr>
       </thead>
-      <tbody *ngIf="!loading && filteredCandidatures.length > 0; else emptyState">
+      <tbody
+        *ngIf="!loading && filteredCandidatures.length > 0; else emptyState"
+      >
         <tr
           *ngFor="let candidature of filteredCandidatures"
           class="border-b hover:bg-gray-50"
@@ -58,7 +60,7 @@
               {{ candidature.status }}
             </span>
           </td>
-          <td class="p-4 relative">
+          <td class="p-4">
             <!-- Action Dropdown -->
             <button
               (click)="toggleActions(candidature.id)"
@@ -66,39 +68,30 @@
             >
               <fa-icon [icon]="faEllipsisH" class="w-5 h-5"></fa-icon>
             </button>
+
+            <!-- Dropdown Actions -->
             <div
-              *ngIf="activeActions === candidature.id"
-              class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-md z-10"
+              *ngIf="openActionId === candidature.id"
+              class="absolute z-50 bg-white shadow-lg rounded-md mt-2 right-0 w-48"
             >
-              <ul>
-                <li>
-                  <button
-                    (click)="updateStatus(candidature, 'interview')"
-                    class="w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-blue-50"
-                  >
-                    <fa-icon [icon]="faComments" class="mr-2"></fa-icon>
-                    Move to Interview
-                  </button>
-                </li>
-                <li>
-                  <button
-                    (click)="updateStatus(candidature, 'hired')"
-                    class="w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-green-50"
-                  >
-                    <fa-icon [icon]="faCheck" class="mr-2"></fa-icon>
-                    Hire
-                  </button>
-                </li>
-                <li>
-                  <button
-                    (click)="updateStatus(candidature, 'rejected')"
-                    class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-                  >
-                    <fa-icon [icon]="faTimes" class="mr-2"></fa-icon>
-                    Reject
-                  </button>
-                </li>
-              </ul>
+              <button
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                (click)="addNote(candidature)"
+              >
+                Add Note
+              </button>
+              <button
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                (click)="planInterview(candidature)"
+              >
+                Plan Interview
+              </button>
+              <button
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                (click)="rejectCandidate(candidature)"
+              >
+                Reject Candidate
+              </button>
             </div>
           </td>
         </tr>

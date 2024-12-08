@@ -6,7 +6,6 @@ import { ContactUsComponent } from "./components/contact-us/contact-us.component
 import { LatestCvComponent } from "./components/latest-cv/latest-cv.component";
 import { faFacebook, faInstagram, faLinkedin, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { ScrollAnimationDirective } from '../../shared/directives/scroll-animation.directive';
 import { TranslateModule } from '@ngx-translate/core';
 @Component({

@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { JobOffer } from '../../../core/models/jobs.models';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JobService } from '../../services/job.service';
-import {faClipboardList, faDeleteLeft,faEdit,faEye,faToggleOff,faToggleOn,} 
+import {faCalendarAlt, faClipboardList, faClock, faDeleteLeft,faEdit,faEllipsisH,faEye,faToggleOff,faToggleOn,} 
 from '@fortawesome/free-solid-svg-icons';
 import { AddOfferComponent } from './add-offer/add-offer.component';
 import { ModalService } from '../../../shared/components/modal/modal.service';
@@ -27,9 +27,12 @@ export class OffersComponent implements OnInit {
   fatoggleOn = faToggleOn;
   fatoggleOf = faToggleOff;
   faClipboardList = faClipboardList;
+  faCalendarAlt  = faCalendarAlt;
+  faClock = faClock;
+  faEllipsisH = faEllipsisH;
 
   
-  isModalVisible = false;
+  // isModalVisible = false;
   isLoading = true;
   jobOffers: JobOffer[] = [];
   filteredOffers: JobOffer[] = [];
@@ -160,10 +163,29 @@ export class OffersComponent implements OnInit {
     });
   }
 
+  openPlanning() {
+
+  }
+
 
   goToJobDetails(job: any) {
     const jobId = job ? job?.id : null;
     this.router.navigate(['/user/job/details/',jobId]);
   }
 
+  openActionId!: any;
+
+  toggleActions(id: any) {
+    this.openActionId = this.openActionId === id ? null : id;
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeModal(event: MouseEvent): void {
+    const modalElement = document.querySelector('#options-block');  
+    // if(this.openActionId == null && )
+    if (this.openActionId && modalElement && !modalElement.contains(event.target as Node)) {
+      this.openActionId = null;
+      // alert('clicked outside ')
+    }
+  }
 }

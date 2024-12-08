@@ -10,16 +10,26 @@
       <a href="#contact" class="mx-4 px-2 py-2 text-black rounded-2xl hover:text-[#AF4E64] hover:bg-pink-200/60 transition duration-700">{{"CONTACTS_US" | translate}}</a>
     </nav>
     <div class="sign-block flex items-end justify-center">
+    @if(!isAuthenticated) {
       <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active" class="mx-2 py-2 text-white bg-primary px-4 rounded-full hover:text-[#AF4E64] hover:bg-pink-200/80 transition duration-700">{{"LOGIN" | translate}}</a>
       <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-black hover:bg-pink-200/60 rounded-full transition duration-700">{{"REGISTER" | translate}}</a>
-      <a [routerLink]="['/user/jobseeker']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-[#AF4E64] hover:text-[#AF4E64]">{{"TEST" | translate}}</a>
-      <a [routerLink]="['/user/recruiter/admin/dashboard']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-[#AF4E64] hover:text-[#AF4E64]">{{"TEST2" | translate}}</a>
+    }
+     @if(isAuthenticated && userRole === 'APPLICANT') {
+      <a [routerLink]="['/user/jobseeker/dashboard']" routerLinkActive="router-link-active" class="text-lg mx-2 px-2 py-2 text-[#AF4E64] hover:text-[#AF4E64]">
+        <fa-icon [icon]="faUser"></fa-icon>
+        {{"ACCOUNT" | translate}}</a>
+     }
+     @if(isAuthenticated && userRole === 'EMPLOYEER') {
+      <a [routerLink]="['/user/recruiter/admin/dashboard']" routerLinkActive="router-link-active" class="text-lg mx-2 px-2 py-2 text-[#AF4E64] hover:text-[#AF4E64]">
+        <fa-icon [icon]="faUser"></fa-icon>
+        {{"ACCOUNT" | translate}}</a>
+     }
     </div>
   </div>
 
   <div class="fixed left-0 top-4 z-50 md:hidden w-full flex items-center justify-between px-8">
     <div class="w-[70px] h-[70px] rounded-full">
-      <img src="logos/gozen-services.jpg" alt="logo gozen" class="w-full h-full rounded-full object-cover">
+      <img src="logos/gozen-services.jpg" alt="logo gozen" [ngClass]="{'hidden' : isOpen}" class="w-full h-full rounded-full object-cover">
     </div>
     <button 
       (click)="toggleSidebar()"
@@ -41,9 +51,20 @@
     </div>
     <div class="flex flex-col items-end justify-center gap-2 text-xl mt-4">
       <div class="sign-block w-full">
-        <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"SIGNUP" | translate}}</a>
-        <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-white hover:text-[#AF4E64]">{{"LOGIN" | translate}}</a>
-        <a [routerLink]="['/user/admin']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-[#AF4E64] hover:text-[#AF4E64]">{{"TEST" | translate}}</a>
+        @if(!isAuthenticated) {
+          <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active" class="mx-2 py-2 text-white bg-primary px-4 rounded-full hover:text-[#AF4E64] hover:bg-pink-200/80 transition duration-700">{{"LOGIN" | translate}}</a>
+          <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-black hover:bg-pink-200/60 rounded-full transition duration-700">{{"REGISTER" | translate}}</a>
+        }
+         @if(isAuthenticated && userRole === 'APPLICANT') {
+          <a [routerLink]="['/user/jobseeker/dashboard']" routerLinkActive="router-link-active" class="text-lg mx-2 px-2 py-2  text-white md:text-[#AF4E64] hover:text-[#AF4E64]">
+            <fa-icon [icon]="faUser"></fa-icon>
+            {{"ACCOUNT" | translate}}</a>
+         }
+         @if(isAuthenticated && userRole === 'EMPLOYEER') {
+          <a [routerLink]="['/user/recruiter/admin/dashboard']" routerLinkActive="router-link-active" class="text-lg mx-2 px-2 py-2  text-white md:text-[#AF4E64] hover:text-[#AF4E64]">
+            <fa-icon [icon]="faUser"></fa-icon>
+            {{"ACCOUNT" | translate}}</a>
+         }
       </div>
       <nav class="flex flex-col w-full justify-center items-center">
         <a href="#" class="mx-4 px-2 py-2 text-white hover:text-[#AF4E64]">{{"HOME" | translate}}</a>

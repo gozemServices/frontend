@@ -3,12 +3,12 @@ import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@an
 import { TranslateModule } from '@ngx-translate/core';
 import { interval, Subscription } from 'rxjs';
 import { CvthequeService } from '../../../services/cv/cvtheque.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-latest-cv',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, RouterModule],
   templateUrl: './latest-cv.component.html',
   styleUrls: ['./latest-cv.component.scss']
 })

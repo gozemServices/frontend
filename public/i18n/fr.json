@@ -6,5 +6,9 @@
         "FR": "Français",
         "ES": "Espagnol"
     },
-    "WELCOME_IN": "Bienvenue dans la Cvthèque"
+    "WELCOME_IN": "Bienvenue dans la Cvthèque",
+    "FIND": "trouvez",
+    "FIND_TALENTS": "les talents dont vous avez besoin, plus rapidement",
+    "FIND_JOBS": "les entreprises ideales pour les postes de vos rêves",
+    "START_NOW": "commencez dès maintenant"
 }
