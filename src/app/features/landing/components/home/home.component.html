@@ -1,37 +1,39 @@
 <!-- <div class="relative overflow-hidden w-full h-screen pt-10">
-    <div
-      class="absolute inset-0 transition-transform duration-700"
-      [ngStyle]="{'transform': 'translateX(' + currentSlide * -100 + '%)'}"
-    >
-      <ng-container *ngFor="let image of images">
-        <img
-          [src]="image"
-          class="w-full h-full object-cover"
-          alt="Slider Image"
-        />
-      </ng-container>
-    </div>
-    
-    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-black opacity-80"></div>
-    <div class="absolute top-0 left-0 h-full w-full inset-0 flex flex-col items-center justify-center">
-      
-      <h1 class="website_title text-white text-4xl font-bold">CVTHEQUE</h1>
-      <p class="text-white text-2xl text-center ">{{"FIND_TALENTS" | translate }}</p>
-      <p class="text-white text-2xl text-center ">{{"FIND_JOBS" | translate}}</p>
-      <button class="px-6 py-2 bg-[#AF4E64] text-white transition duration-800 hover:bg-[#701C2F]">{{"START_NOW" | translate}}</button>
-    </div>
+<div
+  class="absolute inset-0 transition-transform duration-700"
+  [ngStyle]="{'transform': 'translateX(' + currentSlide * -100 + '%)'}"
+  >
+  <ng-container *ngFor="let image of images">
+    <img
+      [src]="image"
+      class="w-full h-full object-cover"
+      alt="Slider Image"
+      />
+  </ng-container>
+</div>
+
+<div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-black opacity-80"></div>
+<div class="absolute top-0 left-0 h-full w-full inset-0 flex flex-col items-center justify-center">
+
+  <h1 class="website_title text-white text-4xl font-bold">CVTHEQUE</h1>
+  <p class="text-white text-2xl text-center ">{{"FIND_TALENTS" | translate }}</p>
+  <p class="text-white text-2xl text-center ">{{"FIND_JOBS" | translate}}</p>
+  <button class="px-6 py-2 bg-[#AF4E64] text-white transition duration-800 hover:bg-[#701C2F]">{{"START_NOW" | translate}}</button>
+</div>
 </div> -->
 
 <div class="relative overflow-hidden w-full h-screen pt-10 mb-2 sm:rounded-2xl">
   <!-- Flex container holding all the images -->
   <div class="absolute inset-0 flex transition-transform duration-700"
-       [ngStyle]="{'transform': 'translateX(' + currentSlide * -100 + '%)'}">
-    
-    <div *ngFor="let image of images" class="w-full h-full flex-shrink-0">
-      <img [src]="image" class="w-full h-full object-cover" alt="Slider Image" />
-    </div>
+    [ngStyle]="{'transform': 'translateX(' + currentSlide * -100 + '%)'}">
+
+    @for (image of images; track image) {
+      <div class="w-full h-full flex-shrink-0">
+        <img [src]="image" class="w-full h-full object-cover" alt="Slider Image" />
+      </div>
+    }
   </div>
-  
+
   <!-- Gradient Overlay -->
   <div class="absolute inset-0 bg-gradient-to-t from-gray-800 to-black opacity-50"></div>
 
@@ -41,10 +43,10 @@
     <p class="text-white text-3xl text-center">
       {{"FIND" | translate}} {{ displayedText}}<span class="animate-pulse">|</span>
     </p>
-   <div class="flex items-center justify-center gap-2">
-    <a [routerLink]="['/auth/login']" class="capitalize px-6 py-3 rounded-full bg-[#AF4E64] text-white transition duration-800 hover:bg-[#701C2F]">{{"START_NOW" | translate}}</a>
-    <a href="#services" class="capitalize px-6 py-3 rounded-full bg-white text-black transition duration-800 hover:text-white hover:bg-[#701C2F]">{{"SEE_MORE" | translate}}</a>
-   </div>
+    <div class="flex items-center justify-center gap-2">
+      <a [routerLink]="['/auth/login']" class="capitalize px-6 py-3 rounded-full bg-[#AF4E64] text-white transition duration-800 hover:bg-[#701C2F]">{{"START_NOW" | translate}}</a>
+      <a href="#services" class="capitalize px-6 py-3 rounded-full bg-white text-black transition duration-800 hover:text-white hover:bg-[#701C2F]">{{"SEE_MORE" | translate}}</a>
+    </div>
   </div>
 </div>
 

@@ -2,12 +2,13 @@ import { Component, inject } from '@angular/core';
 import { Candidature } from '../../../core/models/jobs.models';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { faEllipsisH, faEdit, faComments, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'; 
+import { faEllipsisH, faEdit, faComments, faCheck, faTimes, faComment } from '@fortawesome/free-solid-svg-icons'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ActivatedRoute } from '@angular/router';
 import { JobService } from '../../services/job.service';
 import { ModalService } from '../../../shared/components/modal/modal.service';
 import { JobInterviewScheduleComponent } from '../interviews/job-interview-schedule/job-interview-schedule.component';
+import { CandidateInterviewFeedbackComponent } from '../interviews/candidate-interview-feedback/candidate-interview-feedback.component';
 @Component({
   selector: 'app-candidatures',
   standalone: true,
@@ -32,6 +33,7 @@ export class CandidaturesComponent {
   faComments = faComments;
   faCheck = faCheck;
   faTimes = faTimes;
+  faComment = faComments;
 
 
   private route = inject(ActivatedRoute);
@@ -88,9 +90,17 @@ export class CandidaturesComponent {
     this.openActionId = this.openActionId === id ? null : id;
   }
 
-  addNote(candidature: any) {
-    console.log('Add note for:', candidature);
-    alert(`Add note for ${candidature.jobSeekerName}`);
+  noteInterview(candidature: any) {
+    this.modalService.open(CandidateInterviewFeedbackComponent, {
+      size: {
+        width: '80%',
+        padding: '1rem'
+      },
+      data: {
+      }
+    }).then((isDone) => {
+      // this.fetchJobOffers();       
+    });
   }
 
   planInterview(candidature: any) {

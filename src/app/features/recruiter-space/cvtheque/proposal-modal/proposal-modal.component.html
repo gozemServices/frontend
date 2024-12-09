@@ -1,21 +1,26 @@
 <div class="flex flex-col bg-white min-h-96 max-h-[95vh] rounded-sm p-4">
-    <div class="title">
-      <h4>Select the job you want to propose</h4>
-    </div>
-    
-    <div class="p-6 mt-4 shadow rounded-lg">
-      <!-- Loading Spinner -->
-      <div *ngIf="isLoading" class="flex justify-center items-center">
+  <div class="title">
+    <h4>Select the job you want to propose</h4>
+  </div>
+
+  <div class="p-6 mt-4 shadow rounded-lg">
+    <!-- Loading Spinner -->
+    @if (isLoading) {
+      <div class="flex justify-center items-center">
         <div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
       </div>
-      
-      <!-- No Job Offers Message -->
-      <div *ngIf="!isLoading && jobOffers.length === 0" class="text-center text-gray-600 py-4">
+    }
+
+    <!-- No Job Offers Message -->
+    @if (!isLoading && jobOffers.length === 0) {
+      <div class="text-center text-gray-600 py-4">
         <p>No job offers available at the moment.</p>
       </div>
-      
-      <!-- Job Offers Table -->
-      <div *ngIf="!isLoading && jobOffers.length > 0" class="overflow-x-auto min-w-xl bg-white shadow-lg rounded-lg">
+    }
+
+    <!-- Job Offers Table -->
+    @if (!isLoading && jobOffers.length > 0) {
+      <div class="overflow-x-auto min-w-xl bg-white shadow-lg rounded-lg">
         <table class="min-w-full table-auto">
           <thead class="bg-gray-200">
             <tr>
@@ -28,39 +33,41 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let offer of jobOffers">
-              <td class="py-2 px-4 border-b border-gray-50">
-                <input 
-                  type="radio" 
-                  name="proposedJob" 
-                  [value]="offer.id" 
-                  [(ngModel)]="jobId" 
-                  class="cursor-pointer"
-                >
-              </td>
-              <td class="py-2 px-4 border-b border-gray-50">{{ offer.title }}</td>
-              <td class="py-2 px-4 border-b border-gray-50">{{ offer.company }}</td>
-              <td class="py-2 px-4 border-b border-gray-50">{{ offer.location }}</td>
-              <td class="py-2 px-4 border-b border-gray-50">{{ offer.salary}}</td>
-              <td class="py-2 px-4 border-b border-gray-50">
-                <span [ngClass]="offer.status == 'ACTIVE' ? 'text-emerald-500' : offer.status === 'INACTIVE' ? 'text-red-500' : 'text-blue-500'">
-                  <!-- {{ offer.active ? 'Active' : 'Inactive' }} -->
+            @for (offer of jobOffers; track offer) {
+              <tr>
+                <td class="py-2 px-4 border-b border-gray-50">
+                  <input
+                    type="radio"
+                    name="proposedJob"
+                    [value]="offer.id"
+                    [(ngModel)]="jobId"
+                    class="cursor-pointer"
+                    >
+                </td>
+                <td class="py-2 px-4 border-b border-gray-50">{{ offer.title }}</td>
+                <td class="py-2 px-4 border-b border-gray-50">{{ offer.company }}</td>
+                <td class="py-2 px-4 border-b border-gray-50">{{ offer.location }}</td>
+                <td class="py-2 px-4 border-b border-gray-50">{{ offer.salary}}</td>
+                <td class="py-2 px-4 border-b border-gray-50">
+                  <span [ngClass]="offer.status == 'ACTIVE' ? 'text-emerald-500' : offer.status === 'INACTIVE' ? 'text-red-500' : 'text-blue-500'">
+                    <!-- {{ offer.active ? 'Active' : 'Inactive' }} -->
                     {{offer.status}}
-                </span>
-              </td>
-            </tr>
+                  </span>
+                </td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>
-    </div>
-    
-    <div class="flex justify-end px-4 mt-6">
-      <button type="button" (click)="onClose()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-4">
-        Cancel
-      </button>
-      <button (click)="proposeJob()" [disabled]="!jobId" class="px-4 py-2 bg-blue-500 text-white rounded-md">
-        Propose Offer
-      </button>
-    </div>
+    }
   </div>
-  
+
+  <div class="flex justify-end px-4 mt-6">
+    <button type="button" (click)="onClose()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-4">
+      Cancel
+    </button>
+    <button (click)="proposeJob()" [disabled]="!jobId" class="px-4 py-2 bg-blue-500 text-white rounded-md">
+      Propose Offer
+    </button>
+  </div>
+</div>

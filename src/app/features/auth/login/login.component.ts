@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenericService } from '../../../core/services/generic.service';
-import { CommonModule } from '@angular/common';
+
 import { HeaderComponent } from "../../landing/components/header/header.component";
 import { AuthService } from '../auth.service';
 import { Router, RouterModule } from '@angular/router';
@@ -10,7 +10,6 @@ import { Router, RouterModule } from '@angular/router';
   selector: 'app-login',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     HeaderComponent,
     RouterModule

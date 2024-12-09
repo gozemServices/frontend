@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, Input } from '@angular/core';
 import { JobApplyComponent } from '../job-apply/job-apply.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,10 +11,11 @@ import { ShareItemComponent } from "../../../../shared/components/share-job/shar
 import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
 import { environment } from '../../../../../environments/environment';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-job-list',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, ShareItemComponent, TimeAgoPipe],
+  imports: [FontAwesomeModule, ShareItemComponent, TimeAgoPipe,CommonModule],
   templateUrl: './job-list.component.html',
   styleUrl: './job-list.component.scss'
 })

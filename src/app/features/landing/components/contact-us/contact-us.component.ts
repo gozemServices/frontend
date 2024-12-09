@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,15 +12,13 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule,
     MatSlideToggleModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    CommonModule,
     ReactiveFormsModule,
     TranslateModule
-  ],
+],
   templateUrl: './contact-us.component.html',
   styleUrl: './contact-us.component.scss'
 })

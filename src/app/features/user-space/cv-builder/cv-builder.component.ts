@@ -5,7 +5,7 @@ import { ExperienceComponent } from "./experience/experience.component";
 import { SkillsComponent } from "./skills/skills.component";
 import { InterestsComponent } from "./interests/interests.component";
 import { SocialsComponent } from "./socials/socials.component";
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { ReferencesComponent } from "./references/references.component";
 import { GenericService } from '../../../core/services/generic.service';
@@ -21,19 +21,18 @@ import { CvthequeService } from '../../services/cv/cvtheque.service';
   selector: 'app-cv-builder',
   standalone: true,
   imports: [
-    CommonModule, 
-    RouterModule, 
+    RouterModule,
     TranslateModule,
     FontAwesomeModule,
-    GeneralInfosComponent, 
-    EducationComponent, 
-    ExperienceComponent, 
-    SkillsComponent, 
-    InterestsComponent, 
-    SocialsComponent, 
-    ReferencesComponent, 
-    LanguagesComponent,
-  ],
+    GeneralInfosComponent,
+    EducationComponent,
+    ExperienceComponent,
+    SkillsComponent,
+    InterestsComponent,
+    SocialsComponent,
+    ReferencesComponent,
+    LanguagesComponent
+],
   templateUrl: './cv-builder.component.html',
   styleUrls: ['./cv-builder.component.scss']
 })

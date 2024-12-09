@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LanguagesService } from '../../../../services/cv/languages.service';
-import { CommonModule } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-language',
   standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule],
+  imports: [TranslateModule, ReactiveFormsModule],
   templateUrl: './edit-language.component.html',
   styleUrls: ['./edit-language.component.scss'],
 })

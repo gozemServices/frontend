@@ -8,12 +8,12 @@ import {
 } from '@angular/forms';
 import { SocialService } from '../../../../services/cv/socials.service';
 import { Social } from '../../../../../core/models/cv-sections.model';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-edit-social',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './edit-social.component.html',
   styleUrls: ['./edit-social.component.scss'],
 })

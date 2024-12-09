@@ -6,12 +6,12 @@ import { ProposalModalComponent } from '../proposal-modal/proposal-modal.compone
 import { CvthequeService } from '../../../services/cv/cvtheque.service';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-cv-item',
   standalone: true,
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule],
   templateUrl: './cv-item.component.html',
   styleUrl: './cv-item.component.scss'
 })

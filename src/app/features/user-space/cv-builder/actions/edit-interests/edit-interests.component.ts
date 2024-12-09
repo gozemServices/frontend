@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InterestsService } from '../../../../services/cv/interests.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-edit-interests',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './edit-interests.component.html',
   styleUrl: './edit-interests.component.scss'
 })

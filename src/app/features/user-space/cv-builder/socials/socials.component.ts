@@ -7,11 +7,11 @@ import { Social } from '../../../../core/models/cv-sections.model';
 import { EditSocialComponent } from "../actions/edit-social/edit-social.component";
 import { SocialService } from '../../../services/cv/socials.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-socials',
   standalone: true,
-  imports: [TranslateModule,CommonModule, FontAwesomeModule, EditSocialComponent],
+  imports: [TranslateModule, FontAwesomeModule, EditSocialComponent],
   templateUrl: './socials.component.html',
   styleUrl: './socials.component.scss'
 })

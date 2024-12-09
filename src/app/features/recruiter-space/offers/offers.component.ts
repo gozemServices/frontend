@@ -12,6 +12,7 @@ import { AskDeleteConfirmationComponent } from '../../../shared/components/toast
 import { Router, RouterModule } from '@angular/router';
 import { Toast } from '../../../core/models/common.model';
 import { GenericService } from '../../../core/services/generic.service';
+import { PlanInterviewComponent } from '../interviews/plan-interview/plan-interview.component';
 
 @Component({
   selector: 'app-offers',
@@ -163,13 +164,10 @@ export class OffersComponent implements OnInit {
     });
   }
 
-  openPlanning() {
-
-  }
-
 
   goToJobDetails(job: any) {
     const jobId = job ? job?.id : null;
+    // console.log(job);
     this.router.navigate(['/user/job/details/',jobId]);
   }
 
@@ -188,4 +186,27 @@ export class OffersComponent implements OnInit {
       // alert('clicked outside ')
     }
   }
+
+
+  planInterviews(offerId: any) {
+    const data = {
+      isEditMode: false,
+      selectedCandidates: [],
+      offerId: offerId,
+      step:1,
+    };
+    this.modalService.open(PlanInterviewComponent, {
+        size: {
+          width: '80%',
+          padding: '1rem'
+        },
+        data: {
+          data
+        }
+      }).then((isDone) => {
+          // this.fetchJobOffers();       
+      });
+    }
+  
+    
 }

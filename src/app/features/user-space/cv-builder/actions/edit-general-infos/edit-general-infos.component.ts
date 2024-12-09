@@ -2,12 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CVDetailRequest } from '../../../../../core/models/cv-sections.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GeneralInfosService } from '../../../../services/cv/general-infos.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-edit-general-infos',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './edit-general-infos.component.html',
   styleUrl: './edit-general-infos.component.scss'
 })

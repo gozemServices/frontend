@@ -7,17 +7,16 @@ import { EditExperienceComponent } from '../actions/edit-experience/edit-experie
 import { ExperienceService } from '../../../services/cv/experience.service';
 import { GenericService } from '../../../../core/services/generic.service';
 import { Experience } from '../../../../core/models/cv-sections.model';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-experience',
   standalone: true,
   imports: [
     TranslateModule,
-    CommonModule,
     FontAwesomeModule,
-    EditExperienceComponent,
-  ],
+    EditExperienceComponent
+],
   templateUrl: './experience.component.html',
   styleUrls: ['./experience.component.scss'],
 })

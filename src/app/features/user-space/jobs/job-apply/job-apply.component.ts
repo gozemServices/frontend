@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject,} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -8,7 +8,7 @@ import { ModalService } from '../../../../shared/components/modal/modal.service'
 @Component({
   selector: 'app-job-apply',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule,FontAwesomeModule, FormsModule],
+  imports: [ReactiveFormsModule, FontAwesomeModule, FormsModule],
   templateUrl: './job-apply.component.html',
   styleUrl: './job-apply.component.scss'
 })

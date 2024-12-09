@@ -3,7 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CvthequeService } from '../../services/cv/cvtheque.service';
 import { CvTemplateComponent } from '../../../shared/components/cv-template/cv-template.component';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { Observable, of } from 'rxjs';
 import { catchError, filter, map } from 'rxjs/operators';
 import { GenericService } from '../../../core/services/generic.service';
@@ -15,7 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [TranslateModule,FontAwesomeModule, FormsModule, CommonModule, CvItemComponent],
+  imports: [TranslateModule, FontAwesomeModule, FormsModule, CvItemComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   isPrevisualized = false;
   selectedData: any = null;
   errorMessage: string | null = null;
-  layoutStyle: 'inline' | 'grid' = 'inline';
+  layoutStyle: 'inline' | 'grid' = 'grid';
 
   // Updated filter criteria to be arrays
   filterCriteria: any = {

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -7,7 +7,7 @@ import { Event } from '../../../../core/models/common.model';
 @Component({
   selector: 'app-add-event-modal',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './add-event-modal.component.html',
   styleUrl: './add-event-modal.component.scss'
 })

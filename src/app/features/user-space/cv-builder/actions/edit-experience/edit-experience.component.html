@@ -9,60 +9,80 @@
       <div class="w-full rounded-0 px-10 py-8">
         <h2>{{ isEditMode ? 'Edit Experience' : 'Add Experience' }}</h2>
         <p class="mb-4">Add a new item about your work experience</p>
-      
+
         <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            
+
             <!-- Starting Date -->
             <div>
               <label>Starting Date</label>
               <input class="border p-2 w-full" type="date" formControlName="startDate" />
-              <div *ngIf="experienceForm.controls['startDate'].invalid && (experienceForm.controls['startDate'].touched || experienceForm.controls['startDate'].dirty)" class="text-red-500 text-sm">
-                <div *ngIf="experienceForm.controls['startDate'].errors?.['required']">Starting date is required.</div>
-              </div>
+              @if (experienceForm.controls['startDate'].invalid && (experienceForm.controls['startDate'].touched || experienceForm.controls['startDate'].dirty)) {
+                <div class="text-red-500 text-sm">
+                  @if (experienceForm.controls['startDate'].errors?.['required']) {
+                    <div>Starting date is required.</div>
+                  }
+                </div>
+              }
             </div>
-      
+
             <!-- Ending Date -->
             <div>
               <label>Ending Date</label>
               <input class="border p-2 w-full" type="date" formControlName="endDate" />
-              <div *ngIf="experienceForm.controls['endDate'].invalid && (experienceForm.controls['endDate'].touched || experienceForm.controls['endDate'].dirty)" class="text-red-500 text-sm">
-                <div *ngIf="experienceForm.controls['endDate'].errors?.['required']">Ending date is required.</div>
-              </div>
+              @if (experienceForm.controls['endDate'].invalid && (experienceForm.controls['endDate'].touched || experienceForm.controls['endDate'].dirty)) {
+                <div class="text-red-500 text-sm">
+                  @if (experienceForm.controls['endDate'].errors?.['required']) {
+                    <div>Ending date is required.</div>
+                  }
+                </div>
+              }
             </div>
-      
+
             <!-- Position -->
             <div>
               <label>Position</label>
               <input class="border p-2 w-full" type="text" formControlName="position" />
-              <div *ngIf="experienceForm.controls['position'].invalid && (experienceForm.controls['position'].touched || experienceForm.controls['position'].dirty)" class="text-red-500 text-sm">
-                <div *ngIf="experienceForm.controls['position'].errors?.['required']">Position is required.</div>
-              </div>
+              @if (experienceForm.controls['position'].invalid && (experienceForm.controls['position'].touched || experienceForm.controls['position'].dirty)) {
+                <div class="text-red-500 text-sm">
+                  @if (experienceForm.controls['position'].errors?.['required']) {
+                    <div>Position is required.</div>
+                  }
+                </div>
+              }
             </div>
-      
+
             <!-- Company -->
             <div>
               <label>Company</label>
               <input class="border p-2 w-full" type="text" formControlName="company" />
-              <div *ngIf="experienceForm.controls['company'].invalid && (experienceForm.controls['company'].touched || experienceForm.controls['company'].dirty)" class="text-red-500 text-sm">
-                <div *ngIf="experienceForm.controls['company'].errors?.['required']">Company is required.</div>
-              </div>
+              @if (experienceForm.controls['company'].invalid && (experienceForm.controls['company'].touched || experienceForm.controls['company'].dirty)) {
+                <div class="text-red-500 text-sm">
+                  @if (experienceForm.controls['company'].errors?.['required']) {
+                    <div>Company is required.</div>
+                  }
+                </div>
+              }
             </div>
             <!-- Tasks -->
             <div>
               <label>Tasks</label>
               <div formArrayName="tasks">
-                <div *ngFor="let task of tasks.controls; let i = index" class="flex items-center space-x-4">
-                  <input [formControlName]="i" class="border p-2 my-2 w-full" placeholder="Task description" />
-                  <fa-icon [icon]="faRemove" (click)="removeTask(i)" class="text-red-600 hover:text-red-800"></fa-icon>
-                </div>
+                @for (task of tasks.controls; track task; let i = $index) {
+                  <div class="flex items-center space-x-4">
+                    <input [formControlName]="i" class="border p-2 my-2 w-full" placeholder="Task description" />
+                    <fa-icon [icon]="faRemove" (click)="removeTask(i)" class="text-red-600 hover:text-red-800"></fa-icon>
+                  </div>
+                }
               </div>
               <fa-icon [icon]="faAdd" (click)="addTask()" class="text-blue-600 hover:text-blue-800 mt-2"></fa-icon>
-              <div *ngIf="tasks.invalid && tasks.touched" class="text-red-500 text-sm mt-2">Each task must be at least 3 characters long.</div>
+              @if (tasks.invalid && tasks.touched) {
+                <div class="text-red-500 text-sm mt-2">Each task must be at least 3 characters long.</div>
+              }
             </div>
-      
+
           </div>
-      
+
           <div class="flex justify-end mt-6">
             <button type="button" class="bg-gray-200 px-4 py-2 mr-2 rounded" (click)="onCancel()">Cancel</button>
             <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" [disabled]="experienceForm.invalid">Submit</button>

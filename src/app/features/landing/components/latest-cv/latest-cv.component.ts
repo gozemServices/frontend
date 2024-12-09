@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { interval, Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-latest-cv',
   standalone: true,
-  imports: [CommonModule, TranslateModule, RouterModule],
+  imports: [TranslateModule, RouterModule],
   templateUrl: './latest-cv.component.html',
   styleUrls: ['./latest-cv.component.scss']
 })

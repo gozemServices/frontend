@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { LoadingComponent } from '../../../../../shared/components/loading/loading.component';
 import { Reference } from '../../../../../core/models/cv-sections.model';
 import { ReferencesService } from '../../../../services/cv/references.service';
@@ -8,7 +8,7 @@ import { ReferencesService } from '../../../../services/cv/references.service';
 @Component({
   selector: 'app-edit-references',
   standalone: true,
-  imports: [CommonModule, LoadingComponent,ReactiveFormsModule],
+  imports: [LoadingComponent, ReactiveFormsModule],
   templateUrl: './edit-references.component.html',
   styleUrl: './edit-references.component.scss'
 })

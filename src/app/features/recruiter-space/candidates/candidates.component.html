@@ -1,46 +1,47 @@
 <div class="p-5">
-    <h2 class="text-2xl font-bold mb-6 text-gray-800">Job offer propositions</h2>
-    <p>Consult the job offer you have made to jobSeeker </p>
-  
-    <!-- Filters -->
-    <div class="flex flex-wrap gap-4 mb-6">
-      <!-- Search -->
-      <input
-        type="text"
-        class="w-full md:w-1/2 border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200"
-        placeholder="Search by job title..."
-        [(ngModel)]="searchQuery"
-        (input)="filterProposals()"
+  <h2 class="text-2xl font-bold mb-6 text-gray-800">Job offer propositions</h2>
+  <p>Consult the job offer you have made to jobSeeker </p>
+
+  <!-- Filters -->
+  <div class="flex flex-wrap gap-4 mb-6">
+    <!-- Search -->
+    <input
+      type="text"
+      class="w-full md:w-1/2 border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200"
+      placeholder="Search by job title..."
+      [(ngModel)]="searchQuery"
+      (input)="filterProposals()"
       />
-  
-      <!-- Status Filter -->
-      <select
-        class="w-full md:w-1/4 border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200"
-        [(ngModel)]="selectedStatus"
-        (change)="filterProposals()"
+
+    <!-- Status Filter -->
+    <select
+      class="w-full md:w-1/4 border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200"
+      [(ngModel)]="selectedStatus"
+      (change)="filterProposals()"
       >
-        <option value="">All Statuses</option>
-        <option value="pending">Pending</option>
-        <option value="accepted">Accepted</option>
-        <option value="rejected">Refused</option>
-      </select>
-    </div>
-  
-    <!-- Job Proposals Table -->
-    <div class="overflow-x-auto">
-      <table class="min-w-full bg-white shadow-md rounded-lg">
-        <thead>
-          <tr class="bg-gray-100 text-left text-gray-700">
-            <th class="p-4 border-b font-medium">Job Title</th>
-            <th class="p-4 border-b font-medium">Candidate</th>
-            <th class="p-4 border-b font-medium">Status</th>
-            <th class="p-4 border-b font-medium">Date Sent</th>
-            <th class="p-4 border-b font-medium">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Job Proposal Rows -->
-          <tr *ngFor="let proposal of filteredProposals" class="border-b hover:bg-gray-50">
+      <option value="">All Statuses</option>
+      <option value="pending">Pending</option>
+      <option value="accepted">Accepted</option>
+      <option value="rejected">Refused</option>
+    </select>
+  </div>
+
+  <!-- Job Proposals Table -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white shadow-md rounded-lg">
+      <thead>
+        <tr class="bg-gray-100 text-left text-gray-700">
+          <th class="p-4 border-b font-medium">Job Title</th>
+          <th class="p-4 border-b font-medium">Candidate</th>
+          <th class="p-4 border-b font-medium">Status</th>
+          <th class="p-4 border-b font-medium">Date Sent</th>
+          <th class="p-4 border-b font-medium">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Job Proposal Rows -->
+        @for (proposal of filteredProposals; track proposal) {
+          <tr class="border-b hover:bg-gray-50">
             <td class="p-4">{{ proposal.jobOffer.title }}</td>
             <td class="p-4">{{ proposal.jobSeeker.email }}</td>
             <td class="p-4 capitalize">
@@ -50,7 +51,7 @@
                   'text-green-500': proposal.status === 'ACCEPTED',
                   'text-red-500': proposal.status === 'REJECTED'
                 }"
-              >
+                >
                 {{ proposal.status }}
               </span>
             </td>
@@ -68,17 +69,17 @@
               }
             </td>
           </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <!-- No Results -->
-     @if(filteredProposals && filteredProposals.length === 0) {
-        <div class="mt-6 text-center text-gray-500">
-          No proposals found.
-        </div>
-     }
-  
-   
+        }
+      </tbody>
+    </table>
   </div>
-  
+
+  <!-- No Results -->
+  @if(filteredProposals && filteredProposals.length === 0) {
+    <div class="mt-6 text-center text-gray-500">
+      No proposals found.
+    </div>
+  }
+
+
+</div>

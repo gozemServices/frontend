@@ -1,46 +1,64 @@
 @if(isVisible) {
-<app-loading *ngIf="isLoading"></app-loading>
+  @if (isLoading) {
+    <app-loading></app-loading>
+  }
   <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
     <div class="flex bg-white flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
       <div class="w-full rounded-0 px-10 py-8">
         <h2>{{ isEditMode ? 'Edit Skill' : 'Add Skill' }}</h2>
         <p class="mb-4">Provide details about the skill you want to add or edit.</p>
-          <!-- Loading Spinner -->
-        
-            
+        <!-- Loading Spinner -->
+
+
         <form [formGroup]="skillForm" (ngSubmit)="onSubmit()">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            
+
             <!-- Skill Name -->
             <div>
               <label>Skill Name</label>
               <input class="border p-2 w-full" type="text" formControlName="name" />
-              <div *ngIf="skillForm.controls['name'].invalid && (skillForm.controls['name'].touched || skillForm.controls['name'].dirty)" class="text-red-500 text-sm">
-                <div *ngIf="skillForm.controls['name'].errors?.['required']">Skill name is required.</div>
-                <div *ngIf="skillForm.controls['name'].errors?.['minlength']">Skill name must be at least 2 characters long.</div>
-              </div>
+              @if (skillForm.controls['name'].invalid && (skillForm.controls['name'].touched || skillForm.controls['name'].dirty)) {
+                <div class="text-red-500 text-sm">
+                  @if (skillForm.controls['name'].errors?.['required']) {
+                    <div>Skill name is required.</div>
+                  }
+                  @if (skillForm.controls['name'].errors?.['minlength']) {
+                    <div>Skill name must be at least 2 characters long.</div>
+                  }
+                </div>
+              }
             </div>
-      
+
             <!-- Skill Level -->
             <div>
               <label>Skill Level</label>
               <input class="border p-2 w-full" type="text" formControlName="level" />
-              <div *ngIf="skillForm.controls['level'].invalid && (skillForm.controls['level'].touched || skillForm.controls['level'].dirty)" class="text-red-500 text-sm">
-                <div *ngIf="skillForm.controls['level'].errors?.['required']">Skill level is required.</div>
-                <div *ngIf="skillForm.controls['level'].errors?.['pattern']">Skill level must be numeric (e.g., 1-10).</div>
-              </div>
+              @if (skillForm.controls['level'].invalid && (skillForm.controls['level'].touched || skillForm.controls['level'].dirty)) {
+                <div class="text-red-500 text-sm">
+                  @if (skillForm.controls['level'].errors?.['required']) {
+                    <div>Skill level is required.</div>
+                  }
+                  @if (skillForm.controls['level'].errors?.['pattern']) {
+                    <div>Skill level must be numeric (e.g., 1-10).</div>
+                  }
+                </div>
+              }
             </div>
-      
+
             <!-- Skill Description -->
             <div class="col-span-1 sm:col-span-2">
               <label>Description</label>
               <textarea class="border p-2 w-full" formControlName="description"></textarea>
-              <div *ngIf="skillForm.controls['description'].invalid && (skillForm.controls['description'].touched || skillForm.controls['description'].dirty)" class="text-red-500 text-sm">
-                <div *ngIf="skillForm.controls['description'].errors?.['maxlength']">Description can be a maximum of 500 characters long.</div>
-              </div>
+              @if (skillForm.controls['description'].invalid && (skillForm.controls['description'].touched || skillForm.controls['description'].dirty)) {
+                <div class="text-red-500 text-sm">
+                  @if (skillForm.controls['description'].errors?.['maxlength']) {
+                    <div>Description can be a maximum of 500 characters long.</div>
+                  }
+                </div>
+              }
             </div>
           </div>
-      
+
           <div class="flex justify-end mt-6">
             <button type="button" class="bg-gray-200 px-4 py-2 mr-2 rounded" (click)="onCancel()">Cancel</button>
             <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" [disabled]="skillForm.invalid">Submit</button>

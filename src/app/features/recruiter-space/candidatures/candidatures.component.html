@@ -12,13 +12,13 @@
       (input)="applyFilters()"
       class="border border-gray-300 rounded-md px-4 py-2 w-1/3 focus:ring focus:ring-primary focus:outline-none"
       placeholder="Search by name or job title"
-    />
+      />
     <!-- Status Dropdown -->
     <select
       [(ngModel)]="statusFilter"
       (change)="applyFilters()"
       class="border border-gray-300 rounded-md px-4 py-2 focus:ring focus:ring-primary focus:outline-none"
-    >
+      >
       <option value="all">All Statuses</option>
       <option value="pending">Pending</option>
       <option value="INTERVIEW">Interview</option>
@@ -38,67 +38,71 @@
           <th class="p-4 font-medium border-b">Actions</th>
         </tr>
       </thead>
-      <tbody
-        *ngIf="!loading && filteredCandidatures.length > 0; else emptyState"
-      >
-        <tr
-          *ngFor="let candidature of filteredCandidatures"
-          class="border-b hover:bg-gray-50"
-        >
-          <td class="p-4">{{ candidature.jobSeekerName }}</td>
-          <td class="p-4">{{ candidature.jobOfferTitle }}</td>
-          <td class="p-4">
-            <span
-              class="py-1 px-2 rounded text-sm capitalize"
+      @if (!loading && filteredCandidatures.length > 0) {
+        <tbody
+          >
+          @for (candidature of filteredCandidatures; track candidature) {
+            <tr
+              class="border-b hover:bg-gray-50"
+              >
+              <td class="p-4">{{ candidature.jobSeekerName }}</td>
+              <td class="p-4">{{ candidature.jobOfferTitle }}</td>
+              <td class="p-4">
+                <span
+                  class="py-1 px-2 rounded text-sm capitalize"
               [ngClass]="{
                 'bg-gray-200 text-gray-700': candidature.status === 'pending',
                 'bg-blue-200 text-blue-700': candidature.status === 'interview',
                 'bg-green-200 text-green-700': candidature.status === 'hired',
                 'bg-red-200 text-red-700': candidature.status === 'rejected'
               }"
-            >
-              {{ candidature.status }}
-            </span>
-          </td>
-          <td class="p-4">
-            <!-- Action Dropdown -->
-            <button
-              (click)="toggleActions(candidature.id)"
-              class="text-gray-500 hover:text-gray-700"
-            >
-              <fa-icon [icon]="faEllipsisH" class="w-5 h-5"></fa-icon>
-            </button>
-
-            <!-- Dropdown Actions -->
-            <div
-              *ngIf="openActionId === candidature.id"
-              class="absolute z-50 bg-white shadow-lg rounded-md mt-2 right-0 w-48"
-            >
-              <button
-                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                (click)="addNote(candidature)"
-              >
-                Add Note
-              </button>
-              <button
-                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                (click)="planInterview(candidature)"
-              >
-                Plan Interview
-              </button>
-              <button
-                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                (click)="rejectCandidate(candidature)"
-              >
-                Reject Candidate
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+                  >
+                  {{ candidature.status }}
+                </span>
+              </td>
+              <td class="p-4">
+                <!-- Action Dropdown -->
+                <button
+                  (click)="toggleActions(candidature.id)"
+                  class="text-gray-500 hover:text-gray-700"
+                  >
+                  <fa-icon [icon]="faEllipsisH" class="w-5 h-5"></fa-icon>
+                </button>
+                <!-- Dropdown Actions -->
+                @if (openActionId === candidature.id) {
+                  <div
+                    class="absolute text-slate-700 z-50 bg-white shadow-lg rounded-md mt-2 right-0 w-fit"
+                    >
+                    <button
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                      (click)="noteInterview(candidature)"
+                      >
+                      <fa-icon [icon]="faComment" class="mr-2"></fa-icon>
+                      Interview feedback
+                    </button>
+                    <button
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                      (click)="planInterview(candidature)"
+                      >                      
+                      <fa-icon [icon]="faComment" class="mr-2"></fa-icon>
+                      Plan Interview
+                    </button>
+                    <button
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                      (click)="rejectCandidate(candidature)"
+                      >                      
+                      <fa-icon [icon]="faComment" class="mr-2"></fa-icon>
+                      Reject Candidate
+                    </button>
+                  </div>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      } @else {
+        <p class="text-center mt-6 text-mediumGray">No candidates match your filters.</p>
+      }
     </table>
-    <ng-template #emptyState>
-      <p class="text-center mt-6 text-mediumGray">No candidates match your filters.</p>
-    </ng-template>
   </div>
 </div>

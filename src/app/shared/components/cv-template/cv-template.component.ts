@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { GenericService } from '../../../core/services/generic.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -9,7 +9,7 @@ import { jsPDF } from 'jspdf';
 @Component({
   selector: 'app-cv-template',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule],
+  imports: [FontAwesomeModule],
   templateUrl: './cv-template.component.html',
   styleUrl: './cv-template.component.scss'
 })

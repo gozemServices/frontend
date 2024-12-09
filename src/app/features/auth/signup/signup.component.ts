@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { HeaderComponent } from "../../landing/components/header/header.component";
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -9,11 +9,10 @@ import { AuthService } from '../auth.service';
   selector: 'app-signup',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     HeaderComponent,
     RouterModule
-  ],
+],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })

@@ -16,15 +16,19 @@
   <!-- Personal Information Form -->
   <div class="w-full bg-white shadow-xl rounded-lg p-8 mb-8">
     <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="space-y-6">
-      
+
       <div class="space-y-4">
         <div>
           <label for="firstName" class="block text-sm font-medium text-gray-900">{{ 'FIRST_NAME' | translate }}</label>
           <div class="mt-2">
             <input id="firstName" formControlName="firstName" type="text" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-            <div *ngIf="formControls['firstName'].invalid && (formControls['firstName'].touched || formControls['firstName'].dirty)" class="text-red-500 text-sm">
-              <div *ngIf="formControls['firstName'].errors?.['required']">{{ 'FIRST_NAME_REQUIRED' | translate }}</div>
-            </div>
+            @if (formControls['firstName'].invalid && (formControls['firstName'].touched || formControls['firstName'].dirty)) {
+              <div class="text-red-500 text-sm">
+                @if (formControls['firstName'].errors?.['required']) {
+                  <div>{{ 'FIRST_NAME_REQUIRED' | translate }}</div>
+                }
+              </div>
+            }
           </div>
         </div>
 
@@ -32,9 +36,13 @@
           <label for="lastName" class="block text-sm font-medium text-gray-900">{{ 'LAST_NAME' | translate }}</label>
           <div class="mt-2">
             <input id="lastName" formControlName="lastName" type="text" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-            <div *ngIf="formControls['lastName'].invalid && (formControls['lastName'].touched || formControls['lastName'].dirty)" class="text-red-500 text-sm">
-              <div *ngIf="formControls['lastName'].errors?.['required']">{{ 'LAST_NAME_REQUIRED' | translate }}</div>
-            </div>
+            @if (formControls['lastName'].invalid && (formControls['lastName'].touched || formControls['lastName'].dirty)) {
+              <div class="text-red-500 text-sm">
+                @if (formControls['lastName'].errors?.['required']) {
+                  <div>{{ 'LAST_NAME_REQUIRED' | translate }}</div>
+                }
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -43,10 +51,16 @@
         <label for="email" class="block text-sm font-medium text-gray-900">{{ 'EMAIL' | translate }}</label>
         <div class="mt-2">
           <input id="email" formControlName="email" type="email" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['email'].invalid && (formControls['email'].touched || formControls['email'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['email'].errors?.['required']">{{ 'EMAIL_REQUIRED' | translate }}</div>
-            <div *ngIf="formControls['email'].errors?.['email']">{{ 'INVALID_EMAIL' | translate }}</div>
-          </div>
+          @if (formControls['email'].invalid && (formControls['email'].touched || formControls['email'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (formControls['email'].errors?.['required']) {
+                <div>{{ 'EMAIL_REQUIRED' | translate }}</div>
+              }
+              @if (formControls['email'].errors?.['email']) {
+                <div>{{ 'INVALID_EMAIL' | translate }}</div>
+              }
+            </div>
+          }
         </div>
       </div>
 
@@ -54,9 +68,13 @@
         <label for="phone" class="block text-sm font-medium text-gray-900">{{ 'PHONE' | translate }}</label>
         <div class="mt-2">
           <input id="phone" formControlName="phone" type="text" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['phone'].invalid && (formControls['phone'].touched || formControls['phone'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['phone'].errors?.['required']">{{ 'PHONE_REQUIRED' | translate }}</div>
-          </div>
+          @if (formControls['phone'].invalid && (formControls['phone'].touched || formControls['phone'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (formControls['phone'].errors?.['required']) {
+                <div>{{ 'PHONE_REQUIRED' | translate }}</div>
+              }
+            </div>
+          }
         </div>
       </div>
 
@@ -71,9 +89,13 @@
         <label for="companyName" class="block text-sm font-medium text-gray-900">{{ 'COMPANY_NAME' | translate }}</label>
         <div class="mt-2">
           <input id="companyName" formControlName="companyName" type="text" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['companyName'].invalid && (formControls['companyName'].touched || formControls['companyName'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['companyName'].errors?.['required']">{{ 'COMPANY_NAME_REQUIRED' | translate }}</div>
-          </div>
+          @if (formControls['companyName'].invalid && (formControls['companyName'].touched || formControls['companyName'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (formControls['companyName'].errors?.['required']) {
+                <div>{{ 'COMPANY_NAME_REQUIRED' | translate }}</div>
+              }
+            </div>
+          }
         </div>
       </div>
 
@@ -81,10 +103,16 @@
         <label for="companyEmail" class="block text-sm font-medium text-gray-900">{{ 'COMPANY_EMAIL' | translate }}</label>
         <div class="mt-2">
           <input id="companyEmail" formControlName="companyEmail" type="email" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['companyEmail'].invalid && (formControls['companyEmail'].touched || formControls['companyEmail'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['companyEmail'].errors?.['required']">{{ 'COMPANY_EMAIL_REQUIRED' | translate }}</div>
-            <div *ngIf="formControls['companyEmail'].errors?.['email']">{{ 'INVALID_COMPANY_EMAIL' | translate }}</div>
-          </div>
+          @if (formControls['companyEmail'].invalid && (formControls['companyEmail'].touched || formControls['companyEmail'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (formControls['companyEmail'].errors?.['required']) {
+                <div>{{ 'COMPANY_EMAIL_REQUIRED' | translate }}</div>
+              }
+              @if (formControls['companyEmail'].errors?.['email']) {
+                <div>{{ 'INVALID_COMPANY_EMAIL' | translate }}</div>
+              }
+            </div>
+          }
         </div>
       </div>
 
@@ -92,10 +120,16 @@
         <label for="companyWebsite" class="block text-sm font-medium text-gray-900">{{ 'COMPANY_WEBSITE' | translate }}</label>
         <div class="mt-2">
           <input id="companyWebsite" formControlName="companyWebsite" type="text" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['companyWebsite'].invalid && (formControls['companyWebsite'].touched || formControls['companyWebsite'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['companyWebsite'].errors?.['required']">{{ 'COMPANY_WEBSITE_REQUIRED' | translate }}</div>
-            <div *ngIf="formControls['companyWebsite'].errors?.['pattern']">{{ 'INVALID_COMPANY_WEBSITE' | translate }}</div>
-          </div>
+          @if (formControls['companyWebsite'].invalid && (formControls['companyWebsite'].touched || formControls['companyWebsite'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (formControls['companyWebsite'].errors?.['required']) {
+                <div>{{ 'COMPANY_WEBSITE_REQUIRED' | translate }}</div>
+              }
+              @if (formControls['companyWebsite'].errors?.['pattern']) {
+                <div>{{ 'INVALID_COMPANY_WEBSITE' | translate }}</div>
+              }
+            </div>
+          }
         </div>
       </div>
 
@@ -110,10 +144,16 @@
         <label for="password" class="block text-sm font-medium text-gray-900">{{ 'NEW_PASSWORD' | translate }}</label>
         <div class="mt-2">
           <input id="password" formControlName="password" type="password" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="passwordFormControls['password'].invalid && (passwordFormControls['password'].touched || passwordFormControls['password'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="passwordFormControls['password'].errors?.['required']">{{ 'PASSWORD_REQUIRED' | translate }}</div>
-            <div *ngIf="passwordFormControls['password'].errors?.['minlength']">{{ 'PASSWORD_MIN_LENGTH' | translate }}</div>
-          </div>
+          @if (passwordFormControls['password'].invalid && (passwordFormControls['password'].touched || passwordFormControls['password'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (passwordFormControls['password'].errors?.['required']) {
+                <div>{{ 'PASSWORD_REQUIRED' | translate }}</div>
+              }
+              @if (passwordFormControls['password'].errors?.['minlength']) {
+                <div>{{ 'PASSWORD_MIN_LENGTH' | translate }}</div>
+              }
+            </div>
+          }
         </div>
       </div>
 
@@ -121,10 +161,16 @@
         <label for="confirmPassword" class="block text-sm font-medium text-gray-900">{{ 'CONFIRM_PASSWORD' | translate }}</label>
         <div class="mt-2">
           <input id="confirmPassword" formControlName="confirmPassword" type="password" required class="w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="passwordFormControls['confirmPassword'].invalid && (passwordFormControls['confirmPassword'].touched || passwordFormControls['confirmPassword'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="passwordFormControls['confirmPassword'].errors?.['required']">{{ 'CONFIRM_PASSWORD_REQUIRED' | translate }}</div>
-            <div *ngIf="passwordFormControls['confirmPassword'].errors?.['passwordMismatch']">{{ 'PASSWORD_MISMATCH' | translate }}</div>
-          </div>
+          @if (passwordFormControls['confirmPassword'].invalid && (passwordFormControls['confirmPassword'].touched || passwordFormControls['confirmPassword'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (passwordFormControls['confirmPassword'].errors?.['required']) {
+                <div>{{ 'CONFIRM_PASSWORD_REQUIRED' | translate }}</div>
+              }
+              @if (passwordFormControls['confirmPassword'].errors?.['passwordMismatch']) {
+                <div>{{ 'PASSWORD_MISMATCH' | translate }}</div>
+              }
+            </div>
+          }
         </div>
       </div>
 

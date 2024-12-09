@@ -1,96 +1,130 @@
-<div class="flex bg-white flex-col p-4 rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
-    <h2 class="text-2xl font-bold mb-4">Job Interview Scheduler</h2>
-    <form [formGroup]="scheduleForm" (ngSubmit)="submitForm()" class="space-y-6 overflow-auto">
-      <!-- Candidate Info -->
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Candidate Name</label>
-          <input
-            type="text"
-            formControlName="candidateName"
-            class="w-full px-4 py-2 border rounded-md focus:outline-none"
-          />
-          <p *ngIf="scheduleForm.get('candidateName')?.invalid && scheduleForm.get('candidateName')?.touched"
-            class="text-red-500 text-sm">Candidate Name is required</p>
-        </div>
-        <div>
-          <label class="block text-gray-700">Job Title</label>
-          <input
-            type="text"
-            formControlName="jobTitle"
-            class="w-full px-4 py-2 border rounded-md focus:outline-none"
-          />
-          <p *ngIf="scheduleForm.get('jobTitle')?.invalid && scheduleForm.get('jobTitle')?.touched"
-            class="text-red-500 text-sm">Job Title is required</p>
-        </div>
-        <div>
-          <label class="block text-gray-700">Interview Date</label>
-          <input
-            type="date"
-            formControlName="interviewDate"
-            class="w-full px-4 py-2 border rounded-md focus:outline-none"
-          />
-          <p *ngIf="scheduleForm.get('interviewDate')?.invalid && scheduleForm.get('interviewDate')?.touched"
-            class="text-red-500 text-sm">Interview Date is required</p>
-            <div *ngIf="scheduleForm.hasError('invalidRange')">
-              {{ 'DATE_RANGE_INVALID' }} <!-- Translated error message -->
+<div class="flex w-full h-full overflow-auto flex-col">
+  <h2 class="text-2xl font-bold mb-4">Job Interview Scheduler</h2>
+  <form [formGroup]="scheduleForm" (ngSubmit)="submitForm()" class="space-y-6 overflow-auto">
+    <!-- Job Title -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Job Title</label>
+      <input
+        type="text"
+        formControlName="jobTitle"
+        class="w-full px-4 py-2 border rounded-md focus:outline-none"
+      />
+      <p *ngIf="scheduleForm.get('jobTitle')?.invalid && scheduleForm.get('jobTitle')?.touched" class="text-red-500 text-sm">
+        Job Title is required
+      </p>
+    </div>
+
+    <!-- Interview Steps -->
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Interview Steps</h2>
+      <div formArrayName="steps" class="space-y-4">
+        <div
+          *ngFor="let step of steps.controls; let i = index"
+          [formGroupName]="i"
+          class="border p-4 rounded-md bg-gray-50"
+        >
+          <div class="space-y-2">
+            <!-- Step Name -->
+            <div>
+              <label class="block text-gray-700">Step Name</label>
+              <input
+                type="text"
+                formControlName="name"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none"
+              />
+              <p *ngIf="step.get('name')?.invalid && step.get('name')?.touched" class="text-red-500 text-sm">
+                Step Name is required
+              </p>
             </div>
-        </div>
-      </div>
-  
-      <!-- Interview Steps -->
-      <div>
-        <h2 class="text-lg font-semibold mb-2">Interview Steps</h2>
-        <div formArrayName="steps" class="space-y-4">
-          <div *ngFor="let step of steps.controls; let i = index" [formGroupName]="i" class="border p-4 rounded-md bg-gray-50">
-            <div class="space-y-2">
-              <div>
-                <label class="block text-gray-700">Step Name</label>
-                <input
-                  type="text"
-                  formControlName="name"
-                  class="w-full px-4 py-2 border rounded-md focus:outline-none"
-                />
-                <p *ngIf="step.get('name')?.invalid && step.get('name')?.touched"
-                  class="text-red-500 text-sm">Step Name is required</p>
-              </div>
-              <div>
-                <label class="block text-gray-700">Date</label>
-                <input
-                  type="date"
-                  formControlName="date"
-                  class="w-full px-4 py-2 border rounded-md focus:outline-none"
-                />
-                <p *ngIf="step.get('date')?.invalid && step.get('date')?.touched"
-                  class="text-red-500 text-sm">Date is required</p>
-              </div>
-              <div>
-                <label class="block text-gray-700">Description</label>
-                <textarea
-                  formControlName="description"
-                  class="w-full px-4 py-2 border rounded-md focus:outline-none"
-                ></textarea>
-              </div>
+
+            <!-- Step Date -->
+            <div>
+              <label class="block text-gray-700">Date</label>
+              <input
+                type="date"
+                formControlName="date"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none"
+              />
+              <p *ngIf="step.get('date')?.invalid && step.get('date')?.touched" class="text-red-500 text-sm">
+                Date is required
+              </p>
             </div>
-            <button type="button" (click)="removeStep(i)" class="px-2 py-1 bg-red-500 text-white rounded">
-                <fa-icon class="text-white" [icon]="faRemove"></fa-icon>
-            </button>
+
+            <!-- Step Time -->
+            <div>
+              <label class="block text-gray-700">Time</label>
+              <input
+                type="time"
+                formControlName="time"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none"
+              />
+              <p *ngIf="step.get('time')?.invalid && step.get('time')?.touched" class="text-red-500 text-sm">
+                Time is required
+              </p>
+            </div>
+
+            <!-- Step Place -->
+            <div>
+              <label class="block text-gray-700">Place</label>
+              <input
+                type="text"
+                formControlName="place"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none"
+              />
+              <p *ngIf="step.get('place')?.invalid && step.get('place')?.touched" class="text-red-500 text-sm">
+                Place is required
+              </p>
+            </div>
+
+            <!-- Step Description -->
+            <div>
+              <label class="block text-gray-700">Description</label>
+              <textarea
+                formControlName="description"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none"
+              ></textarea>
+            </div>
+
+            <!-- Interviewer Email -->
+            <div>
+              <label class="block text-gray-700">Interviewer Email</label>
+              <input
+                type="email"
+                formControlName="interviewerEmail"
+                placeholder="Enter email"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none"
+              />
+              <p *ngIf="step.get('interviewerEmail')?.invalid && step.get('interviewerEmail')?.touched" class="text-red-500 text-sm">
+                A valid email is required
+              </p>
+            </div>
           </div>
+          <button
+            type="button"
+            (click)="removeStep(i)"
+            class="px-2 py-1 bg-red-500 text-white rounded"
+          >
+            <fa-icon class="text-white" [icon]="faRemove"></fa-icon>
+          </button>
         </div>
-        <button type="button" (click)="addStep()" class="px-4 py-2 mt-2 bg-blue-500 text-white rounded">
-            <fa-icon class="text-white" [icon]="faAdd"></fa-icon>
-        </button>
       </div>
-  
-      <!-- Submit Button -->
-      <div class="flex justify-end mt-6">
-        <button type="button" (click)="onClose()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-4">
-          Cancel
-        </button>
-        <button type="submit"  class="px-4 py-2 bg-blue-500 text-white rounded-md">
-          Save Offer
-        </button>
-      </div>
-    </form>
-  </div>
-  
+      <button
+        type="button"
+        (click)="addStep()"
+        class="px-4 py-2 mt-2 bg-blue-500 text-white rounded"
+      >
+        <fa-icon class="text-white" [icon]="faAdd"></fa-icon>
+      </button>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex justify-end mt-6">
+      <button type="button" (click)="onClose()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-4">
+        Cancel
+      </button>
+      <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">
+        Save 
+      </button>
+    </div>
+  </form>  
+</div>

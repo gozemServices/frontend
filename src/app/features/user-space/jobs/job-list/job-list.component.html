@@ -9,31 +9,32 @@
     <div>No job found</div>
   }
   <div [ngClass]="{'list': layout === 'list', 'grid': layout === 'grid'}" class="job-list-container w-full">
-    <div *ngFor="let job of jobs" class="job-item bg-white border border-gray-300 rounded-lg p-4 w-full shadow-xl flex flex-col">
-      <!-- Job Details -->
-      <div class="">
-        <p class="px-4 w-fit text-start  align-start rounded-full {{ job.type === 'permanent' ? 'bg-orange-500' : 'bg-green-500' }} text-white">{{job.type}} </p>
-        <h3 class="text-md !text-[28px] font-bolder text-[#002133]">{{ job.title }}</h3>
-        <div class="job-description break-words text-gray-700">
-          {{job.description}} 
-          <button (click)="goToJobDetails(job)" class="text-bold block text-blue-500">view Job</button>
+    @for (job of jobs; track job) {
+      <div class="job-item bg-white border border-gray-300 rounded-lg p-4 w-full shadow-xl flex flex-col">
+        <!-- Job Details -->
+        <div class="">
+          <p class="px-4 w-fit text-start  align-start rounded-full {{ job.type === 'permanent' ? 'bg-orange-500' : 'bg-green-500' }} text-white">{{job.type}} </p>
+          <h3 class="text-md !text-[28px] font-bolder text-[#002133]">{{ job.title }}</h3>
+          <div class="job-description break-words text-gray-700">
+            {{job.description}}
+            <button (click)="goToJobDetails(job)" class="text-bold block text-blue-500">view Job</button>
+          </div>
         </div>
+        <div>
+          <p class="text-sm text-gray-600 flex items-center">
+            <fa-icon [icon]="faLocationPin" class="text-gray-500 mr-1"></fa-icon>{{ job.location }}
+            <span class="mx-2">|</span>
+            <span>{{ job.salary}}</span>
+          </p>
+        </div>
+        <!-- Posting time and Actions -->
+        <div class="actions flex items-center space-x-4">
+          <span class="posted-time bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">Posted {{ job.createdAt | timeAgo}}</span>
+          <button (click)="openApplyDialog(job.id)" class="apply-button bg-primary text-white px-4 py-2 rounded-lg">Apply</button>
+        </div>
+        <app-share-item  [content]="{ link: JOB_URL+'/'+job.id, title: job.title, description: job.description }"></app-share-item>
       </div>
-      <div>
-        <p class="text-sm text-gray-600 flex items-center">
-          <fa-icon [icon]="faLocationPin" class="text-gray-500 mr-1"></fa-icon>{{ job.location }}
-          <span class="mx-2">|</span>
-          <span>{{ job.salary}}</span>
-        </p>
-      </div>
-  
-      <!-- Posting time and Actions -->
-      <div class="actions flex items-center space-x-4">
-        <span class="posted-time bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">Posted {{ job.createdAt | timeAgo}}</span>
-        <button (click)="openApplyDialog(job.id)" class="apply-button bg-primary text-white px-4 py-2 rounded-lg">Apply</button>
-      </div>
-      <app-share-item  [content]="{ link: JOB_URL+'/'+job.id, title: job.title, description: job.description }"></app-share-item>
-    </div>
+    }
   </div>
-  
+
 }

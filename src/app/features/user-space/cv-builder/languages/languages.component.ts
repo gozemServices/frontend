@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { faTrash, faEdit, faAdd, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
+
 import { EditLanguageComponent } from '../actions/edit-language/edit-language.component';
 import { LanguagesService } from '../../../services/cv/languages.service';
 import { Language } from '../../../../core/models/cv-sections.model';
@@ -10,7 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'app-languages',
   standalone: true,
-  imports: [TranslateModule, CommonModule, EditLanguageComponent,FontAwesomeModule],
+  imports: [TranslateModule, EditLanguageComponent, FontAwesomeModule],
   templateUrl: './languages.component.html',
   styleUrls: ['./languages.component.scss'],
 })

@@ -7,7 +7,7 @@ import {
   ViewEncapsulation,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ModalService } from './modal.service';
 import { Options, PromiseModal } from './modal-options';
 
@@ -15,7 +15,7 @@ import { Options, PromiseModal } from './modal-options';
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
-  imports: [CommonModule],
+  imports: [],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

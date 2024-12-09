@@ -5,17 +5,17 @@ import { faAdd, faEdit, faExclamationTriangle, faTrash } from '@fortawesome/free
 import { SkillsService } from '../../../services/cv/skills.service';
 import { EditSkillComponent } from '../actions/edit-skill/edit-skill.component';
 import { GenericService } from '../../../../core/services/generic.service';
-import { CommonModule } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
   imports: [
-    CommonModule,
-    TranslateModule, 
-    FontAwesomeModule, 
-    EditSkillComponent],
+    TranslateModule,
+    FontAwesomeModule,
+    EditSkillComponent
+],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })

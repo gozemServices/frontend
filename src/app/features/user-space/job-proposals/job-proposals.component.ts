@@ -1,19 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { ModalService } from '../../../shared/components/modal/modal.service';
 import { JobProposalService } from '../../services/job-proposal.service';
-import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCheckCircle, faClipboardList, faHourglassHalf, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { AskDeleteConfirmationComponent } from '../../../shared/components/toasts/ask-delete-confirmation/ask-delete-confirmation.component';
 import { ProposalStatus } from '../../../core/models/jobs.models';
 import { Toast } from '../../../core/models/common.model';
 import { GenericService } from '../../../core/services/generic.service';
 import { faEye, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterModule } from '@angular/router';
+import { CommonModule, DatePipe } from '@angular/common';
 @Component({
   selector: 'app-job-proposals',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule,RouterModule],
+  imports: [FontAwesomeModule, RouterModule, CommonModule,DatePipe],
   templateUrl: './job-proposals.component.html',
   styleUrl: './job-proposals.component.scss'
 })

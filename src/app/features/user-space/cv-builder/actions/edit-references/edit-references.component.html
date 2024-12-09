@@ -1,53 +1,68 @@
 @if(isVisible) {
-    <app-loading>*ngIf="isLoading"></app-loading>
-      <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
-        <div class="flex bg-white flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
-          <div class="w-full rounded-0 px-10 py-8">
-            <h2>{{ !isEditMode ? 'Add Reference' : 'Edit Reference' }}</h2>
-            <p class="mb-4">Provide details about the reference you want to add or edit.</p>
-              <!-- Loading Spinner -->
-            
-                
-            <form [formGroup]="referenceForm" (ngSubmit)="onSubmit()">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-                <!-- reference Name -->
-                <div>
-                  <label>Reference Name</label>
-                  <input class="border p-2 w-full" type="text" formControlName="name" />
-                  <div *ngIf="referenceForm.controls['name'].invalid && (referenceForm.controls['name'].touched || referenceForm.controls['name'].dirty)" class="text-red-500 text-sm">
-                    <div *ngIf="referenceForm.controls['name'].errors?.['required']">Reference name is required.</div>
-                    <div *ngIf="referenceForm.controls['name'].errors?.['minlength']">Reference name must be at least 2 characters long.</div>
-                  </div>
+  <app-loading>*ngIf="isLoading"></app-loading>
+  <div class="fixed inset-0 bg-black py-4 bg-opacity-50 flex items-center justify-center z-50 h-screen">
+    <div class="flex bg-white flex-col p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
+      <div class="w-full rounded-0 px-10 py-8">
+        <h2>{{ !isEditMode ? 'Add Reference' : 'Edit Reference' }}</h2>
+        <p class="mb-4">Provide details about the reference you want to add or edit.</p>
+        <!-- Loading Spinner -->
+
+
+        <form [formGroup]="referenceForm" (ngSubmit)="onSubmit()">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            <!-- reference Name -->
+            <div>
+              <label>Reference Name</label>
+              <input class="border p-2 w-full" type="text" formControlName="name" />
+              @if (referenceForm.controls['name'].invalid && (referenceForm.controls['name'].touched || referenceForm.controls['name'].dirty)) {
+                <div class="text-red-500 text-sm">
+                  @if (referenceForm.controls['name'].errors?.['required']) {
+                    <div>Reference name is required.</div>
+                  }
+                  @if (referenceForm.controls['name'].errors?.['minlength']) {
+                    <div>Reference name must be at least 2 characters long.</div>
+                  }
                 </div>
-          
-                <!-- reference contact -->
-                <div>
-                  <label>Reference contact</label>
-                  <input class="border p-2 w-full" type="number" formControlName="contactInfo" />
-                  <div *ngIf="referenceForm.controls['contactInfo'].invalid && (referenceForm.controls['contactInfo'].touched || referenceForm.controls['contactInfo'].dirty)" class="text-red-500 text-sm">
-                    <div *ngIf="referenceForm.controls['contactInfo'].errors?.['contactInfo']">reference contact is required.</div>
-                    <div *ngIf="referenceForm.controls['contactInfo'].errors?.['contactInfo']">reference contact must be numeric (e.g., 1-651858890).</div>
-                  </div>
+              }
+            </div>
+
+            <!-- reference contact -->
+            <div>
+              <label>Reference contact</label>
+              <input class="border p-2 w-full" type="number" formControlName="contactInfo" />
+              @if (referenceForm.controls['contactInfo'].invalid && (referenceForm.controls['contactInfo'].touched || referenceForm.controls['contactInfo'].dirty)) {
+                <div class="text-red-500 text-sm">
+                  @if (referenceForm.controls['contactInfo'].errors?.['contactInfo']) {
+                    <div>reference contact is required.</div>
+                  }
+                  @if (referenceForm.controls['contactInfo'].errors?.['contactInfo']) {
+                    <div>reference contact must be numeric (e.g., 1-651858890).</div>
+                  }
                 </div>
-          
-                <!-- reference relationship -->
-                <div class="col-span-1 sm:col-span-2">
-                  <label>reference relationship</label>
-                  <textarea class="border p-2 w-full" formControlName="relation"></textarea>
-                  <div *ngIf="referenceForm.controls['relation'].invalid && (referenceForm.controls['relation'].touched || referenceForm.controls['relation'].dirty)" class="text-red-500 text-sm">
-                    <div *ngIf="referenceForm.controls['relation'].errors?.['required']">Reference relationship is required</div>
-                  </div>
+              }
+            </div>
+
+            <!-- reference relationship -->
+            <div class="col-span-1 sm:col-span-2">
+              <label>reference relationship</label>
+              <textarea class="border p-2 w-full" formControlName="relation"></textarea>
+              @if (referenceForm.controls['relation'].invalid && (referenceForm.controls['relation'].touched || referenceForm.controls['relation'].dirty)) {
+                <div class="text-red-500 text-sm">
+                  @if (referenceForm.controls['relation'].errors?.['required']) {
+                    <div>Reference relationship is required</div>
+                  }
                 </div>
-              </div>
-          
-              <div class="flex justify-end mt-6">
-                <button type="button" class="bg-gray-200 px-4 py-2 mr-2 rounded" (click)="onCancel()">Cancel</button>
-                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" [disabled]="referenceForm.invalid">Submit</button>
-              </div>
-            </form>
+              }
+            </div>
           </div>
-        </div>
+
+          <div class="flex justify-end mt-6">
+            <button type="button" class="bg-gray-200 px-4 py-2 mr-2 rounded" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" [disabled]="referenceForm.invalid">Submit</button>
+          </div>
+        </form>
       </div>
-    }
-    
+    </div>
+  </div>
+}

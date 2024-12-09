@@ -4,7 +4,7 @@
       <div class="w-full rounded-0 px-10 py-8">
         <h2>{{ isEditMode ? 'Edit Social' : 'Add Social' }}</h2>
         <p class="mb-4">Add a new social where we can find you on</p>
-      
+
         <!-- Form starts here -->
         <form [formGroup]="socialForm" (ngSubmit)="onSubmit()">
           @if(error) {
@@ -19,23 +19,27 @@
                 type="text"
                 formControlName="name"
                 (input)="onPlatformInput($event)"
-              />
+                />
               <!-- Suggestions dropdown -->
-              <ul
-                *ngIf="isSuggestionsVisible"
-                class="absolute z-10 bg-white border rounded shadow-md mt-2 w-full"
-              >
-                <li
-                  *ngFor="let suggestion of filteredSuggestions"
-                  class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  (click)="selectSuggestion(suggestion)"
-                >
-                  {{ suggestion.name }}
-                </li>
-              </ul>
-              <div *ngIf="socialForm.get('name')?.invalid && socialForm.get('name')?.touched" class="text-sm text-red-500">
-                social name is required, select one in the list.
-              </div>
+              @if (isSuggestionsVisible) {
+                <ul
+                  class="absolute z-10 bg-white border rounded shadow-md mt-2 w-full"
+                  >
+                  @for (suggestion of filteredSuggestions; track suggestion) {
+                    <li
+                      class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      (click)="selectSuggestion(suggestion)"
+                      >
+                      {{ suggestion.name }}
+                    </li>
+                  }
+                </ul>
+              }
+              @if (socialForm.get('name')?.invalid && socialForm.get('name')?.touched) {
+                <div class="text-sm text-red-500">
+                  social name is required, select one in the list.
+                </div>
+              }
             </div>
             <div>
               <label>URL</label>
@@ -43,10 +47,12 @@
                 class="border p-2 w-full"
                 type="url"
                 formControlName="url"
-              />
-              <div *ngIf="socialForm.get('url')?.invalid && socialForm.get('url')?.touched" class="text-sm text-red-500">
-                social url is required.
-              </div>
+                />
+              @if (socialForm.get('url')?.invalid && socialForm.get('url')?.touched) {
+                <div class="text-sm text-red-500">
+                  social url is required.
+                </div>
+              }
             </div>
             <div>
               <label>Description (Optional)</label>
@@ -56,19 +62,19 @@
               ></textarea>
             </div>
           </div>
-      
+
           <div class="flex justify-end mt-6">
             <button
               type="button"
               class="bg-gray-200 px-4 py-2 mr-2 rounded"
               (click)="onCancel()"
-            >
+              >
               Cancel
             </button>
             <button
               type="submit"
               class="bg-red-500 text-white px-4 py-2 rounded"
-            >
+              >
               Submit
             </button>
           </div>

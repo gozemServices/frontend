@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ReferencesService } from '../../../services/cv/references.service';
-import { CommonModule } from '@angular/common';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EditReferencesComponent } from '../actions/edit-references/edit-references.component';
 import { faAdd, faEdit, faExclamationTriangle, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-references',
   standalone: true,
-  imports: [TranslateModule, CommonModule,FontAwesomeModule,EditReferencesComponent],
+  imports: [TranslateModule, FontAwesomeModule, EditReferencesComponent],
   templateUrl: './references.component.html',
   styleUrl: './references.component.scss'
 })

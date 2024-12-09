@@ -6,17 +6,16 @@ import { EditEducationComponent } from '../actions/edit-education/edit-education
 import { EducationService } from '../../../services/cv/education.service';
 import { GenericService } from '../../../../core/services/generic.service';
 import { Education } from '../../../../core/models/cv-sections.model';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-education',
   standalone: true,
   imports: [
     TranslateModule,
-    CommonModule,
     FontAwesomeModule,
-    EditEducationComponent,
-  ],
+    EditEducationComponent
+],
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.scss'],
 })

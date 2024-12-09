@@ -1,7 +1,7 @@
 import {Component,inject,OnInit} from '@angular/core';
 import {FormBuilder,FormArray,FormControl,FormGroup,ReactiveFormsModule,Validators,} from '@angular/forms';
 import {JobOffer,EmploymentType,JobOfferStatus,WorkLocation,} from '../../../../core/models/jobs.models';
-import { CommonModule } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 import { faAdd, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -13,7 +13,7 @@ import { Toast } from '../../../../core/models/common.model';
 @Component({
   selector: 'app-add-offer',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule, ReactiveFormsModule, TranslateModule],
+  imports: [FontAwesomeModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './add-offer.component.html',
   styleUrls: ['./add-offer.component.scss'],
 })

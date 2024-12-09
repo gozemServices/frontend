@@ -1,109 +1,120 @@
 <div class="p-6 mt-4 shadow rounded-lg relative">
   <!-- Search and Filter Controls -->
   <div class="flex justify-between mb-4">
-    <input type="text" [(ngModel)]="searchQuery" placeholder="Search offers..." 
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search offers..."
       class="px-4 py-2 border rounded-md focus:outline-none w-1/2" (input)="applyFilters()" />
-  
+
     <button (click)="openAddOfferModal()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
       Add New Offer
     </button>
   </div>
 
   <!-- Loading Spinner -->
-  <div *ngIf="isLoading" class="flex justify-center items-center">
-    <div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
-  </div>
+  @if (isLoading) {
+    <div class="flex justify-center items-center">
+      <div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
+    </div>
+  }
 
   <!-- No Job Offers Message -->
-  <div *ngIf="!isLoading && jobOffers.length === 0" class="text-center text-gray-600 py-4">
-    <p>No job offers available at the moment.</p>
-  </div>
+  @if (!isLoading && jobOffers.length === 0) {
+    <div class="text-center text-gray-600 py-4">
+      <p>No job offers available at the moment.</p>
+    </div>
+  }
 
   <!-- Job Offers Table -->
-  <div *ngIf="!isLoading && jobOffers.length > 0" class="overflow-x-auto min-w-xl bg-white shadow-lg rounded-lg">
-    <table class="min-w-full table-auto">
-      <thead class="bg-gray-200">
-        <tr>
-          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('title')">Job Title</th>
-          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('company')">Company</th>
-          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('location')">Location</th>
-          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('salary')">Salary</th>
-          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Status</th>
-          <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let offer of filteredOffers">
-          <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.title }}</td>
-          <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.company }}</td>
-          <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.location }}</td>
-          <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.salary}}</td>
-          <td class="py-2 px-4 border-b border-b-gray-50">
-            <span [ngClass]="offer.status == 'ACTIVE' ? 'text-emerald-500' : offer.status === 'INACTIVE' ? 'text-red-500' : 'text-blue-500'">
-              <!-- {{ offer.active ? 'Active' : 'Inactive' }} -->
-                {{offer.status}}
-            </span>
-          </td>
-          <td class="py-2 px-4 flex flex-nowrap space-x-2 z-10">
-            <div class="inline-block">
-              <!-- Dropdown Button -->
-              <button (click)="toggleActions(offer.id)" class="inline-block h-12 w-12 rounded bg-gray-700/10 text-gray-700 font-medium text-[14px] hover:bg-gray-700/40 leading-none transition duration-700">
-                <fa-icon [icon]="faEllipsisH"></fa-icon> <!-- Menu Icon -->
-              </button>
-          
-              <!-- Dropdown Menu (Conditionally Visible) -->
-              <div *ngIf="openActionId === offer.id" id="options-block" class="absolute z-40 right-0 w-48 mt-2 bg-white shadow-lg rounded-md text-gray-700">
-                    <button (click)="goToJobDetails(offer)" class="w-full text-left px-4 py-2 hover:bg-blue-700/10 flex items-center space-x-2">
-                      <fa-icon [icon]="faViewCandidates"></fa-icon>
-                      <span>View details</span>
-                    </button>
-                    <button (click)="openAddOfferModal(offer)" class="w-full text-left px-4 py-2 hover:bg-emerald-500/10 flex items-center space-x-2">
-                      <fa-icon [icon]="faEdit"></fa-icon>
-                      <span>Edit Offer</span>
-                    </button>
-                    <button (click)="deleteOffer(offer)" class="w-full text-left px-4 py-2 hover:bg-red-500/10 flex items-center space-x-2">
-                      <fa-icon [icon]="faDelete"></fa-icon>
-                      <span>Delete Offer</span>
-                    </button>
-                    <a [routerLink]="['../candidatures/', offer.id]" class="w-full text-left px-4 py-2 hover:bg-blue-500/10 flex items-center space-x-2">
-                      <fa-icon [icon]="faClipboardList"></fa-icon>
-                      <span>Candidates</span>
-                    </a>
-                    <button (click)="openPlanning()" class="w-full text-left px-4 py-2 hover:bg-purple-500/10 flex items-center space-x-2">
-                      <fa-icon [icon]="faClock"></fa-icon>
-                      <span>Planning</span>
-                    </button>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  @if (!isLoading && jobOffers.length > 0) {
+    <div class="overflow-x-auto min-w-xl bg-white shadow-lg rounded-lg">
+      <table class="min-w-full table-auto">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('title')">Job Title</th>
+            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('company')">Company</th>
+            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('location')">Location</th>
+            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('salary')">Salary</th>
+            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Status</th>
+            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (offer of filteredOffers; track offer) {
+            <tr>
+              <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.title }}</td>
+              <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.company }}</td>
+              <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.location }}</td>
+              <td class="py-2 px-4 border-b border-b-gray-50">{{ offer.salary}}</td>
+              <td class="py-2 px-4 border-b border-b-gray-50">
+                <span [ngClass]="offer.status == 'ACTIVE' ? 'text-emerald-500' : offer.status === 'INACTIVE' ? 'text-red-500' : 'text-blue-500'">
+                  <!-- {{ offer.active ? 'Active' : 'Inactive' }} -->
+                  {{offer.status}}
+                </span>
+              </td>
+              <td class="py-2 px-4 flex flex-nowrap space-x-2 z-10">
+                <div class="inline-block">
+                  <!-- Dropdown Button -->
+                  <button (click)="toggleActions(offer.id)" class="inline-block h-12 w-12 rounded bg-gray-700/10 text-gray-700 font-medium text-[14px] hover:bg-gray-700/40 leading-none transition duration-700">
+                    <fa-icon [icon]="faEllipsisH"></fa-icon> <!-- Menu Icon -->
+                  </button>
+                  <!-- Dropdown Menu (Conditionally Visible) -->
+                  @if (openActionId === offer.id) {
+                    <div id="options-block" class="absolute z-40 right-0 w-48 mt-2 bg-white shadow-lg rounded-md text-gray-700">
+                      <button (click)="goToJobDetails(offer)" class="w-full text-left px-4 py-2 hover:bg-blue-700/10 flex items-center space-x-2">
+                        <fa-icon [icon]="faViewCandidates"></fa-icon>
+                        <span>View details</span>
+                      </button>
+                      <button (click)="openAddOfferModal(offer)" class="w-full text-left px-4 py-2 hover:bg-emerald-500/10 flex items-center space-x-2">
+                        <fa-icon [icon]="faEdit"></fa-icon>
+                        <span>Edit Offer</span>
+                      </button>
+                      <button (click)="deleteOffer(offer)" class="w-full text-left px-4 py-2 hover:bg-red-500/10 flex items-center space-x-2">
+                        <fa-icon [icon]="faDelete"></fa-icon>
+                        <span>Delete Offer</span>
+                      </button>
+                      <a [routerLink]="['../candidatures/', offer.id]" class="w-full text-left px-4 py-2 hover:bg-blue-500/10 flex items-center space-x-2">
+                        <fa-icon [icon]="faClipboardList"></fa-icon>
+                        <span>Candidates</span>
+                      </a>
+                      <button (click)="planInterviews(offer.id)" class="w-full text-left px-4 py-2 hover:bg-purple-500/10 flex items-center space-x-2">
+                        <fa-icon [icon]="faClock"></fa-icon>
+                        <span>Planning</span>
+                      </button>
+                    </div>
+                  }
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
 
   <!-- Pagination Controls -->
-  <div *ngIf="!isLoading && filteredOffers.length > 0" class="flex justify-between items-center mt-4">
-    <button (click)="setPage(page - 1)" [disabled]="page === 1" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400">Previous</button>
-    <span class="text-sm text-gray-600">Page {{ page }}</span>
-    <button (click)="setPage(page + 1)" [disabled]="filteredOffers.length < itemsPerPage" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400">Next</button>
-  </div>
+  @if (!isLoading && filteredOffers.length > 0) {
+    <div class="flex justify-between items-center mt-4">
+      <button (click)="setPage(page - 1)" [disabled]="page === 1" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400">Previous</button>
+      <span class="text-sm text-gray-600">Page {{ page }}</span>
+      <button (click)="setPage(page + 1)" [disabled]="filteredOffers.length < itemsPerPage" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400">Next</button>
+    </div>
+  }
 </div>
 
 
 <!-- <td class="py-2 px-4 flex flex-nowrap space-x-2">
-  <button (click)="goToJobDetails(offer)" class="inline-block h-12 w-12 rounded bg-blue-700/10 text-blue-700 font-medium text-[14px] hover:bg-blue-700/40 leading-none transition duration-700">
-    <fa-icon [icon]="faViewCandidates"></fa-icon>
-  </button>
-  <button (click)="openAddOfferModal(offer)" class="inline-block h-12 w-12 rounded bg-emerald-500/10 text-emerald-500 font-medium text-[14px] hover:bg-emerald-950 leading-none transition duration-700">
-    <fa-icon [icon]="faEdit"></fa-icon>
-  </button>
-  <button (click)="deleteOffer(offer)" class="inline-block h-12 w-12 rounded bg-red-500/10 text-red-500 font-medium text-[14px] hover:bg-red-800 leading-none transition duration-700">
-    <fa-icon [icon]="faDelete"></fa-icon>
-  </button>
-  <button (click)="openPlanning()" class="inline-block h-12 w-12 rounded bg-purple-500/10 text-purple-500 font-medium text-[14px] hover:bg-purple-800 leading-none transition duration-700">
-    <fa-icon [icon]="faClock"></fa-icon>
-  </button>
-  <a title=candidates [routerLink]="['../candidatures/',offer.id]" class="flex items-center justify-center h-12 w-12 rounded bg-blue-500/10 text-blue-500 font-medium text-[15px] hover:bg-blue-800 leading-none transition duration-700">
-    <fa-icon [icon]="faClipboardList"></fa-icon>
-  </a>
+<button (click)="goToJobDetails(offer)" class="inline-block h-12 w-12 rounded bg-blue-700/10 text-blue-700 font-medium text-[14px] hover:bg-blue-700/40 leading-none transition duration-700">
+  <fa-icon [icon]="faViewCandidates"></fa-icon>
+</button>
+<button (click)="openAddOfferModal(offer)" class="inline-block h-12 w-12 rounded bg-emerald-500/10 text-emerald-500 font-medium text-[14px] hover:bg-emerald-950 leading-none transition duration-700">
+  <fa-icon [icon]="faEdit"></fa-icon>
+</button>
+<button (click)="deleteOffer(offer)" class="inline-block h-12 w-12 rounded bg-red-500/10 text-red-500 font-medium text-[14px] hover:bg-red-800 leading-none transition duration-700">
+  <fa-icon [icon]="faDelete"></fa-icon>
+</button>
+<button (click)="openPlanning()" class="inline-block h-12 w-12 rounded bg-purple-500/10 text-purple-500 font-medium text-[14px] hover:bg-purple-800 leading-none transition duration-700">
+  <fa-icon [icon]="faClock"></fa-icon>
+</button>
+<a title=candidates [routerLink]="['../candidatures/',offer.id]" class="flex items-center justify-center h-12 w-12 rounded bg-blue-500/10 text-blue-500 font-medium text-[15px] hover:bg-blue-800 leading-none transition duration-700">
+  <fa-icon [icon]="faClipboardList"></fa-icon>
+</a>
 </td> -->

@@ -17,10 +17,12 @@
 
       <!-- Applied Filters -->
       <div class="mb-6 flex flex-wrap gap-4">
-        <div *ngFor="let filter of appliedFilters" class="inline-flex items-center gap-2 bg-green-500/50 text-white px-3 py-1 rounded-full">
-          <span>{{ filter.value }}</span>
-          <button (click)="removeFilter(filter.category, filter.value)" class="text-red-500 font-bold">&times;</button>
-        </div>
+        @for (filter of appliedFilters; track filter) {
+          <div class="inline-flex items-center gap-2 bg-green-500/50 text-white px-3 py-1 rounded-full">
+            <span>{{ filter.value }}</span>
+            <button (click)="removeFilter(filter.category, filter.value)" class="text-red-500 font-bold">&times;</button>
+          </div>
+        }
       </div>
 
       <!-- Filters Panel -->
@@ -34,7 +36,7 @@
             type="text"
             placeholder="E.g., Software Engineer"
             class="mt-1 border border-mediumGray rounded-md px-2 py-1"
-          />
+            />
         </div>
 
         <!-- Language -->
@@ -46,7 +48,7 @@
             type="text"
             placeholder="E.g., English, French"
             class="mt-1 border border-mediumGray rounded-md px-2 py-1"
-          />
+            />
         </div>
 
         <!-- Skills -->
@@ -58,7 +60,7 @@
             type="text"
             placeholder="E.g., HTML, Python"
             class="mt-1 border border-mediumGray rounded-md px-2 py-1"
-          />
+            />
         </div>
 
         <!-- Apply Filter Button -->
@@ -66,7 +68,7 @@
           <button
             (click)="applyFilters()"
             class="bg-primary text-white px-4 py-2 rounded hover:bg-primaryDark transition"
-          >
+            >
             Apply Filters
           </button>
         </div>
@@ -74,54 +76,53 @@
 
       <!-- CV Grid -->
       <div class="flex justify-end mb-4">
-        <button 
-          class="p-2 text-darkShade hover:bg-lightGray rounded transition duration-200" 
+        <button
+          class="p-2 text-darkShade hover:bg-lightGray rounded transition duration-200"
           (click)="toggleLayout()">
-          <fa-icon 
-            [icon]="layoutStyle === 'grid' ? faBars : faTh" 
+          <fa-icon
+            [icon]="layoutStyle === 'grid' ? faBars : faTh"
             class="text-lg">
           </fa-icon>
         </button>
       </div>
       @if(errorMessage) {<div class="text-red-500">{{errorMessage}}</div>}
-      <ng-container *ngIf="filteredCvList.length > 0; else noResults">
-      @if(layoutStyle === 'grid') {
-            <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"> 
-              @for(applicant of filteredCvList; track applicant.id) {
-                <div
+      @if (filteredCvList.length > 0) {
+        @if(layoutStyle === 'grid') {
+          <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for(applicant of filteredCvList; track applicant.id) {
+              <div
                 class="bg-white p-4 rounded-md shadow-custom hover:shadow-lg transition"
                 >
-                  <app-cv-item [layoutStyle]="layoutStyle" [cvInfos]="applicant"></app-cv-item>
-                </div>
-              }
-            </div>
-      }@else {
-        <div class="w-full">
-          <table class="min-w-full table-auto">
-            <thead class="bg-gray-200">
-              <tr>
-                <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer">Job Title</th>
-                <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer">Company</th>
-                <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer">Location</th>
-                <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" >Salary</th>
-                <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Status</th>
-                <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for(applicant of filteredCvList; track applicant.id){
-                <tr class="bg-red-800">
-                  <app-cv-item [layoutStyle]="layoutStyle"  [cvInfos]="applicant"></app-cv-item>
+                <app-cv-item [layoutStyle]="layoutStyle" [cvInfos]="applicant"></app-cv-item>
+              </div>
+            }
+          </div>
+          }@else {
+          <div class="w-full">
+            <table class="min-w-full table-auto">
+              <thead class="bg-gray-200">
+                <tr>
+                  <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer">Job Title</th>
+                  <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer">Company</th>
+                  <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer">Location</th>
+                  <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" >Salary</th>
+                  <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Status</th>
+                  <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Actions</th>
                 </tr>
-              }
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                @for(applicant of filteredCvList; track applicant.id){
+                  <tr class="bg-red-800">
+                    <app-cv-item [layoutStyle]="layoutStyle"  [cvInfos]="applicant"></app-cv-item>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      } @else {
+        <p class="text-center text-gray-500">No results match the selected criteria.</p>
       }
-    </ng-container>
-    <ng-template #noResults>
-      <p class="text-center text-gray-500">No results match the selected criteria.</p>
-    </ng-template>
     </main>
   </div>
 </div>

@@ -7,7 +7,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { ExperienceService } from '../../../../services/cv/experience.service';
 import { Experience, Task } from '../../../../../core/models/cv-sections.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,7 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'app-edit-experience',
   standalone: true,
-  imports: [FormsModule, CommonModule,TranslateModule, ReactiveFormsModule, FontAwesomeModule],
+  imports: [FormsModule, TranslateModule, ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './edit-experience.component.html',
   styleUrls: ['./edit-experience.component.scss'],
 })

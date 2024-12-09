@@ -6,14 +6,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { EducationService } from '../../../../services/cv/education.service';
 import { Education } from '../../../../../core/models/cv-sections.model';
 
 @Component({
   selector: 'app-edit-education',
   standalone: true,
-  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './edit-education.component.html',
   styleUrls: ['./edit-education.component.scss'],
 })

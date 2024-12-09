@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SkillsService } from '../../../../services/cv/skills.service';
-import { CommonModule } from '@angular/common';
+
 import { LoadingComponent } from '../../../../../shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-edit-skill',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoadingComponent],
+  imports: [ReactiveFormsModule, LoadingComponent],
   templateUrl: './edit-skill.component.html',
   styleUrls: ['./edit-skill.component.scss']
 })

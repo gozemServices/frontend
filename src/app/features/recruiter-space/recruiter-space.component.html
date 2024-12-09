@@ -1,97 +1,99 @@
 <main class="w-full min-h-screen bg-gray-200 flex flex-row-reverse z-0 relative shadow-xl">
   <!-- <div class="w-full h-full bg-black z-30 absolute top-0 left-0 bg-opacity-70 hidden" id="dark_overlay"></div> -->
-  <app-sidebar 
+  <app-sidebar
     (tabSelected)="onTabSelected($event)"
     [userType]="userType"
     [userInfos]="userInfos"
-  >
+    >
   </app-sidebar>
   <section class="p-4 lg:mr-64 flex flex-col w-full">
-      <header class="section-header  flex w-full justify-between flex-wrap items-center px-4 py-8 bg-lightGray rounded-xl shadow-lg shadow-gray-400">
-          <div class="sample-infos w-full flex flex-wrap justify-between px-4 items-center">
-            <div class="flex w-fit items-center gap-4 flex-wrap flex-1">
-              {{ currentDate | date: 'EEEE, d MMMM yyyy' }}
-              <div class="availabilities text-green-600 flex items-center justify-center gap-2 bg-green-200/60 px-2 py-2 rounded-full cursor-pointer">
-                <span class="block h-[15px] w-[15px] bg-green-600 rounded-full shadow-2xl"></span>
-                <span class="font-bold text-sm uppercase">Ready to interview</span>
-                <fa-icon [icon]="faChevronDown"></fa-icon>
-              </div>
-            </div>
-        
-            <!-- Right-side items: Notifications, Profile and Language Switcher -->
-            <div class="flex items-center gap-4 my-2 sm:my-0">
-              <a [routerLink]="['/user/recruiter/notifications']">
-                <fa-icon 
-                  [icon]="faNotificationRing" 
-                  class="cursor-pointer text-xl text-red-500 transition-transform transform hover:scale-150 hover:rotate-12  hover:text-red-600 duration-300 ease-in-out" 
-                  (click)="goToNotifications()">
-                </fa-icon>
-              </a>
-              <img [src]="profilePic" class="w-[40px] h-[40px] rounded-full" alt="User Profile Pic">
-              <div class="relative">
-                <button 
-                  class="bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 px-4 rounded-full shadow-lg flex items-center space-x-2 hover:bg-gradient-to-l transition ease-in-out duration-300"
-                  (click)="toggleLangSelector()"
-                  >
-                  <span>{{ currentLanguage | uppercase }}</span> 
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                </button>
-        
-                <!-- Dropdown Menu -->
-                <div [class.show]="isLangDropdownOpened" class="language-dropdown absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg overflow-hidden z-50">
-                  <ul class="py-1">
-                    <li *ngFor="let lang of languages" 
-                      (click)="switchLanguage(lang)" 
-                      class="px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer"
-                      [class.bg-gray-100]="lang === currentLanguage"
-                      >
-                      <span>{{ lang | uppercase }}</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+    <header class="section-header  flex w-full justify-between flex-wrap items-center px-4 py-8 bg-lightGray rounded-xl shadow-lg shadow-gray-400">
+      <div class="sample-infos w-full flex flex-wrap justify-between px-4 items-center">
+        <div class="flex w-fit items-center gap-4 flex-wrap flex-1">
+          {{ currentDate | date: 'EEEE, d MMMM yyyy' }}
+          <div class="availabilities text-green-600 flex items-center justify-center gap-2 bg-green-200/60 px-2 py-2 rounded-full cursor-pointer">
+            <span class="block h-[15px] w-[15px] bg-green-600 rounded-full shadow-2xl"></span>
+            <span class="font-bold text-sm uppercase">Ready to interview</span>
+            <fa-icon [icon]="faChevronDown"></fa-icon>
+          </div>
+        </div>
+
+        <!-- Right-side items: Notifications, Profile and Language Switcher -->
+        <div class="flex items-center gap-4 my-2 sm:my-0">
+          <a [routerLink]="['/user/recruiter/notifications']">
+            <fa-icon
+              [icon]="faNotificationRing"
+              class="cursor-pointer text-xl text-red-500 transition-transform transform hover:scale-150 hover:rotate-12  hover:text-red-600 duration-300 ease-in-out"
+              (click)="goToNotifications()">
+            </fa-icon>
+          </a>
+          <img [src]="profilePic" class="w-[40px] h-[40px] rounded-full" alt="User Profile Pic">
+          <div class="relative">
+            <button
+              class="bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 px-4 rounded-full shadow-lg flex items-center space-x-2 hover:bg-gradient-to-l transition ease-in-out duration-300"
+              (click)="toggleLangSelector()"
+              >
+              <span>{{ currentLanguage | uppercase }}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div [class.show]="isLangDropdownOpened" class="language-dropdown absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg overflow-hidden z-50">
+              <ul class="py-1">
+                @for (lang of languages; track lang) {
+                  <li
+                    (click)="switchLanguage(lang)"
+                    class="px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer"
+                    [class.bg-gray-100]="lang === currentLanguage"
+                    >
+                    <span>{{ lang | uppercase }}</span>
+                  </li>
+                }
+              </ul>
             </div>
           </div>
-      </header>
-        
-      <router-outlet></router-outlet>
+        </div>
+      </div>
+    </header>
 
-      <section id="dashboard-content mt-40 w-full">
-          <!-- <div class="main-content flex flex-col items-center w-full">
-              <div class="font-semibold mt-10 text-3xl text-slate-600 text-center">{{"WELCOME_IN" | translate}} <span class="text-pink-600">{{"OF" | translate}} GozenServices</span></div>
-              <div class="w-full" *ngIf="selectedTab === 'dashboard'">
-                <app-dashboard></app-dashboard>
-                <router-outlet></router-outlet>
-              </div>
-              <div class="w-full" *ngIf="selectedTab === 'dashboard'">
-                <router-outlet></router-outlet>
-              </div>
-              
-              <div class="w-full" *ngIf="selectedTab === 'profile'">
-                <app-profile-management></app-profile-management>
-              </div>
-              <div class="w-full" *ngIf="selectedTab === 'offers'">
-                <app-offers></app-offers>
-              </div>
-              <div class="w-full" *ngIf="selectedTab === 'candidatures'">
-                <app-candidatures></app-candidatures>
-              </div>
-              <div class="w-full" *ngIf="selectedTab === 'paying_tools'">
-                <app-paying-tools></app-paying-tools>
-              </div>
-              <div class="w-full" *ngIf="selectedTab === 'events'">
-                <app-events></app-events>
-              </div>
-              <div class="w-full" *ngIf="selectedTab === 'candidates'">
-                <app-candidates></app-candidates>
-              </div>
-              
-          </div> -->
-      </section>
+    <router-outlet></router-outlet>
 
+    <section id="dashboard-content mt-40 w-full">
+      <!-- <div class="main-content flex flex-col items-center w-full">
+      <div class="font-semibold mt-10 text-3xl text-slate-600 text-center">{{"WELCOME_IN" | translate}} <span class="text-pink-600">{{"OF" | translate}} GozenServices</span></div>
+      <div class="w-full" *ngIf="selectedTab === 'dashboard'">
+        <app-dashboard></app-dashboard>
+        <router-outlet></router-outlet>
+      </div>
+      <div class="w-full" *ngIf="selectedTab === 'dashboard'">
+        <router-outlet></router-outlet>
+      </div>
+
+      <div class="w-full" *ngIf="selectedTab === 'profile'">
+        <app-profile-management></app-profile-management>
+      </div>
+      <div class="w-full" *ngIf="selectedTab === 'offers'">
+        <app-offers></app-offers>
+      </div>
+      <div class="w-full" *ngIf="selectedTab === 'candidatures'">
+        <app-candidatures></app-candidatures>
+      </div>
+      <div class="w-full" *ngIf="selectedTab === 'paying_tools'">
+        <app-paying-tools></app-paying-tools>
+      </div>
+      <div class="w-full" *ngIf="selectedTab === 'events'">
+        <app-events></app-events>
+      </div>
+      <div class="w-full" *ngIf="selectedTab === 'candidates'">
+        <app-candidates></app-candidates>
+      </div>
+
+    </div> -->
   </section>
+
+</section>
 
 </main>
 

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-profile-management',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,TranslateModule],
+  imports: [ReactiveFormsModule, TranslateModule],
   templateUrl: './profile-management.component.html',
   styleUrl: './profile-management.component.scss'
 })

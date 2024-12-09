@@ -1,74 +1,77 @@
 <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
   <h2 class="text-2xl font-semibold text-gray-800 mb-4">Job Application Form</h2>
-  
+
   <form (submit)="submitForm()">
     <!-- Email Field -->
     <div class="mb-4">
       <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-      <input 
-        type="email" 
-        id="email" 
-        [(ngModel)]="formData.email" 
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="formData.email"
         name="email"
         required
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-      />
+        />
     </div>
 
     <!-- File Uploads -->
     <div class="mb-6 space-y-4">
-      <div *ngFor="let file of files">
-        <label [for]="file.name" class="block text-sm font-medium text-gray-700">{{ file.label }}</label>
-        
-        <!-- File Upload and Preview -->
-        <div class="flex items-center space-x-4 mt-2">
-          <button 
-            type="button" 
-            class="bg-blue-500 text-white px-3 py-2 rounded-lg shadow-md flex items-center space-x-2 hover:bg-blue-600"
-            (click)="triggerFileInput(file.name)">
-            <fa-icon [icon]="faUpload" class="text-white"></fa-icon>
-            <span>Upload {{ file.label }}</span>
-          </button>
-          <input 
-            type="file" 
-            [id]="file.name" 
-            accept="{{ file.accept }}" 
-            class="hidden" 
-            (change)="onFileChange($event, file.name)"
-          />
-          
-          <!-- File Preview -->
-          <div *ngIf="formData[file.name]" class="flex items-center space-x-2">
-            <img 
-              *ngIf="file.isImage && filePreview[file.name]" 
-              [src]="filePreview[file.name]" 
-              alt="{{ file.label }}" 
-              class="w-10 h-10 rounded-full object-cover border"
-            />
-            <span class="text-sm text-gray-600 truncate">{{ formData[file.name]?.name }}</span>
-            <button 
-              type="button" 
-              (click)="removeFile(file.name)" 
-              class="text-red-500 hover:text-red-600">
-              <fa-icon [icon]="faTrash"></fa-icon>
+      @for (file of files; track file) {
+        <div>
+          <label [for]="file.name" class="block text-sm font-medium text-gray-700">{{ file.label }}</label>
+          <!-- File Upload and Preview -->
+          <div class="flex items-center space-x-4 mt-2">
+            <button
+              type="button"
+              class="bg-blue-500 text-white px-3 py-2 rounded-lg shadow-md flex items-center space-x-2 hover:bg-blue-600"
+              (click)="triggerFileInput(file.name)">
+              <fa-icon [icon]="faUpload" class="text-white"></fa-icon>
+              <span>Upload {{ file.label }}</span>
             </button>
+            <input
+              type="file"
+              [id]="file.name"
+              accept="{{ file.accept }}"
+              class="hidden"
+              (change)="onFileChange($event, file.name)"
+              />
+            <!-- File Preview -->
+            @if (formData[file.name]) {
+              <div class="flex items-center space-x-2">
+                @if (file.isImage && filePreview[file.name]) {
+                  <img
+                    [src]="filePreview[file.name]"
+                    alt="{{ file.label }}"
+                    class="w-10 h-10 rounded-full object-cover border"
+                    />
+                }
+                <span class="text-sm text-gray-600 truncate">{{ formData[file.name]?.name }}</span>
+                <button
+                  type="button"
+                  (click)="removeFile(file.name)"
+                  class="text-red-500 hover:text-red-600">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </div>
+            }
           </div>
         </div>
-      </div>
+      }
     </div>
 
     <!-- Submit Button -->
     <div class="mt-6 space-x-1">
-      <button 
+      <button
         (click)="onClose()"
         class="w-fit bg-transparent border-darkShade text-darkShade py-2 px-4 rounded-lg hover:text-white hover:bg-darkShade  border-2 transition">
         CANCEL
       </button>
-      <button  
-      type="submit" 
-      class="w-fit bg-primary text-white py-2 px-4 rounded-lg hover:bg-darkShade transition">
-      Submit Application
-    </button>
+      <button
+        type="submit"
+        class="w-fit bg-primary text-white py-2 px-4 rounded-lg hover:bg-darkShade transition">
+        Submit Application
+      </button>
     </div>
   </form>
 </div>
