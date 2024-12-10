@@ -5,6 +5,7 @@ import { GenericService } from '../../../core/services/generic.service';
 import { HeaderComponent } from "../../landing/components/header/header.component";
 import { AuthService } from '../auth.service';
 import { Router, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ import { Router, RouterModule } from '@angular/router';
   imports: [
     ReactiveFormsModule,
     HeaderComponent,
-    RouterModule
+    RouterModule,
+    TranslateModule
 ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']  
@@ -24,7 +26,10 @@ export class LoginComponent {
   loginForm: FormGroup;
   loading = false;
   error: string | null = null;
-  constructor(private fb: FormBuilder, private genericService: GenericService) {
+
+  private fb = inject(FormBuilder);
+  private genericService =  inject(GenericService);
+  constructor() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],

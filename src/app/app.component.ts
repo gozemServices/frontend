@@ -17,8 +17,8 @@ export class AppComponent {
     private genericService: GenericService
   ) {
     this.translateService.addLangs(['fr', 'en','es']);
-    this.translateService.setDefaultLang('en');
-    this.translateService.use('en');
+    this.translateService.setDefaultLang('fr');
+    this.translateService.use('fr');
   }
 
   switchLanguage(language: string) {

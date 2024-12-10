@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HeaderComponent } from "../../landing/components/header/header.component";
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +13,9 @@ import { AuthService } from '../auth.service';
   imports: [
     ReactiveFormsModule,
     HeaderComponent,
-    RouterModule
+    RouterModule,
+    TranslateModule,
+    CommonModule
 ],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
@@ -76,12 +80,10 @@ export class SignupComponent {
       this.authService.signupUser(formData).subscribe({
         next: (response) => {
           this.router.navigate(['/auth/login']);
-          console.log('Is the success block reached?', response);
         },
         error: (err) => {
           this.error = err.error || 'Registration failed. Please try again.';
           this.loading = false;
-          console.log('Error response:', err.error);
         },
         complete: () => (this.loading = false),
       });

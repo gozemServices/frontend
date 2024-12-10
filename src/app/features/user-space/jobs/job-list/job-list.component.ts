@@ -12,10 +12,11 @@ import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
 import { environment } from '../../../../../environments/environment';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-job-list',
   standalone: true,
-  imports: [FontAwesomeModule, ShareItemComponent, TimeAgoPipe,CommonModule],
+  imports: [FontAwesomeModule,FormsModule, ShareItemComponent, TimeAgoPipe,CommonModule],
   templateUrl: './job-list.component.html',
   styleUrl: './job-list.component.scss'
 })
@@ -29,6 +30,8 @@ export class JobListComponent {
   faShareSquare = faShareSquare;
 
   jobs: Job[] = [];
+  filteredJobs: Job[]  = [];
+  searchQuery: string = '';
   loading = false;
   errorMessage: string | null = null;
   private router = inject(Router);
@@ -47,7 +50,8 @@ export class JobListComponent {
     this.jobService.getAllJobs().subscribe({
       next: (data) => {
         this.jobs = data;
-        console.log(this.jobs)
+        this.filteredJobs = [...this.jobs];
+        // console.log(this.jobs)
         this.loading = false;
       },
       error: (err) => {
@@ -77,6 +81,27 @@ export class JobListComponent {
     const jobId = job ? job?.id : null;
     this.router.navigate(['/user/job/details/',jobId]);
   }
-  
+
+
+  filterJobs(): void {
+    // alert(this.selectedStatus);
+    this.filteredJobs = this.jobs.filter((job:any) => {
+      const matchesSearch =
+        !this.searchQuery ||
+        job.title.toLowerCase().includes(this.searchQuery.toLowerCase()) 
+         ;
+
+      return matchesSearch;
+    });
+
+    // this.filteredProposals = this.jobProposals.filter((proposal:any) => {
+    //   const matchesSearch =
+    //     !this.searchQuery ||
+    //     proposal.jobOffer.title.toLowerCase().includes(this.searchQuery.toLowerCase());
+
+    //   return matchesSearch && matchesStatus;
+    // });
+  }
+
 
 }

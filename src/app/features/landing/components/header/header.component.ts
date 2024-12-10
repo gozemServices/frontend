@@ -5,11 +5,12 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../auth/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { LocaleSwitcherComponent } from "../../../../shared/components/locale-switcher/locale-switcher.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TranslateModule,FontAwesomeModule,CommonModule,RouterModule, FontAwesomeModule],
+  imports: [TranslateModule, FontAwesomeModule, CommonModule, RouterModule, FontAwesomeModule, LocaleSwitcherComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

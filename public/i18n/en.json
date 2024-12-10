@@ -169,5 +169,31 @@
 
     "REMOVAL_CONFIRMATION_TITLE": "Deletion",
     "REMOVAL_CONFIRMATION_DESCRIPTION": "Are you sure you want to delete",
-    "REMOVAL_CONFIRMATION_WARNING": "This action is irreversible and cannot be undone !"
+    "REMOVAL_CONFIRMATION_WARNING": "This action is irreversible and cannot be undone !",
+    "JOIN_US_AT": "Join Us at",
+    "FROM": "from",
+    "CREATE_ACCOUNT": "Create an account to get started.",
+    "SIGNUP_ACCOUNT": "Sign up for your account",
+    "COMPANY_NAME_REQUIRED": "Company name is required",
+    "USERNAME": "Username",
+    "USERNAME_REQUIRED": "Username is required",
+    "EMAIL_ADDRESS": "Email Address",
+    "INVALID_EMAIL": "Invalid email format",
+    "PHONE_NUMBER": "Phone Number",
+    "PHONE_NUMBER_REQUIRED": "Phone number is required",
+    "PHONE_NUMBER_PATTERN": "Phone number must be 10 digits",
+    "ACCOUNT_TYPE": "Account Type",
+    "USER": "User",
+    "RECRUITER": "Recruiter",
+    "PASSWORD": "Password",
+    "PASSWORD_REQUIRED": "Password is required",
+    "PASSWORD_MIN_LENGTH": "Password must be at least 8 characters long",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "PASSWORD_MISMATCH": "Passwords do not match",
+    "LOADING": "Loading...",
+    "SIGN_UP": "Sign up",
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+    "LOGIN_HERE": "login here"
+      
+      
 }

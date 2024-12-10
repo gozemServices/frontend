@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Chart } from 'chart.js';
 import { GenericService } from '../../../core/services/generic.service';
-import { CvthequeService } from '../../services/cv/cvtheque.service';
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,

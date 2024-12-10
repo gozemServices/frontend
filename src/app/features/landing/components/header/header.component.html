@@ -9,6 +9,7 @@
       <a href="#cvs" class="mx-4 px-2 py-2 text-black rounded-2xl hover:text-[#AF4E64] hover:bg-pink-200/60 transition duration-700">{{"CVS" | translate}}</a>
       <a href="#contact" class="mx-4 px-2 py-2 text-black rounded-2xl hover:text-[#AF4E64] hover:bg-pink-200/60 transition duration-700">{{"CONTACTS_US" | translate}}</a>
     </nav>
+    <app-locale-switcher></app-locale-switcher>
     <div class="sign-block flex items-end justify-center">
     @if(!isAuthenticated) {
       <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active" class="mx-2 py-2 text-white bg-primary px-4 rounded-full hover:text-[#AF4E64] hover:bg-pink-200/80 transition duration-700">{{"LOGIN" | translate}}</a>
@@ -50,10 +51,10 @@
       <img src="logos/gozen-services.jpg" alt="" class="w-full h-full rounded-full object-cover">
     </div>
     <div class="flex flex-col items-end justify-center gap-2 text-xl mt-4">
-      <div class="sign-block w-full">
+      <div class="sign-block w-full capitalize">
         @if(!isAuthenticated) {
           <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active" class="mx-2 py-2 text-white bg-primary px-4 rounded-full hover:text-[#AF4E64] hover:bg-pink-200/80 transition duration-700">{{"LOGIN" | translate}}</a>
-          <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="mx-2 px-2 py-2 text-black hover:bg-pink-200/60 rounded-full transition duration-700">{{"REGISTER" | translate}}</a>
+          <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="capitalize mx-2 px-2 py-2 text-white hover:bg-pink-200/60 rounded-full transition duration-700">{{"REGISTER" | translate}}</a>
         }
          @if(isAuthenticated && userRole === 'APPLICANT') {
           <a [routerLink]="['/user/jobseeker/dashboard']" routerLinkActive="router-link-active" class="text-lg mx-2 px-2 py-2  text-white md:text-[#AF4E64] hover:text-[#AF4E64]">
@@ -66,6 +67,7 @@
             {{"ACCOUNT" | translate}}</a>
          }
       </div>
+      <app-locale-switcher></app-locale-switcher>
       <nav class="flex flex-col w-full justify-center items-center">
         <a href="#" class="mx-4 px-2 py-2 text-white hover:text-[#AF4E64]">{{"HOME" | translate}}</a>
         <a href="#services" class="mx-4 px-2 py-2 text-white hover:text-[#AF4E64]">{{"SERVICES" | translate}}</a>

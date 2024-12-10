@@ -8,8 +8,30 @@
   @if(jobs.length === 0 ){
     <div>No job found</div>
   }
+  <div class="flex flex-wrap gap-4 mb-6">
+    <!-- Search -->
+    <input
+      type="text"
+      class="w-full md:w-1/2 border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200"
+      placeholder="Search by job title..."
+      [(ngModel)]="searchQuery"
+      (input)="filterJobs()"
+      />
+
+    <!-- Status Filter -->
+    <!-- <select
+      class="w-full md:w-1/4 border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200"
+      [(ngModel)]="selectedStatus"
+      (change)="filterProposals()"
+      >
+      <option value="">All Statuses</option>
+      <option value="pending">Pending</option>
+      <option value="accepted">Accepted</option>
+      <option value="rejected">Refused</option>
+    </select> -->
+  </div>
   <div [ngClass]="{'list': layout === 'list', 'grid': layout === 'grid'}" class="job-list-container w-full">
-    @for (job of jobs; track job) {
+    @for (job of filteredJobs; track job) {
       <div class="job-item bg-white border border-gray-300 rounded-lg p-4 w-full shadow-xl flex flex-col">
         <!-- Job Details -->
         <div class="">

@@ -27,7 +27,9 @@ export class CvItemComponent {
 
   ngOnInit() {
     this.loadProfileImage(this.cvInfos?.profilePhotoUrl ?? '');
+    console.log(this.cvInfos);
   }
+
 
   loadProfileImage(fileName: string) {
     this.genericsService.getImageRessource(fileName).subscribe(
