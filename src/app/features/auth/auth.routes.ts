@@ -13,8 +13,14 @@ export const authRoutes: Routes = [
         loadComponent: () => import('./signup/signup.component').then(c => c.SignupComponent)
     },
     {
+        path: 'email-verification',
+        canActivate: [noAuthGuard],
+        loadComponent: () => import('./email-verification/email-verification.component').then(c => c.EmailVerificationComponent)
+    },
+    {
         path: 'password/recover',
         canActivate: [noAuthGuard],
         loadComponent: () => import('./signup/signup.component').then(c => c.SignupComponent)
     }
 ]
+

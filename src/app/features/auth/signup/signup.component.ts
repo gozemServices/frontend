@@ -21,15 +21,18 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-  authService = inject(AuthService);
-  router = inject(Router);
   signupForm!: FormGroup;
   loading = false;
   error: string | null = null;
   profilePicPreview: string | null = null;
   profilePicFile: File | null = null;
 
-  constructor(private fb: FormBuilder) {
+
+
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private fb =  inject(FormBuilder);
+  constructor() {
     this.initForm();
   }
 
@@ -70,6 +73,10 @@ export class SignupComponent {
     const userType = this.signupForm.value.userType;
     const payload = this.createPayload(userType);
     const formData = new FormData();
+
+    const userEmail = this.signupForm.value.email; 
+    this.authService.setEmail(userEmail);
+
     formData.append('user', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
     if (this.profilePicFile) {
       formData.append('profilePicture', this.profilePicFile);
@@ -79,7 +86,7 @@ export class SignupComponent {
     if (userType === 'user') {  
       this.authService.signupUser(formData).subscribe({
         next: (response) => {
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/auth/email-verification']);
         },
         error: (err) => {
           this.error = err.error || 'Registration failed. Please try again.';
@@ -90,7 +97,7 @@ export class SignupComponent {
     } else if (userType === 'recruiter') {
 
       this.authService.signupRecruiter(formData).subscribe({
-        next: () => this.router.navigate(['auth/login']),
+        next: () => this.router.navigate(['/auth/email-verification']),
         error: (err) => {
           this.error = err.error || 'Registration failed. Please try again.';
           this.loading = false;

@@ -56,7 +56,7 @@ export class ProposalModalComponent implements OnInit {
           id: 0,
           message: 'Job proposal send with success',
           type: 'success',
-          timeout: 5000
+          timeout: 1000
         }
         this.genericsService.openToast(toastInfos);
       },

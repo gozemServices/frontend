@@ -1,6 +1,6 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable,signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import {Observable} from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../../core/models/common.model';
@@ -14,6 +14,8 @@ export class AuthService {
   private apiUrl = `${environment.apiAuthUrl}`;
   private allApiUrl = `${environment.allApiUrl}`
   user = signal<User | null>(null);
+  email = signal<string | null>(null);
+
   constructor(private http: HttpClient, private router: Router) {}
 
   // Signup method
@@ -25,6 +27,13 @@ export class AuthService {
     return this.http.post(endpoint, data);  
   }
 
+  setEmail(newEmail: string) {
+    this.email.set(newEmail); 
+  }
+
+  clearEmail() {
+    this.email.set(null); 
+  }
   signupUser(data: FormData): Observable<any> {
     const endpoint = `${this.apiUrl}/register`;
     // const headers = new HttpHeaders({'Content-Type': 'multipart/form-data'});
@@ -141,17 +150,10 @@ export class AuthService {
     const body = {user,updatePasswordDto};
 
     return this.http.put(endpoint,body, {headers});
-    // // Send HTTP request to update password
-    // return this.http.patch(endpoint, body, { headers }).pipe(
-    //   tap((response) => {
-    //     // Optionally handle any actions after successful password update
-    //     console.log('Password updated successfully:', response);
-    //   }),
-    //   // Handle errors in response
-    //   catchError((error) => {
-    //     console.error('Error updating password:', error);
-    //     throw error;
-    //   })
-    // );
+  }
+
+  verifyEmail(emailVerificationDto: {email: string, code: string}) {
+    const endpoint = `${this.apiUrl}/verify`;
+    return this.http.post(endpoint, emailVerificationDto);
   }
 }
