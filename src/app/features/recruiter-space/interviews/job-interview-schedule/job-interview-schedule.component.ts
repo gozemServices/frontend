@@ -1,10 +1,11 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { faAdd, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
 import { CommonModule } from '@angular/common';
 import { GenericService } from '../../../../core/services/generic.service';
+import { InterviewService } from '../../../services/interview.service';
 
 @Component({
   selector: 'app-job-interview-schedule',
@@ -13,27 +14,31 @@ import { GenericService } from '../../../../core/services/generic.service';
   templateUrl: './job-interview-schedule.component.html',
   styleUrls: ['./job-interview-schedule.component.scss']
 })
-export class JobInterviewScheduleComponent {
+export class JobInterviewScheduleComponent implements OnInit {
   scheduleForm!: FormGroup;
   faAdd = faAdd;
   faRemove = faDeleteLeft;
   @Input() isEditMode: boolean = false;
-  @Input() candidatesList: number[] = [];
   @Input() selectedCandidate: any  = null;
+  @Input() jobOfferId: number | null = null;
+
   private fb = inject(FormBuilder);
   private genericsService = inject(GenericService);
+  private interviewService = inject(InterviewService);
+  candidatesList$ = this.interviewService.candidatesList;
+  isloading = false;
 
-  constructor() {
+  constructor() {}
+  ngOnInit() {
     if(this.isEditMode && this.selectedCandidate != null) {
       this.initScheduleForm(this.selectedCandidate);
     }
-    else if(this.isEditMode === false && this.candidatesList && this.candidatesList.length > 0) {
+    else if(this.isEditMode === false && this.candidatesList$ && this.candidatesList$.length > 0) {
       this.initScheduleForm();
     }
     else {
       this.initScheduleForm();
     }
-
   }
 
   initScheduleForm(data?: any) {
@@ -48,7 +53,7 @@ export class JobInterviewScheduleComponent {
                 time: [step.time, [Validators.required]],  // New field for time
                 place: [step.place, [Validators.required]], // New field for place
                 description: [step.description || ''],
-                interviewerEmail: [step.interviewerEmail || '', [Validators.required]]
+                interviewerEmails: [step.interviewerEmails || '', [Validators.required]]
               })
             )
           : [this.createStep()],
@@ -68,7 +73,7 @@ export class JobInterviewScheduleComponent {
       time: ['', [Validators.required]],  // Time field
       place: ['', [Validators.required]], // Place field
       description: [''],
-      interviewerEmail: ['', [Validators.required, Validators.email]]
+      interviewerEmails: ['', [Validators.required]]
     });
   }
 
@@ -86,7 +91,22 @@ export class JobInterviewScheduleComponent {
 
   submitForm() {
     if (this.scheduleForm.valid) {
-      console.log('Form Data:', this.scheduleForm.value);
+      const GroupInterviewScheduleDTO = {
+        jobOfferId: this.jobOfferId,
+        steps: this.scheduleForm.value.steps,
+        jobApplicationIds: this.interviewService.candidatesList(),
+      }
+      console.log(GroupInterviewScheduleDTO);
+      this.isloading = true;
+      // Using InterviewScheduleService to save the schedule
+      this.interviewService.createOrUpdateSchedule(GroupInterviewScheduleDTO).subscribe({
+        next: (response) => {
+          console.log('Interview schedule saved successfully:', response);
+        },
+        error: (error) => {
+          console.error('Error saving interview schedule:', error);
+        }
+      });
     } else {
       console.log(this.genericsService.getFormValidationErrors(this.scheduleForm));
     }

@@ -53,7 +53,7 @@ export class CandidaturesComponent {
       next: (candidatures: any) => {
         this.candidatures = candidatures;
         this.loading = false;
-        console.log(this.candidatures);
+        // console.log(this.candidatures);
         this.applyFilters();
       },
       error: (err: any) => {

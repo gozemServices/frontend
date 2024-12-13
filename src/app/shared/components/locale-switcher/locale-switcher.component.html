@@ -1,14 +1,14 @@
-<div class="flex items-center">
+<div class="flex items-center cursor-pointer hover:cursor-pointer">
     <!-- <label for="language" class="mr-4 text-lg font-semibold">Language:</label> -->
     
     <select
       id="language"
-      class="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+      class="px-4 py-2 rounded-lg border border-gray-300 bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
       [ngModel]="currentLang"
       (ngModelChange)="switchLanguage($event)"
     >
-      <option value="en">🇺🇸 English</option>
-      <option value="fr">🇫🇷 Français</option>
+      <option class="cursor-pointer" value="en">🇺🇸 English</option>
+      <option class="cursor-pointer" value="fr">🇫🇷 Français</option>
     </select>
   </div>
   

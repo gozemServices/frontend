@@ -8,6 +8,7 @@ import { SidebarComponent } from '../user-space/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { User } from '../../core/models/common.model';
 import { AuthService } from '../auth/auth.service';
+import { LocaleSwitcherComponent } from "../../shared/components/locale-switcher/locale-switcher.component";
 @Component({
   selector: 'app-recruiter-space',
   standalone: true,
@@ -17,7 +18,8 @@ import { AuthService } from '../auth/auth.service';
     SidebarComponent,
     TranslateModule,
     FontAwesomeModule,
-    RouterModule
+    RouterModule,
+    LocaleSwitcherComponent
 ],
   templateUrl: './recruiter-space.component.html',
   styleUrl: './recruiter-space.component.scss'

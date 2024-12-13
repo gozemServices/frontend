@@ -33,8 +33,7 @@
                 >
                 <input
                 type="checkbox"
-                [(ngModel)]="selectedCandidates[candidature.id]"
-                [value]="candidature.id"
+                (change)="toggleCandidateSelection(candidature.id, $event)"
               />
                 <td class="p-4">{{ candidature.jobSeekerName }}</td>
                 <td class="p-4">{{ candidature.jobOfferTitle }}</td>
@@ -63,7 +62,7 @@
       <div class="w-full h-full overflow-auto">
           <app-job-interview-schedule
             [isEditMode]="data.isEditMode"
-            [candidatesList]="selectedCandidates"
+            [jobOfferId]="data.offerId"
           ></app-job-interview-schedule>
       </div>
   }
@@ -90,7 +89,7 @@
       type="button"
       class="px-4 py-2 bg-primary text-white rounded-md"
       (click)="toggleStep(2)"
-      [disabled]="selectedCandidates.length === 0"
+      [disabled]="iscandidatesListEmpty"
     >
       Next
     </button>

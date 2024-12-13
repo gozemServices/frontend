@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { JobService } from '../../../services/job.service';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
 import { JobInterviewScheduleComponent } from "../job-interview-schedule/job-interview-schedule.component";
+import { InterviewService } from '../../../services/interview.service';
 @Component({
   selector: 'app-plan-interview',
   standalone: true,
@@ -15,21 +16,24 @@ import { JobInterviewScheduleComponent } from "../job-interview-schedule/job-int
 export class PlanInterviewComponent implements OnInit{
   data: any;
   loading = false;
-  selectedCandidates: number[] = []
   candidatures: any;  // List of candidatures
   filteredCandidatures: any;
   idOffer: any;
   searchQuery: string = ''; 
   step!: number;
+
   private modalService = inject(ModalService);
   private jobService = inject(JobService);
+  private interviewService = inject(InterviewService);
+  iscandidatesListEmpty = true;
+
   ngOnInit() {
     if(this.data?.isEditMode){
 
     }else{
       this.loadApplicantList(this.data.offerId);
       this.step = this.data.step;
-      console.log(this.data); 
+      // console.log(this.data); 
     }
   }
 
@@ -39,7 +43,7 @@ export class PlanInterviewComponent implements OnInit{
       next: (candidatures: any) => {
         this.candidatures = candidatures;
         this.loading = false;
-        console.log(this.candidatures);
+        // console.log(this.candidatures);
         this.applyFilters();
       },
       error: (err: any) => {
@@ -62,5 +66,22 @@ export class PlanInterviewComponent implements OnInit{
     this.modalService.close();
   }
 
+
+  toggleCandidateSelection(candidateId: number, event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+  
+    if (isChecked) {
+      this.interviewService.addCandidate(candidateId);
+      this.iscandidatesListEmpty = false;
+    } else {
+      // Remove the candidate ID from the list
+      this.interviewService.removeCandidate(candidateId);    
+      if(this.interviewService.candidatesList.length === 0) {
+        this.iscandidatesListEmpty = true;
+      }
+    }
+    // console.log('Selected Candidates:', this.interviewService.candidatesList());
+  }
+  
   
 }

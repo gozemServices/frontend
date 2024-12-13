@@ -24,7 +24,7 @@
 
 <div class="relative overflow-hidden w-full h-screen pt-10 mb-2 sm:rounded-2xl">
   <!-- Flex container holding all the images -->
-  <div class="absolute inset-0 flex transition-transform duration-700"
+  <div class="absolute inset-0 flex transition-transform duration-1000 md:duration-[2000s]"
     [ngStyle]="{'transform': 'translateX(' + currentSlide * -100 + '%)'}">
 
     @for (image of images; track image) {
@@ -43,7 +43,7 @@
     <p class="text-white text-3xl text-center">
       {{"FIND" | translate}} {{ displayedText}}<span class="animate-pulse">|</span>
     </p>
-    <div class="flex items-center justify-center gap-2">
+    <div class="flex items-center justify-center flex-wrap gap-2">
       <a [routerLink]="['/auth/login']" class="capitalize px-6 py-3 rounded-full bg-[#AF4E64] text-white transition duration-800 hover:bg-[#701C2F]">{{"START_NOW" | translate}}</a>
       <a href="#services" class="capitalize px-6 py-3 rounded-full bg-white text-black transition duration-800 hover:text-white hover:bg-[#701C2F]">{{"SEE_MORE" | translate}}</a>
     </div>

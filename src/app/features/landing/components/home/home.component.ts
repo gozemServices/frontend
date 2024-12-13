@@ -21,9 +21,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   currentSlide = 0;
   images = [
-    // 'images/people_in_meeting.jpg',
-    // 'images/man_giving_hand.jpg',
-    // 'images/people_in_meeting_from_top.jpg',
+    'images/people_in_meeting.jpg',
+    'images/man_giving_hand.jpg',
+    'images/people_in_meeting_from_top.jpg',
     'images/sav_calling.jpg',
   ];
 

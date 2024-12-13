@@ -8,17 +8,19 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { User } from '../../core/models/common.model';
 import { AuthService } from '../auth/auth.service';
+import { LocaleSwitcherComponent } from "../../shared/components/locale-switcher/locale-switcher.component";
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
   imports: [
     TranslateModule,
-    RouterModule, 
-    FontAwesomeModule, 
-    SidebarComponent, 
-    CommonModule, 
-    ],
+    RouterModule,
+    FontAwesomeModule,
+    SidebarComponent,
+    CommonModule,
+    LocaleSwitcherComponent
+],
   templateUrl: './user-space.component.html',
   styleUrl: './user-space.component.scss'
 })
@@ -37,11 +39,9 @@ export class UserSpaceComponent implements OnInit{
   currentDate = new Date();
 
   private genericService= inject(GenericService);
-  private translate= inject(TranslateService);
   private authService= inject(AuthService);
   constructor(){}
   ngOnInit() {
-    this.languages = this.genericService.getLanguages();
     this.user = this.authService.getUser();
     this.loadProfileImage(this.user?.profilePhotoUrl ?? '');
   }
@@ -54,20 +54,6 @@ export class UserSpaceComponent implements OnInit{
     this.selectedTab = 'notifications'
   }
  
-
-  switchLanguage(language: string) {
-    this.translate.setDefaultLang(language);  
-    this.translate.use(language);  
-    this.currentLanguage = language;
-    this.toggleLangSelector();
-   }
-
-   toggleLangSelector(){
-    this.isLangDropdownOpened = !this.isLangDropdownOpened;
-  }
-
-
-
   loadProfileImage(fileName: string) {
     this.genericService.getImageRessource(fileName).subscribe(
       (data) => {
