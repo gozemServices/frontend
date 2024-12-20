@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JobService } from '../../services/job.service';
-import {faCalendarAlt, faClipboardList, faClock, faDeleteLeft,faEdit,faEllipsisH,faEye,faToggleOff,faToggleOn,} 
+import {faCalendarAlt, faCalendarCheck, faClipboardList, faClock, faDeleteLeft,faEdit,faEllipsisH,faEye,faToggleOff,faToggleOn,} 
 from '@fortawesome/free-solid-svg-icons';
 import { AddOfferComponent } from './add-offer/add-offer.component';
 import { ModalService } from '../../../shared/components/modal/modal.service';
@@ -31,6 +31,7 @@ export class OffersComponent implements OnInit {
   faCalendarAlt  = faCalendarAlt;
   faClock = faClock;
   faEllipsisH = faEllipsisH;
+  faCalendarCheck = faCalendarCheck;
 
   
   // isModalVisible = false;
@@ -169,6 +170,10 @@ export class OffersComponent implements OnInit {
     const jobId = job ? job?.id : null;
     // console.log(job);
     this.router.navigate(['/user/job/details/',jobId]);
+  }
+  goToInterviewedList(job: any) {
+      const jobId = job ? job?.id : null;
+      this.router.navigate(['interviewed',jobId]);
   }
 
   openActionId!: any;

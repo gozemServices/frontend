@@ -13,10 +13,11 @@ import { environment } from '../../../../../environments/environment';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 @Component({
   selector: 'app-job-list',
   standalone: true,
-  imports: [FontAwesomeModule,FormsModule, ShareItemComponent, TimeAgoPipe,CommonModule],
+  imports: [FontAwesomeModule,FormsModule, ShareItemComponent, TimeAgoPipe,CommonModule,TruncatePipe],
   templateUrl: './job-list.component.html',
   styleUrl: './job-list.component.scss'
 })

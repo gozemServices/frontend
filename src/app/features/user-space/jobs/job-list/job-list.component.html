@@ -32,13 +32,13 @@
   </div>
   <div [ngClass]="{'list': layout === 'list', 'grid': layout === 'grid'}" class="job-list-container w-full">
     @for (job of filteredJobs; track job) {
-      <div class="job-item bg-white border border-gray-300 rounded-lg p-4 w-full shadow-xl flex flex-col">
+      <div class="job-item bg-white border border-gray-300 rounded-lg p-4 w-full shadow-xl flex flex-col justify-between">
         <!-- Job Details -->
         <div class="">
           <p class="px-4 w-fit text-start  align-start rounded-full {{ job.type === 'permanent' ? 'bg-orange-500' : 'bg-green-500' }} text-white">{{job.type}} </p>
           <h3 class="text-md !text-[28px] font-bolder text-[#002133]">{{ job.title }}</h3>
           <div class="job-description break-words text-gray-700">
-            {{job.description}}
+            {{job.description | truncate:100}}
             <button (click)="goToJobDetails(job)" class="text-bold block text-blue-500">view Job</button>
           </div>
         </div>

@@ -74,7 +74,7 @@
     >
       Cancel
     </button>
-      @if(step === 2) {
+      @if(step === 2 && !data.isEditMode) {
         <button
         type="button"
         class="px-4 py-2 border-primary underline text-primary rounded-md"

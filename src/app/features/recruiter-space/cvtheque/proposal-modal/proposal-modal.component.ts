@@ -21,6 +21,7 @@ export class ProposalModalComponent implements OnInit {
   jobOffers!: JobOffer[];
   jobId!: number; // Will store the selected job ID
   selectedCv!: number; // For demonstration purposes
+  error  = null;
   private jobService = inject(JobService);
   private jobProposalService = inject(JobProposalService);
   private modalService = inject(ModalService);
@@ -49,6 +50,7 @@ export class ProposalModalComponent implements OnInit {
   proposeJob() {
     // alert(`Job ID: ${this.jobId} proposed to CV ID: ${this.selectedCv}`);
     this.isLoading = true; 
+    this.error = null;
     this.jobProposalService.proposeJob(this.jobId, [this.selectedCv]).subscribe({
       next: (response) => {
         this.isLoading = false;
@@ -62,6 +64,7 @@ export class ProposalModalComponent implements OnInit {
       },
       error: (err: any) => {
         console.error('Failed to fetch job offers:', err);
+        this.error = err.error;
         this.isLoading = false;  
       },
     });

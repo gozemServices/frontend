@@ -16,7 +16,7 @@ export class CvthequeService {
      * Get all CVs from the CVTheque.
      */
     getAllCvs(): Observable<any> {
-      return this.http.get<any>(`${this.baseUrl}`);
+      return this.http.get<any>(`${this.baseUrl}`,{withCredentials: true});
     }
     getAllPublicCvs(): Observable<any> {
       return this.http.get<any>(`${environment.apiUrl}/public/cv`);

@@ -1,18 +1,20 @@
 import { Component, inject } from '@angular/core';
-import { Candidature } from '../../../core/models/jobs.models';
+import { ApplicationStatus, Candidature } from '../../../core/models/jobs.models';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { faEllipsisH, faEdit, faComments, faCheck, faTimes, faComment } from '@fortawesome/free-solid-svg-icons'; 
+import {faEye, faDownload, faArrowRight, faArrowLeft, faEllipsisH, faEdit, faComments, faCheck, faTimes, faComment, faFileExcel } from '@fortawesome/free-solid-svg-icons'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ActivatedRoute } from '@angular/router';
 import { JobService } from '../../services/job.service';
 import { ModalService } from '../../../shared/components/modal/modal.service';
 import { JobInterviewScheduleComponent } from '../interviews/job-interview-schedule/job-interview-schedule.component';
 import { CandidateInterviewFeedbackComponent } from '../interviews/candidate-interview-feedback/candidate-interview-feedback.component';
+import { PlanInterviewComponent } from '../interviews/plan-interview/plan-interview.component';
+
 @Component({
   selector: 'app-candidatures',
   standalone: true,
-  imports: [CommonModule,FormsModule,FontAwesomeModule],
+  imports: [FormsModule,FontAwesomeModule,CommonModule], 
   templateUrl: './candidatures.component.html',
   styleUrl: './candidatures.component.scss'
 })
@@ -35,10 +37,18 @@ export class CandidaturesComponent {
   faTimes = faTimes;
   faComment = faComments;
 
+  faEye = faEye;
+  faDownload = faFileExcel;
+  faArrowRight = faArrowRight;
+  faArrowLeft = faArrowLeft;
+
+
 
   private route = inject(ActivatedRoute);
   private jobService = inject(JobService);  
   private modalService = inject(ModalService);
+  applicationStatusList = Object.values(ApplicationStatus);
+  JobApplicationStatus = ApplicationStatus;
   constructor() {}
 
   ngOnInit(): void {
@@ -53,7 +63,7 @@ export class CandidaturesComponent {
       next: (candidatures: any) => {
         this.candidatures = candidatures;
         this.loading = false;
-        // console.log(this.candidatures);
+        console.log(this.candidatures);
         this.applyFilters();
       },
       error: (err: any) => {
@@ -120,4 +130,47 @@ export class CandidaturesComponent {
     console.log('Reject candidate:', candidature);
     alert(`Reject candidate ${candidature.jobSeekerName}`);
   }
+
+
+  editInterview(candidature: any){
+      const data = {
+        isEditMode: true,
+        selectedCandidates: [],
+        step:2,
+      };
+      this.modalService.open(PlanInterviewComponent, {
+          size: {
+            width: '80%',
+            padding: '1rem'
+          },
+          data: {
+            data
+          }
+        }).then((isDone) => {
+            // this.fetchJobOffers();       
+        });
+  }
+  downloadCandidatureFolder(candidature: any){}
+  moveToInterview(candidature: any){}
+  viewDetails(candidature: any){}
+  moveToPreInterview(candidature: any){
+    
+    // alert(candidature.status == this.jobApplicationStatus.INTERVIEW_SCHEDULED);
+  }
+
+
+  exportApplicationsToCsv(filter?: string){
+    const offerId = this.idOffer;
+
+    this.jobService.exportJobApplications(offerId, filter).subscribe((blob) => {
+      // Create a link element to download the file
+      const a = document.createElement('a');
+      const objectUrl = URL.createObjectURL(blob);
+      a.href = objectUrl;
+      a.download = 'job_applications.csv';
+      a.click();
+      URL.revokeObjectURL(objectUrl); // Clean up
+    });
+  }
+
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { catchError, Observable, throwError } from 'rxjs';
@@ -84,5 +84,19 @@ export class JobService {
         return throwError(() => error);
       })
     );
+  }
+
+
+  exportJobApplications(offerId: number, filter?: string): Observable<Blob> {
+    let params = new HttpParams().set('offerId', offerId.toString());
+    if (filter) {
+      params = params.set('filter', filter);
+    }
+
+    // Sending GET request with params and expecting a CSV file in response
+    return this.http.get(`${this.baseUrl}/export`, {
+      params,
+      responseType: 'blob',
+    });
   }
 }

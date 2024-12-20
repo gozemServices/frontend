@@ -75,6 +75,10 @@
                         <fa-icon [icon]="faClipboardList"></fa-icon>
                         <span>Candidates</span>
                       </a>
+                      <a [routerLink]="['../interviews-schedule/candidates', offer.id]" class="w-full text-left px-4 py-2 hover:bg-blue-500/10 flex items-center space-x-2">
+                        <fa-icon [icon]="faCalendarCheck"></fa-icon>
+                        <span>Interviews</span>
+                      </a>
                       <button (click)="planInterviews(offer.id)" class="w-full text-left px-4 py-2 hover:bg-purple-500/10 flex items-center space-x-2">
                         <fa-icon [icon]="faClock"></fa-icon>
                         <span>Planning</span>

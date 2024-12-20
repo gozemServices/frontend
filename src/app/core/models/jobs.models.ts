@@ -22,6 +22,7 @@
     appliedDate: Date;
   }
 
+
   export interface Job {
     id: number; 
     title: string;
@@ -58,6 +59,12 @@
     INACTIVE = 'INACTIVE',
     CLOSED = 'CLOSED',
   }
+  // export enum CandidateStatus {
+  //   PENDING = 
+  //   INTERVIEW = 
+  //   HIRED = 
+  //   REJECTED = 
+  // }
   
   export interface JobOffer {
     id: number;
@@ -79,8 +86,20 @@
   
 
   export enum ProposalStatus {
-    'PEND' = 'PENDING', 
-    'ACC' = 'ACCEPTED',
-    'REJ' = 'REJECTED', 
-    'ABO' = 'ABORTED'
+    PENDING = 'PENDING', 
+    ACCEPTED = 'ACCEPTED',
+    REJECTED = 'REJECTED', 
+    ABORTED = 'ABORTED'
+}
+
+export enum ApplicationStatus {
+  PRE_INTERVIEW = 'PRE_INTERVIEW',
+  DOCUMENTS_SUBMITTED = 'DOCUMENTS_SUBMITTED',
+  INTERVIEW_SCHEDULED = 'INTERVIEW_SCHEDULED',
+  COMPLETED = 'COMPLETED', 
+  PENDING = 'PENDING',
+  ACCEPTED = 'ACCEPTED', 
+  REJECTED = 'REJECTED', 
+  INTERVIEW = 'INTERVIEW', 
+  HIRED = 'HIRED'
 }

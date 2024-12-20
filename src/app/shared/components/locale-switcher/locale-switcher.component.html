@@ -7,8 +7,9 @@
       [ngModel]="currentLang"
       (ngModelChange)="switchLanguage($event)"
     >
-      <option class="cursor-pointer" value="en">🇺🇸 English</option>
-      <option class="cursor-pointer" value="fr">🇫🇷 Français</option>
+
+      <option class="cursor-pointer" [defaultSelected]="currentLang === 'fr'" value="fr">🇫🇷 Français</option>
+      <option class="cursor-pointer"  value="en">🇺🇸 English</option>
     </select>
   </div>
   

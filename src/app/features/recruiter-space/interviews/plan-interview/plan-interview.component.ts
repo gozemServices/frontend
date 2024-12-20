@@ -29,6 +29,7 @@ export class PlanInterviewComponent implements OnInit{
 
   ngOnInit() {
     if(this.data?.isEditMode){
+      this.step = this.data.step;
 
     }else{
       this.loadApplicantList(this.data.offerId);

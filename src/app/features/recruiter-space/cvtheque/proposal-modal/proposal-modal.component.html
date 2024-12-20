@@ -1,6 +1,9 @@
 <div class="flex flex-col bg-white min-h-96 max-h-[95vh] rounded-sm p-4">
   <div class="title">
     <h4>Select the job you want to propose</h4>
+    @if(error) {
+      <span class="text-red-500 max-w-[80%] text-center">{{error}}</span>
+    }     
   </div>
 
   <div class="p-6 mt-4 shadow rounded-lg">

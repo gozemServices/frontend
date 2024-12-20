@@ -66,7 +66,7 @@ export class JobProposalsComponent {
       }).then((data) => {
         const deletionConfirmed = data;
         if(deletionConfirmed) {
-          this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus['REJ']).subscribe({
+          this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus.REJECTED).subscribe({
             next: () => {
               const toastInfos : Toast =  {
                 id: 0,
@@ -84,7 +84,7 @@ export class JobProposalsComponent {
       });
      }else{
       const proposalId = proposal.id;
-      this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus['ACC']).subscribe({
+      this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus.ACCEPTED).subscribe({
         next: () => {this.loadJobInvitations()},
         error: (err) => console.error('there was and error : ', err),
       })

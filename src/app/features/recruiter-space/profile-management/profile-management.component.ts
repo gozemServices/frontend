@@ -2,11 +2,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { UnderConstructionComponent } from "../../../shared/components/under-construction/under-construction.component";
 
 @Component({
   selector: 'app-profile-management',
   standalone: true,
-  imports: [ReactiveFormsModule, TranslateModule],
+  imports: [ReactiveFormsModule, TranslateModule, UnderConstructionComponent],
   templateUrl: './profile-management.component.html',
   styleUrl: './profile-management.component.scss'
 })
@@ -14,7 +15,7 @@ export class ProfileManagementComponent {
   // Profile Form (Reactive Form)
   profileForm: FormGroup;
   updatePasswordForm: FormGroup;
-
+  underconstruction = true;
   // Avatar or profile picture URL
   avatarUrl: string = 'https://www.example.com/default-avatar.png'; 
 

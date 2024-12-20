@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   phrases: string[] = [];
+  private langChangeSuscription!: Subscription;
   currentPhraseIndex = 0;
   displayedText = '';
   typingSpeed = 80; // Speed of typing
@@ -31,12 +33,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Load translated phrases
-    this.translate.get(['FIND_TALENTS', 'FIND_JOBS']).subscribe(translations => {
+    this.loadTranslatedText();
+    this.langChangeSuscription = this.translate.onLangChange.subscribe(() => {
+      this.loadTranslatedText();
+    })
+    this.autoSlide();
+  }
+
+  loadTranslatedText() {
+    this.translate.get(['FIND_TALENTS', 'FIND_JOBS']).subscribe(translations => { 
       this.phrases = [translations['FIND_TALENTS'], translations['FIND_JOBS']];
       this.type(); // Start typing after fetching translations
     });
-
-    this.autoSlide();
   }
 
   autoSlide() {
@@ -77,6 +85,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearTimeout(this.typingTimeout);
+    if(this.langChangeSuscription) {
+      this.langChangeSuscription.unsubscribe();
+    }
   }
 
 

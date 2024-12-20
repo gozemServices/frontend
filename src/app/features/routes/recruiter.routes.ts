@@ -31,5 +31,9 @@ export const recruiterRoutes: Routes = [
         path: 'candidates',
         loadComponent: () => import('../recruiter-space/candidates/candidates.component').then(c => c.CandidatesComponent)
     },
+    {
+        path: 'interviews-schedule/candidates/:id',
+        loadComponent: () => import('../recruiter-space/interviewed/interviewed.component').then(c => c.InterviewedComponent)
+    },
     
 ]

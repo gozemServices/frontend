@@ -6,14 +6,16 @@ import { faEllipsisH, faEdit, faTrashAlt, faCalendarAlt } from '@fortawesome/fre
 import { AddEventModalComponent } from './add-event-modal/add-event-modal.component';
 import { Event } from '../../../core/models/common.model';
 import { FormsModule } from '@angular/forms';
+import { UnderConstructionComponent } from '../../../shared/components/under-construction/under-construction.component';
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule,FormsModule],
+  imports: [CommonModule,FontAwesomeModule,FormsModule,UnderConstructionComponent],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss'
 })
 export class EventsComponent {
+  undercontruction = true;
   events: Event[] = [];  // List of events
   filteredEvents: Event[] = [];
   searchQuery: string = '';  // Search filter

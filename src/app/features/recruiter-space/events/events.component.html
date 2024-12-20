@@ -1,4 +1,8 @@
-<!-- Event Management Table -->
+@if(undercontruction) {
+  <app-under-construction></app-under-construction>
+}@else {
+
+  <!-- Event Management Table -->
 <div class="flex justify-between items-center">
   <h2 class="text-xl font-semibold">Event Management</h2>
   <button (click)="openAddEventModal()" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
@@ -73,3 +77,5 @@
     </tbody>
   </table>
 </div>
+
+}

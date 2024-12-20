@@ -1,77 +1,186 @@
-<div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
-  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Job Application Form</h2>
+<div class="flex bg-white flex-col p-4 rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
+  <span class="text-3xl my-2 font-bold mb-4 text-gray-800">Apply for a Job</span>
 
-  <form (submit)="submitForm()">
-    <!-- Email Field -->
+  <form [formGroup]="jobApplicationForm" (ngSubmit)="onSubmit()">
+    <!-- Full Name -->
     <div class="mb-4">
-      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+      <label for="fullName" class="block text-gray-700 font-medium mb-2">Full Name</label>
       <input
-        type="email"
-        id="email"
-        [(ngModel)]="formData.email"
-        name="email"
-        required
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+        type="text"
+        id="fullName"
+        formControlName="fullName"
+        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-    </div>
-
-    <!-- File Uploads -->
-    <div class="mb-6 space-y-4">
-      @for (file of files; track file) {
-        <div>
-          <label [for]="file.name" class="block text-sm font-medium text-gray-700">{{ file.label }}</label>
-          <!-- File Upload and Preview -->
-          <div class="flex items-center space-x-4 mt-2">
-            <button
-              type="button"
-              class="bg-blue-500 text-white px-3 py-2 rounded-lg shadow-md flex items-center space-x-2 hover:bg-blue-600"
-              (click)="triggerFileInput(file.name)">
-              <fa-icon [icon]="faUpload" class="text-white"></fa-icon>
-              <span>Upload {{ file.label }}</span>
-            </button>
-            <input
-              type="file"
-              [id]="file.name"
-              accept="{{ file.accept }}"
-              class="hidden"
-              (change)="onFileChange($event, file.name)"
-              />
-            <!-- File Preview -->
-            @if (formData[file.name]) {
-              <div class="flex items-center space-x-2">
-                @if (file.isImage && filePreview[file.name]) {
-                  <img
-                    [src]="filePreview[file.name]"
-                    alt="{{ file.label }}"
-                    class="w-10 h-10 rounded-full object-cover border"
-                    />
-                }
-                <span class="text-sm text-gray-600 truncate">{{ formData[file.name]?.name }}</span>
-                <button
-                  type="button"
-                  (click)="removeFile(file.name)"
-                  class="text-red-500 hover:text-red-600">
-                  <fa-icon [icon]="faTrash"></fa-icon>
-                </button>
-              </div>
-            }
-          </div>
+      @if (jobApplicationForm.get('fullName')?.invalid && jobApplicationForm.get('fullName')?.touched) {
+        <div class="text-red-500 text-sm">
+          Name is required.
         </div>
       }
     </div>
 
-    <!-- Submit Button -->
-    <div class="mt-6 space-x-1">
-      <button
-        (click)="onClose()"
-        class="w-fit bg-transparent border-darkShade text-darkShade py-2 px-4 rounded-lg hover:text-white hover:bg-darkShade  border-2 transition">
-        CANCEL
-      </button>
-      <button
-        type="submit"
-        class="w-fit bg-primary text-white py-2 px-4 rounded-lg hover:bg-darkShade transition">
-        Submit Application
-      </button>
+    <!-- Email -->
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      @if (jobApplicationForm.get('email')?.invalid && jobApplicationForm.get('email')?.touched) {
+        <div class="text-red-500 text-sm">
+          Valid email is required.
+        </div>
+      }
     </div>
-  </form>
+
+    <!-- Phone -->
+    <!-- <div class="mb-4">
+    <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number</label>
+    <input
+      type="text"
+      id="phone"
+      formControlName="phone"
+      class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    <div *ngIf="jobApplicationForm.get('phone')?.invalid && jobApplicationForm.get('phone')?.touched" class="text-red-500 text-sm">
+      Phone number is required.
+    </div>
+  </div> -->
+
+  <!-- Special Skills -->
+  <div class="mb-6">
+    <label class="block text-gray-700 font-medium mb-2">Special Skills</label>
+
+    <div formArrayName="specialSkills">
+      @for (skill of specialSkills.controls; track skill; let i = $index) {
+        <div class="flex items-center mb-2">
+          <input
+            [formControlName]="i"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter skill"
+            />
+          <button type="button" class="ml-2 text-red-500 hover:text-red-700" (click)="removeSkill(i)">
+            <fa-icon [icon]="faRemove"></fa-icon>
+            <!-- <span>Remove</span> -->
+          </button>
+        </div>
+      }
+    </div>
+
+    <button
+      type="button"
+      class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+      (click)="addSkill()"
+      >
+      <fa-icon [icon]="faAdd"></fa-icon>
+      <span>Add Skill</span>
+    </button>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="flex gap-2 flex-wrap">
+    <button
+      (click)="onClose()"
+      class="bg-transparent cursor-pointer text-primary border-2 px-4 py-2 rounded-md hover:bg-primary hover:text-white"
+      >
+      Cancel
+    </button>
+    <button
+      type="submit"
+      [disabled]="jobApplicationForm.invalid"
+      class="bg-green-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-600"
+      >
+      Submit Application
+    </button>
+  </div>
+</form>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
+<h2 class="text-2xl font-semibold text-gray-800 mb-4">Job Application Form</h2>
+
+<form (submit)="submitForm()">
+  Email Field
+  <div class="mb-4">
+    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+    <input
+      type="email"
+      id="email"
+      [(ngModel)]="formData.email"
+      name="email"
+      required
+      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+      />
+  </div>
+
+  File Uploads
+  <div class="mb-6 space-y-4">
+    <div *ngFor="let file of files">
+      <label [for]="file.name" class="block text-sm font-medium text-gray-700">{{ file.label }}</label>
+
+      File Upload and Preview
+      <div class="flex items-center space-x-4 mt-2">
+        <button
+          type="button"
+          class="bg-blue-500 text-white px-3 py-2 rounded-lg shadow-md flex items-center space-x-2 hover:bg-blue-600"
+          (click)="triggerFileInput(file.name)">
+          <fa-icon [icon]="faUpload" class="text-white"></fa-icon>
+          <span>Upload {{ file.label }}</span>
+        </button>
+        <input
+          type="file"
+          [id]="file.name"
+          accept="{{ file.accept }}"
+          class="hidden"
+          (change)="onFileChange($event, file.name)"
+          />
+
+        File Preview
+        <div *ngIf="formData[file.name]" class="flex items-center space-x-2">
+          <img
+            *ngIf="file.isImage && filePreview[file.name]"
+            [src]="filePreview[file.name]"
+            alt="{{ file.label }}"
+            class="w-10 h-10 rounded-full object-cover border"
+            />
+          <span class="text-sm text-gray-600 truncate">{{ formData[file.name]?.name }}</span>
+          <button
+            type="button"
+            (click)="removeFile(file.name)"
+            class="text-red-500 hover:text-red-600">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  Submit Button
+  <div class="mt-6 space-x-1">
+    <button
+      (click)="onClose()"
+      class="w-fit bg-transparent border-darkShade text-darkShade py-2 px-4 rounded-lg hover:text-white hover:bg-darkShade  border-2 transition">
+      CANCEL
+    </button>
+    <button
+      type="submit"
+      class="w-fit bg-primary text-white py-2 px-4 rounded-lg hover:bg-darkShade transition">
+      Submit Application
+    </button>
+  </div>
+</form>
+</div> -->

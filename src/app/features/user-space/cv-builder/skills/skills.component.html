@@ -1,6 +1,6 @@
 <div class="p-4 rounded mb-4">
   <div class="flex justify-between items-center">
-    <h3 class="font-semibold text-2xl capitalize text-slate-800">Skills</h3>
+    <h2 class="font-semibold">Skills</h2>
     <button (click)="addSkill()">
       <fa-icon class="cursor-pointer" [icon]="faAdd"></fa-icon>
     </button>
@@ -12,7 +12,7 @@
       @for (skill of skillsList; track skill.id) {
         <div class="border-2 border-b-[#AF4E64] border-b-2 p-2 mt-2">
           <div>
-            <p>{{ skill.name }}</p>
+            <p>{{ skill.name }} --- {{skill.level}}</p>
             <p>{{ skill.description || 'No description provided.' }}</p>
           </div>
           <div class="flex space-x-2 mt-2 actions">

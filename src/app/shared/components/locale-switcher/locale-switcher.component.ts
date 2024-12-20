@@ -23,8 +23,8 @@ export class LocaleSwitcherComponent {
 
   private translate = inject(TranslateService);
   constructor(){
-    this.currentLang = 'fr'; // Default language
-    this.translate.setDefaultLang(this.currentLang);
+    this.currentLang = this.translate.currentLang;
+    // this.translate.setDefaultLang(this.currentLang);
   }
   switchLanguage(language: string) {
     if (this.currentLang !== language) {
