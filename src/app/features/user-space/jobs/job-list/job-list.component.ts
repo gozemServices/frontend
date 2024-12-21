@@ -11,13 +11,15 @@ import { ShareItemComponent } from "../../../../shared/components/share-job/shar
 import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
 import { environment } from '../../../../../environments/environment';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-job-list',
   standalone: true,
-  imports: [FontAwesomeModule,FormsModule, ShareItemComponent, TimeAgoPipe,CommonModule,TruncatePipe],
+  imports: [FontAwesomeModule,CommonModule, FormsModule, ShareItemComponent, TimeAgoPipe, TruncatePipe],
   templateUrl: './job-list.component.html',
   styleUrl: './job-list.component.scss'
 })

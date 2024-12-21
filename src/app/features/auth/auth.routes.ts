@@ -18,9 +18,14 @@ export const authRoutes: Routes = [
         loadComponent: () => import('./email-verification/email-verification.component').then(c => c.EmailVerificationComponent)
     },
     {
-        path: 'password/recover',
+        path: 'password-reset-request',
         canActivate: [noAuthGuard],
-        loadComponent: () => import('./signup/signup.component').then(c => c.SignupComponent)
+        loadComponent: () => import('./password-reset-request/password-reset-request.component').then(c => c.PasswordResetRequestComponent)
+    },
+    {
+        path: 'password-reset-confirm',
+        canActivate: [noAuthGuard],
+        loadComponent: () => import('./password-reset-confirm/password-reset-confirm.component').then(c => c.PasswordResetConfirmComponent)
     }
 ]
 

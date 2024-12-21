@@ -1,15 +1,17 @@
 
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { JobService } from '../../../services/job.service';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
 import { JobInterviewScheduleComponent } from "../job-interview-schedule/job-interview-schedule.component";
 import { InterviewService } from '../../../services/interview.service';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-plan-interview',
   standalone: true,
-  imports: [FormsModule, CommonModule, JobInterviewScheduleComponent],
+  imports: [FormsModule, JobInterviewScheduleComponent,CommonModule],
   templateUrl: './plan-interview.component.html',
   styleUrl: './plan-interview.component.scss'
 })

@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { Message } from '../../../core/models/common.model';
-import { CommonModule } from '@angular/common';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faPaperPlane, faTimesCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-jobseeker-messages',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule,FormsModule],
+  imports: [FontAwesomeModule, FormsModule,CommonModule],
   templateUrl: './jobseeker-messages.component.html',
   styleUrl: './jobseeker-messages.component.scss'
 })

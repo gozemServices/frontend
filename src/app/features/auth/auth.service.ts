@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../../core/models/common.model';
+import { PasswordResetConfirmRequest, PasswordResetRequest } from './auth.models';
 
 
 export const isAuthenticated = signal(false);
@@ -11,6 +12,7 @@ export const isAuthenticated = signal(false);
   providedIn: 'root',
 })
 export class AuthService {
+  private baseUrl = `${environment.apiUrl}/public/password`
   private apiUrl = `${environment.apiAuthUrl}`;
   private allApiUrl = `${environment.allApiUrl}`
   user = signal<User | null>(null);
@@ -155,5 +157,15 @@ export class AuthService {
   verifyEmail(emailVerificationDto: {email: string, code: string}) {
     const endpoint = `${this.apiUrl}/verify`;
     return this.http.post(endpoint, emailVerificationDto);
+  }
+
+
+  requestPasswordReset(data: PasswordResetRequest): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reset-request`, data);
+  }
+
+  // Confirm password reset
+  confirmPasswordReset(data: PasswordResetConfirmRequest): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reset-confirm`, data);
   }
 }

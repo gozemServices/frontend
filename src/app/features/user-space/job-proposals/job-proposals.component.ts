@@ -8,11 +8,11 @@ import { Toast } from '../../../core/models/common.model';
 import { GenericService } from '../../../core/services/generic.service';
 import { faEye, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-job-proposals',
   standalone: true,
-  imports: [FontAwesomeModule, RouterModule, CommonModule,DatePipe],
+  imports: [FontAwesomeModule, RouterModule, DatePipe],
   templateUrl: './job-proposals.component.html',
   styleUrl: './job-proposals.component.scss'
 })

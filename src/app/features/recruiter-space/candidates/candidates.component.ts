@@ -1,17 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { JobProposalService } from '../../services/job-proposal.service';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { faArrowUp, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalService } from '../../../shared/components/modal/modal.service';
 import { AskDeleteConfirmationComponent } from '../../../shared/components/toasts/ask-delete-confirmation/ask-delete-confirmation.component';
 import { ProposalStatus } from '../../../core/models/jobs.models';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-candidates',
   standalone: true,
-  imports: [CommonModule,FormsModule, FontAwesomeModule],
+  imports: [FormsModule, FontAwesomeModule, DatePipe,CommonModule],
   templateUrl: './candidates.component.html',
   styleUrl: './candidates.component.scss'
 })

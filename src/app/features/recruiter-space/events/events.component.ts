@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -7,10 +7,12 @@ import { AddEventModalComponent } from './add-event-modal/add-event-modal.compon
 import { Event } from '../../../core/models/common.model';
 import { FormsModule } from '@angular/forms';
 import { UnderConstructionComponent } from '../../../shared/components/under-construction/under-construction.component';
+import { CommonModule, DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule,FormsModule,UnderConstructionComponent],
+  imports: [FontAwesomeModule, FormsModule, UnderConstructionComponent,DatePipe,CommonModule],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss'
 })

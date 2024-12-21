@@ -27,49 +27,75 @@
         <div class="flex flex-col">
           <label for="name" class="text-sm font-medium text-gray-900">{{ signupForm.value.userType === 'user' ? 'FIRST_NAME' : 'COMPANY_NAME' | translate }}</label>
           <input id="name" formControlName="name" type="text" required class="mt-2 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-sm focus:ring-2 focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['name'].invalid && (formControls['name'].touched || formControls['name'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['name'].errors?.['required']">
-              {{ signupForm.value.userType === 'user' ? 'FIRST_NAME_REQUIRED' : 'COMPANY_NAME_REQUIRED' | translate }}
+          @if (formControls['name'].invalid && (formControls['name'].touched || formControls['name'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (formControls['name'].errors?.['required']) {
+                <div>
+                  {{ signupForm.value.userType === 'user' ? 'FIRST_NAME_REQUIRED' : 'COMPANY_NAME_REQUIRED' | translate }}
+                </div>
+              }
             </div>
-          </div>
+          }
         </div>
 
         <!-- Last Name -->
-        <div *ngIf="signupForm.value.userType !== 'recruiter'" class="flex flex-col">
-          <label for="surname" class="text-sm font-medium text-gray-900">{{ 'LAST_NAME' | translate }}</label>
-          <input id="surname" formControlName="surname" type="text" required class="mt-2 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-sm focus:ring-2 focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['surname'].invalid && (formControls['surname'].touched || formControls['surname'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['surname'].errors?.['required']">{{ 'LAST_NAME_REQUIRED' | translate }}</div>
+        @if (signupForm.value.userType !== 'recruiter') {
+          <div class="flex flex-col">
+            <label for="surname" class="text-sm font-medium text-gray-900">{{ 'LAST_NAME' | translate }}</label>
+            <input id="surname" formControlName="surname" type="text" required class="mt-2 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-sm focus:ring-2 focus:ring-indigo-600 sm:text-sm">
+            @if (formControls['surname'].invalid && (formControls['surname'].touched || formControls['surname'].dirty)) {
+              <div class="text-red-500 text-sm">
+                @if (formControls['surname'].errors?.['required']) {
+                  <div>{{ 'LAST_NAME_REQUIRED' | translate }}</div>
+                }
+              </div>
+            }
           </div>
-        </div>
+        }
 
         <!-- Username -->
         <div class="flex flex-col">
           <label for="username" class="text-sm font-medium text-gray-900">{{ 'USERNAME' | translate }}</label>
           <input id="username" formControlName="username" type="text" required class="mt-2 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-sm focus:ring-2 focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['username'].invalid && (formControls['username'].touched || formControls['username'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['username'].errors?.['required']">{{ 'USERNAME_REQUIRED' | translate }}</div>
-          </div>
+          @if (formControls['username'].invalid && (formControls['username'].touched || formControls['username'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (formControls['username'].errors?.['required']) {
+                <div>{{ 'USERNAME_REQUIRED' | translate }}</div>
+              }
+            </div>
+          }
         </div>
 
         <!-- Email -->
         <div class="flex flex-col">
           <label for="email" class="text-sm font-medium text-gray-900">{{ 'EMAIL_ADDRESS' | translate }}</label>
           <input id="email" formControlName="email" type="email" required class="mt-2 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-sm focus:ring-2 focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['email'].invalid && (formControls['email'].touched || formControls['email'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['email'].errors?.['required']">{{ 'EMAIL_REQUIRED' | translate }}</div>
-            <div *ngIf="formControls['email'].errors?.['email']">{{ 'INVALID_EMAIL' | translate }}</div>
-          </div>
+          @if (formControls['email'].invalid && (formControls['email'].touched || formControls['email'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (formControls['email'].errors?.['required']) {
+                <div>{{ 'EMAIL_REQUIRED' | translate }}</div>
+              }
+              @if (formControls['email'].errors?.['email']) {
+                <div>{{ 'INVALID_EMAIL' | translate }}</div>
+              }
+            </div>
+          }
         </div>
 
         <!-- Phone Number -->
         <div class="flex flex-col">
           <label for="phone" class="text-sm font-medium text-gray-900">{{ 'PHONE_NUMBER' | translate }}</label>
           <input id="phone" formControlName="phone" type="text" required class="mt-2 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-sm focus:ring-2 focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="formControls['phone'].invalid && (formControls['phone'].touched || formControls['phone'].dirty)" class="text-red-500 text-sm">
-            <div *ngIf="formControls['phone'].errors?.['required']">{{ 'PHONE_NUMBER_REQUIRED' | translate }}</div>
-            <div *ngIf="formControls['phone'].errors?.['pattern']">{{ 'PHONE_NUMBER_PATTERN' | translate }}</div>
-          </div>
+          @if (formControls['phone'].invalid && (formControls['phone'].touched || formControls['phone'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (formControls['phone'].errors?.['required']) {
+                <div>{{ 'PHONE_NUMBER_REQUIRED' | translate }}</div>
+              }
+              @if (formControls['phone'].errors?.['pattern']) {
+                <div>{{ 'PHONE_NUMBER_PATTERN' | translate }}</div>
+              }
+            </div>
+          }
         </div>
 
         <!-- Account Type -->
@@ -80,8 +106,8 @@
             <option value="recruiter">{{ 'RECRUITER' | translate }}</option>
           </select>
         </div>
-         <!-- Optional fields for recruiters -->
-         @if (signupForm.value.userType === 'recruiter') {
+        <!-- Optional fields for recruiters -->
+        @if (signupForm.value.userType === 'recruiter') {
           <div class="sm:col-span-2">
             <div class="flex flex-col">
               <label for="sector" class="text-sm font-medium text-gray-900">Sector</label>
@@ -108,49 +134,55 @@
           </div>
         }
 
-          <!-- Profile Picture Upload (spans two columns) -->
-          <div class="sm:col-span-2 flex flex-col items-center">
-            <label for="profilePic" class="text-sm font-medium text-gray-900">Profile Picture</label>
-            <div class="mt-2 relative">
-              <input
-                type="file"
-                id="profilePic"
-                (change)="onProfilePicChange($event)"
-                class="p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-sm focus:ring-2 focus:ring-indigo-600 sm:text-sm"
-                accept="image/*"
-                />
-              @if (profilePicPreview) {
-                <div class="mt-4 relative w-24 h-24 mx-auto">
-                  <img [src]="profilePicPreview" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover">
-                  <button
-                    type="button"
-                    (click)="removeProfilePic()"
-                    class="absolute top-0 right-0 bg-gray-600 text-white rounded-full p-1 text-xs hover:bg-red-600"
-                    >
-                    ✖
-                  </button>
-                </div>
-              }
-  
-            </div>
-            @if (formControls['profilePic'].invalid && (formControls['profilePic'].touched || formControls['profilePic'].dirty)) {
-              <div class="text-red-500 text-sm">
-                @if (formControls['profilePic'].errors?.['required']) {
-                  <div>a profile picture is required.</div>
-                }
+        <!-- Profile Picture Upload (spans two columns) -->
+        <div class="sm:col-span-2 flex flex-col items-center">
+          <label for="profilePic" class="text-sm font-medium text-gray-900">Profile Picture</label>
+          <div class="mt-2 relative">
+            <input
+              type="file"
+              id="profilePic"
+              (change)="onProfilePicChange($event)"
+              class="p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-sm focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              accept="image/*"
+              />
+            @if (profilePicPreview) {
+              <div class="mt-4 relative w-24 h-24 mx-auto">
+                <img [src]="profilePicPreview" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover">
+                <button
+                  type="button"
+                  (click)="removeProfilePic()"
+                  class="absolute top-0 right-0 bg-gray-600 text-white rounded-full p-1 text-xs hover:bg-red-600"
+                  >
+                  ✖
+                </button>
               </div>
             }
+
           </div>
+          @if (formControls['profilePic'].invalid && (formControls['profilePic'].touched || formControls['profilePic'].dirty)) {
+            <div class="text-red-500 text-sm">
+              @if (formControls['profilePic'].errors?.['required']) {
+                <div>a profile picture is required.</div>
+              }
+            </div>
+          }
+        </div>
 
         <!-- Password -->
         <div>
           <label for="password" class="block text-sm font-medium text-gray-900">{{ 'PASSWORD' | translate }}</label>
           <div class="mt-2">
             <input id="password" formControlName="password" type="password" required class="block w-full rounded-sm border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-            <div *ngIf="formControls['password'].invalid && (formControls['password'].touched || formControls['password'].dirty)" class="text-red-500 text-sm">
-              <div *ngIf="formControls['password'].errors?.['required']">{{ 'PASSWORD_REQUIRED' | translate }}</div>
-              <div *ngIf="formControls['password'].errors?.['minlength']">{{ 'PASSWORD_MIN_LENGTH' | translate }}</div>
-            </div>
+            @if (formControls['password'].invalid && (formControls['password'].touched || formControls['password'].dirty)) {
+              <div class="text-red-500 text-sm">
+                @if (formControls['password'].errors?.['required']) {
+                  <div>{{ 'PASSWORD_REQUIRED' | translate }}</div>
+                }
+                @if (formControls['password'].errors?.['minlength']) {
+                  <div>{{ 'PASSWORD_MIN_LENGTH' | translate }}</div>
+                }
+              </div>
+            }
           </div>
         </div>
 
@@ -158,17 +190,25 @@
         <div class="flex flex-col">
           <label for="confirmPassword" class="text-sm font-medium text-gray-900">{{ 'CONFIRM_PASSWORD' | translate }}</label>
           <input id="confirmPassword" formControlName="confirmPassword" type="password" required class="mt-2 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-sm focus:ring-2 focus:ring-indigo-600 sm:text-sm">
-          <div *ngIf="signupForm.errors?.['mismatch']" class="text-red-500 text-sm">
-            {{ 'PASSWORD_MISMATCH' | translate }}
-          </div>
+          @if (signupForm.errors?.['mismatch']) {
+            <div class="text-red-500 text-sm">
+              {{ 'PASSWORD_MISMATCH' | translate }}
+            </div>
+          }
         </div>
 
-        <div *ngIf="error && !loading" class="sm:col-span-2 mt-4 text-red-500 text-center">{{ error }}</div>
+        @if (error && !loading) {
+          <div class="sm:col-span-2 mt-4 text-red-500 text-center">{{ error }}</div>
+        }
 
         <div class="sm:col-span-2">
           <button type="submit" class="w-full px-6 py-2 bg-primary text-white transition duration-800 hover:bg-[#701C2F] cursor-pointer">
-            <span *ngIf="loading">{{ 'LOADING' | translate }}</span>
-            <span *ngIf="!loading">{{ 'SIGN_UP' | translate }}</span>
+            @if (loading) {
+              <span>{{ 'LOADING' | translate }}</span>
+            }
+            @if (!loading) {
+              <span>{{ 'SIGN_UP' | translate }}</span>
+            }
           </button>
         </div>
       </form>

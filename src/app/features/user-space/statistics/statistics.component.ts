@@ -1,11 +1,12 @@
-import { CommonModule } from '@angular/common';
+
+import { DatePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faClipboardList, faHourglassHalf, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule],
+  imports: [FontAwesomeModule,DatePipe],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.scss'
 })

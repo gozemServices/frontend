@@ -3,14 +3,14 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } fr
 import { faAdd, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
-import { CommonModule } from '@angular/common';
+
 import { GenericService } from '../../../../core/services/generic.service';
 import { InterviewService } from '../../../services/interview.service';
 
 @Component({
   selector: 'app-job-interview-schedule',
   standalone: true,
-  imports: [ReactiveFormsModule, FontAwesomeModule, CommonModule],
+  imports: [ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './job-interview-schedule.component.html',
   styleUrls: ['./job-interview-schedule.component.scss']
 })

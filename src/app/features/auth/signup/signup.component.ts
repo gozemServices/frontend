@@ -5,7 +5,7 @@ import { HeaderComponent } from "../../landing/components/header/header.componen
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-signup',
@@ -14,8 +14,7 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     HeaderComponent,
     RouterModule,
-    TranslateModule,
-    CommonModule
+    TranslateModule
 ],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']

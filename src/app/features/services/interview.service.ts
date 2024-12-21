@@ -49,7 +49,8 @@ export class InterviewService {
 
   // Method to fetch the schedule for a specific job offer
   getScheduleByJobOffer(jobOfferId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/job-offer/${jobOfferId}`);
+    const url = `${environment.apiUrl}/all/job/interviews`;
+    return this.http.get(`${url}/${jobOfferId}`);
   }
 
 

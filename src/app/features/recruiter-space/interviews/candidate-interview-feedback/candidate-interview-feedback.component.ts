@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CommonModule } from '@angular/common';
+
 import { ModalService } from '../../../../shared/components/modal/modal.service';
 
 @Component({
   selector: 'app-candidate-interview-feedback',
   standalone: true,
-  imports: [ReactiveFormsModule, FontAwesomeModule, CommonModule],
+  imports: [ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './candidate-interview-feedback.component.html',
   styleUrl: './candidate-interview-feedback.component.scss'
 })

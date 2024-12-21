@@ -1,6 +1,6 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { JobOffer } from '../../../core/models/jobs.models';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JobService } from '../../services/job.service';
@@ -13,11 +13,13 @@ import { Router, RouterModule } from '@angular/router';
 import { Toast } from '../../../core/models/common.model';
 import { GenericService } from '../../../core/services/generic.service';
 import { PlanInterviewComponent } from '../interviews/plan-interview/plan-interview.component';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-offers',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule,RouterModule],
+  imports: [FormsModule, FontAwesomeModule, RouterModule,CommonModule],
   templateUrl: './offers.component.html',
   styleUrls: ['./offers.component.scss'],
 })

@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
 import { UserProfileService } from '../../../shared/services/user-profile.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmRemoveToolsModalComponent } from './confirm-remove-tools-modal/confirm-remove-tools-modal.component';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BuyPointsModalComponent } from './buy-points-modal/buy-points-modal.component';
 import { faExclamationTriangle, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -11,11 +11,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../auth/auth.service';
 import { User } from '../../../core/models/common.model';
 import { GenericService } from '../../../core/services/generic.service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule,TranslateModule,ReactiveFormsModule, FontAwesomeModule],
+  imports: [TranslateModule, ReactiveFormsModule, FontAwesomeModule,CommonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

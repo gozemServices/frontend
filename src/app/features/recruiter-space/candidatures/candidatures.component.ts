@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ApplicationStatus, Candidature } from '../../../core/models/jobs.models';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import {faEye, faDownload, faArrowRight, faArrowLeft, faEllipsisH, faEdit, faComments, faCheck, faTimes, faComment, faFileExcel } from '@fortawesome/free-solid-svg-icons'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -10,11 +10,13 @@ import { ModalService } from '../../../shared/components/modal/modal.service';
 import { JobInterviewScheduleComponent } from '../interviews/job-interview-schedule/job-interview-schedule.component';
 import { CandidateInterviewFeedbackComponent } from '../interviews/candidate-interview-feedback/candidate-interview-feedback.component';
 import { PlanInterviewComponent } from '../interviews/plan-interview/plan-interview.component';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-candidatures',
   standalone: true,
-  imports: [FormsModule,FontAwesomeModule,CommonModule], 
+  imports: [FormsModule, FontAwesomeModule,CommonModule], 
   templateUrl: './candidatures.component.html',
   styleUrl: './candidatures.component.scss'
 })

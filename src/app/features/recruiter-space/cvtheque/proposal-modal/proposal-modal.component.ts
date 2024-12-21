@@ -1,18 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { JobService } from '../../../services/job.service';
 import { JobOffer } from '../../../../core/models/jobs.models';
-import { CommonModule } from '@angular/common';
+
 import { ModalService } from '../../../../shared/components/modal/modal.service';
 import { FormsModule } from '@angular/forms';
 import { JobProposalService } from '../../../services/job-proposal.service';
 import { ToastComponent } from '../../../../shared/components/toast/toast.component';
 import { GenericService } from '../../../../core/services/generic.service';
 import { Toast } from '../../../../core/models/common.model';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-proposal-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './proposal-modal.component.html',
   styleUrls: ['./proposal-modal.component.scss']
 })
