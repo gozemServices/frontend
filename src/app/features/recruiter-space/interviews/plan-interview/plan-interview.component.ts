@@ -8,6 +8,7 @@ import { JobInterviewScheduleComponent } from "../job-interview-schedule/job-int
 import { InterviewService } from '../../../services/interview.service';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-plan-interview',
   standalone: true,

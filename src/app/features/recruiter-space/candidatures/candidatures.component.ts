@@ -13,6 +13,7 @@ import { PlanInterviewComponent } from '../interviews/plan-interview/plan-interv
 import { CommonModule } from '@angular/common';
 
 
+
 @Component({
   selector: 'app-candidatures',
   standalone: true,

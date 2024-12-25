@@ -12,7 +12,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 @Component({
   selector: 'app-candidates',
   standalone: true,
-  imports: [FormsModule, FontAwesomeModule, DatePipe,CommonModule],
+  imports: [FormsModule, FontAwesomeModule,CommonModule, DatePipe],
   templateUrl: './candidates.component.html',
   styleUrl: './candidates.component.scss'
 })

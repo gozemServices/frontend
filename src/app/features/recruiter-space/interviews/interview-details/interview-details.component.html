@@ -1,50 +1,61 @@
-<div class="overflow-x-auto min-w-xl bg-white shadow-lg rounded-lg">
-    <div class="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
-        <!-- Header -->
-        <div class="mb-6">
-          <h1 class="text-2xl font-bold text-gray-800">Interview Details</h1>
-          <p class="text-gray-600 text-sm">Review the details of the interviewee and their steps.</p>
+<div class="overflow-x-auto min-w-xl max-h-[95vh]  bg-white shadow-lg rounded-lg">
+  <div class="h-[90%] overflow-auto p-6 bg-gray-100 rounded-lg shadow-md w-full">
+    <!-- Header -->
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">Interview Details</h1>
+      <p class="text-gray-600 text-sm">Review the details of the interviewee and their steps.</p>
+    </div>
+
+    <!-- Interviewee Details -->
+    <div class="bg-white p-6 rounded-lg shadow mb-6">
+      <div class="flex items-center gap-4">
+        <!-- Avatar -->
+        <div class="w-16 h-16 flex items-center justify-center bg-primary text-white text-xl font-bold rounded-full">
+          {{ seeker.firstName.charAt(0) }}{{ seeker.lastName.charAt(0) }}
         </div>
-      
-        <!-- Interviewee Details -->
-        <div class="bg-white p-6 rounded-lg shadow mb-6">
-          <div class="flex items-center gap-4">
-            <!-- Avatar -->
-            <div class="w-16 h-16 flex items-center justify-center bg-primary text-white text-xl font-bold rounded-full">
-              {{ seeker.firstName.charAt(0) }}{{ seeker.lastName.charAt(0) }}
-            </div>
-      
-            <!-- Info -->
-            <div>
-              <h2 class="text-lg font-semibold text-gray-800">{{ seeker.firstName }} {{ seeker.lastName }}</h2>
-              <p class="text-sm text-gray-600">{{ seeker.email }}</p>
-            </div>
-          </div>
-        </div>
-      
-        <!-- Steps -->
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">Steps</h2>
-          <div class="space-y-4">
-            <div
-              *ngFor="let step of steps"
-              class="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200"
-            >
-              <!-- Step Number -->
-              <div
-                class="w-10 h-10 flex items-center justify-center bg-primary text-white font-semibold rounded-full"
-              >
-                {{ step.id }}
-              </div>
-      
-              <!-- Step Info -->
-              <div>
-                <h3 class="text-lg font-medium text-gray-800">{{ step.name }}</h3>
-                <p class="text-sm text-gray-600">{{ step.description }}</p>
-              </div>
-            </div>
-          </div>
+
+        <!-- Info -->
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800">{{ seeker.firstName }} {{ seeker.lastName }}</h2>
+          <p class="text-sm text-gray-600">{{ seeker.email }}</p>
         </div>
       </div>
-      
+    </div>
+
+    <!-- Steps -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Steps</h2>
+      <div class="space-y-4">
+        @for (step of steps; track $index) {
+          <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 flex-wrap" >
+            <!-- Step Number -->
+            <div
+              class="w-[30px] h-[30px] flex items-center justify-center bg-primary text-white font-semibold rounded-full"
+              >
+              {{ $index + 1 }}
+            </div>
+            <!-- Step Info -->
+            <div class="w-full">
+              <h3 class="text-lg font-medium text-gray-800">{{ step?.name }}</h3>
+              <p class="text-md text-gray-600 w-full">description : <span class="">{{ step?.description }}</span></p>
+              <p class="text-sm text-gray-600">Location :  <span class="font-bold">{{ step?.place }}</span></p>
+              <p class="text-sm text-gray-600"> Date :  <span class="font-bold">{{ step?.date }}</span></p>
+              <p class="text-sm text-gray-600">Time :  <span class="font-bold">{{ step?.time }}</span></p>
+              <p class="text-sm text-gray-600">Interviewers : <span class="font-bold break-words">{{ step?.interviewerEmails }}</span></p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="bg-white p-6 rounded-lg shadow">
+    <button
+    type="submit"
+    (click)="onClose()"
+    class="w-fit px-4 cursor-pointer bg-white border-[#AF4E64] border-2 text-[#AF4E64] font-bold py-2 rounded-sm hover:bg-[#AF4E64] hover:text-white transition duration-800"
+    >
+    {{ 'CANCEL' | translate }}
+  </button>
+  </div>
+
 </div>

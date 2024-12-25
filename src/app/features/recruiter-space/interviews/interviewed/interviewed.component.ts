@@ -162,7 +162,7 @@ export class InterviewedComponent implements OnInit{
     };
     this.modalService.open(InterviewDetailsComponent, {
         size: {
-          width: '80%',
+          width: '100%',
           padding: '1rem'
         },
         data: {

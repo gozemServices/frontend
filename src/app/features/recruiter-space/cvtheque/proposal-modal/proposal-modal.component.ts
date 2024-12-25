@@ -11,6 +11,7 @@ import { Toast } from '../../../../core/models/common.model';
 import { CommonModule } from '@angular/common';
 
 
+
 @Component({
   selector: 'app-proposal-modal',
   standalone: true,

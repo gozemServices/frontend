@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-job-list',
   standalone: true,

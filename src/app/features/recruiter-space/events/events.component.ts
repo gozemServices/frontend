@@ -12,7 +12,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [FontAwesomeModule, FormsModule, UnderConstructionComponent,DatePipe,CommonModule],
+  imports: [CommonModule,FontAwesomeModule, FormsModule, UnderConstructionComponent, DatePipe],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss'
 })

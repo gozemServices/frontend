@@ -1,56 +1,53 @@
-
-import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, OnInit, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { interval, Subscription } from 'rxjs';
 import { CvthequeService } from '../../../services/cv/cvtheque.service';
 import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-latest-cv',
   standalone: true,
-  imports: [TranslateModule, RouterModule],
+  imports: [TranslateModule, RouterModule, CommonModule],
   templateUrl: './latest-cv.component.html',
   styleUrls: ['./latest-cv.component.scss']
 })
-export class LatestCvComponent{ 
-
-
-  cvs: any[] = [];  
+export class LatestCvComponent implements OnInit {
+  cvs: any[] = [];
   isLoading = false;
-  cvList: any[] = [];
-  errorMessage: string | null = null;
-  private scrollSubscription!: Subscription;
-  private router = inject(Router);
+
   private cvthequeService = inject(CvthequeService);
-  constructor() {
-    // // Populate your CVs with random colors
-    // const baseCvs = Array(20).fill(0).map((_, index) => ({
-    //   image: 'images/people_in_meeting.jpg',
-    //   title: `Web developer ${index + 1}`,
-    //   color: this.getRandomColor() // Assign random color
-    // }));
-    // this.cvs = [...baseCvs, ...baseCvs]; // Duplicate the array
+
+  @ViewChild('carousel', { static: false }) carousel!: ElementRef;
+
+  constructor() {}
+
+  ngOnInit() {
     this.fetchCvs();
   }
-
 
   fetchCvs() {
     this.isLoading = true;
     this.cvthequeService.getAllPublicCvs().subscribe({
       next: (data) => {
-        this.cvList = data;
-        this.cvList = [...this.cvList, ...this.cvList];
-        console.log(this.cvList);
+        this.cvs = data;
         this.isLoading = false;
       },
       error: (err) => {
         console.error('Error fetching data:', err);
         this.isLoading = false;
-        // Optionally add a user-friendly error message
-        this.errorMessage = 'Failed to load CVs. Please try again later.';
-      }
-    }
-    );
+      },
+    });
   }
-  
+
+  scrollNext() {
+    const carouselElement = this.carousel.nativeElement;
+    const scrollAmount = carouselElement.offsetWidth; // Scroll by one full carousel width
+    carouselElement.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  }
+
+  scrollPrev() {
+    const carouselElement = this.carousel.nativeElement;
+    const scrollAmount = carouselElement.offsetWidth;
+    carouselElement.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  }
 }

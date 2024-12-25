@@ -11,13 +11,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../auth/auth.service';
 import { User } from '../../../core/models/common.model';
 import { GenericService } from '../../../core/services/generic.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+
 
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [TranslateModule, ReactiveFormsModule, FontAwesomeModule,CommonModule],
+  imports: [TranslateModule, ReactiveFormsModule, FontAwesomeModule,CommonModule,DatePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
