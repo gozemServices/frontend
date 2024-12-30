@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ApplicationStatus, Candidature } from '../../../core/models/jobs.models';
 
 import { FormsModule } from '@angular/forms';
-import {faEye, faDownload, faArrowRight, faArrowLeft, faEllipsisH, faEdit, faComments, faCheck, faTimes, faComment, faFileExcel } from '@fortawesome/free-solid-svg-icons'; 
+import {faEye, faArrowRight, faArrowLeft, faEllipsisH, faEdit, faComments, faCheck, faTimes, faComment, faFileExcel } from '@fortawesome/free-solid-svg-icons'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ActivatedRoute } from '@angular/router';
 import { JobService } from '../../services/job.service';
@@ -11,6 +11,9 @@ import { JobInterviewScheduleComponent } from '../interviews/job-interview-sched
 import { CandidateInterviewFeedbackComponent } from '../interviews/candidate-interview-feedback/candidate-interview-feedback.component';
 import { PlanInterviewComponent } from '../interviews/plan-interview/plan-interview.component';
 import { CommonModule } from '@angular/common';
+import { InterviewService } from '../../services/interview.service';
+import { GenericService } from '../../../core/services/generic.service';
+import { Toast } from '../../../core/models/common.model';
 
 
 
@@ -50,6 +53,8 @@ export class CandidaturesComponent {
   private route = inject(ActivatedRoute);
   private jobService = inject(JobService);  
   private modalService = inject(ModalService);
+  private interviewService = inject(InterviewService);
+  private genericService = inject(GenericService);
   applicationStatusList = Object.values(ApplicationStatus);
   JobApplicationStatus = ApplicationStatus;
   constructor() {}
@@ -129,10 +134,7 @@ export class CandidaturesComponent {
     });
   }
 
-  rejectCandidate(candidature: any) {
-    console.log('Reject candidate:', candidature);
-    alert(`Reject candidate ${candidature.jobSeekerName}`);
-  }
+ 
 
 
   editInterview(candidature: any){
@@ -153,12 +155,49 @@ export class CandidaturesComponent {
             // this.fetchJobOffers();       
         });
   }
-  downloadCandidatureFolder(candidature: any){}
+  downloadCandidatureFolder(seeker: any): void{
+    const jobApplicationId = seeker.jobApplicationId;
+      this.interviewService.downloadSubmittedDocument(jobApplicationId).subscribe({
+        next: (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `document-${jobApplicationId}.pdf`; // Adjust file name and extension as necessary
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: (error) => {
+          console.error('Error downloading the document:', error);
+        }
+      });
+  }
   moveToInterview(candidature: any){}
-  viewDetails(candidature: any){}
-  moveToPreInterview(candidature: any){
-    
-    // alert(candidature.status == this.jobApplicationStatus.INTERVIEW_SCHEDULED);
+  moveToPreInterview(jobApplicationId: any){
+      this.loading = true
+      const toastInfos: Toast = {
+        id: 0,
+        message: '',
+        type: 'success',
+        timeout: 1000,
+      }
+      this.interviewService.updateApplicationStatus(jobApplicationId,ApplicationStatus.PRE_INTERVIEW).subscribe({
+        
+        next: (response) => {
+          // console.log('Interview schedule saved successfully:', response);
+          toastInfos.message = 'Candidate moved to preinterview successfully';
+          this.genericService.openToast(toastInfos);
+          this.loading = false;
+        },
+        error: (error) => {
+          // console.error('Error saving interview schedule:', error);
+          toastInfos.message = 'Error moving candidate to preinterview';
+          toastInfos.type = 'error';
+          this.genericService.openToast(toastInfos);
+          this.loading = false;
+        }
+      });
+      
+      // alert(candidature.status == this.jobApplicationStatus.INTERVIEW_SCHEDULED);
   }
 
 

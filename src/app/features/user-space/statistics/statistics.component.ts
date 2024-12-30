@@ -3,10 +3,11 @@ import { DatePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faClipboardList, faHourglassHalf, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { UnderConstructionComponent } from "../../../shared/components/under-construction/under-construction.component";
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [FontAwesomeModule,DatePipe],
+  imports: [FontAwesomeModule, DatePipe, UnderConstructionComponent],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.scss'
 })
@@ -18,7 +19,7 @@ export class StatisticsComponent implements OnInit{
   faClipboardList = faClipboardList;
   searchQuery: string = '';
   selectedStatus: string = '';
-
+  underconstruction = true;
   stats = {
     applied: 10,
     rejected: 3,

@@ -1,3 +1,9 @@
+@if(loading) {
+  <div class="absolute w-screen h-screen top-0 left-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
+  </div>
+}
+
 <div class="mt-8 px-4 relative">
   <!-- Candidatures Header -->
   <h2 class="text-darkShade text-2xl font-bold mb-4">Shortlisted Candidates</h2>
@@ -77,13 +83,13 @@
                 <!-- Dropdown Actions -->
                 @if (openActionId === candidature.id) {
                   <div class="absolute text-slate-700 z-50 bg-white shadow-lg rounded-md mt-2 right-0 w-fit">
-                    <button
+                    <!-- <button
                     class="block w-full text-left px-4 py-2 hover:bg-gray-100"
                     (click)="viewDetails(candidature)"
                   >
                       <fa-icon [icon]="faEye" class="mr-2"></fa-icon>
                       View Details
-                    </button>
+                    </button> -->
                     @if(candidature.status === JobApplicationStatus.DOCUMENTS_SUBMITTED){
                       <button
                       class="block w-full text-left px-4 py-2 hover:bg-gray-100"
@@ -121,7 +127,7 @@
                     </button>
                     <button
                       class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                      (click)="moveToPreInterview(candidature)"
+                      (click)="moveToPreInterview(candidature.id)"
                     >
                       <fa-icon [icon]="faArrowLeft" class="mr-2"></fa-icon>
                       Move to Preinterview

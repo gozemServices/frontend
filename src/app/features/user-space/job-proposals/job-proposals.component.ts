@@ -85,7 +85,17 @@ export class JobProposalsComponent {
      }else{
       const proposalId = proposal.id;
       this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus.ACCEPTED).subscribe({
-        next: () => {this.loadJobInvitations()},
+        next: () => {
+          const toastInfos : Toast =  {
+            id: 0,
+            message: 'Job proposal accepted with success',
+            type: 'success',
+            timeout: 1500
+          }
+          this.genericsService.openToast(toastInfos);
+          this.loadJobInvitations()
+
+        },
         error: (err) => console.error('there was and error : ', err),
       })
      }

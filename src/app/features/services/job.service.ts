@@ -42,8 +42,16 @@ export class JobService {
     return this.http.get(`${this.baseUrl}/${jobId}`);
   }
 
-  applyToJob(jobId: string, applicationData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/${jobId}/apply`, applicationData);
+  applyToJob(offerId: number,cv?: File,coverLetter?: File): Observable<any> {
+    const formData = new FormData();
+    if (cv) {
+      formData.append('cv', cv);
+    }
+    if (coverLetter) {
+      formData.append('coverLetter', coverLetter);
+    }
+    const url = `${this.baseUrl}/apply/${offerId}`;
+    return this.http.post(url, formData);
   }
 
   /**

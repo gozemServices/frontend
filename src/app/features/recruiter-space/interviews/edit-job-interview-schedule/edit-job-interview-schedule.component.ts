@@ -1,44 +1,31 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { faAdd, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faAdd, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
-
-import { GenericService } from '../../../../core/services/generic.service';
 import { InterviewService } from '../../../services/interview.service';
 
 @Component({
-  selector: 'app-job-interview-schedule',
+  selector: 'app-edit-job-interview-schedule',
   standalone: true,
-  imports: [ReactiveFormsModule, FontAwesomeModule],
-  templateUrl: './job-interview-schedule.component.html',
-  styleUrls: ['./job-interview-schedule.component.scss']
+  imports: [FontAwesomeModule,ReactiveFormsModule],
+  templateUrl: './edit-job-interview-schedule.component.html',
+  styleUrl: './edit-job-interview-schedule.component.scss'
 })
-export class JobInterviewScheduleComponent implements OnInit {
+export class EditJobInterviewScheduleComponent {
   scheduleForm!: FormGroup;
   faAdd = faAdd;
   faRemove = faDeleteLeft;
-  @Input() isEditMode: boolean = false;
-  @Input() selectedCandidate: any  = null;
-  @Input() jobOfferId: number | null = null;
-
+  data: any;
   private fb = inject(FormBuilder);
-  private genericsService = inject(GenericService);
+  private modalService = inject(ModalService);
+  // private genericsService = inject(GenericService);
   private interviewService = inject(InterviewService);
-  candidatesList$ = this.interviewService.candidatesList;
   isloading = false;
   
   constructor() {}
   ngOnInit() {
-    if(this.isEditMode && this.selectedCandidate != null) {
-      this.initScheduleForm(this.selectedCandidate);
-    }
-    else if(this.isEditMode === false && this.candidatesList$ && this.candidatesList$.length > 0) {
-      this.initScheduleForm();
-    }
-    else {
-      this.initScheduleForm();
-    }
+    this.initScheduleForm(this.data.interviewDetails);
   }
 
   initScheduleForm(data?: any) {
@@ -90,16 +77,19 @@ export class JobInterviewScheduleComponent implements OnInit {
   }
 
   submitForm() {
+    // console.log(this.scheduleForm.value);
+    // console.log(this.data);
     if (this.scheduleForm.valid) {
-      const GroupInterviewScheduleDTO = {
-        jobOfferId: this.jobOfferId,
-        steps: this.scheduleForm.value.steps,
-        jobApplicationIds: this.interviewService.candidatesList(),
-      }
-      console.log(GroupInterviewScheduleDTO);
+      const groupId = this.data.interviewDetails.id;
+      const InterviewGroupDTO = {
+        id : groupId,
+        date: this.data.interviewDetails.date,
+        jobSeekers: this.data.interviewDetails.jobSeekers,
+        steps: this.scheduleForm.value.steps
+      };
       this.isloading = true;
       // Using InterviewScheduleService to save the schedule
-      this.interviewService.createOrUpdateSchedule(GroupInterviewScheduleDTO).subscribe({
+      this.interviewService.createOrUpdateSchedule(InterviewGroupDTO).subscribe({
         next: (response) => {
           console.log('Interview schedule saved successfully:', response);
         },
@@ -108,11 +98,12 @@ export class JobInterviewScheduleComponent implements OnInit {
         }
       });
     } else {
-      console.log(this.genericsService.getFormValidationErrors(this.scheduleForm));
-    }
+      // console.log(this.genericsService.getFormValidationErrors(this.scheduleForm));
+    // }
   }
+}
 
   onClose() {
-    // Logic for closing the modal or clearing the form
+    this.modalService.close();
   }
 }

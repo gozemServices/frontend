@@ -103,3 +103,11 @@ export enum ApplicationStatus {
   INTERVIEW = 'INTERVIEW', 
   HIRED = 'HIRED'
 }
+
+export interface JobApplicationUpdateDTO {
+  jobApplicationId: number;
+  status: ApplicationStatus; 
+  score: string;
+  comment: string;
+  additionalNotes?: string;
+}

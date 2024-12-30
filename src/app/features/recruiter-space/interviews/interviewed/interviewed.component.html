@@ -63,7 +63,7 @@
                       <div class="absolute text-slate-700 z-50 bg-white shadow-lg rounded-md mt-2 right-0 w-fit">
                         <button
                         class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                        (click)="viewDetails(seeker, interview?.steps)"
+                        (click)="viewInterviewDetails(seeker, interview?.steps)"
                       >
                           <fa-icon [icon]="faEye" class="mr-2"></fa-icon>
                           View Details
@@ -77,8 +77,6 @@
                           Download interviews Folder
                         </button>
                         }
-                        
-                        @if(interview.status == JobApplicationStatus.INTERVIEW_SCHEDULED){
                           <button
                           class="block w-full text-left px-4 py-2 hover:bg-gray-100"
                             (click)="editInterview(interview)"
@@ -86,26 +84,17 @@
                             <fa-icon [icon]="faEdit" class="mr-2"></fa-icon>
                             Edit Interview
                           </button>
-                        }
-                      @if(interview.status === JobApplicationStatus.INTERVIEW){
                         <button
                         class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                        (click)="noteInterview(interview)"
+                        (click)="noteInterview(seeker)"
                       >
                         <fa-icon [icon]="faComment" class="mr-2"></fa-icon>
                         Add a Note
                       </button>
-                      }
-                          <button
-                          class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                          (click)="moveToInterview(interview)"
-                        >
-                          <fa-icon [icon]="faArrowRight" class="mr-2"></fa-icon>
-                          Move to Interview
-                        </button>
+                      
                         <button
                           class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                          (click)="moveToPreInterview(interview)"
+                          (click)="moveToPreInterview(seeker.jobApplicationId)"
                         >
                           <fa-icon [icon]="faArrowLeft" class="mr-2"></fa-icon>
                           Move to Preinterview

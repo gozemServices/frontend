@@ -24,6 +24,7 @@ export class PlanInterviewComponent implements OnInit{
   idOffer: any;
   searchQuery: string = ''; 
   step!: number;
+  interviewDetails: any;
 
   private modalService = inject(ModalService);
   private jobService = inject(JobService);
@@ -33,6 +34,7 @@ export class PlanInterviewComponent implements OnInit{
   ngOnInit() {
     if(this.data?.isEditMode){
       this.step = this.data.step;
+      this.interviewDetails = this.data.interviewDetails
 
     }else{
       this.loadApplicantList(this.data.offerId);

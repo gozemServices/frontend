@@ -13,6 +13,9 @@ import { PlanInterviewComponent } from '../plan-interview/plan-interview.compone
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 import { InterviewDetailsComponent } from '../interview-details/interview-details.component';
+import { EditJobInterviewScheduleComponent } from '../edit-job-interview-schedule/edit-job-interview-schedule.component';
+import { GenericService } from '../../../../core/services/generic.service';
+import { Toast } from '../../../../core/models/common.model';
 
 @Component({
   selector: 'app-interviewed',
@@ -27,6 +30,7 @@ export class InterviewedComponent implements OnInit{
   private location = inject(Location);
   private route = inject(ActivatedRoute);
   private modalService = inject(ModalService);
+  private genericService = inject(GenericService);
   private jobService = inject(JobService);  
   applicationStatusList = Object.values(ApplicationStatus);
   JobApplicationStatus = ApplicationStatus;
@@ -109,12 +113,14 @@ export class InterviewedComponent implements OnInit{
   }
 
   noteInterview(candidature: any) {
+    console.log(candidature);
     this.modalService.open(CandidateInterviewFeedbackComponent, {
       size: {
-        width: '80%',
+        width: '90%',
         padding: '1rem'
       },
       data: {
+        jobApplicationId: candidature.jobApplicationId
       }
     }).then((isDone) => {
       // this.fetchJobOffers();       
@@ -137,11 +143,9 @@ export class InterviewedComponent implements OnInit{
 
   editInterview(candidature: any){
       const data = {
-        isEditMode: true,
-        selectedCandidates: [],
-        step:2,
+        interviewDetails: candidature
       };
-      this.modalService.open(PlanInterviewComponent, {
+      this.modalService.open(EditJobInterviewScheduleComponent, {
           size: {
             width: '80%',
             padding: '1rem'
@@ -153,9 +157,23 @@ export class InterviewedComponent implements OnInit{
             // this.fetchJobOffers();       
         });
   }
-  downloadCandidatureFolder(candidature: any){}
-  moveToInterview(candidature: any){}
-  viewDetails(seeker: any,steps: any){
+  downloadCandidatureFolder(seeker: any): void{
+    const jobApplicationId = seeker.jobApplicationId;
+      this.interviewService.downloadSubmittedDocument(jobApplicationId).subscribe({
+        next: (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `document-${jobApplicationId}.pdf`; // Adjust file name and extension as necessary
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: (error) => {
+          console.error('Error downloading the document:', error);
+        }
+      });
+  }
+  viewInterviewDetails(seeker: any,steps: any){
     const data = {
       seeker: seeker,
       steps: steps,
@@ -172,7 +190,29 @@ export class InterviewedComponent implements OnInit{
           // this.fetchJobOffers();       
       });
   }
-  moveToPreInterview(candidature: any){
+  moveToPreInterview(jobApplicationStatus: any){
+    const toastInfos: Toast = {
+      id: 0,
+      message: '',
+      type: 'success',
+      timeout: 1000,
+    }
+    this.interviewService.updateApplicationStatus(jobApplicationStatus,ApplicationStatus.PRE_INTERVIEW).subscribe({
+      
+      next: (response) => {
+        // console.log('Interview schedule saved successfully:', response);
+        toastInfos.message = 'Interview schedule updated sucessfully';
+        this.genericService.openToast(toastInfos);
+        this.loading = false;
+      },
+      error: (error) => {
+        // console.error('Error saving interview schedule:', error);
+        toastInfos.message = 'Error saving interview schedule';
+        toastInfos.type = 'error';
+        this.genericService.openToast(toastInfos);
+        this.loading = false;
+      }
+    });
     
     // alert(candidature.status == this.jobApplicationStatus.INTERVIEW_SCHEDULED);
 }

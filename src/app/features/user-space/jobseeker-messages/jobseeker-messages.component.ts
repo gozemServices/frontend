@@ -5,13 +5,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faPaperPlane, faTimesCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UnderConstructionComponent } from "../../../shared/components/under-construction/under-construction.component";
 
 
 
 @Component({
   selector: 'app-jobseeker-messages',
   standalone: true,
-  imports: [FontAwesomeModule, FormsModule,CommonModule],
+  imports: [FontAwesomeModule, FormsModule, CommonModule, UnderConstructionComponent],
   templateUrl: './jobseeker-messages.component.html',
   styleUrl: './jobseeker-messages.component.scss'
 })
@@ -20,6 +21,7 @@ export class JobseekerMessagesComponent {
   faTimesCircle = faTimesCircle;
   faTrashAlt = faTrashAlt;
   faPaperPlane = faPaperPlane;
+  underconstruction = true;
 
   // Sample messages (this could come from a backend API)
   messages: Message[] = [

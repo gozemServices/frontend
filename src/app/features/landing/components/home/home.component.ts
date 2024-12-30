@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   autoSlide() {
     setInterval(() => {
       this.currentSlide = (this.currentSlide + 1) % this.images.length;
-    }, 1700); // Change slide every 3 seconds
+    }, 2000); // Change slide every 3 seconds
   }
 
   nextSlide() {

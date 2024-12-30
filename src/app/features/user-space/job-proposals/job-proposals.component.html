@@ -16,10 +16,10 @@
         <tbody>
           @for(proposal  of filteredProposals; track proposal.id){
             <tr class="border-b">
-              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal.jobOffer.title }}</td>
-              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal.jobOffer.company }}</td>
-              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal.status }}</td>
-              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal.createdAt | date }}</td>
+              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.jobOffer.title }}</td>
+              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.jobOffer.company }}</td>
+              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.status }}</td>
+              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.createdAt | date }}</td>
                   <td class="flex flex-nowrap py-3 px-6 text-sm space-x-2">
                     @if(proposal.status === 'PENDING') {
                 
@@ -32,7 +32,7 @@
                       Refuse
                     </button>
                   }
-                    <a [routerLink]="'/user/job/details/'+proposal.id" class="bg-blue-500 text-white px-4 py-2 mx-1 rounded-md">
+                    <a [routerLink]="'/user/job/details/'+proposal?.jobOffer?.id" class="bg-blue-500 text-white px-4 py-2 mx-1 rounded-md">
                       <fa-icon class="font-bold" [icon]="faEye"></fa-icon>
                       View
                   </a>

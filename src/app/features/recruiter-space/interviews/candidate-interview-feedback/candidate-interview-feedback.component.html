@@ -1,19 +1,19 @@
 <div class="flex bg-white flex-col p-4 rounded-lg max-h-[95vh] w-full max-w-[98vw] md:max-w-[80vw]">
   <div class="flex w-full h-full overflow-auto flex-col">
-    <h2 class="text-2xl font-bold mb-4">Candidate Interview Feedback</h2>
+    <h2 class="text-xl md:text-2xl font-bold mb-4">Candidate Interview Feedback</h2>
     <form [formGroup]="candidateForm" (ngSubmit)="submitForm()" class="space-y-6">
 
       <!-- Interviewer Feedback -->
       <div>
-        <label class="block text-sm font-medium text-gray-700">Interviewer Feedback</label>
+        <label class="block text-sm font-medium text-gray-700">Interviewer comments</label>
         <textarea
-          formControlName="feedback"
+          formControlName="comment"
           class="w-full px-4 py-2 border rounded-md focus:outline-none"
           rows="4"
         ></textarea>
-        @if (candidateForm.get('feedback')?.invalid && candidateForm.get('feedback')?.touched) {
+        @if (candidateForm.get('comment')?.invalid && candidateForm.get('comment')?.touched) {
           <p class="text-red-500 text-sm">
-            Feedback is required
+            comments is required
           </p>
         }
       </div>
@@ -23,12 +23,12 @@
         <label class="block text-sm font-medium text-gray-700">Rating (1 to 10)</label>
         <input
           type="number"
-          formControlName="rating"
+          formControlName="score"
           class="w-full px-4 py-2 border rounded-md focus:outline-none"
           min="1"
           max="5"
           />
-        @if (candidateForm.get('rating')?.invalid && candidateForm.get('rating')?.touched) {
+        @if (candidateForm.get('score')?.invalid && candidateForm.get('score')?.touched) {
           <p class="text-red-500 text-sm">
             Rating must be between 1 and 10
           </p>
@@ -39,8 +39,8 @@
       <div>
         <label class="block text-sm font-medium text-gray-700">Status</label>
         <select formControlName="status" class="w-full px-4 py-2 border rounded-md focus:outline-none">
-          <option value="accepted">Accepted</option>
-          <option value="rejected">Rejected</option>
+          <option value="ACCEPTED">Accepted</option>
+          <option value="REJECTED">Rejected</option>
         </select>
         @if (candidateForm.get('status')?.invalid && candidateForm.get('status')?.touched) {
           <p class="text-red-500 text-sm">
@@ -65,7 +65,12 @@
           Cancel
         </button>
         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">
-          Save Feedback
+          @if(!loading) {
+            Save Feedback
+          }
+          @if(loading) {
+            <div class="w-10 h-10 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
+          }
         </button>
       </div>
     </form>
