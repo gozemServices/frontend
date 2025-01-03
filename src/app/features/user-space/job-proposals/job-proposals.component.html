@@ -1,48 +1,58 @@
-  <!-- Waiting List Invitations -->
+
+
+
+<!-- Waiting List Invitations -->
   <div class="bg-white p-6 rounded-lg shadow-md mt-8">
     <h2 class="text-2xl font-semibold text-gray-700">Jobs Pending Invitations</h2>
     <p class="text-lg text-gray-400">jobs waiting for you to join de pending list</p>
-    <div class="overflow-x-auto min-w-xl mt-4">
-      <table class="min-w-full  bg-white shadow-md rounded-lg">
-        <thead class="bg-primary text-left text-gray-700" >
-          <tr class="border-b">
-            <th class="p-4 border-b text-left text-sm font-semibold text-white">Job Title</th>
-            <th class="p-4 border-b text-left text-sm font-semibold text-white">Company</th>
-            <th class="p-4 border-b text-left text-sm font-semibold text-white">Status</th>
-            <th class="p-4 border-b text-left text-sm font-semibold text-white">Date Invited</th>
-            <th class="p-4 border-b text-left text-sm font-semibold text-white">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for(proposal  of filteredProposals; track proposal.id){
+    @if(loading) {
+      <div class="absolute w-screen h-screen top-0 left-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+        <div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-solid rounded-full animate-spin border-t-blue-500"></div>
+      </div>
+    }@else {
+      <div class="overflow-x-auto min-w-xl mt-4">
+        <table class="min-w-full  bg-white shadow-md rounded-lg">
+          <thead class="bg-primary text-left text-gray-700" >
             <tr class="border-b">
-              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.jobOffer.title }}</td>
-              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.jobOffer.company }}</td>
-              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.status }}</td>
-              <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.createdAt | date }}</td>
-                  <td class="flex flex-nowrap py-3 px-6 text-sm space-x-2">
-                    @if(proposal.status === 'PENDING') {
-                
-                    <button (click)="acceptProposal(true,proposal)" class="bg-green-500 text-white px-4 py-2 mx-1 rounded-md">
-                      <fa-icon class="font-bold" [icon]="faCheck"></fa-icon>
-                      Accept
-                    </button>
-                    <button (click)="acceptProposal(false,proposal)" class="bg-red-500 text-white px-4 py-2 mx-1 rounded-md">
-                      <fa-icon class="font-bold" [icon]="faTimes"></fa-icon>
-                      Refuse
-                    </button>
-                  }
-                    <a [routerLink]="'/user/job/details/'+proposal?.jobOffer?.id" class="bg-blue-500 text-white px-4 py-2 mx-1 rounded-md">
-                      <fa-icon class="font-bold" [icon]="faEye"></fa-icon>
-                      View
-                  </a>
-                </td>
-                
+              <th class="p-4 border-b text-left text-sm font-semibold text-white">Job Title</th>
+              <th class="p-4 border-b text-left text-sm font-semibold text-white">Company</th>
+              <th class="p-4 border-b text-left text-sm font-semibold text-white">Status</th>
+              <th class="p-4 border-b text-left text-sm font-semibold text-white">Date Invited</th>
+              <th class="p-4 border-b text-left text-sm font-semibold text-white">Action</th>
             </tr>
-          }
-        
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            @for(proposal  of filteredProposals; track proposal.id){
+              <tr class="border-b">
+                <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.jobOffer.title }}</td>
+                <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.jobOffer.company }}</td>
+                <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.status }}</td>
+                <td class="py-2 px-4 border-b border-b-gray-50 text-gray-700">{{ proposal?.createdAt | date }}</td>
+                    <td class="flex flex-nowrap py-3 px-6 text-sm space-x-2">
+                      @if(proposal.status === 'PENDING') {
+                  
+                      <button (click)="acceptProposal(true,proposal)" class="bg-green-500 text-white px-4 py-2 mx-1 rounded-md">
+                        <fa-icon class="font-bold" [icon]="faCheck"></fa-icon>
+                        Accept
+                      </button>
+                      <button (click)="acceptProposal(false,proposal)" class="bg-red-500 text-white px-4 py-2 mx-1 rounded-md">
+                        <fa-icon class="font-bold" [icon]="faTimes"></fa-icon>
+                        Refuse
+                      </button>
+                    }
+                      <a [routerLink]="'/user/job/details/'+proposal?.jobOffer?.id" class="bg-blue-500 text-white px-4 py-2 mx-1 rounded-md">
+                        <fa-icon class="font-bold" [icon]="faEye"></fa-icon>
+                        View
+                    </a>
+                  </td>
+                  
+              </tr>
+            }
+          
+          </tbody>
+        </table>
+      </div>
+    }
+    
     
     

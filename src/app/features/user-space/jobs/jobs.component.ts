@@ -1,7 +1,7 @@
 
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBookmark, faFile, faFileAlt, faFileLines, faHeart, faList } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faFile, faFileAlt, faFileLines, faHeart, faList, faListAlt, faThLarge } from '@fortawesome/free-solid-svg-icons';
 import { JobListComponent } from "./job-list/job-list.component";
 
 @Component({
@@ -20,6 +20,9 @@ export class JobsComponent {
    faFileAlt= faFileAlt; 
    faHeart= faHeart;
    faBookMark= faBookmark;
+   faList = faList;
+   faGrid = faThLarge;
+
  
    // Function to toggle layout
    setLayout(layout: 'list' | 'grid') {

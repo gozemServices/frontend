@@ -75,6 +75,20 @@ export class InterviewService {
     return this.http.get(url, { responseType: 'blob' });
   }
 
+  deleteInterview(interviewGroupId: number): Observable<void> {
+    return this.http.delete<void>(`${this.jobUrl}/${interviewGroupId}`);
+  }
+
+  removeJobSeekerFromInterview(
+    interviewGroupId: number,
+    jobSeekerId: number
+  ): Observable<void> {
+    return this.http.delete<void>(
+      `${this.jobUrl}/interview/delete/${interviewGroupId}/jobseekers/${jobSeekerId}`
+    );
+  }
+
+
 
   // You can also add more methods as needed to support your specific API interactions
   

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { faBell, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCalendar, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { GenericService } from '../../core/services/generic.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -35,7 +35,7 @@ export class RecruiterSpaceComponent {
   isLangDropdownOpened = false;
   faChevronDown = faChevronDown;
   faNotificationRing = faBell;
-
+  faCalendar = faCalendar;
   userType = 'recruiter'
   user!: User | null;
   userInfos: any;

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { CommonModule } from '@angular/common';
-import { faBell, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCalendar, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GenericService } from '../../core/services/generic.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -33,6 +33,7 @@ export class UserSpaceComponent implements OnInit{
   isLangDropdownOpened = false;
   faChevronDown = faChevronDown;
   faNotificationRing = faBell;
+  faCalendar = faCalendar;
   user!: User | null;
   userInfos: any;
   profilePic: string | ArrayBuffer | null = null;

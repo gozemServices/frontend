@@ -54,7 +54,7 @@
           <span class="posted-time bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">Posted {{ job.createdAt | timeAgo}}</span>
           <button (click)="openApplyDialog(job.id)" class="apply-button bg-primary text-white px-4 py-2 rounded-lg">Apply</button>
         </div>
-        <app-share-item  [content]="{ link: JOB_URL+'/'+job.id, title: job.title, description: job.description }"></app-share-item>
+        <app-share-item  [content]="{ link: JOB_URL+'/'+job.id,location: job.location, title: job.title, description: job.description }"></app-share-item>
       </div>
     }
   </div>

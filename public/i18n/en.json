@@ -22,7 +22,7 @@
         "FR": "French",
         "ES": "Spanish"
     },
-    "WELCOME_IN": "welcome in the Cvthèque",
+    "WELCOME_IN": "Welcome in your personal space",
     "OF": "of",
     "OFFERED_SERVICE": "Offered Service",
     "ADVANTAGES_DESCRIPTION": "Look at the advantages of being on the GozenServices Cvtheque",
@@ -97,7 +97,7 @@
     "BASIC_INFORMATIONS_TITLE": "Basic informations",
     "GENERAL_INFORMATIONS": "general informations",
     "EDUCATION": "Education",
-
+    "APPLICATIONS_LABEL": "Applications",
     "REMOVE_TOOL": "Remove Tool",
     "CONFIRM_REMOVE_TOOL": "Are you sure you want to remove the tool \"{{toolName}}\"?",
     "IRREVERSIBLE_ACTION": "This action is irreversible and you won't be able to get it back unless you pay again!",

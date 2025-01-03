@@ -1,0 +1,301 @@
+<div id="component_container" class="component_container w-full h-fit pb-4">
+<div class="bg-white">
+    <app-header></app-header>
+</div>
+<div class="max-h-full pt-[50px] md:mt-0 overflow-auto register-container bg-white/30 rounded-lg backdrop-blur-xl w-[95%] sm:w-[70%] md:max-w-[50%] mx-auto space-y-8 p-6">
+    <div #tabSelector class="tab-selector mt-12 md:mt-2 relative flex justify-center space-x-8 border-b border-gray-300">
+        <!-- Tabs -->
+        <div 
+          class="tab px-4 py-2 cursor-pointer relative"
+          [class.text-primary]="activeTab === 'jobseeker'"
+          [class.text-white]="!(activeTab === 'jobseeker')" 
+          (click)="switchTab('jobseeker')">
+          Jobseeker
+        </div>
+        <div 
+          class="tab px-4 py-2 text-white cursor-pointer relative" 
+          [class.text-primary]="activeTab === 'recruiter'"
+          [class.text-white]="!(activeTab === 'recruiter')"
+          (click)="switchTab('recruiter')">
+          Recruiter
+        </div>
+        
+        <!-- Indicator -->
+        <div 
+          class="absolute bottom-[-2px] h-[2px] bg-primary transition-all duration-300 ease-in-out"
+          [ngStyle]="{'width': tabWidth, 'left': tabPosition - 30 + 'px'}">
+        </div>
+      </div>
+   @if(activeTab === 'jobseeker'){
+    <div class="form-container">
+        <form [formGroup]="jobseekerForm" (ngSubmit)="onSubmit()" class="space-y-6">
+          <div class="form-group">
+            <label for="name" class="block text-sm font-medium text-gray-700">{{'FIRST_NAME' | translate}}</label>
+            <input id="name" formControlName="name" type="text" placeholder="Enter your name" 
+              class="mt-1 py-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              >
+            @if (jobseekerControls['name'].invalid && (jobseekerControls['name'].touched || jobseekerControls['name'].dirty)) {
+                <div class="error text-red-500 text-sm mt-1">
+                  @if (jobseekerControls['username'].errors?.['required']) {
+                    <div>{{ 'FIRST_NAME_REQUIRED' | translate }}</div>
+                  }
+                </div>
+              }
+          </div>
+    
+          <div class="form-group">
+            <label for="surname" class="block text-sm font-medium text-gray-700">{{ 'LAST_NAME' | translate }}</label>
+            <input id="surname" formControlName="surname" type="text" placeholder="Enter your surname" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (jobseekerControls['surname'].invalid && (jobseekerControls['surname'].touched || jobseekerControls['surname'].dirty)) {
+                <div class="error text-red-500 text-sm mt-1">
+                  @if (jobseekerControls['surname'].errors?.['required']) {
+                    <div>{{ 'LAST_NAME_REQUIRED' | translate }}</div>
+                  }
+                </div>
+              }
+          </div>
+          <div class="form-group">
+            <label for="username" class="block text-sm font-medium text-gray-700">{{ 'USERNAME' | translate }}</label>
+            <input id="username" formControlName="username" type="text" placeholder="Enter your username" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (jobseekerControls['username'].invalid && (jobseekerControls['username'].touched || jobseekerControls['username'].dirty)) {
+                <div class="error text-red-500 text-sm mt-1">
+                  @if (jobseekerControls['username'].errors?.['required']) {
+                    <div>{{ 'USERNAME_REQUIRED' | translate }}</div>
+                  }
+                </div>
+              }
+          </div>
+    
+          <div class="form-group">
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input id="email" formControlName="email" type="email" placeholder="Enter your email" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (jobseekerControls['email'].invalid && (jobseekerControls['email'].touched || jobseekerControls['email'].dirty)) {
+                <div class="error text-red-500 text-sm mt-1">
+                  @if (jobseekerControls['email'].errors?.['required']) {
+                    <div>{{ 'EMAIL_REQUIRED' | translate }}</div>
+                  }
+                  @if (jobseekerControls['email'].errors?.['email']) {
+                    <div>{{ 'INVALID_EMAIL' | translate }}</div>
+                  }
+                </div>
+              }
+          </div>
+    
+          <div class="form-group">
+            <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+            <input id="phone" formControlName="phone" type="text" placeholder="Enter your phone number" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (jobseekerControls['phone'].invalid && (jobseekerControls['phone'].touched || jobseekerControls['phone'].dirty)) {
+                <div class="error text-red-500 text-sm mt-1">
+                  @if (jobseekerControls['phone'].errors?.['required']) {
+                    <div>{{ 'PHONE_NUMBER_REQUIRED' | translate }}</div>
+                  }
+                  @if (jobseekerControls['phone'].errors?.['pattern']) {
+                    <div>{{ 'PHONE_NUMBER_PATTERN' | translate }}</div>
+                  }
+                </div>
+              }
+          </div>
+    
+          <div class="form-group">
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input id="password" formControlName="password" type="password" placeholder="Enter your password" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (jobseekerControls['password'].invalid && (jobseekerControls['password'].touched || jobseekerControls['password'].dirty)) {
+                <div class="error text-red-500 text-sm mt-1">
+                  @if (jobseekerControls['password'].errors?.['required']) {
+                    <div>{{ 'PASSWORD_REQUIRED' | translate }}</div>
+                  }
+                  @if (jobseekerControls['password'].errors?.['minlength']) {
+                    <div>{{ 'PASSWORD_MIN_LENGTH' | translate }}</div>
+                  }
+                </div>
+              }
+          </div>
+    
+          <div class="form-group">
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Confirm your password" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (jobseekerForm.errors?.['mismatch']) {
+                <div class="error text-red-500 text-sm mt-1">
+                  {{ 'PASSWORD_MISMATCH' | translate }}
+                </div>
+              }
+          </div>
+    
+          <div class="form-group">
+            <label for="profilePic" class="block text-sm font-medium text-gray-700">Profile Picture</label>
+            <input id="profilePic" type="file" (change)="onProfilePicChange($event)" 
+              class="mt-1 block w-full text-gray-500">
+              @if (profilePicPreview) {
+                  <div class="mt-4 relative w-24 h-24 mx-auto">
+                    <img [src]="profilePicPreview" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover">
+                    <button
+                      type="button"
+                      (click)="removeProfilePic()"
+                      class="absolute top-0 right-0 bg-gray-600 text-white rounded-full w-6 h-6 text-xs hover:bg-red-600"
+                      >
+                      ✖
+                    </button>
+                  </div>
+                }
+            <div class="error text-red-500 text-sm mt-1" *ngIf="error === 'error profile pic'">
+              Profile picture is required.
+            </div>
+          </div>
+    
+          <button class="submit-button w-full py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            type="submit" [disabled]="loading">
+            {{ loading ? 'Registering...' : 'Register' }}
+          </button>
+    
+          <div class="error-message text-red-500 text-center mt-4" *ngIf="error">
+            {{ error }}
+          </div>
+        </form>
+      </div>
+   }
+  
+   @if(activeTab === 'recruiter'){
+    <div class="form-container">
+        <form [formGroup]="recruiterForm" (ngSubmit)="onSubmit()" class="space-y-6">
+          <div class="form-group">
+            <label for="name" class="block text-sm font-medium text-gray-700">{{ 'COMPANY_NAME' | translate  }}</label>
+            <input id="name" formControlName="name" type="text" placeholder="Enter your name" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (recruiterControls['name'].invalid && (recruiterControls['name'].touched || recruiterControls['name'].dirty)) {
+                  <div class="error text-red-500 text-sm mt-1">
+                      {{  'COMPANY_NAME_REQUIRED' | translate }}
+                  </div>
+              }
+          </div>
+          <div class="form-group">
+            <label for="username" class="block text-sm font-medium text-gray-700">{{ 'USERNAME' | translate  }}</label>
+            <input id="username" formControlName="username" type="text" placeholder="Enter your user name" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (recruiterControls['username'].invalid && (recruiterControls['username'].touched || recruiterControls['username'].dirty)) {
+                  <div class="error text-red-500 text-sm mt-1">
+                      {{  'USERNAME_REQUIRED' | translate }}
+                  </div>
+              }
+          </div>
+    
+          <div class="form-group">
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input id="email" formControlName="email" type="email" placeholder="Enter your email" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+             @if(recruiterControls['email'].invalid && (recruiterControls['email'].touched || recruiterControls['email'].dirty)){
+                <div class="error text-red-500 text-sm mt-1">
+                    @if (recruiterControls['email'].errors?.['required']) {
+                      <div>{{ 'EMAIL_REQUIRED' | translate }}</div>
+                    }
+                    @if (recruiterControls['email'].errors?.['email']) {
+                      <div>{{ 'INVALID_EMAIL' | translate }}</div>
+                    }
+                  </div>
+             }
+          </div>
+    
+          <div class="form-group">
+            <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+            <input id="phone" formControlName="phone" type="text" placeholder="Enter your phone number" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            @if(recruiterControls['phone'].invalid && (recruiterControls['phone'].touched || recruiterControls['phone'].dirty)){
+                <div class="error text-red-500 text-sm mt-1">
+                    @if (recruiterControls['phone'].errors?.['required']) {
+                        <div>{{ 'PHONE_NUMBER_REQUIRED' | translate }}</div>
+                      }
+                      @if (recruiterControls['phone'].errors?.['pattern']) {
+                        <div>{{ 'PHONE_NUMBER_PATTERN' | translate }}</div>
+                      }
+                  </div>
+            }
+             
+          </div>
+    
+          <div class="form-group">
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input id="password" formControlName="password" type="password" placeholder="Enter your password" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if(recruiterControls['password'].invalid && (recruiterControls['password'].touched || recruiterControls['password'].dirty)){
+                <div class="error text-red-500 text-sm mt-1">
+                    @if (recruiterControls['password'].errors?.['required']) {
+                        <div>{{ 'PASSWORD_REQUIRED' | translate }}</div>
+                      }
+                      @if (recruiterControls['password'].errors?.['minlength']) {
+                        <div>{{ 'PASSWORD_MIN_LENGTH' | translate }}</div>
+                      }
+                  </div>
+              }
+              
+          </div>
+    
+          <div class="form-group">
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Confirm your password" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (recruiterForm.errors?.['mismatch']) {
+                  <div class="error text-red-500 text-sm mt-1">
+                    {{ 'PASSWORD_MISMATCH' | translate }}
+                  </div>
+              }
+          </div>
+          <div class="form-group">
+            <label for="sector" class="block text-sm font-medium text-gray-700">Sector</label>
+            <input id="sector" formControlName="sector" type="text" placeholder="Enter your sector" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (recruiterControls['sector'].invalid && (recruiterControls['sector'].touched || recruiterControls['sector'].dirty)) {
+                  <div class="error text-red-500 text-sm mt-1">
+                          <div>Your compagny sector is required.</div>
+                  </div>
+              }
+          </div>
+    
+          <div class="form-group">
+            <label for="activity" class="block text-sm font-medium text-gray-700">Activity</label>
+            <input id="activity" formControlName="activity" type="text" placeholder="Enter your activity" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              @if (recruiterControls['activity'].invalid && (recruiterControls['activity'].touched || recruiterControls['activity'].dirty)) {
+                  <div class="error text-red-500 text-sm mt-1">
+                    @if (recruiterControls['activity'].errors?.['activity']) {
+                      <div>Your compagny activity is required.</div>
+                    }
+                  </div>
+              }
+          </div>
+    
+          <div class="form-group">
+            <label for="profilePic" class="block text-sm font-medium text-gray-700">Profile Picture</label>
+            <input id="profilePic" type="file" (change)="onProfilePicChange($event)" 
+              class="mt-1 block w-full text-gray-500">
+            <div class="preview mt-4 flex items-center space-x-4" *ngIf="profilePicPreview">
+              <img [src]="profilePicPreview" alt="Profile Preview" class="h-16 w-16 rounded-full border">
+              <button type="button" (click)="removeProfilePic()" class="text-sm text-red-500">Remove</button>
+            </div>
+            @if (recruiterControls['profilePic'].invalid && (recruiterControls['profilePic'].touched || recruiterControls['profilePic'].dirty)) {
+              <div class="text-red-500 text-sm">
+                @if (recruiterControls['profilePic'].errors?.['required']) {
+                  <div>a profile picture is required.</div>
+                }
+              </div>
+            }
+          </div>
+    
+          <button class="submit-button w-full py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            type="submit" [disabled]="loading">
+            {{ loading ? 'Registering...' : 'Register' }}
+          </button>
+    
+          <div class="error-message text-red-500 text-center mt-4" *ngIf="error">
+            {{ error }}
+          </div>
+        </form>
+      </div>
+   }
+  </div>
+  
+</div>

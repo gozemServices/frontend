@@ -53,31 +53,31 @@
                   <td class="p-4">
                     <!-- Action Dropdown -->
                     <button
-                      (click)="toggleActions(interview.id)"
+                      (click)="toggleActions(seeker?.jobApplicationId)"
                       class="text-gray-500 hover:text-gray-700"
                       >
                       <fa-icon [icon]="faEllipsisH" class="w-5 h-5"></fa-icon>
                     </button>
                     <!-- Dropdown Actions -->
-                    @if (openActionId === interview.id) {
+                    @if (openActionId === seeker?.jobApplicationId) {
                       <div class="absolute text-slate-700 z-50 bg-white shadow-lg rounded-md mt-2 right-0 w-fit">
                         <button
-                        class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                        (click)="viewInterviewDetails(seeker, interview?.steps)"
-                      >
+                          class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                          (click)="viewInterviewDetails(seeker, interview?.steps)"
+                        >
                           <fa-icon [icon]="faEye" class="mr-2"></fa-icon>
                           View Details
                         </button>
                         @if(interview.status === JobApplicationStatus.DOCUMENTS_SUBMITTED){
                           <button
-                          class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                          (click)="downloadCandidatureFolder(interview)"
-                        >
-                          <fa-icon [icon]="faDownload" class="mr-2"></fa-icon>
-                          Download interviews Folder
-                        </button>
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                            (click)="downloadCandidatureFolder(interview)"
+                          >
+                            <fa-icon [icon]="faDownload" class="mr-2"></fa-icon>
+                            Download interviews Folder
+                          </button>
                         }
-                          <button
+                        <button
                           class="block w-full text-left px-4 py-2 hover:bg-gray-100"
                             (click)="editInterview(interview)"
                           >
@@ -85,13 +85,20 @@
                             Edit Interview
                           </button>
                         <button
-                        class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                        (click)="noteInterview(seeker)"
-                      >
-                        <fa-icon [icon]="faComment" class="mr-2"></fa-icon>
-                        Add a Note
-                      </button>
-                      
+                          class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                          (click)="noteInterview(seeker)"
+                          >
+                            <fa-icon [icon]="faComment" class="mr-2"></fa-icon>
+                            Add a Note
+                        </button>
+                        <button
+                          class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                          (click)="removeJobSeekerFromInterview(interview.id,seeker.id)"
+                        >
+                          <fa-icon [icon]="faDelete" class="mr-2"></fa-icon>
+                          cancel interview
+                        </button>
+                                            
                         <button
                           class="block w-full text-left px-4 py-2 hover:bg-gray-100"
                           (click)="moveToPreInterview(seeker.jobApplicationId)"
@@ -100,7 +107,6 @@
                           Move to Preinterview
                         </button>
                       </div>
-                      
                     }
                   </td>
                 </tr>

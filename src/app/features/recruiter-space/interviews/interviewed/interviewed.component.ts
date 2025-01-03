@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { InterviewService } from '../../../services/interview.service';
-import { faArrowLeft, faArrowRight, faCheck, faComments, faDownload, faEdit, faEllipsis, faEllipsisH, faEye, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faCheck, faComments, faDeleteLeft, faDownload, faEdit, faEllipsis, faEllipsisH, faEye, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +9,6 @@ import { ApplicationStatus } from '../../../../core/models/jobs.models';
 import { JobService } from '../../../services/job.service';
 import { CandidateInterviewFeedbackComponent } from '../candidate-interview-feedback/candidate-interview-feedback.component';
 import { JobInterviewScheduleComponent } from '../job-interview-schedule/job-interview-schedule.component';
-import { PlanInterviewComponent } from '../plan-interview/plan-interview.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 import { InterviewDetailsComponent } from '../interview-details/interview-details.component';
@@ -47,6 +46,7 @@ export class InterviewedComponent implements OnInit{
   faArrowLeft = faArrowLeft;
   faEllipsis = faEllipsis;
   faEye = faEye;
+  faDelete = faDeleteLeft;
 
   isLoading = false;
   idOffer : any;
@@ -215,6 +215,38 @@ export class InterviewedComponent implements OnInit{
     });
     
     // alert(candidature.status == this.jobApplicationStatus.INTERVIEW_SCHEDULED);
-}
+  }
+
+  deleteInterview(interviewGroupId: number): void {{
+      this.interviewService.deleteInterview(interviewGroupId).subscribe({
+        next: () => {
+          console.log('Interview deleted successfully.');
+        },
+        error: (error) => {
+          console.error('Error deleting interview:', error);
+        }
+      });
+    }
+  }
+
+  removeJobSeekerFromInterview(
+    interviewGroupId: number,
+    jobSeekerId: number
+  ): void {
+    if (confirm('Are you sure you want to remove this job seeker from the interview?')) {
+      this.interviewService
+        .removeJobSeekerFromInterview(interviewGroupId, jobSeekerId)
+        .subscribe({
+          next: () => {
+            console.log('Job seeker removed from interview successfully.');
+            // this.refreshInterviews();
+          },
+          error: (error) => {
+            console.error('Error removing job seeker from interview:', error);
+          }
+        
+        });
+    }
+  }
 
 }

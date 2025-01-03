@@ -21,6 +21,8 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class SignupComponent {
   signupForm!: FormGroup;
+  recruiterForm!: FormGroup;
+  jobSeekerForm!: FormGroup;
   loading = false;
   error: string | null = null;
   profilePicPreview: string | null = null;
@@ -38,6 +40,8 @@ export class SignupComponent {
   get formControls() {
     return this.signupForm.controls;
   }
+
+  
 
   passwordMatchValidator(form: FormGroup) {
     return form.get('password')?.value === form.get('confirmPassword')?.value

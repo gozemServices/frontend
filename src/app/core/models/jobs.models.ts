@@ -47,6 +47,11 @@
     REMOTE = 'REMOTE',
     ONSITE = 'ONSITE',
   }
+  export enum ResponseTypes{
+    NUMBER = 'NUMBER',
+    TEXT = 'TEXT',
+    TEXTAREA = 'TEXTAREA'
+  }
   
   export enum EmploymentType {
     FULL_TIME = 'FULL_TIME',

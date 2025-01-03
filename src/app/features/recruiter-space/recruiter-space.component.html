@@ -10,24 +10,39 @@
     <header class="section-header  flex w-full justify-between flex-wrap items-center px-4 py-8 bg-lightGray rounded-xl shadow-lg shadow-gray-400">
       <div class="sample-infos w-full flex flex-wrap justify-between px-4 items-center">
         <div class="flex w-fit items-center gap-4 flex-wrap flex-1">
-          {{ currentDate | date: 'EEEE, d MMMM yyyy' }}
-          <div class="availabilities text-green-600 flex items-center justify-center gap-2 bg-green-200/60 px-2 py-2 rounded-full cursor-pointer">
-            <span class="block h-[15px] w-[15px] bg-green-600 rounded-full shadow-2xl"></span>
-            <span class="font-bold text-sm uppercase">Ready to interview</span>
-            <fa-icon [icon]="faChevronDown"></fa-icon>
+          <div class="date-display flex items-center gap-2">
+            <fa-icon [icon]="faCalendar" class="text-blue-600"></fa-icon>
+            <span class="text-lg font-bold italic text-gray-700">{{ currentDate | date: 'EEEE, d MMMM yyyy' }}</span>
           </div>
+          <div class="welcome-message text-pink-600 flex items-center justify-center gap-2 bg-pink-200/60 px-4 py-2 rounded-full">
+            <span class="font-bold text-sm uppercase">Hello, {{ userInfos?.username }}</span>
+          </div>
+          <!-- <div class="relative w-fit">
+            <button
+            class="toggle-btn text-gray-600 hover:text-blue-600"
+            (click)="toggleProfileInfo()">
+            <fa-icon [icon]="faChevronDown" [ngClass]="{ 'rotate-180': isProfileInfoVisible }"></fa-icon>
+          </button>
+          <div
+                class="additional-info w-fit absolute top-4 z-50 flex-col gap-2 mt-4 bg-gray-100 p-4 rounded-lg shadow-inner transition-all duration-300"
+                [ngClass]="{ 'hidden': !isProfileInfoVisible, 'flex': isProfileInfoVisible }"
+                id="profile-info">
+                <div>Recruiter Status: Active</div>
+                <div>Job Posts: 15 active</div>
+                <div>Applications: 120 received</div>
+            </div>
+          </div> -->
         </div>
 
         <!-- Right-side items: Notifications, Profile and Language Switcher -->
-        <div class="flex items-center gap-4 my-2 sm:my-0">
-          <a [routerLink]="['/user/recruiter/notifications']">
+        <div class="flex flex-wrap items-center gap-4 my-2 sm:my-0">
+          <a [routerLink]="['/user/recruiter/notifications']" class="cursor-pointer text-xl text-red-500 transition-all hover:scale-125 hover:rotate-12   hover:text-red-600 duration-300 ease-in-out">
             <fa-icon
               [icon]="faNotificationRing"
-              class="cursor-pointer text-xl text-red-500 transition-transform transform hover:scale-150 hover:rotate-12  hover:text-red-600 duration-300 ease-in-out"
               (click)="goToNotifications()">
             </fa-icon>
           </a>
-          <img [src]="profilePic" class="w-[40px] h-[40px] rounded-full" alt="User Profile Pic">
+          <img [src]="profilePic" class="w-[50px] h-[50px] shadow-lg object-cover rounded-full" alt="User Profile Pic">
           <app-locale-switcher></app-locale-switcher>
         </div>
       </div>

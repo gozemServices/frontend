@@ -1,10 +1,16 @@
 <div class="flex flex-col bg-white max-h-[95vh] p-4">
+  <div class="w-full justify-end items-end">
+    <button class="border-none bg-none text-xl w-10 h-10 rounded-full bg-primary text-white hover:bg-darkShade hover:scale-105 hover:rotate-180  transition-all duration-500 "
+     (click)="oncloseTemplate()"
+     >X
+    </button>
+  </div>
   <div class="flex flex-col text-gray-800 p-4 overflow-y-auto rounded-lg max-h-[95vh] w-full">
     <div class="container mx-auto flex flex-col w-full max-w-[800px]">
       <!-- CV Header -->
       <section class="w-full flex flex-col justify-center items-center">
         <h4 class="text-blue-900">Curriculum Vitae</h4>
-        <img [src]="profilePic" class="w-[100px] h-[100px]" alt="">
+        <img [src]="profilePic" class="w-[100px] h-[100px] object-cover shadow-lg rounded-full" alt="">
       </section>
 
       <!-- Personal Information -->

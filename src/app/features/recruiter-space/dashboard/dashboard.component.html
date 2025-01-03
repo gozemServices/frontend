@@ -3,20 +3,18 @@
   <div class="flex flex-col">
     <!-- Sidebar Navigation -->
     <nav class="flex w-full bg-white p-6 mt-4 shadow-custom lg:block">
-      <ul class="w-full flex items-center space-x-4 justify-center">
+      <ul class="w-full flex items-center space-x-4 justify-center"> 
         <li><a href="#" class="text-primary font-medium hover:underline">Dashboard</a></li>
-        <li><a href="#" class="text-gray-700 hover:text-primary">Saved CVs</a></li>
-        <li><a href="#" class="text-gray-700 hover:text-primary">Job Posts</a></li>
-        <li><a href="#" class="text-gray-700 hover:text-primary">Settings</a></li>
+        <li><a [routerLink]="['../offers']" class="text-gray-700 hover:text-primary" >Job Posts</a></li>
+        <li><a [routerLink]="['../profile']" class="text-gray-700 hover:text-primary">Settings</a></li>
       </ul>
     </nav>
 
     <!-- Main Content -->
     <main class="flex-1 p-6">
-      <h2 class="text-2xl font-bold mb-6 text-darkShade">Candidates</h2>
-
+      <h2 class="text-2xl font-bold text-darkShade">Candidates</h2>
       <!-- Applied Filters -->
-      <div class="mb-6 flex flex-wrap gap-4">
+      <div class="mb-2 flex flex-wrap gap-4">
         @for (filter of appliedFilters; track filter) {
           <div class="inline-flex items-center gap-2 bg-green-500/50 text-white px-3 py-1 rounded-full">
             <span>{{ filter.value }}</span>
@@ -66,10 +64,10 @@
         <!-- Apply Filter Button -->
         <div class="mt-2">
           <button
-            (click)="applyFilters()"
+            (click)="clearFilters()"
             class="bg-primary text-white px-4 py-2 rounded hover:bg-primaryDark transition"
             >
-            Apply Filters
+            Clear filters
           </button>
         </div>
       </aside>

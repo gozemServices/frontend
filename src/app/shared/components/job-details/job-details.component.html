@@ -34,9 +34,11 @@
           </div>
           <app-share-item [content]="{ link: JOB_URL+'/'+offer.id, title: offer.title, description: offer.description }"></app-share-item>
         </div>
-        <button (click)="openApplyDialog()" class="bg-primary mt-4 md:mt-0 text-white px-6 py-2 rounded-lg shadow-md hover:bg-darkShade">
-          Apply Now
-        </button>
+        @if(userRole === 'APPLICANT') {
+          <button (click)="openApplyDialog()" class="bg-primary mt-4 md:mt-0 text-white px-6 py-2 rounded-lg shadow-md hover:bg-darkShade">
+            Apply Now
+          </button>
+        }
       </div>
     </div>
   
@@ -110,10 +112,11 @@
             Email: <a [href]="'mailto:'+offer.contactEmail" class="text-primary hover:underline">{{offer.contactEmail}}</a>
           </p>
           <p class="text-gray-700">Phone: {{offer?.employer.phone}}</p>
-  
-          <button (click)="openApplyDialog()" class="w-full bg-primary text-white mt-6 py-2 rounded-lg shadow hover:bg-darkShade">
-            Apply Now
-          </button>
+          @if(userRole === 'APPLICANT') {
+            <button (click)="openApplyDialog()" class="w-full bg-primary text-white mt-6 py-2 rounded-lg shadow hover:bg-darkShade">
+              Apply Now
+            </button>
+          } 
         </div>
       </div>
   

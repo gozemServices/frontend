@@ -1,0 +1,18 @@
+#component_container{
+    // background: linear-gradient(rgba(0, 0, 0, 0.445),rgba(0, 0, 0, 0.63)), url('../../../../../public/images/people_in_meeting.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('../../../../../public/images/people_in_meeting_from_top.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+input{
+    padding-block: 4px;
+    padding-inline: 10px;
+}
+
+.error {
+    background-color: white;
+    width: fit-content;
+    padding-left: 1px;
+    margin-top: 1px;
+}

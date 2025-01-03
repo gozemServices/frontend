@@ -1,21 +1,16 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { CvthequeService } from '../../services/cv/cvtheque.service';
-import { CvTemplateComponent } from '../../../shared/components/cv-template/cv-template.component';
 import { FormsModule } from '@angular/forms';
-
-import { Observable, of } from 'rxjs';
-import { catchError, filter, map } from 'rxjs/operators';
-import { GenericService } from '../../../core/services/generic.service';
-import { ModalService } from '../../../shared/components/modal/modal.service';
 import { CvItemComponent } from "../cvtheque/cv-item/cv-item.component";
 import { faBars, faTh } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [TranslateModule, FontAwesomeModule, FormsModule, CvItemComponent],
+  imports: [TranslateModule, FontAwesomeModule, FormsModule, CvItemComponent,RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
@@ -58,7 +53,6 @@ export class DashboardComponent implements OnInit {
       (error) => {
         console.error('Error fetching data:', error);
         this.isLoading = false;
-        // Optionally add a user-friendly error message
         this.errorMessage = 'Failed to load CVs. Please try again later.';
       }
     );
@@ -71,16 +65,29 @@ export class DashboardComponent implements OnInit {
     this.isLoading = true;
     this.cvthequeService
       .getFilteredCvs({ jobTitles, languages, skills })
-      .subscribe(
-        (data) => {
+      .subscribe({
+        next: (data) => {
           this.filteredCvList = data;
           this.isLoading = false;
         },
-        (error) => {
+        error: (error) => {
           console.error('Error fetching filtered data:', error);
           this.isLoading = false;
         }
-      );
+      });
+  }
+
+  clearFilters() {
+      // Reset filter criteria
+      this.filterCriteria = {
+        jobTitles: [],
+        languages: [],
+        skills: [],
+      };
+      // Reset applied filters
+      this.appliedFilters = [];
+      // Reload all CVs
+      this.filteredCvList = [...this.cvList];
   }
   
 
@@ -114,7 +121,7 @@ export class DashboardComponent implements OnInit {
   }
 
   toggleLayout(): void {
-    this.layoutStyle = this.layoutStyle === 'grid' ? 'inline' : 'grid';
+    // this.layoutStyle = this.layoutStyle === 'grid' ? 'inline' : 'grid';
   }
 
 }

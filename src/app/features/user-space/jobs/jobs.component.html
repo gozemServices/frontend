@@ -1,7 +1,7 @@
 <div class="div w-full flex flex-col justify-between items-center my-6">
     <div class="w-full flex justify-around items-center">
         <!-- Tabs at the top -->
-        <div class="flex flex-wrap items-start justify-start gap-2 sm:space-y-0 sm:space-x-4 sm:flex-row items-center">
+        <div class="flex flex-wrap justify-start gap-2 sm:space-y-0 sm:space-x-4 sm:flex-row items-center">
             <button class="flex items-start justify-start px-2 pr-16 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">
                 <fa-icon [icon]="faFileAlt" class="mr-2"></fa-icon>
                 <div class="text-left">
@@ -27,11 +27,12 @@
         <!-- Layout Toggle Buttons -->
         <div class="flex items-center space-x-4">
             <button (click)="setLayout('list')" [class.text-blue-500]="layout === 'list'">
-                <span class="material-icons">view_list</span>
+              <fa-icon [icon]="faList"></fa-icon>
             </button>
             <button (click)="setLayout('grid')" [class.text-blue-500]="layout === 'grid'">
-                <span class="material-icons">grid_view</span>
+              <fa-icon [icon]="faGrid"></fa-icon>
             </button>
+          
         </div>
     </div>
     

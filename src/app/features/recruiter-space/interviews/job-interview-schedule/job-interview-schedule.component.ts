@@ -6,6 +6,7 @@ import { ModalService } from '../../../../shared/components/modal/modal.service'
 
 import { GenericService } from '../../../../core/services/generic.service';
 import { InterviewService } from '../../../services/interview.service';
+import { Toast } from '../../../../core/models/common.model';
 
 @Component({
   selector: 'app-job-interview-schedule',
@@ -23,7 +24,7 @@ export class JobInterviewScheduleComponent implements OnInit {
   @Input() jobOfferId: number | null = null;
 
   private fb = inject(FormBuilder);
-  private genericsService = inject(GenericService);
+  private genericService = inject(GenericService);
   private interviewService = inject(InterviewService);
   candidatesList$ = this.interviewService.candidatesList;
   isloading = false;
@@ -91,6 +92,12 @@ export class JobInterviewScheduleComponent implements OnInit {
 
   submitForm() {
     if (this.scheduleForm.valid) {
+      const toastInfos: Toast = {
+        id: 0,
+        message: '',
+        type: 'success',
+        timeout: 1000,
+      }
       const GroupInterviewScheduleDTO = {
         jobOfferId: this.jobOfferId,
         steps: this.scheduleForm.value.steps,
@@ -101,14 +108,19 @@ export class JobInterviewScheduleComponent implements OnInit {
       // Using InterviewScheduleService to save the schedule
       this.interviewService.createOrUpdateSchedule(GroupInterviewScheduleDTO).subscribe({
         next: (response) => {
+          toastInfos.message = 'Interview schedule updated sucessfully';
+          this.genericService.openToast(toastInfos);
           console.log('Interview schedule saved successfully:', response);
         },
         error: (error) => {
+          toastInfos.type = 'error'
+          toastInfos.message = 'Interview schedule updated sucessfully';
+          this.genericService.openToast(toastInfos);
           console.error('Error saving interview schedule:', error);
         }
       });
     } else {
-      console.log(this.genericsService.getFormValidationErrors(this.scheduleForm));
+      console.log(this.genericService.getFormValidationErrors(this.scheduleForm));
     }
   }
 

@@ -8,9 +8,14 @@ export const authRoutes: Routes = [
         loadComponent: () => import('./login/login.component').then(c => c.LoginComponent)
     },
     {
-        path: 'signup',
+        path: 'register',
         canActivate: [noAuthGuard],
         loadComponent: () => import('./signup/signup.component').then(c => c.SignupComponent)
+    },
+    {
+        path: 'signup',
+        canActivate: [noAuthGuard],
+        loadComponent: () => import('./register/register.component').then(c => c.RegisterComponent)
     },
     {
         path: 'email-verification',

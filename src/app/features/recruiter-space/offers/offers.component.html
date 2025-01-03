@@ -29,10 +29,18 @@
       <table class="min-w-full table-auto">
         <thead class="bg-gray-200">
           <tr>
-            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('title')">Job Title</th>
-            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('company')">Company</th>
-            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('location')">Location</th>
-            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md cursor-pointer" (click)="setSortField('salary')">Salary</th>
+            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md hover:text-gray-600 cursor-pointer" (click)="setSortField('title')">
+              Job Title <fa-icon [icon]="getSortIcon('title')"></fa-icon>
+            </th>
+            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md hover:text-gray-600 cursor-pointer" (click)="setSortField('company')">Company
+              <fa-icon [icon]="getSortIcon('company')"></fa-icon>
+            </th>
+            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md hover:text-gray-600 cursor-pointer" (click)="setSortField('location')">Location
+              <fa-icon [icon]="getSortIcon('location')"></fa-icon>
+            </th>
+            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md hover:text-gray-600 cursor-pointer" (click)="setSortField('salary')">Salary
+              <fa-icon [icon]="getSortIcon('salary')"></fa-icon>
+            </th>
             <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Status</th>
             <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">Actions</th>
           </tr>

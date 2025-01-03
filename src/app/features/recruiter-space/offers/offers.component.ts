@@ -4,7 +4,7 @@ import { JobOffer } from '../../../core/models/jobs.models';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JobService } from '../../services/job.service';
-import {faCalendarAlt, faCalendarCheck, faClipboardList, faClock, faDeleteLeft,faEdit,faEllipsisH,faEye,faToggleOff,faToggleOn,} 
+import {faCalendarAlt, faCalendarCheck, faClipboardList, faClock, faDeleteLeft,faEdit,faEllipsisH,faEye,faSort,faSortDown,faSortUp,faToggleOff,faToggleOn,} 
 from '@fortawesome/free-solid-svg-icons';
 import { AddOfferComponent } from './add-offer/add-offer.component';
 import { ModalService } from '../../../shared/components/modal/modal.service';
@@ -35,6 +35,7 @@ export class OffersComponent implements OnInit {
   faClock = faClock;
   faEllipsisH = faEllipsisH;
   faCalendarCheck = faCalendarCheck;
+  faSort = faSort;
 
   
   // isModalVisible = false;
@@ -143,6 +144,12 @@ export class OffersComponent implements OnInit {
     this.sortField = field;
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     this.applyFilters();
+  }
+  getSortIcon(field: keyof JobOffer) {
+    if (this.sortField === field) {
+      return this.sortOrder === 'asc' ? faSortUp : faSortDown;
+    }
+    return faSort; // Neutral icon if the field isn't sorted
   }
 
   setPage(page: number) {

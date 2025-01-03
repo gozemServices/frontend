@@ -11,6 +11,7 @@ import { ModalService } from '../modal/modal.service';
 import { JobApplyComponent } from '../../../features/user-space/jobs/job-apply/job-apply.component';
 import { ShareItemComponent } from "../share-job/share-item.component";
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../features/auth/auth.service';
 
 @Component({
   selector: 'app-job-details',
@@ -27,24 +28,28 @@ export class JobDetailsComponent implements OnInit{
   loading = false;
   offer!: any;
   jobId!: any;
+  userRole: any;
   JOB_URL = `${environment.appURL}/user/job/details`;
 
   public genericService = inject(GenericService);
   private modalService = inject(ModalService);
   private route = inject(ActivatedRoute);
   private location = inject(Location);
-  private jobService = inject(JobService);  
+  private jobService = inject(JobService);
+  private authService = inject(AuthService);  
   ngOnInit() : void {
     const idJob = this.route.snapshot.paramMap.get('id');
     this.fetchJobInfos(idJob);
     this.jobId = idJob;
+    this.userRole = this.authService.getUserRole() ?? 'recruiter';
   }
 
 
   fetchJobInfos(id: any) {
     this.loading = true;
       this.jobService.getJobDetails(id).subscribe({
-        next: (offer: JobOffer) => {
+        next: (offer: any) => {
+          console.log(offer)
           this.offer = offer;
           this.loading = false;
           // console.log(this.offer);

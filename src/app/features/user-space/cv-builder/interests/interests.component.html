@@ -40,8 +40,8 @@
 } 
 <div class="p-4 rounded mb-4">
     <div class="flex justify-between items-center">
-      <h3 class="font-semibold text-2xl capitalize text-slate-800">{{"INTERESTS" | translate }}</h3>
-      <button (click)="addInterest()">
+      <h2 class="font-semibold text-2xl capitalize text-slate-800">{{"INTERESTS" | translate }}</h2>
+      <button (click)="addInterest()" class="text-lg w-8 h-8 bg-green-600 text-white rounded-full hover:bg-green-900 hover:scale-105 transition-all duration-500">
         <fa-icon class="cursor-pointer" [icon]="faAdd" (click)="addInterest()"></fa-icon>
       </button>
     </div>

@@ -25,6 +25,7 @@ export class JobProposalsComponent {
   filteredProposals: any;
   searchQuery: string = '';
   selectedStatus: string = '';
+  loading = false;
   private jobProposalService = inject(JobProposalService);
   private modalService = inject(ModalService);
   private genericsService = inject(GenericService);
@@ -40,11 +41,12 @@ export class JobProposalsComponent {
   }
 
   loadJobInvitations() {
+    this.loading = true;
     this.jobProposalService.getProposalsForJobSeeker().subscribe({
       next: (proposals) => {
+        this.loading = false;
         this.jobProposals = proposals;
         this.filteredProposals = proposals; 
-        console.log(this.jobProposals);
       },
       error: (error) => {
         console.error('Error fetching job proposals:', error);
@@ -66,8 +68,10 @@ export class JobProposalsComponent {
       }).then((data) => {
         const deletionConfirmed = data;
         if(deletionConfirmed) {
+          this.loading = true;
           this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus.REJECTED).subscribe({
             next: () => {
+              this.loading = false;
               const toastInfos : Toast =  {
                 id: 0,
                 message: 'Job proposal rejected with success',
@@ -84,8 +88,10 @@ export class JobProposalsComponent {
       });
      }else{
       const proposalId = proposal.id;
+      this.loading = true;
       this.jobProposalService.updateProposalStatus(proposalId,ProposalStatus.ACCEPTED).subscribe({
         next: () => {
+          this.loading = false;
           const toastInfos : Toast =  {
             id: 0,
             message: 'Job proposal accepted with success',

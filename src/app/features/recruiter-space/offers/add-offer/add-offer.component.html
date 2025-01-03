@@ -2,7 +2,11 @@
   <h2 class="text-xl font-semibold">{{ isEditMode ? 'EDIT' : 'ADD' | translate }} Job Offer</h2>
   <form [formGroup]="offerForm" (submit)="onSubmit()" class="space-y-4 h-full overflow-auto max-h-[90%] px-2">
     <!-- Text Fields -->
-    <div class="h-full max-h-[90%] overflow-auto">
+     <div class="w-full flex items-center justify-center">
+        <button class="w-full text-primary" [ngClass]="{'text-primary border-b-2 border-primary' : step === 'job'}" (click)="switchStep('job')">Job Offer</button>
+        <button class="w-full text-primary" [ngClass]="{'text-primary border-b-2 border-primary' : step === 'questions'}" (click)="switchStep('questions')">Questionnaires</button>
+     </div>
+    @if(step == 'job'){<div class="h-full max-h-[90%] overflow-auto">
       @for (field of ['title', 'description', 'location','salary', 'company', 'contactEmail']; track field; let i = $index) {
         <div>
           <label [for]="field" class="block text-gray-700">{{ field | translate }}</label>
@@ -11,7 +15,7 @@
             [id]="field"
             [type]="field === 'contactEmail' ? 'email' : 'text'"
             class="w-full px-4 py-2 border rounded-md focus:outline-none"
-            [placeholder]="field === 'salary' ? '15k-70k' : ''"
+            [placeholder]="field === 'salary' ? '70 0000<s<90 000' : ''"
             />
           @if (offerForm.get(field)?.invalid && offerForm.get(field)?.touched) {
             <div class="text-sm text-red-500">
@@ -134,7 +138,100 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>}
+    @else {
+      <div class="w-full flex flex-col">
+        <div>
+          <h2 class="text-lg font-semibold mb-2">Interview questions</h2>
+          <div formArrayName="questions" class="space-y-4">
+            @for (question of questions.controls; track question; let i = $index) {
+              <div
+                [formGroupName]="i"
+                class="border p-4 rounded-md bg-gray-50"
+                >
+                <div class="space-y-2">
+                  <!-- question name -->
+                  <div>
+                    <label class="block text-gray-700">question Name</label>
+                    <input
+                      type="text"
+                      formControlName="name"
+                      class="w-full px-4 py-2 border rounded-md focus:outline-none"
+                      />
+                    @if (question.get('name')?.invalid && question.get('name')?.touched) {
+                      <p class="text-red-500 text-sm">
+                        question Name is required
+                      </p>
+                    }
+                  </div>
+                   <!-- question Description -->
+                   <div>
+                    <label class="block text-gray-700">Description</label>
+                    <input
+                      type="text"
+                      formControlName="description"
+                      class="w-full px-4 py-2 border rounded-md focus:outline-none"
+                      />
+                    @if (question.get('description')?.invalid && question.get('description')?.touched) {
+                      <p class="text-red-500 text-sm">
+                        question description is required
+                      </p>
+                    }
+                  </div>
+                   <!-- question - response type -->
+                   <div>
+                    <label class="block text-gray-700">Type of the response</label>
+                    <!-- <input
+                      type="text"
+                      formControlName="type"
+                      class="w-full px-4 py-2 border rounded-md focus:outline-none"
+                      /> -->
+                    <select formControlName="type" class="w-full px-4 py-2 border rounded-md focus:outline-none">
+                      @for (responseType of responseTypes; track $index) {
+                        <option [value]="responseType">{{ responseType }}</option>
+                      }
+                    </select>
+                    @if (question.get('type')?.invalid && question.get('type')?.touched) {
+                      <p class="text-red-500 text-sm">
+                        question type is required
+                      </p>
+                    }
+                  </div>
+                  <!-- Response maxlength -->
+                  <div>
+                    <label class="block text-gray-700">Response Max Length</label>
+                    <input
+                      type="text"
+                      formControlName="maxLength"
+                      class="w-full px-4 py-2 border rounded-md focus:outline-none"
+                      />
+                    @if (question.get('maxLength')?.invalid && question.get('maxLength')?.touched) {
+                      <p class="text-red-500 text-sm">
+                        Response maxlength is required
+                      </p>
+                    }
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  (click)="removeItem('questions',i)"
+                  class="px-2 py-1 bg-red-500 text-white rounded"
+                  >
+                  <fa-icon class="text-white" [icon]="faRemove"></fa-icon>
+                </button>
+              </div>
+            }
+          </div>
+          <button
+            type="button"
+            (click)="addQuestion()"
+            class="px-4 py-2 mt-2 bg-blue-500 text-white rounded"
+            >
+            <fa-icon class="text-white" [icon]="faAdd"></fa-icon>
+          </button>
+        </div>
+      </div>
+    }
     <!-- Save and Cancel -->
     <div class="flex justify-end mt-6">
       <button type="button" (click)="onClose()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-4">
